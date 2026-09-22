@@ -67,10 +67,11 @@ def linhas_do_topo(pagina):
     return [(y, re.sub(r"\s+", " ", LIXO.sub("", t)).strip()) for y, t in linhas]
 
 
-def dados_da_pagina(linhas, contador):
-    """Recebe as linhas do cabeçalho de uma página e devolve (dados, contador).
-    dados é None quando a página não abre um hino. Separado da leitura do PDF
-    para poder ser testado com as linhas cruas do diagnóstico."""
+def dados_da_pagina(linhas, contador=0):
+    """Linhas do cabeçalho de uma página → (dados, contador).
+    dados é None quando a página não abre um hino. O campo "impresso" traz o
+    número quando ele aparece escrito na página, e None quando não aparece —
+    a numeração final é decidida depois, por âncoras, em numerar()."""
     por_y = {y: t for y, t in linhas}
     titulo = ""
     for y, t in linhas:
@@ -85,12 +86,12 @@ def dados_da_pagina(linhas, contador):
         return None, contador  # não é a página de abertura de um hino
 
     contador += 1
-    # número escrito: re-sincroniza a contagem quando aparece
+    impresso = None
     for y, t in linhas:
         if 24 <= y <= 40:
             m = NUMERO.match(t.strip())
             if m and 1 <= int(m.group(1)) <= 480:
-                contador = int(m.group(1))
+                impresso = int(m.group(1))
                 break
 
     cabecalho = " ".join(t for _, t in linhas)
@@ -104,13 +105,51 @@ def dados_da_pagina(linhas, contador):
         titulo = (titulo + " " + seg).strip()
 
     return {
-        "n": contador,
+        "impresso": impresso,
         "titulo": titulo,
         "tom": tom,
         "marcacao": f"em {marc.group(1)}" if marc else "",
         "met": (f"{met.group(1)}-{met.group(2)}" + (f" ({met.group(3)})" if met.group(3) else "")) if met else "",
         "ind": ind.group(1).lower() if ind else "",
     }, contador
+
+
+def numerar(hinos):
+    """Atribui o número de cada hino a partir dos números impressos.
+
+    Contar as aberturas em sequência erra sempre que uma abertura não é
+    reconhecida: o contador atrasa e só volta ao certo no próximo número
+    impresso, deixando errados os hinos do meio. Aqui os números impressos são
+    âncoras: entre duas âncoras, só se numera quando a quantidade de aberturas
+    bate exatamente com a quantidade de números que deveriam existir ali. Não
+    batendo, os hinos do trecho ficam marcados como incertos, em vez de
+    receberem um número inventado.
+    """
+    anc = [i for i, h in enumerate(hinos) if h["impresso"] is not None]
+    for h in hinos:
+        h["n"] = h["impresso"]
+        h["conf"] = "impresso" if h["impresso"] is not None else "incerto"
+
+    for a, b in zip(anc, anc[1:]):
+        na, nb = hinos[a]["impresso"], hinos[b]["impresso"]
+        meio = b - a - 1                      # aberturas entre as duas âncoras
+        esperado = nb - na - 1                # números que deveriam caber ali
+        if meio == esperado and 0 <= meio:     # sem página perdida no trecho
+            for k in range(1, meio + 1):
+                hinos[a + k]["n"] = na + k
+                hinos[a + k]["conf"] = "inferido"
+
+    # antes da primeira âncora e depois da última, conta para trás e para frente
+    if anc:
+        prim, ult = anc[0], anc[-1]
+        for k in range(1, prim + 1):
+            if hinos[prim]["impresso"] - k >= 1:
+                hinos[prim - k]["n"] = hinos[prim]["impresso"] - k
+                hinos[prim - k]["conf"] = "inferido"
+        for k in range(1, len(hinos) - ult):
+            hinos[ult + k]["n"] = hinos[ult]["impresso"] + k
+            hinos[ult + k]["conf"] = "inferido"
+    return hinos
 
 
 def ler(caminho, registrar_falhas=True):
@@ -125,6 +164,7 @@ def ler(caminho, registrar_falhas=True):
         elif linhas and len(falhas) < 15:
             falhas.append((i + 1, linhas))
     doc.close()
+    numerar(hinos)
     if registrar_falhas and falhas:
         alvo = Path(__file__).parent / "nao-lidas.txt"
         with open(alvo, "w", encoding="utf-8") as f:
@@ -166,29 +206,34 @@ def main():
     saida = Path(__file__).parent
 
     with open(saida / "hinos.csv", "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.DictWriter(f, fieldnames=["n", "titulo", "tom", "marcacao", "met", "ind", "pag"])
+        w = csv.DictWriter(f, fieldnames=["n", "conf", "titulo", "tom", "marcacao", "met", "ind", "pag"])
         w.writeheader()
         w.writerows(hinos)
 
     campos = ("n", "titulo", "tom", "marcacao", "met", "ind")
+    confiaveis = [h for h in hinos if h["conf"] != "incerto" and h["n"]]
     linhas = ",\n".join(
-        " {" + ", ".join(f"{k}:{json.dumps(h[k], ensure_ascii=False)}" for k in campos if h[k] != "") + "}"
-        for h in hinos)
+        " {" + ", ".join(f"{k}:{json.dumps(h[k], ensure_ascii=False)}" for k in campos if h[k] not in ("", None)) + "}"
+        for h in confiaveis)
     with open(saida / "hinos.js", "w", encoding="utf-8") as f:
         f.write("/* Cabeçalho dos hinos, extraído do hinário. n=número · tom=tonalidade ·\n"
                 "   marcacao=movimento de marcação impresso · met=metrônomo · ind=indicação.\n"
                 "   Ritmo inicial e sinais da partitura não saem daqui. */\n"
                 "const HINOS = [\n" + linhas + "\n];\n")
 
-    numeros = {h["n"] for h in hinos}
+    numeros = {h["n"] for h in confiaveis}
     faltando = [n for n in range(1, 481) if n not in numeros]
-    print(f"\n{len(hinos)} hinos lidos.")
+    incertos = [h for h in hinos if h["conf"] == "incerto"]
+    print(f"\n{len(hinos)} páginas de abertura lidas.")
+    print(f"  número impresso na página: {sum(1 for h in hinos if h['conf']=='impresso')}")
+    print(f"  número deduzido com segurança: {sum(1 for h in hinos if h['conf']=='inferido')}")
+    print(f"  número incerto (ficam de fora do .js): {len(incertos)}")
     print(f"  com tonalidade: {sum(1 for h in hinos if h['tom'])}")
     print(f"  com marcação (em 2, em 6...): {sum(1 for h in hinos if h['marcacao'])}")
     print(f"  com metrônomo: {sum(1 for h in hinos if h['met'])}")
     print(f"  com indicação interpretativa: {sum(1 for h in hinos if h['ind'])}")
     if faltando:
-        print(f"  números de 1 a 480 sem hino ({len(faltando)}): {faltando[:20]}{' ...' if len(faltando) > 20 else ''}")
+        print(f"  números de 1 a 480 ainda sem hino ({len(faltando)}): {faltando[:20]}{' ...' if len(faltando) > 20 else ''}")
     print(f"\nGerados em {saida}/ : hinos.csv e hinos.js")
     print("Confira no CSV alguns hinos que você conhece de cor antes de mandar.")
 
