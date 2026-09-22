@@ -67,15 +67,17 @@ Manual de aplicação:
 
 ```bash
 npm install                       # só na primeira vez (biblioteca docx)
-node ferramentas/gerar-apostila.js 1
+node ferramentas/gerar-apostila.js 1     # ou 2, 3, 4
 ```
 
 Saem dois arquivos em `apostila/`: o **caderno do candidato**, com espaço para
 escrever, e o **caderno do instrutor**, igual mas com os gabaritos. Os exercícios
 de prática não têm linha para resposta — trazem o campo de visto do instrutor.
 
-Hoje só o 1º período está pronto: os outros três dependem de mapear as questões
-das fases 4 a 16 às respectivas aulas (o campo `a` de cada questão).
+Os quatro períodos estão prontos — oito arquivos em `apostila/`, cobrindo as 60
+aulas do MSA. As aulas de "conclusão dos exercícios individuais" e de avaliação
+não trazem exercícios novos: a primeira remete às apresentações pendentes, a
+segunda ao gerador de fichas.
 
 ## Referências usadas
 

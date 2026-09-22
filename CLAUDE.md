@@ -57,8 +57,8 @@ Cada questão é um objeto em `dados/questoes.js`:
 - `g` gabarito — **obrigatório em toda questão**. O material antigo do GEM de
   Diadema não tinha gabarito nenhum, e essa era uma das falhas centrais.
 - `v` marca questão específica de violino (opcional)
-- `a` número da aula dentro do período (opcional; **necessário para entrar na
-  apostila**). Hoje só as questões das fases 1 a 3 têm esse campo.
+- `a` número da aula dentro do período (**necessário para entrar na apostila**).
+  Todas as 258 questões já têm esse campo.
 
 Ao acrescentar questões, conferir se o tópico `t` existe em `FASES` no
 `curriculo.js` — a Trilha conta as questões por tópico e um código errado some
@@ -103,7 +103,7 @@ Os dois PDFs estão no Google Drive do Anderson, em `00 > 00 - CCB - Música`.
 
 ## A apostila
 
-`node ferramentas/gerar-apostila.js 1` gera dois .docx em `apostila/`: o caderno
+`node ferramentas/gerar-apostila.js 1` (ou 2, 3, 4) gera dois .docx em `apostila/`: o caderno
 do candidato (com espaço para escrever; exercícios de prática trazem campo de
 visto em vez de linhas) e o do instrutor (mesmo conteúdo com os gabaritos).
 
@@ -117,9 +117,6 @@ do `word/document.xml`. Para ver o resultado, abrir no Word.
 
 ## Pendente
 
-- **Apostilas do 2º ao 4º período**: falta mapear as questões das fases 4 a 16 às
-  aulas correspondentes (campo `a`) e ampliar o banco desses períodos, hoje com
-  cerca de 6 questões por fase.
 - **Tabela de metadados dos 480 hinos** (tom, fórmula de compasso, ritmo inicial,
   nº de sistemas, sinais presentes). Com ela o gerador escolhe sozinho um hino que
   sirva ao conceito da aula e o gabarito passa a ser automático. É o maior salto
@@ -128,4 +125,9 @@ do `word/document.xml`. Para ver o resultado, abrir no Word.
   esquece tudo ao recarregar). Seria o caso de Supabase, no padrão dos outros
   projetos do portfólio.
 - Revisar a terminologia com o Anderson: ele é instrutor de violino no GEM e
-  enxerga desvios de nomenclatura da CCB que o texto atual pode ter.
+  enxerga desvios de nomenclatura da CCB que o texto atual pode ter. Os pontos
+  mais expostos são os movimentos de solfejo em 6, 9 e 12 (o desenho do gesto) e
+  os movimentos alternativos, descritos aqui pela prática corrente de regência.
+- As cinco questões da aula 1 do 1º período (origem e finalidade da orquestra)
+  são de resposta aberta porque o texto do MSA não estava disponível ao montar o
+  banco. Se o MSA for consultado, valem gabaritos mais precisos.

@@ -164,10 +164,12 @@ function aula([num, tops, assunto], gabarito) {
     { size: 17, caps: true, cor: CINZA, after: 260 }));
 
   if (!doAula.length) {
-    blocos.push(caixa([
-      texto("Avaliação do período", { bold: true, after: 80 }),
-      texto("A folha de avaliação é montada pelo instrutor no gerador de fichas, em sistemidalessi.github.io/ccb-estudo-hinario — assim cada turma recebe uma avaliação diferente, cobrindo todas as fases do período.", { after: 0 }),
-    ]));
+    const avaliacao = /avalia/i.test(assunto);
+    blocos.push(caixa(avaliacao
+      ? [texto("Avaliação do período", { bold: true, after: 80 }),
+         texto("A folha de avaliação é montada pelo instrutor no gerador de fichas, em sistemidalessi.github.io/ccb-estudo-hinario — assim cada turma recebe uma avaliação diferente, cobrindo todas as fases do período.", { after: 0 })]
+      : [texto("Conclusão dos exercícios individuais", { bold: true, after: 80 }),
+         texto("Aula reservada para as apresentações que ficaram pendentes ao longo do período. Confira nas páginas anteriores os exercícios de prática ainda sem o visto do instrutor e leve-os para esta aula.", { after: 0 })]));
     blocos.push(new Paragraph({ children: [new PageBreak()] }));
     return blocos;
   }
