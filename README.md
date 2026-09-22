@@ -60,6 +60,30 @@ O período é deduzido da fase, então não precisa ser informado. A lista de fa
 tópicos está em [`dados/curriculo.js`](dados/curriculo.js) e segue o *Manual de
 aplicação das Aulas do MSA (v2.7)*.
 
+## Os hinos, na ordem da teoria
+
+A ideia: cada aula do MSA fecha com um ou dois hinos escolhidos **pelo conceito
+que acabou de ser estudado**, e não pela ordem do hinário. A aula de armadura com
+sustenidos fecha com hinos em Sol; a de compasso composto, com hinos em 6/8. Os
+hinos aparecem fora de ordem de propósito — quem manda é a teoria.
+
+Para isso é preciso uma tabela com os dados de cada hino. O hinário em PDF traz
+esses dados no cabeçalho de cada página, e o script os extrai:
+
+```bash
+pip install pymupdf
+python ferramentas/extrair-hinario.py caminho/do/Hinario.pdf
+```
+
+Saem dois arquivos: `hinos.csv`, para conferir numa planilha, e `hinos.js`, no
+formato que o site e a apostila consomem. O script lê **apenas a faixa superior
+de cada página** — número, título, tonalidade, metrônomo e indicação
+interpretativa. A partitura não é lida nem reproduzida.
+
+O que o script **não** consegue: ritmo inicial (tético, anacrúsico, acéfalo) e os
+sinais presentes (fermata, tercina, síncopa, ritornelo). Isso depende de olhar a
+partitura, e entra depois, à mão ou pelo GEM.
+
 ## A apostila impressa
 
 O mesmo banco também gera a apostila do semestre, aula por aula, na sequência do
