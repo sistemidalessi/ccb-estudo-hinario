@@ -206,7 +206,10 @@ def main():
     saida = Path(__file__).parent
 
     with open(saida / "hinos.csv", "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.DictWriter(f, fieldnames=["n", "conf", "titulo", "tom", "marcacao", "met", "ind", "pag"])
+        # extrasaction="ignore": os registros carregam campos internos (impresso)
+        # que não vão para o CSV. Sem isso, o DictWriter estoura na primeira linha.
+        w = csv.DictWriter(f, extrasaction="ignore",
+                           fieldnames=["n", "conf", "titulo", "tom", "marcacao", "met", "ind", "pag"])
         w.writeheader()
         w.writerows(hinos)
 
