@@ -23,7 +23,16 @@ assets/app.js       abas, gerador de ficha, modo estudo, banco
 dados/curriculo.js  FASES (16 fases do MSA) e TIPOS (os 8 tipos de pergunta)
 dados/questoes.js   const Q — o banco de questões
 .nojekyll           impede o Jekyll de processar o site no Pages
+
+ferramentas/carregar.js       lê os dois arquivos de dados fora do navegador
+ferramentas/gerar-apostila.js gera a apostila .docx de um período
+apostila/                     os .docx gerados (candidato e instrutor)
 ```
+
+A apostila e o site saem do **mesmo banco**: acrescentar uma questão em
+`dados/questoes.js` muda os dois. O gerador usa a biblioteca `docx` (npm), a
+única dependência do repositório, e é usado só na linha de comando — o site
+continua sem dependência nenhuma.
 
 A ordem de carregamento importa: `curriculo.js` → `questoes.js` → `app.js`.
 O `app.js` depende dos globais `FASES`, `TIPOS` e `Q`.
@@ -48,6 +57,8 @@ Cada questão é um objeto em `dados/questoes.js`:
 - `g` gabarito — **obrigatório em toda questão**. O material antigo do GEM de
   Diadema não tinha gabarito nenhum, e essa era uma das falhas centrais.
 - `v` marca questão específica de violino (opcional)
+- `a` número da aula dentro do período (opcional; **necessário para entrar na
+  apostila**). Hoje só as questões das fases 1 a 3 têm esse campo.
 
 Ao acrescentar questões, conferir se o tópico `t` existe em `FASES` no
 `curriculo.js` — a Trilha conta as questões por tópico e um código errado some
@@ -90,8 +101,25 @@ Os dois PDFs estão no Google Drive do Anderson, em `00 > 00 - CCB - Música`.
   artifacts; o botão "Copiar texto" gera a ficha em texto puro para colar no Word.
   Manter assim caso o app volte a ser publicado como artifact.
 
+## A apostila
+
+`node ferramentas/gerar-apostila.js 1` gera dois .docx em `apostila/`: o caderno
+do candidato (com espaço para escrever; exercícios de prática trazem campo de
+visto em vez de linhas) e o do instrutor (mesmo conteúdo com os gabaritos).
+
+A apostila é **material complementar** — o MSA impresso continua sendo o material
+didático da aula, como determina o Manual de aplicação. A capa e a página de
+instruções dizem isso explicitamente; não remover.
+
+O LibreOffice deste ambiente não abre .docx (falha até com arquivo mínimo), então
+a conferência visual foi feita pelo validador de esquema e pela extração do texto
+do `word/document.xml`. Para ver o resultado, abrir no Word.
+
 ## Pendente
 
+- **Apostilas do 2º ao 4º período**: falta mapear as questões das fases 4 a 16 às
+  aulas correspondentes (campo `a`) e ampliar o banco desses períodos, hoje com
+  cerca de 6 questões por fase.
 - **Tabela de metadados dos 480 hinos** (tom, fórmula de compasso, ritmo inicial,
   nº de sistemas, sinais presentes). Com ela o gerador escolhe sozinho um hino que
   sirva ao conceito da aula e o gabarito passa a ser automático. É o maior salto

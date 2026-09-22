@@ -60,6 +60,23 @@ O período é deduzido da fase, então não precisa ser informado. A lista de fa
 tópicos está em [`dados/curriculo.js`](dados/curriculo.js) e segue o *Manual de
 aplicação das Aulas do MSA (v2.7)*.
 
+## A apostila impressa
+
+O mesmo banco também gera a apostila do semestre, aula por aula, na sequência do
+Manual de aplicação:
+
+```bash
+npm install                       # só na primeira vez (biblioteca docx)
+node ferramentas/gerar-apostila.js 1
+```
+
+Saem dois arquivos em `apostila/`: o **caderno do candidato**, com espaço para
+escrever, e o **caderno do instrutor**, igual mas com os gabaritos. Os exercícios
+de prática não têm linha para resposta — trazem o campo de visto do instrutor.
+
+Hoje só o 1º período está pronto: os outros três dependem de mapear as questões
+das fases 4 a 16 às respectivas aulas (o campo `a` de cada questão).
+
 ## Referências usadas
 
 - **Manual de aplicação das Aulas do MSA, v2.7** — 60 aulas em 4 períodos: 1º com
