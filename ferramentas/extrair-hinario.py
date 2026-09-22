@@ -90,11 +90,43 @@ def ler(caminho, debug=False):
     return [achados[k] for k in sorted(achados)]
 
 
+def diagnostico(caminho, paginas=10):
+    """Despeja o texto cru das primeiras páginas, com as posições, para ajuste do padrão."""
+    doc = fitz.open(caminho)
+    saida = Path(__file__).parent / "diagnostico.txt"
+    with open(saida, "w", encoding="utf-8") as f:
+        f.write(f"arquivo: {caminho}\npáginas no PDF: {doc.page_count}\n")
+        for i in range(min(paginas, doc.page_count)):
+            pg = doc[i]
+            f.write(f"\n{'='*60}\nPÁGINA {i+1}  ({pg.rect.width:.0f} x {pg.rect.height:.0f})\n")
+            palavras = [w for w in pg.get_text("words") if w[4].strip()]
+            palavras.sort(key=lambda w: (round(w[1] / 6), w[0]))
+            linha_atual, y_atual = [], None
+            for w in palavras:
+                y = round(w[1] / 6)
+                if y != y_atual:
+                    if linha_atual:
+                        texto = " ".join(linha_atual)[:150]
+                        if len(texto.replace(" ", "")) > 1:
+                            f.write(f"  y={y_atual*6:>4}  {texto}\n")
+                    linha_atual, y_atual = [], y
+                linha_atual.append(w[4])
+            if linha_atual:
+                f.write(f"  y={y_atual*6:>4}  {' '.join(linha_atual)[:150]}\n")
+    doc.close()
+    print(f"Diagnóstico gravado em {saida}")
+    print("Mande esse arquivo — é texto puro e pequeno.")
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     debug = "--debug" in sys.argv
     if not args:
-        sys.exit("Uso: python extrair-hinario.py caminho/do/Hinario.pdf [--debug]")
+        sys.exit("Uso: python extrair-hinario.py caminho/do/Hinario.pdf [--debug|--diag]")
+
+    if "--diag" in sys.argv:
+        diagnostico(args[0])
+        return
 
     hinos = ler(args[0], debug)
     saida = Path(__file__).parent
