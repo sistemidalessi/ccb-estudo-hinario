@@ -72,9 +72,13 @@ def dados_da_pagina(linhas, contador):
     dados é None quando a página não abre um hino. Separado da leitura do PDF
     para poder ser testado com as linhas cruas do diagnóstico."""
     por_y = {y: t for y, t in linhas}
-    titulo = por_y.get(18, "").strip()
+    titulo = ""
+    for y, t in linhas:
+        if y <= 34 and len(t.strip()) > 3 and not NUMERO.match(t.strip()):
+            titulo = t.strip()
+            break
     # a tonalidade cai em y=42 ou y=48 conforme o hino: varre as duas
-    faixa_tom = " ".join(t for y, t in linhas if 40 <= y <= 56)
+    faixa_tom = " ".join(t for y, t in linhas if 34 <= y <= 62)
     tom = next((tk for tk in faixa_tom.split() if NOTA.match(tk)), "")
 
     if not titulo or not tom:
@@ -95,8 +99,9 @@ def dados_da_pagina(linhas, contador):
     # anotações do tipo "Pode agrupar frases em 4", que não são a marcação.
     marc = MARCACAO.search(faixa_tom)
     ind = INDICACOES.search(cabecalho)
-    if por_y.get(30) and not NUMERO.match(por_y[30].strip()):
-        titulo = (titulo + " " + por_y[30]).strip()
+    seg = por_y.get(30, "").strip()
+    if seg and seg != titulo and not NUMERO.match(seg):
+        titulo = (titulo + " " + seg).strip()
 
     return {
         "n": contador,
@@ -108,15 +113,29 @@ def dados_da_pagina(linhas, contador):
     }, contador
 
 
-def ler(caminho):
+def ler(caminho, registrar_falhas=True):
     doc = fitz.open(caminho)
-    hinos, contador = [], 0
+    hinos, contador, falhas = [], 0, []
     for i, pagina in enumerate(doc):
-        dados, contador = dados_da_pagina(linhas_do_topo(pagina), contador)
+        linhas = linhas_do_topo(pagina)
+        dados, contador = dados_da_pagina(linhas, contador)
         if dados:
             dados["pag"] = i + 1
             hinos.append(dados)
+        elif linhas and len(falhas) < 15:
+            falhas.append((i + 1, linhas))
     doc.close()
+    if registrar_falhas and falhas:
+        alvo = Path(__file__).parent / "nao-lidas.txt"
+        with open(alvo, "w", encoding="utf-8") as f:
+            f.write("Páginas que o script não reconheceu como abertura de hino.\n"
+                    "A primeira costuma ser a capa; as outras é que interessam.\n")
+            for pag, linhas in falhas:
+                f.write(f"\n{'='*60}\nPÁGINA {pag}\n")
+                for y, t in linhas:
+                    if t:
+                        f.write(f"  y={y:>4}  {t[:150]}\n")
+        print(f"  (páginas não reconhecidas registradas em {alvo.name})")
     return hinos
 
 
