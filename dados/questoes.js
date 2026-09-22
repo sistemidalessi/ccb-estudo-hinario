@@ -2,45 +2,95 @@
 /* f=fase  t=tópico  k=tipo  n=nível(1-3)  q=enunciado  g=gabarito  v=específico de violino */
 const Q = [
 /* ---- FASE 1 ---- */
-{f:1,t:"1.1–1.3",k:"ver",n:1,q:"Quais são as quatro propriedades do som?",g:"Altura, duração, intensidade e timbre."},
-{f:1,t:"1.1–1.3",k:"entender",n:2,q:"Duas pessoas tocam a mesma nota, com a mesma duração e a mesma intensidade — uma no violino, outra no clarinete. Qual propriedade do som permite distinguir as duas?",g:"O timbre."},
-{f:1,t:"1.1–1.3",k:"entender",n:2,q:"Quando o encarregado pede “mais suave”, que propriedade do som ele está pedindo para mudar? E quando pede “mais agudo”?",g:"“Mais suave” muda a intensidade; “mais agudo” muda a altura."},
-{f:1,t:"1.1–1.3",k:"decidir",n:3,q:"No ensaio o naipe toca as mesmas notas, com as mesmas durações, mas o conjunto soa desigual. Que propriedade do som provavelmente não está igual entre os músicos?",g:"A intensidade — cada um tocando com volume diferente. (Se o desconforto for de afinação, aí o problema é de altura.)"},
-{f:1,t:"1.4",k:"ver",n:1,q:"Escreva as sete notas musicais em ordem ascendente a partir do Fá.",g:"Fá, Sol, Lá, Si, Dó, Ré, Mi."},
-{f:1,t:"1.4",k:"tocar",n:1,v:1,q:"Toque as quatro cordas soltas do violino, da mais grave para a mais aguda, e diga o nome de cada uma.",g:"Sol, Ré, Lá, Mi — de quinta em quinta."},
-{f:1,t:"1.5",k:"ver",n:1,q:"Quantas linhas e quantos espaços tem o pentagrama, e em que sentido são contados?",g:"Cinco linhas e quatro espaços, contados sempre de baixo para cima."},
-{f:1,t:"1.5",k:"entender",n:2,q:"O que é uma linha suplementar e para que ela serve?",g:"É uma linha curta acrescentada acima ou abaixo do pentagrama, para escrever notas que não cabem nas cinco linhas."},
-{f:1,t:"1.6",k:"ver",n:1,q:"Que clave está escrita na sua parte? E na do violoncelo?",g:"Violino, flauta, clarinete e trompete: clave de Sol (2ª linha). Violoncelo, trombone, fagote e tuba: clave de Fá (4ª linha)."},
-{f:1,t:"1.6",k:"entender",n:3,q:"Por que a viola usa clave de Dó na 3ª linha em vez da clave de Sol?",g:"Porque a região média da viola cairia cheia de linhas suplementares na clave de Sol. A clave de Dó na 3ª linha centraliza a tessitura dela dentro do pentagrama."},
-{f:1,t:"1.6",k:"comparar",n:2,q:"Abra o hinário no hino indicado: que clave está na voz do soprano e qual está na do baixo? Justifique a diferença.",g:"Soprano em clave de Sol e baixo em clave de Fá, porque cada clave serve à região (aguda ou grave) da voz correspondente."},
+/* aula 1 — Introdução: origem e finalidade da orquestra na CCB */
+{f:1,a:1,t:"Introdução",k:"ver",n:1,q:"Segundo o MSA, qual é a finalidade da orquestra na Congregação Cristã no Brasil?",g:"Conforme o texto do MSA. Em resumo: acompanhar os hinos de louvores e súplicas nos serviços divinos — a orquestra serve ao cantar da irmandade."},
+{f:1,a:1,t:"Introdução",k:"entender",n:2,q:"Por que se diz que o músico acompanha o cantar da irmandade, e não se apresenta?",g:"Resposta aberta. Espera-se: o hino é da igreja reunida; a orquestra sustenta e conduz o canto, e por isso o conjunto vale mais do que o destaque individual."},
+{f:1,a:1,t:"Introdução",k:"ver",n:1,q:"Quantas aulas tem cada período do GEM, e quantos períodos são até completar o MSA?",g:"Quinze aulas por período e quatro períodos — dois anos, somando 60 aulas."},
+{f:1,a:1,t:"Introdução",k:"entender",n:2,q:"O que é o GEM e o que é o MSA? Não são a mesma coisa.",g:"GEM é o Grupo de Estudos Musicais — o grupo e o lugar onde se estuda. MSA é o Método Simplificado de Aprendizagem Musical — o material que ali se estuda."},
+{f:1,a:1,t:"Introdução",k:"decidir",n:2,q:"Cite três compromissos que o candidato assume ao entrar no GEM.",g:"Resposta aberta: frequência às aulas, estudo em casa entre uma aula e outra, cuidado com o instrumento. Conferir com a orientação do encarregado local."},
+
+/* aula 2 — 1.1 a 1.3: música, som, elementos e propriedades */
+{f:1,a:2,t:"1.1–1.3",k:"ver",n:1,q:"Quais são as quatro propriedades do som?",g:"Altura, duração, intensidade e timbre."},
+{f:1,a:2,t:"1.1–1.3",k:"ver",n:1,q:"Quais são os elementos da música?",g:"Melodia, harmonia e ritmo."},
+{f:1,a:2,t:"1.1–1.3",k:"entender",n:2,q:"O que diferencia som de ruído?",g:"O som nasce de vibrações regulares e tem altura definida; o ruído vem de vibrações irregulares e não tem altura definida."},
+{f:1,a:2,t:"1.1–1.3",k:"entender",n:2,q:"Duas pessoas tocam a mesma nota, com a mesma duração e a mesma intensidade — uma no violino, outra no clarinete. Qual propriedade do som permite distinguir as duas?",g:"O timbre."},
+{f:1,a:2,t:"1.1–1.3",k:"entender",n:2,q:"Quando o encarregado pede “mais suave”, que propriedade do som ele está pedindo para mudar? E quando pede “mais agudo”?",g:"“Mais suave” muda a intensidade; “mais agudo” muda a altura."},
+{f:1,a:2,t:"1.1–1.3",k:"decidir",n:3,q:"No ensaio o naipe toca as mesmas notas, com as mesmas durações, mas o conjunto soa desigual. Que propriedade do som provavelmente não está igual entre os músicos?",g:"A intensidade — cada um tocando com volume diferente. Se o incômodo for de afinação, aí o problema é de altura."},
+
+/* aula 3 — 1.4: notas musicais */
+{f:1,a:3,t:"1.4",k:"ver",n:1,q:"Escreva as sete notas musicais em ordem ascendente a partir do Fá.",g:"Fá, Sol, Lá, Si, Dó, Ré, Mi."},
+{f:1,a:3,t:"1.4",k:"ver",n:1,q:"Escreva as sete notas em ordem descendente a partir do Dó.",g:"Dó, Si, Lá, Sol, Fá, Mi, Ré."},
+{f:1,a:3,t:"1.4",k:"entender",n:2,q:"Por que os nomes das notas voltam a se repetir depois do Si?",g:"Porque a série recomeça na oitava: a nota seguinte tem o mesmo nome, mas soa mais aguda."},
+{f:1,a:3,t:"1.4",k:"tocar",n:1,v:1,q:"Toque as quatro cordas soltas do violino, da mais grave para a mais aguda, e diga o nome de cada uma.",g:"Sol, Ré, Lá, Mi — de quinta em quinta."},
+{f:1,a:3,t:"1.4",k:"tocar",n:2,v:1,q:"Toque as notas da corda Sol e as da corda Ré, dizendo o nome de cada uma em voz alta antes de tocá-la.",g:"Avaliar se o aluno nomeia a nota antes do som, e não depois de ouvir — é o que forma a leitura."},
+
+/* aula 4 — 1.5 e 1.6: pentagrama e claves */
+{f:1,a:4,t:"1.5",k:"ver",n:1,q:"Quantas linhas e quantos espaços tem o pentagrama, e em que sentido são contados?",g:"Cinco linhas e quatro espaços, contados sempre de baixo para cima."},
+{f:1,a:4,t:"1.5",k:"entender",n:2,q:"O que é uma linha suplementar e para que ela serve?",g:"É uma linha curta acrescentada acima ou abaixo do pentagrama, para escrever notas que não cabem nas cinco linhas."},
+{f:1,a:4,t:"1.6",k:"ver",n:1,q:"Quantas claves existem e quais são usadas na nossa orquestra?",g:"Três claves — Sol, Fá e Dó. Na orquestra usamos a de Sol, a de Fá na 4ª linha e a de Dó na 3ª linha, esta na viola."},
+{f:1,a:4,t:"1.6",k:"ver",n:1,q:"Que clave está escrita na sua parte? E na do violoncelo?",g:"Violino, flauta, clarinete e trompete: clave de Sol (2ª linha). Violoncelo, trombone, fagote e tuba: clave de Fá (4ª linha)."},
+{f:1,a:4,t:"1.6",k:"entender",n:3,q:"Por que a viola usa clave de Dó na 3ª linha em vez da clave de Sol?",g:"Porque a região média da viola cairia cheia de linhas suplementares na clave de Sol. A clave de Dó na 3ª linha centraliza a tessitura dela dentro do pentagrama."},
+{f:1,a:4,t:"1.6",k:"comparar",n:2,q:"Abra o hinário no hino indicado: que clave está na voz do soprano e qual está na do baixo? Justifique a diferença.",g:"Soprano em clave de Sol e baixo em clave de Fá, porque cada clave serve à região — aguda ou grave — da voz correspondente."},
 
 /* ---- FASE 2 ---- */
-{f:2,t:"2.1",k:"ver",n:1,q:"Escreva as figuras da semibreve à semicolcheia e o valor de cada uma em relação à semibreve.",g:"Semibreve (1), mínima (1/2), semínima (1/4), colcheia (1/8), semicolcheia (1/16)."},
-{f:2,t:"2.1",k:"ver",n:1,q:"Quantas colcheias cabem em uma mínima? E quantas semicolcheias em uma semínima?",g:"Quatro colcheias; quatro semicolcheias."},
-{f:2,t:"2.1",k:"erro",n:3,q:"Um aluno afirma que “a semínima vale sempre 1 tempo”. Em que casos isso é falso?",g:"Sempre que a unidade de tempo não for a semínima: em 6/8 a unidade de tempo é a semínima pontuada e a semínima vale 2/3 de tempo; em 2/2 a unidade é a mínima e a semínima vale meio tempo."},
-{f:2,t:"2.2–2.3",k:"ver",n:1,q:"Para que serve a barra de compasso?",g:"Para dividir a pauta em compassos, delimitando grupos regulares de tempos."},
-{f:2,t:"2.2–2.3",k:"ver",n:1,q:"Qual a diferença entre barra dupla e barra final?",g:"A barra dupla (duas barras finas) marca uma mudança — de seção, de armadura, de fórmula de compasso — sem encerrar. A barra final (uma fina e uma grossa) encerra o hino."},
-{f:2,t:"2.2–2.3",k:"decidir",n:2,q:"No hino indicado há uma barra dupla no meio da peça. O que ela está avisando? Confira o que muda depois dela.",g:"Que começa uma nova seção ou que algo mudou: armadura, fórmula de compasso ou andamento. O aluno deve apontar o que efetivamente mudou naquele hino."},
-{f:2,t:"2.4",k:"ver",n:1,q:"Em 4/4, o que indica o número de cima e o que indica o número de baixo?",g:"O de cima, quantos tempos há em cada compasso (4). O de baixo, a figura que preenche um tempo (4 = semínima)."},
-{f:2,t:"2.4",k:"ver",n:1,q:"Em 4/4: qual é a unidade de tempo e qual é a unidade de compasso?",g:"Unidade de tempo: semínima. Unidade de compasso: semibreve."},
-{f:2,t:"2.4",k:"ver",n:1,q:"Marque a acentuação métrica do compasso 4/4.",g:"1º forte · 2º fraco · 3º meio-forte · 4º fraco."},
-{f:2,t:"2.4",k:"erro",n:2,q:"Um compasso 4/4 foi escrito com: mínima + semínima + colcheia. Está correto? Se não, o que falta ou sobra?",g:"Está errado: 2 + 1 + ½ = 3½ tempos. Falta meio tempo, ou seja, uma colcheia."},
-{f:2,t:"2.4",k:"erro",n:2,q:"Um compasso 4/4 foi escrito com: semibreve + semínima. Onde está o erro?",g:"Sobra um tempo — a semibreve sozinha já preenche os quatro tempos do compasso."},
-{f:2,t:"2.4",k:"criar",n:3,q:"Escreva três compassos diferentes em 4/4, cada um usando pelo menos uma pausa, todos com a soma correta.",g:"Conferir a soma de cada compasso: tem de dar exatamente 4 tempos, contando as pausas."},
-{f:2,t:"2.5–2.6",k:"entender",n:2,q:"Qual a diferença entre pulso e ritmo?",g:"O pulso é a batida regular e constante que sustenta a música; o ritmo é a organização das durações sobre esse pulso."},
-{f:2,t:"2.5–2.6",k:"tocar",n:1,q:"Marque o pulso com o pé e faça a linguagem rítmica dos dois primeiros compassos do hino indicado.",g:"Avaliar se o pulso permaneceu constante do primeiro ao último compasso — e não se acelerou nas figuras curtas."},
-{f:2,t:"2.5–2.6",k:"ouvir",n:2,q:"O instrutor bate palmas apenas o ritmo dos quatro primeiros compassos de um hino já estudado. Descubra qual é.",g:"Conforme o hino escolhido pelo instrutor. Vale pedir a justificativa: o que no ritmo entregou o hino."},
+/* aula 5 — 2.1: figuras musicais */
+{f:2,a:5,t:"2.1",k:"ver",n:1,q:"Escreva as figuras da semibreve à semicolcheia e o valor de cada uma em relação à semibreve.",g:"Semibreve (1), mínima (1/2), semínima (1/4), colcheia (1/8), semicolcheia (1/16)."},
+{f:2,a:5,t:"2.1",k:"ver",n:1,q:"Quantas colcheias cabem em uma mínima? E quantas semicolcheias em uma semínima?",g:"Quatro colcheias; quatro semicolcheias."},
+{f:2,a:5,t:"2.1",k:"ver",n:2,q:"Quantas semínimas cabem em uma semibreve? E quantas semicolcheias?",g:"Quatro semínimas; dezesseis semicolcheias."},
+{f:2,a:5,t:"2.1",k:"ver",n:1,q:"O que são as pausas e como se relacionam com as figuras?",g:"São os sinais de silêncio. Cada figura tem a sua pausa equivalente, com exatamente a mesma duração."},
+{f:2,a:5,t:"2.1",k:"erro",n:2,q:"Um aluno diz que “a pausa não vale nada porque não tem som”. Corrija.",g:"A pausa tem duração exata, igual à da figura correspondente: é silêncio medido. Quem não conta a pausa perde o compasso."},
+{f:2,a:5,t:"2.1",k:"erro",n:3,q:"Um aluno afirma que “a semínima vale sempre 1 tempo”. Em que casos isso é falso?",g:"Sempre que a unidade de tempo não for a semínima: em 6/8 a unidade de tempo é a semínima pontuada e a semínima vale 2/3 de tempo; em 2/2 a unidade é a mínima e a semínima vale meio tempo."},
+
+/* aula 6 — 2.2 e 2.3: compasso e barras de compasso */
+{f:2,a:6,t:"2.2–2.3",k:"ver",n:1,q:"O que é compasso?",g:"É a divisão da música em grupos regulares de tempos, delimitados pelas barras de compasso."},
+{f:2,a:6,t:"2.2–2.3",k:"ver",n:1,q:"Para que serve a barra de compasso?",g:"Para dividir a pauta em compassos, delimitando grupos regulares de tempos."},
+{f:2,a:6,t:"2.2–2.3",k:"ver",n:1,q:"Qual a diferença entre barra dupla e barra final?",g:"A barra dupla (duas barras finas) marca uma mudança — de seção, de armadura, de fórmula de compasso — sem encerrar. A barra final (uma fina e uma grossa) encerra o hino."},
+{f:2,a:6,t:"2.2–2.3",k:"ver",n:2,q:"Quantos compassos tem o primeiro sistema do hino indicado?",g:"Conforme o hino — contar pelas barras de compasso, e não pelos grupos de notas."},
+{f:2,a:6,t:"2.2–2.3",k:"decidir",n:2,q:"No hino indicado há uma barra dupla no meio da peça. O que ela está avisando? Confira o que muda depois dela.",g:"Que começa uma nova seção ou que algo mudou: armadura, fórmula de compasso ou andamento. O aluno deve apontar o que efetivamente mudou naquele hino."},
+
+/* aula 7 — 2.4: fórmula de compasso em 4 */
+{f:2,a:7,t:"2.4",k:"ver",n:1,q:"Em 4/4, o que indica o número de cima e o que indica o número de baixo?",g:"O de cima, quantos tempos há em cada compasso (4). O de baixo, a figura que preenche um tempo (4 = semínima)."},
+{f:2,a:7,t:"2.4",k:"ver",n:1,q:"Em 4/4: qual é a unidade de tempo e qual é a unidade de compasso?",g:"Unidade de tempo: semínima. Unidade de compasso: semibreve."},
+{f:2,a:7,t:"2.4",k:"ver",n:1,q:"Marque a acentuação métrica do compasso 4/4.",g:"1º forte · 2º fraco · 3º meio-forte · 4º fraco."},
+{f:2,a:7,t:"2.4",k:"erro",n:2,q:"Um compasso 4/4 foi escrito com: mínima + semínima + colcheia. Está correto? Se não, o que falta ou sobra?",g:"Está errado: 2 + 1 + ½ = 3½ tempos. Falta meio tempo, ou seja, uma colcheia."},
+{f:2,a:7,t:"2.4",k:"erro",n:2,q:"Um compasso 4/4 foi escrito com: semibreve + semínima. Onde está o erro?",g:"Sobra um tempo — a semibreve sozinha já preenche os quatro tempos do compasso."},
+{f:2,a:7,t:"2.4",k:"criar",n:3,q:"Escreva três compassos diferentes em 4/4, cada um usando pelo menos uma pausa, todos com a soma correta.",g:"Conferir a soma de cada compasso: tem de dar exatamente quatro tempos, contando as pausas."},
+
+/* aulas 8 e 9 — 2.5 e 2.6: ritmo, pulsação e exercícios rítmicos */
+{f:2,a:8,t:"2.5–2.6",k:"entender",n:2,q:"Qual a diferença entre pulso e ritmo?",g:"O pulso é a batida regular e constante que sustenta a música; o ritmo é a organização das durações sobre esse pulso."},
+{f:2,a:8,t:"2.5–2.6",k:"tocar",n:1,q:"Marque o pulso com o pé e faça a linguagem rítmica dos dois primeiros compassos do hino indicado.",g:"Avaliar se o pulso permaneceu constante do primeiro ao último compasso — e não acelerou nas figuras curtas."},
+{f:2,a:8,t:"2.5–2.6",k:"erro",n:2,q:"Ao ler um trecho de colcheias, o aluno acelerou. Que erro é esse e como se corrige?",g:"Ele trocou o pulso pela figura: as colcheias são mais rápidas, mas o pulso continua o mesmo. Corrige-se marcando o pulso com o pé e mantendo-o enquanto se lê."},
+{f:2,a:9,t:"2.5–2.6",k:"ouvir",n:2,q:"O instrutor bate palmas apenas o ritmo dos quatro primeiros compassos de um hino já estudado. Descubra qual é.",g:"Conforme o hino escolhido. Vale pedir a justificativa: o que no ritmo entregou o hino."},
+{f:2,a:9,t:"2.5–2.6",k:"ouvir",n:2,q:"O instrutor executa dois trechos: em um mantém o pulso, no outro acelera aos poucos. Diga qual manteve.",g:"Conforme a execução. Pedir que o aluno aponte onde percebeu a mudança."},
+{f:2,a:9,t:"2.5–2.6",k:"criar",n:3,q:"Escreva um exercício rítmico de quatro compassos em 4/4 e execute-o para a turma, marcando o pulso.",g:"Conferir a soma de cada compasso e, na execução, a constância do pulso."},
 
 /* ---- FASE 3 ---- */
-{f:3,t:"3.1",k:"ver",n:1,q:"O que é o endecagrama?",g:"A união das pautas de clave de Sol e de clave de Fá por uma linha suplementar central, formando onze linhas."},
-{f:3,t:"3.1",k:"entender",n:2,q:"No endecagrama, que nota ocupa a linha suplementar do meio? Por que ela é a referência entre as duas claves?",g:"O Dó central. É a nota que fecha a pauta de baixo e abre a de cima, servindo de ponte entre as duas claves."},
-{f:3,t:"3.2",k:"entender",n:2,q:"Qual a diferença entre leitura rítmica, leitura métrica e solfejo?",g:"Leitura rítmica: só as durações. Leitura métrica: os nomes das notas no ritmo certo, marcando o compasso, sem entoar. Solfejo: cantar as notas, com afinação."},
-{f:3,t:"3.2",k:"tocar",n:2,q:"Faça a leitura métrica do primeiro sistema do hino indicado, marcando os movimentos do compasso.",g:"Avaliar clareza dos nomes das notas, constância do pulso e coincidência do gesto com o tempo forte."},
-{f:3,t:"3.3–3.4",k:"ver",n:1,q:"Descreva o movimento de condução em 4.",g:"1º para baixo, 2º para dentro, 3º para fora, 4º para cima."},
-{f:3,t:"3.3–3.4",k:"entender",n:2,q:"Em qualquer fórmula de compasso, para onde vai sempre o gesto do primeiro tempo? Por quê?",g:"Sempre para baixo, porque o 1º tempo é o forte — é a referência visual de onde o compasso começa."},
-{f:3,t:"3.5",k:"ver",n:1,q:"O que significa a marcação ♩ = 72?",g:"Que a semínima é a unidade de tempo e que se executam 72 semínimas por minuto."},
-{f:3,t:"3.5",k:"comparar",n:2,q:"Dois hinos trazem ♩ = 60 e ♩ = 92. Qual é o mais lento? Quanto tempo dura um compasso 4/4 em cada um?",g:"O de ♩=60 é mais lento. Em ♩=60 o compasso 4/4 dura 4 segundos; em ♩=92, cerca de 2,6 segundos."},
-{f:3,t:"3.5",k:"decidir",n:3,q:"O hino está marcado ♩=88, mas a congregação canta bem mais devagar. O que a marcação significa nesse caso?",g:"A marcação é a referência de andamento escrita na partitura; no culto quem determina a execução é a condução do encarregado. Saber a marcação serve para estudar em casa no andamento certo."},
+/* aula 10 — 3.1: endecagrama */
+{f:3,a:10,t:"3.1",k:"ver",n:1,q:"O que é o endecagrama?",g:"A união das pautas de clave de Sol e de clave de Fá por uma linha suplementar central, formando onze linhas."},
+{f:3,a:10,t:"3.1",k:"ver",n:2,q:"No endecagrama, que clave fica na pauta de cima e qual na de baixo?",g:"Clave de Sol na pauta de cima; clave de Fá na de baixo."},
+{f:3,a:10,t:"3.1",k:"entender",n:2,q:"No endecagrama, que nota ocupa a linha suplementar do meio? Por que ela é a referência entre as duas claves?",g:"O Dó central. É a nota que fecha a pauta de baixo e abre a de cima, servindo de ponte entre as duas claves."},
+{f:3,a:10,t:"3.1",k:"tocar",n:2,q:"Localize no endecagrama a nota mais grave e a mais aguda que o seu instrumento toca dentro do hino indicado.",g:"Conforme o hino e o instrumento. O exercício mostra ao aluno em que faixa do endecagrama ele trabalha."},
+
+/* aula 11 — 3.2: leitura rítmica, leitura métrica e solfejo */
+{f:3,a:11,t:"3.2",k:"entender",n:2,q:"Qual a diferença entre leitura rítmica, leitura métrica e solfejo?",g:"Leitura rítmica: só as durações. Leitura métrica: os nomes das notas no ritmo certo, marcando o compasso, sem entoar. Solfejo: cantar as notas, com afinação."},
+{f:3,a:11,t:"3.2",k:"tocar",n:2,q:"Faça a leitura métrica do primeiro sistema do hino indicado, marcando os movimentos do compasso.",g:"Avaliar clareza dos nomes das notas, constância do pulso e coincidência do gesto com o tempo forte."},
+{f:3,a:11,t:"3.2",k:"tocar",n:3,q:"Faça a leitura rítmica e, em seguida, o solfejo do primeiro sistema do hino indicado.",g:"Avaliar se o ritmo se manteve igual nas duas passagens — é comum o ritmo se desfazer quando entra a afinação."},
+{f:3,a:11,t:"3.2",k:"decidir",n:3,q:"Por que se estuda o hino primeiro pela leitura rítmica e só depois pelo solfejo?",g:"Porque separa as dificuldades: primeiro se resolve a duração, depois a altura. Tentar as duas ao mesmo tempo é onde o aluno trava."},
+{f:3,a:11,t:"3.2",k:"criar",n:3,q:"Escolha um hino que você já toca e escreva três perguntas sobre ele para um colega — uma de identificar, uma de explicar e uma para tocar.",g:"Quem formula a pergunta precisa conhecer a resposta: este exercício mostra ao instrutor o que o aluno realmente domina."},
+
+/* aulas 12 e 13 — 3.3 e 3.4: movimentos de condução e de solfejo em 4 */
+{f:3,a:12,t:"3.3–3.4",k:"ver",n:1,q:"Descreva o movimento de condução em 4.",g:"1º para baixo, 2º para dentro, 3º para fora, 4º para cima."},
+{f:3,a:12,t:"3.3–3.4",k:"entender",n:2,q:"Em qualquer fórmula de compasso, para onde vai sempre o gesto do primeiro tempo? Por quê?",g:"Sempre para baixo, porque o 1º tempo é o forte — é a referência visual de onde o compasso começa."},
+{f:3,a:12,t:"3.3–3.4",k:"entender",n:2,q:"Qual a diferença entre o movimento de condução e o movimento de solfejo?",g:"O de condução é o gesto do regente, que conduz o conjunto. O de solfejo é o movimento que o próprio candidato faz com a mão para marcar os tempos enquanto lê ou solfeja."},
+{f:3,a:13,t:"3.3–3.4",k:"tocar",n:2,q:"Solfeje o primeiro sistema do hino indicado marcando os quatro movimentos com a mão.",g:"Avaliar se o gesto e a voz andam juntos — o gesto não pode parar quando a leitura fica difícil."},
+{f:3,a:13,t:"3.3–3.4",k:"erro",n:2,q:"Durante o solfejo em 4, o aluno fez o 1º tempo para cima. Qual é o erro e por que ele atrapalha?",g:"O 1º tempo é sempre para baixo, por ser o tempo forte. Invertido, o aluno perde a referência e todo o compasso sai deslocado."},
+
+/* aula 14 — 3.5: metrônomo */
+{f:3,a:14,t:"3.5",k:"ver",n:1,q:"Para que serve o metrônomo?",g:"Para marcar o pulso em velocidade constante, servindo de referência de andamento no estudo."},
+{f:3,a:14,t:"3.5",k:"ver",n:1,q:"O que significa a marcação ♩ = 72?",g:"Que a semínima é a unidade de tempo e que se executam 72 semínimas por minuto."},
+{f:3,a:14,t:"3.5",k:"comparar",n:2,q:"Dois hinos trazem ♩ = 60 e ♩ = 92. Qual é o mais lento? Quanto tempo dura um compasso 4/4 em cada um?",g:"O de ♩=60 é o mais lento. Em ♩=60 o compasso 4/4 dura 4 segundos; em ♩=92, cerca de 2,6 segundos."},
+{f:3,a:14,t:"3.5",k:"tocar",n:2,q:"Ponha o metrônomo em ♩=60 e toque a escala do tom do hino indicado, uma nota por clique. Depois repita em ♩=80.",g:"Avaliar se a nota cai junto com o clique, e não logo antes ou logo depois."},
+{f:3,a:14,t:"3.5",k:"decidir",n:3,q:"O hino está marcado ♩=88, mas a congregação canta bem mais devagar. O que a marcação significa nesse caso?",g:"A marcação é a referência de andamento escrita na partitura; no culto quem determina a execução é a condução do encarregado. Saber a marcação serve para estudar em casa no andamento certo."},
 
 /* ---- FASE 4 ---- */
 {f:4,t:"4.1",k:"ver",n:1,q:"Quais são os tipos de ligadura e o que cada um indica?",g:"De valor: une notas de mesma altura, somando as durações. De frase (expressão): delimita o fraseado. De portamento/legato: liga notas de alturas diferentes, executadas sem interrupção."},
@@ -156,6 +206,5 @@ const Q = [
 /* ---- transversais: instrumento e conjunto ---- */
 {f:8,t:"8.1",k:"ver",n:2,v:1,q:"Segundo o Programa Mínimo, que voz do hinário o violino executa, e em que oitava, para os cultos oficiais?",g:"A voz do soprano, uma oitava acima do escrito. Nas Reuniões de Jovens e Menores, hinos 431 a 480 com soprano no natural; para a oficialização, hinário completo com soprano uma oitava acima e contralto no natural."},
 {f:16,t:"16.2",k:"decidir",n:3,q:"No ensaio, o seu naipe está afinado entre si mas soa destacado do resto da orquestra. O que você verifica primeiro?",g:"Intensidade e ataque: normalmente o naipe está tocando mais forte ou entrando com ataque mais duro que o conjunto. Depois, conferir se a oitava executada é a correta para o instrumento."},
-{f:3,t:"3.2",k:"criar",n:3,q:"Escolha um hino que você já toca e escreva três perguntas sobre ele para um colega — uma de identificar, uma de explicar e uma para tocar.",g:"Quem formula a pergunta precisa conhecer a resposta: este exercício mostra ao instrutor o que o aluno realmente domina."},
 {f:13,t:"13.1",k:"ouvir",n:3,q:"O instrutor toca a entrada de três hinos. Diga, só de ouvido, qual é tético, qual é anacrúsico e qual é acéfalo.",g:"Conforme a execução. Dica para o aluno: no anacrúsico o som chega antes do peso do compasso; no acéfalo há um silêncio exatamente onde o peso deveria estar."}
 ];
