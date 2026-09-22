@@ -156,3 +156,42 @@ https://claude.ai/artifact/6AQki1PTcncwzD5f9Mza2S
 - As cinco questões da aula 1 do 1º período (origem e finalidade da orquestra)
   são de resposta aberta porque o texto do MSA não estava disponível ao montar o
   banco. Se o MSA for consultado, valem gabaritos mais precisos.
+
+## Segunda rodada — apostila com explicação, figuras e planos oficiais (22/09/2026)
+
+O Anderson abriu a pasta `CONJUNTO DE MATERIAIS DIDÁTICOS` dentro de
+`00 - CCB - Música`, no Drive dele, e pediu uma apostila mais completa: com
+**explicação do conteúdo** (não só exercícios), **figuras**, **ordem por
+complexidade** e **versão do instrutor separada da versão do candidato**.
+
+O que já foi feito:
+
+- **`dados/planos.js`** — os 60 Planos de Aula oficiais do MSA, extraídos dos
+  PDFs da CCB que estavam na pasta. Cada um traz tema, tópico, habilidades,
+  objetivos, conteúdo, duração, recursos, metodologia e avaliação. É isso que
+  deve alimentar o caderno do instrutor, no lugar do roteiro que eu havia
+  inventado na primeira versão. O 1º período tem aulas de 40 min, menos a
+  aula 1, de 60 min, tratada como inaugural com os pais presentes.
+- **Amostra de uma aula** em `amostra/`, nas duas versões, com três figuras
+  embutidas — feita para o Anderson aprovar o formato antes da reescrita.
+- **Pipeline de figuras**: desenho em SVG, renderizo em PNG com o Chromium do
+  Playwright (`deviceScaleFactor: 2.5`) e embuto no .docx com `ImageRun`.
+  O LibreOffice deste ambiente não abre .docx, então a conferência é pelo
+  validador de esquema e pela extração do XML.
+
+O que falta, e é o trabalho de verdade:
+
+1. **Ordem por complexidade.** O Anderson disse que a ordem certa não é a do
+   Manual, e sim a dos estudos dos hinos, por complexidade. Esse material está
+   na pasta e ainda precisa ser lido com atenção — as pastas `1. Período` a
+   `4. Período` têm também os "Atividades das Aulas para impressão", que não
+   foram lidos ainda.
+2. **Texto de explicação de cada aula.** Hoje a apostila só pergunta. Precisa
+   explicar, e o conteúdo vem dos Planos (campo `conteudo`) e do MSA.
+3. **Figuras das 60 aulas.** Existem três; faltam as do pentagrama, claves,
+   endecagrama, figuras e pausas, ordem dos acidentes, ritmos iniciais,
+   síncopa/contratempo, tercina, cordas do violino.
+4. **`Ditado e Composição Rítmica`** (Clave de C), que estava na pasta, mostra
+   o tipo de atividade que ele valoriza: ditado rítmico, composição e prática
+   em conjunto. É material de terceiros — não reproduzir, mas vale ter
+   atividades equivalentes próprias.

@@ -7,10 +7,10 @@ const vm = require("vm");
 
 function carregar(raiz = path.join(__dirname, "..")) {
   const ctx = vm.createContext({});
-  for (const arq of ["dados/curriculo.js", "dados/questoes.js", "dados/hinos.js"]) {
+  for (const arq of ["dados/curriculo.js", "dados/questoes.js", "dados/hinos.js", "dados/planos.js"]) {
     vm.runInContext(fs.readFileSync(path.join(raiz, arq), "utf8"), ctx, { filename: arq });
   }
-  vm.runInContext("globalThis.__d = { FASES, TIPOS, AULAS, Q, HINOS };", ctx);
+  vm.runInContext("globalThis.__d = { FASES, TIPOS, AULAS, Q, HINOS, PLANOS };", ctx);
   return ctx.__d;
 }
 
