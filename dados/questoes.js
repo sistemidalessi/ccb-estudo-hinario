@@ -58,7 +58,7 @@ const Q = [
 
 /* aulas 8 e 9 — 2.5 e 2.6: ritmo, pulsação e exercícios rítmicos */
 {f:2,a:8,t:"2.5–2.6",k:"entender",n:2,q:"Qual a diferença entre pulso e ritmo?",g:"O pulso é a batida regular e constante que sustenta a música; o ritmo é a organização das durações sobre esse pulso."},
-{f:2,a:8,t:"2.5–2.6",k:"tocar",n:1,q:"Marque o pulso com o pé e faça a linguagem rítmica dos dois primeiros compassos do hino indicado.",g:"Avaliar se o pulso permaneceu constante do primeiro ao último compasso — e não acelerou nas figuras curtas."},
+{f:2,a:8,t:"2.5–2.6",k:"tocar",n:1,q:"Marque o pulso com o pé e faça a leitura rítmica dos dois primeiros compassos do hino indicado, falando a sílaba TA.",g:"Avaliar se o pulso permaneceu constante do primeiro ao último compasso — e não acelerou nas figuras curtas."},
 {f:2,a:8,t:"2.5–2.6",k:"erro",n:2,q:"Ao ler um trecho de colcheias, o aluno acelerou. Que erro é esse e como se corrige?",g:"Ele trocou o pulso pela figura: as colcheias são mais rápidas, mas o pulso continua o mesmo. Corrige-se marcando o pulso com o pé e mantendo-o enquanto se lê."},
 {f:2,a:9,t:"2.5–2.6",k:"ouvir",n:2,q:"O instrutor bate palmas apenas o ritmo dos quatro primeiros compassos de um hino já estudado. Descubra qual é.",g:"Conforme o hino escolhido. Vale pedir a justificativa: o que no ritmo entregou o hino."},
 {f:2,a:9,t:"2.5–2.6",k:"ouvir",n:2,q:"O instrutor executa dois trechos: em um mantém o pulso, no outro acelera aos poucos. Diga qual manteve.",g:"Conforme a execução. Pedir que o aluno aponte onde percebeu a mudança."},
@@ -72,18 +72,19 @@ const Q = [
 {f:3,a:10,t:"3.1",k:"tocar",n:2,q:"Localize no endecagrama a nota mais grave e a mais aguda que o seu instrumento toca dentro do hino indicado.",g:"Conforme o hino e o instrumento. O exercício mostra ao aluno em que faixa do endecagrama ele trabalha."},
 
 /* aula 11 — 3.2: leitura rítmica, leitura métrica e solfejo */
-{f:3,a:11,t:"3.2",k:"entender",n:2,q:"Qual a diferença entre leitura rítmica, leitura métrica e solfejo?",g:"Leitura rítmica: só as durações. Leitura métrica: os nomes das notas no ritmo certo, marcando o compasso, sem entoar. Solfejo: cantar as notas, com afinação."},
+{f:3,a:11,t:"3.2",k:"entender",n:2,q:"Qual a diferença entre leitura rítmica, leitura métrica e solfejo?",g:"Leitura rítmica: falar a sílaba TA, executando com precisão o ritmo das figuras. Leitura métrica: falar o nome da nota, sem cantar, no mesmo ritmo. Solfejo: cantar as notas na altura escrita, dentro do padrão rítmico."},
 {f:3,a:11,t:"3.2",k:"tocar",n:2,q:"Faça a leitura métrica do primeiro sistema do hino indicado, marcando os movimentos do compasso.",g:"Avaliar clareza dos nomes das notas, constância do pulso e coincidência do gesto com o tempo forte."},
 {f:3,a:11,t:"3.2",k:"tocar",n:3,q:"Faça a leitura rítmica e, em seguida, o solfejo do primeiro sistema do hino indicado.",g:"Avaliar se o ritmo se manteve igual nas duas passagens — é comum o ritmo se desfazer quando entra a afinação."},
 {f:3,a:11,t:"3.2",k:"decidir",n:3,q:"Por que se estuda o hino primeiro pela leitura rítmica e só depois pelo solfejo?",g:"Porque separa as dificuldades: primeiro se resolve a duração, depois a altura. Tentar as duas ao mesmo tempo é onde o aluno trava."},
 {f:3,a:11,t:"3.2",k:"criar",n:3,q:"Escolha um hino que você já toca e escreva três perguntas sobre ele para um colega — uma de identificar, uma de explicar e uma para tocar.",g:"Quem formula a pergunta precisa conhecer a resposta: este exercício mostra ao instrutor o que o aluno realmente domina."},
 
 /* aulas 12 e 13 — 3.3 e 3.4: movimentos de condução e de solfejo em 4 */
-{f:3,a:12,t:"3.3–3.4",k:"ver",n:1,q:"Descreva o movimento de condução em 4.",g:"1º para baixo, 2º para dentro, 3º para fora, 4º para cima."},
-{f:3,a:12,t:"3.3–3.4",k:"entender",n:2,q:"Em qualquer fórmula de compasso, para onde vai sempre o gesto do primeiro tempo? Por quê?",g:"Sempre para baixo, porque o 1º tempo é o forte — é a referência visual de onde o compasso começa."},
+{f:3,a:12,t:"3.3–3.4",k:"ver",n:1,q:"Descreva o movimento de condução em 4.",g:"Quatro pontos: o 1º abaixo, o 2º para dentro, o 3º para fora e o 4º acima. Cada movimento começa em um ponto e termina no seguinte; do 4º volta-se ao 1º."},
+{f:3,a:12,t:"3.3–3.4",k:"entender",n:2,q:"Em qualquer fórmula de compasso, para onde vai sempre o gesto do primeiro tempo? Por quê?",g:"O ponto do 1º tempo fica sempre abaixo: o gesto desce até ele. É o tempo forte e a referência visual de onde o compasso começa, em qualquer fórmula."},
+{f:3,a:12,t:"3.3–3.4",k:"ver",n:1,q:"O que é a janela de movimento?",g:"É a delimitação do espaço em que o movimento acontece, para que o candidato não faça gestos nem grandes nem pequenos demais."},
 {f:3,a:12,t:"3.3–3.4",k:"entender",n:2,q:"Qual a diferença entre o movimento de condução e o movimento de solfejo?",g:"O de condução é o gesto do regente, que conduz o conjunto. O de solfejo é o movimento que o próprio candidato faz com a mão para marcar os tempos enquanto lê ou solfeja."},
 {f:3,a:13,t:"3.3–3.4",k:"tocar",n:2,q:"Solfeje o primeiro sistema do hino indicado marcando os quatro movimentos com a mão.",g:"Avaliar se o gesto e a voz andam juntos — o gesto não pode parar quando a leitura fica difícil."},
-{f:3,a:13,t:"3.3–3.4",k:"erro",n:2,q:"Durante o solfejo em 4, o aluno fez o 1º tempo para cima. Qual é o erro e por que ele atrapalha?",g:"O 1º tempo é sempre para baixo, por ser o tempo forte. Invertido, o aluno perde a referência e todo o compasso sai deslocado."},
+{f:3,a:13,t:"3.3–3.4",k:"erro",n:2,q:"Durante o solfejo em 4, o aluno fez o 1º tempo para cima. Qual é o erro e por que ele atrapalha?",g:"O ponto do 1º tempo fica abaixo, por ser o tempo forte. Marcando-o em cima, o aluno perde a referência e todo o compasso sai deslocado."},
 
 /* aula 14 — 3.5: metrônomo */
 {f:3,a:14,t:"3.5",k:"ver",n:1,q:"Para que serve o metrônomo?",g:"Para marcar o pulso em velocidade constante, servindo de referência de andamento no estudo."},
@@ -107,7 +108,7 @@ const Q = [
 /* aula 2 — 4.4 e 4.5: fórmula de compasso em 3 e movimento de solfejo em 3 */
 {f:4,a:2,t:"4.4–4.5",k:"ver",n:1,q:"Em 3/4: quantos tempos, qual a unidade de tempo e qual a unidade de compasso?",g:"Três tempos; unidade de tempo semínima; unidade de compasso mínima pontuada."},
 {f:4,a:2,t:"4.4–4.5",k:"ver",n:1,q:"Qual a acentuação métrica do compasso 3/4?",g:"1º forte · 2º fraco · 3º fraco."},
-{f:4,a:2,t:"4.4–4.5",k:"ver",n:1,q:"Descreva o movimento de solfejo em 3.",g:"1º para baixo, 2º para fora, 3º para cima."},
+{f:4,a:2,t:"4.4–4.5",k:"ver",n:1,q:"Descreva o movimento de solfejo em 3.",g:"Três pontos: o 1º abaixo, o 2º para fora (à direita) e o 3º acima. O primeiro movimento vai do ponto 1 ao 2, o segundo do 2 ao 3 e o terceiro do 3 de volta ao 1."},
 {f:4,a:2,t:"4.4–4.5",k:"entender",n:2,q:"Por que o último movimento do compasso vai para cima?",g:"Porque prepara o retorno ao tempo forte: a mão sobe para poder descer no 1º tempo do compasso seguinte."},
 {f:4,a:2,t:"4.4–4.5",k:"tocar",n:2,q:"Marque os três movimentos com a mão, contando 1-2-3 em voz alta, por dez compassos seguidos, sem parar.",g:"Avaliar a constância: o erro comum é encurtar o 3º movimento e antecipar o tempo forte."},
 
@@ -131,7 +132,7 @@ const Q = [
 
 /* aula 6 — 4.6 e 4.7: fórmula de compasso em 2 e movimento de solfejo em 2 */
 {f:4,a:6,t:"4.6–4.7",k:"ver",n:1,q:"Em 2/4: acentuação métrica, unidade de tempo e unidade de compasso.",g:"1º forte, 2º fraco; unidade de tempo semínima; unidade de compasso mínima."},
-{f:4,a:6,t:"4.6–4.7",k:"ver",n:1,q:"Descreva o movimento de solfejo em 2.",g:"1º para baixo, 2º para cima."},
+{f:4,a:6,t:"4.6–4.7",k:"ver",n:1,q:"Descreva o movimento de solfejo em 2.",g:"Dois pontos: o 1º abaixo e o 2º acima. O primeiro movimento vai do ponto 1 ao 2; o segundo, do 2 de volta ao 1."},
 {f:4,a:6,t:"4.6–4.7",k:"entender",n:2,q:"Por que o 2/4 é chamado binário?",g:"Porque tem dois tempos — um forte e um fraco —, formando o ciclo mais curto possível de acentuação."},
 {f:4,a:6,t:"4.6–4.7",k:"comparar",n:3,q:"Procure no hinário um hino em 2/4 e outro em 3/4. Toque o primeiro sistema de cada um: o que muda na sensação de condução?",g:"Em 2/4 o ciclo forte–fraco é curto e marcial; em 3/4 há dois tempos fracos depois do forte, o que dá sensação de balanço mais largo."},
 {f:4,a:6,t:"4.6–4.7",k:"tocar",n:2,q:"Marque os dois movimentos e leia o ritmo do primeiro sistema de um hino em 2/4.",g:"Avaliar se o 1º movimento continuou sendo o mais marcado."},
@@ -177,12 +178,12 @@ const Q = [
 /* aula 13 — 5.3 e 5.4: fórmula de compasso em 6 e movimento de solfejo em 6 */
 {f:5,a:13,t:"5.3–5.5",k:"ver",n:1,q:"Em 6/8: quantos movimentos, quantos tempos, e quais são a unidade de movimento, a unidade de tempo e a unidade de compasso?",g:"Seis movimentos e dois tempos. Unidade de movimento: colcheia. Unidade de tempo: semínima pontuada. Unidade de compasso: mínima pontuada."},
 {f:5,a:13,t:"5.3–5.5",k:"ver",n:2,q:"Marque a acentuação métrica do 6/8 nos seis movimentos.",g:"1º forte · 4º meio-forte · os demais fracos."},
-{f:5,a:13,t:"5.3–5.5",k:"ver",n:1,q:"Descreva o movimento de solfejo em 6.",g:"1º para baixo, 2º e 3º para dentro, 4º e 5º para fora, 6º para cima."},
+{f:5,a:13,t:"5.3–5.5",k:"ver",n:1,q:"Descreva o movimento de solfejo em 6.",g:"Segue o desenho do compasso em 2, com três pulsos em cada tempo: os pontos 1, 2 e 3 ficam abaixo e os pontos 4, 5 e 6 acima. O movimento entre o 3º e o 4º ponto é o mais amplo — é ele que marca a passagem de um tempo para o outro."},
 {f:5,a:13,t:"5.3–5.5",k:"entender",n:3,q:"Por que em 6/8 a unidade de tempo é uma figura pontuada?",g:"Porque cada tempo se divide em três colcheias, e só uma figura pontuada representa uma divisão ternária."},
-{f:5,a:13,t:"5.3–5.5",k:"tocar",n:2,q:"Marque os seis movimentos contando 1-2-3-4-5-6, por dez compassos, mantendo o pulso.",g:"Avaliar se o 4º movimento ficou perceptivelmente mais marcado que o 2º, 3º, 5º e 6º."},
+{f:5,a:13,t:"5.3–5.5",k:"tocar",n:2,q:"Marque os seis movimentos contando 1-2-3-4-5-6, por dez compassos, mantendo o pulso.",g:"Avaliar se o movimento entre o 3º e o 4º ponto ficou mais amplo que os demais: é ele que separa os dois tempos do compasso."},
 
 /* aula 14 — 5.5: movimento alternativo de solfejo em 6 */
-{f:5,a:14,t:"5.3–5.5",k:"ver",n:1,q:"O que é o movimento alternativo de solfejo em 6?",g:"Conduzir o compasso 6/8 em dois movimentos em vez de seis — um por tempo, agrupando três colcheias em cada."},
+{f:5,a:14,t:"5.3–5.5",k:"ver",n:1,q:"O que é o movimento alternativo de solfejo em 6?",g:"Usar o movimento de marcação do compasso em 2, agrupando três pulsos em cada tempo — dois movimentos em vez de seis."},
 {f:5,a:14,t:"5.3–5.5",k:"entender",n:2,q:"Quando se usa o movimento alternativo?",g:"Quando o andamento é rápido: em seis movimentos o gesto ficaria apressado e perderia a clareza dos dois tempos reais."},
 {f:5,a:14,t:"5.3–5.5",k:"tocar",n:2,q:"Leia o mesmo trecho em 6/8 duas vezes: primeiro em seis movimentos, depois em dois.",g:"Avaliar se o ritmo se manteve idêntico — muda o gesto, não a música."},
 {f:5,a:14,t:"5.3–5.5",k:"comparar",n:3,q:"O que muda na sensação do hino quando se conduz em 2 em vez de 6?",g:"Em 2 o compasso ganha fluência e as três colcheias passam a soar como subdivisão; em 6 cada colcheia ganha peso e o andamento tende a ficar mais lento."},
@@ -228,12 +229,12 @@ const Q = [
 /* aula 6 — 7.2 e 7.3: fórmula de compasso em 9 e movimento de solfejo em 9 */
 {f:7,a:6,t:"7.2–7.4",k:"ver",n:2,q:"Em 9/8: quantos movimentos, quantos tempos, e quais são a unidade de movimento e a unidade de tempo?",g:"Nove movimentos e três tempos; unidade de movimento colcheia; unidade de tempo semínima pontuada."},
 {f:7,a:6,t:"7.2–7.4",k:"ver",n:2,q:"Quantos tempos tem o 9/8 e como cada um deles se divide?",g:"Três tempos, cada um dividido em três colcheias."},
-{f:7,a:6,t:"7.2–7.4",k:"ver",n:1,q:"Descreva o movimento de solfejo em 9.",g:"Três grupos de três, seguindo o desenho do compasso em 3: 1º, 2º e 3º para baixo; 4º, 5º e 6º para fora; 7º, 8º e 9º para cima."},
+{f:7,a:6,t:"7.2–7.4",k:"ver",n:1,q:"Descreva o movimento de solfejo em 9.",g:"Segue o desenho do compasso em 3, com três pulsos em cada tempo: os pontos 1, 2 e 3 abaixo; 4, 5 e 6 para fora; 7, 8 e 9 acima. Os movimentos mais amplos são os que ligam o 3º ao 4º ponto, o 6º ao 7º e o 9º de volta ao 1º."},
 {f:7,a:6,t:"7.2–7.4",k:"entender",n:3,q:"Em 9/8 a unidade de compasso é indefinida. Por quê?",g:"Porque nove colcheias não correspondem a nenhuma figura única: a mínima pontuada dá seis e a semibreve pontuada dá doze. Não existe figura que preencha o compasso sozinha."},
-{f:7,a:6,t:"7.2–7.4",k:"tocar",n:2,q:"Marque os nove movimentos contando em voz alta, por oito compassos seguidos.",g:"Avaliar se os acentos caíram no 1º, no 4º e no 7º movimentos."},
+{f:7,a:6,t:"7.2–7.4",k:"tocar",n:2,q:"Marque os nove movimentos contando em voz alta, por oito compassos seguidos.",g:"Avaliar se os movimentos mais amplos caíram entre o 3º e o 4º ponto e entre o 6º e o 7º — são eles que separam os três tempos."},
 
 /* aula 7 — 7.4: movimento alternativo em 9 */
-{f:7,a:7,t:"7.2–7.4",k:"ver",n:1,q:"O que é o movimento alternativo de solfejo em 9?",g:"Conduzir em três movimentos — um por tempo — em vez de nove."},
+{f:7,a:7,t:"7.2–7.4",k:"ver",n:1,q:"O que é o movimento alternativo de solfejo em 9?",g:"Usar o movimento de marcação do compasso em 3, agrupando três pulsos em cada tempo — três movimentos em vez de nove."},
 {f:7,a:7,t:"7.2–7.4",k:"entender",n:2,q:"Quando se usa o movimento alternativo em 9?",g:"Em andamentos rápidos, onde nove gestos ficariam apressados e perderiam a clareza dos três tempos reais."},
 {f:7,a:7,t:"7.2–7.4",k:"tocar",n:2,q:"Leia um trecho em 9/8 duas vezes: em nove movimentos e depois em três.",g:"Avaliar se o ritmo se manteve igual nas duas leituras."},
 {f:7,a:7,t:"7.2–7.4",k:"comparar",n:3,q:"O que muda entre conduzir em 9 e conduzir em 3?",g:"Em 3 o compasso ganha fluência e as colcheias viram subdivisão; em 9 cada colcheia ganha peso e o andamento tende a ficar mais lento."},
@@ -241,11 +242,11 @@ const Q = [
 /* aula 8 — 7.5 e 7.6: fórmula de compasso em 12 e movimento de solfejo em 12 */
 {f:7,a:8,t:"7.5–7.7",k:"ver",n:2,q:"Em 12/8: quantos movimentos, quantos tempos, unidade de tempo e unidade de compasso?",g:"Doze movimentos e quatro tempos; unidade de tempo semínima pontuada; unidade de compasso semibreve pontuada."},
 {f:7,a:8,t:"7.5–7.7",k:"ver",n:2,q:"Qual a unidade de compasso do 12/8, e por quê?",g:"Semibreve pontuada — doze colcheias equivalem exatamente a ela."},
-{f:7,a:8,t:"7.5–7.7",k:"ver",n:1,q:"Descreva o movimento de solfejo em 12.",g:"Quatro grupos de três, seguindo o desenho do compasso em 4: baixo, dentro, fora e cima."},
+{f:7,a:8,t:"7.5–7.7",k:"ver",n:1,q:"Descreva o movimento de solfejo em 12.",g:"Segue o desenho do compasso em 4, com três pulsos em cada tempo: os pontos 1 a 3 abaixo; 4 a 6 para dentro; 7 a 9 para fora; 10 a 12 acima. Os movimentos mais amplos ligam um grupo ao seguinte."},
 {f:7,a:8,t:"7.5–7.7",k:"comparar",n:3,q:"12/8 e 4/4 têm os dois quatro tempos. O que realmente os diferencia?",g:"A divisão do tempo: em 4/4 cada tempo se divide em dois (compasso simples); em 12/8, em três (compasso composto)."},
 
 /* aula 9 — 7.7: movimento alternativo em 12 */
-{f:7,a:9,t:"7.5–7.7",k:"ver",n:1,q:"O que é o movimento alternativo de solfejo em 12?",g:"Conduzir em quatro movimentos, um por tempo, em vez de doze."},
+{f:7,a:9,t:"7.5–7.7",k:"ver",n:1,q:"O que é o movimento alternativo de solfejo em 12?",g:"Usar o movimento de marcação do compasso em 4, agrupando três pulsos em cada tempo — quatro movimentos em vez de doze."},
 {f:7,a:9,t:"7.5–7.7",k:"tocar",n:2,q:"Leia um trecho em 12/8 em quatro movimentos, com o metrônomo marcando os tempos.",g:"Avaliar se as três colcheias de cada tempo ficaram iguais entre si."},
 {f:7,a:9,t:"7.5–7.7",k:"entender",n:3,q:"Por que o 12/8 conduzido em 4 se parece tanto com o 4/4?",g:"Porque os dois têm quatro tempos. O que muda é a subdivisão: ternária no 12/8, binária no 4/4."},
 

@@ -115,6 +115,32 @@ O LibreOffice deste ambiente não abre .docx (falha até com arquivo mínimo), e
 a conferência visual foi feita pelo validador de esquema e pela extração do texto
 do `word/document.xml`. Para ver o resultado, abrir no Word.
 
+## Os movimentos de solfejo (conferido em 22/09/2026)
+
+Os gabaritos dos movimentos foram escritos primeiro pela prática corrente de
+regência e depois corrigidos contra materiais que reproduzem o MSA (msaccb.com.br,
+cursodeteoriamusical.com.br e os vídeos das fases 5 e 7). O que ficou valendo:
+
+- **O MSA numera os pontos, não os movimentos.** Cada movimento vai de um ponto ao
+  seguinte: o 1º movimento começa no ponto 1 e termina no ponto 2. Os gabaritos
+  falam em pontos por causa disso.
+- **Compassos simples:** em 2 → abaixo, acima. Em 3 → abaixo, fora, acima.
+  Em 4 → abaixo, dentro, fora, acima.
+- **Compostos seguem o desenho do simples correspondente**, com três pulsos por
+  tempo: 6 segue o desenho do 2 (pontos 1–3 abaixo, 4–6 acima); 9 segue o do 3;
+  12 segue o do 4. O movimento que liga um grupo ao seguinte é o mais amplo.
+  **Atenção:** o compasso em 6 do MSA não é o padrão clássico de regência
+  (2 e 3 para dentro, 4 e 5 para fora) — esse era o erro da primeira versão.
+- **Movimentos alternativos:** usar o movimento de marcação do compasso em 2, 3
+  ou 4, agrupando três pulsos em cada tempo.
+- **Leitura rítmica** no MSA é falar a sílaba **TA** no ritmo das figuras;
+  leitura métrica é falar o nome da nota sem cantar; solfejo é cantar na altura.
+- **Janela de movimento**: delimitação do espaço do gesto, para não ser nem grande
+  nem pequeno demais. Conceito do método, acrescentado ao banco.
+
+Os desenhos dos nove padrões estão em
+https://claude.ai/artifact/6AQki1PTcncwzD5f9Mza2S
+
 ## Pendente
 
 - **Tabela de metadados dos 480 hinos** (tom, fórmula de compasso, ritmo inicial,
@@ -124,10 +150,9 @@ do `word/document.xml`. Para ver o resultado, abrir no Word.
 - Registrar acertos e erros por aluno ao longo do semestre (hoje o modo estudo
   esquece tudo ao recarregar). Seria o caso de Supabase, no padrão dos outros
   projetos do portfólio.
-- Revisar a terminologia com o Anderson: ele é instrutor de violino no GEM e
-  enxerga desvios de nomenclatura da CCB que o texto atual pode ter. Os pontos
-  mais expostos são os movimentos de solfejo em 6, 9 e 12 (o desenho do gesto) e
-  os movimentos alternativos, descritos aqui pela prática corrente de regência.
+- Revisar a terminologia com o Anderson, que é instrutor de violino no GEM.
+  Os movimentos de solfejo já foram conferidos contra fontes do MSA (ver abaixo),
+  mas o método impresso é que decide.
 - As cinco questões da aula 1 do 1º período (origem e finalidade da orquestra)
   são de resposta aberta porque o texto do MSA não estava disponível ao montar o
   banco. Se o MSA for consultado, valem gabaritos mais precisos.
