@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Estudo do Hinário</title>
+<meta name="description" content="Banco de questões do Grupo de Estudos Musicais, alinhado às 16 fases do MSA, com gerador de fichas e gabarito.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/estilo.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brandrow">
+      <div>
+        <h1>Estudo do Hinário</h1>
+        <div class="sub">Banco de questões do GEM &middot; alinhado às 16 fases do MSA</div>
+      </div>
+      <button class="theme-btn" id="themeBtn" type="button">Tema</button>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" id="tab-trilha" aria-selected="true" data-tab="trilha">Trilha</button>
+      <button role="tab" id="tab-ficha" aria-selected="false" data-tab="ficha">Gerar ficha</button>
+      <button role="tab" id="tab-estudo" aria-selected="false" data-tab="estudo">Modo estudo</button>
+      <button role="tab" id="tab-banco" aria-selected="false" data-tab="banco">Banco</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- TRILHA -->
+  <section class="panel" id="p-trilha">
+    <div class="intro">
+      <p class="lead">O mesmo conteúdo do &ldquo;Estudo do Hinário&rdquo;, reorganizado por <b>conceito</b> em vez de por hino — cada pergunta sabe a que fase do MSA pertence, que tipo de pensamento exige e se é para o papel ou para o instrumento na mão.</p>
+      <div class="note"><b>Como usar:</b> escolha o período em que a turma está, gere uma ficha (sai diferente a cada vez), preencha o número do hino e aplique. O gabarito vem junto, para o instrutor. Os exercícios seguem o <b>Hinário em Dó, capa preta</b>, como pede o MSA.</div>
+    </div>
+    <div class="periods" id="periods"></div>
+    <p class="foot"><b>De onde vem a estrutura.</b> Os quatro períodos e as 16 fases seguem o <i>Manual de aplicação das Aulas do MSA</i> (v2.7): 60 aulas em 4 semestres, 1º período fases 1–3, 2º fases 4–5, 3º fases 6–9, 4º fases 10–16. As perguntas de instrumento seguem o <i>Programa Mínimo — CCB/Orquestra</i>.</p>
+  </section>
+
+  <!-- FICHA -->
+  <section class="panel" id="p-ficha" hidden>
+    <p class="eyebrow">Gerador</p>
+    <p class="lead" style="margin-top:6px">Monta uma ficha nova a cada clique. Nenhuma turma recebe a mesma folha duas vezes.</p>
+    <div class="card controls">
+      <div class="ctl-row">
+        <div class="field">
+          <label for="f-periodo">Período</label>
+          <select id="f-periodo">
+            <option value="1">1º — fases 1 a 3</option>
+            <option value="2">2º — fases 4 e 5</option>
+            <option value="3">3º — fases 6 a 9</option>
+            <option value="4">4º — fases 10 a 16</option>
+            <option value="ac">Acumulado até o 4º</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-qtd">Questões</label>
+          <select id="f-qtd"><option>6</option><option selected>10</option><option>14</option><option>18</option></select>
+        </div>
+        <div class="field">
+          <label for="f-hino">Hino nº</label>
+          <input type="text" id="f-hino" placeholder="ex. 152" style="min-width:90px">
+        </div>
+        <div class="field">
+          <label for="f-instr">Instrumento</label>
+          <input type="text" id="f-instr" placeholder="Violino" style="min-width:110px">
+        </div>
+      </div>
+      <div class="field">
+        <label>Incluir</label>
+        <div class="toggles" id="f-tipos"></div>
+      </div>
+      <div class="ctl-row" style="gap:9px">
+        <button class="btn" id="f-gerar" type="button">Gerar ficha</button>
+        <button class="btn ghost" id="f-gab" type="button" aria-pressed="false">Mostrar gabarito</button>
+        <button class="btn ghost" id="f-copy" type="button">Copiar texto</button>
+      </div>
+    </div>
+    <div id="ficha-out"></div>
+  </section>
+
+  <!-- ESTUDO -->
+  <section class="panel" id="p-estudo" hidden>
+    <p class="eyebrow">Modo estudo</p>
+    <p class="lead" style="margin-top:6px">Uma pergunta por vez. O que você errar volta no fim da rodada — o que acertou, não.</p>
+    <div class="card controls" style="margin-top:18px">
+      <div class="ctl-row">
+        <div class="field">
+          <label for="e-periodo">Período</label>
+          <select id="e-periodo">
+            <option value="1">1º período</option><option value="2">2º período</option>
+            <option value="3">3º período</option><option value="4">4º período</option>
+            <option value="ac">Tudo</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="e-canal">Canal</label>
+          <select id="e-canal"><option value="todos">Papel e prática</option><option value="papel">Só no papel</option><option value="pratica">Só prática e ouvido</option></select>
+        </div>
+        <button class="btn" id="e-start" type="button">Começar rodada</button>
+      </div>
+    </div>
+    <div class="card studycard" id="study" hidden></div>
+  </section>
+
+  <!-- BANCO -->
+  <section class="panel" id="p-banco" hidden>
+    <p class="eyebrow">Banco de questões</p>
+    <div class="card controls">
+      <div class="ctl-row">
+        <div class="field">
+          <label for="b-fase">Fase</label>
+          <select id="b-fase"></select>
+        </div>
+        <div class="field">
+          <label for="b-tipo">Tipo</label>
+          <select id="b-tipo"><option value="">Todos</option></select>
+        </div>
+        <div class="field" style="flex:1;min-width:180px">
+          <label for="b-busca">Procurar</label>
+          <input type="text" id="b-busca" placeholder="anacrúsio, fermata, arcada…" style="width:100%">
+        </div>
+      </div>
+    </div>
+    <p class="count" id="b-count"></p>
+    <div class="bank" id="bank"></div>
+  </section>
+
+</div>
+
+<script src="dados/curriculo.js"></script>
+<script src="dados/questoes.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
