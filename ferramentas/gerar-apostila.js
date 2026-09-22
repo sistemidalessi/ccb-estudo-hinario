@@ -14,9 +14,10 @@ const {
   BorderStyle, PageBreak, Table, TableRow, TableCell, WidthType, ShadingType,
 } = require("docx");
 const { carregar } = require("./carregar.js");
+const { hinosDaAula } = require("./hinos-da-aula.js");
 
 const RAIZ = path.join(__dirname, "..");
-const { TIPOS, AULAS, Q } = carregar(RAIZ);
+const { TIPOS, AULAS, Q, HINOS } = carregar(RAIZ);
 
 const periodo = Number(process.argv[2] || 1);
 const FASES_DO_PERIODO = { 1: [1, 2, 3], 2: [4, 5], 3: [6, 7, 8, 9], 4: [10, 11, 12, 13, 14, 15, 16] };
@@ -27,6 +28,7 @@ const SANS = "Calibri";
 const TINTA = "16212A";
 const AZUL = "1F5673";
 const CINZA = "5C6B75";
+const PRATICA = "8A5A2B";
 
 /* ---------- blocos reutilizáveis ---------- */
 
@@ -206,6 +208,35 @@ function aula([num, tops, assunto], gabarito) {
       blocos.push(...linhaResposta(q.k === "criar" || q.n === 3 ? 3 : 2));
     }
   });
+
+  const fecho = hinosDaAula(periodo, num, HINOS);
+  if (fecho) {
+    const lista = fecho.hinos.map(h => h.n).join(", ").replace(/, (\d+)$/, " e $1");
+    const linhas = [
+      texto("O hino da aula", { bold: true, font: SERIF, size: 22, after: 60 }),
+      texto(`Hinos ${lista} — ${fecho.porque}.`, { size: 19, italico: true, cor: CINZA, after: 140 }),
+    ];
+    fecho.hinos.forEach(h => {
+      const ficha = [h.tom + " maior", h.marc, h.met ? "♩ = " + h.met : "", h.ind].filter(Boolean).join(" · ");
+      linhas.push(texto(`Hino ${h.n} — ${ficha}`, { bold: true, size: 19, after: 40 }));
+      fecho.perguntas(h).forEach(([q, g]) => {
+        linhas.push(new Paragraph({
+          spacing: { after: 30, line: 280 }, indent: { left: 200 },
+          children: [new TextRun({ text: "· " + q, font: SANS, size: 19, color: TINTA })],
+        }));
+        if (gabarito) {
+          linhas.push(new Paragraph({
+            spacing: { after: 70 }, indent: { left: 340 },
+            children: [new TextRun({ text: g, font: SANS, size: 18, color: "3F4C55", italics: true })],
+          }));
+        } else {
+          linhas.push(...linhaResposta(1));
+        }
+      });
+      linhas.push(vazio(90));
+    });
+    blocos.push(caixa(linhas, { faixa: PRATICA, fundo: "F7F1E8" }));
+  }
 
   blocos.push(new Paragraph({ children: [new PageBreak()] }));
   return blocos;

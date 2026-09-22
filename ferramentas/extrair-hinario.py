@@ -40,7 +40,7 @@ except ImportError:
 LIXO = re.compile(r"ANDERSON|FERNANDES|DALESSI|\bafdalessi\S*|\S*@\S+\.\w+|\d{3}\.\d{3}\.\d{3}-\d{2}", re.I)
 NOTA = re.compile(r"^(D[oó]|R[eé]|Mi|F[aá]|Sol|L[aá]|Si)(♭|♯)?$")
 METRONOMO = re.compile(r"=\s*(\d{2,3})\s*-\s*(\d{2,3})\s*\(?\s*(\d{2,3})?\s*\)?")
-MARCACAO = re.compile(r"\bem\s+(2|3|4|6|9|12)\b")
+MARCACAO = re.compile(r"\b(?:em|in)\s+(2|3|4|6|9|12)\b", re.I)
 NUMERO = re.compile(r"^(\d{1,3})\.?$")
 INDICACOES = re.compile(
     r"\b(maestoso|moderato|andante|andantino|adagio|allegro|allegretto|larghetto|largo|lento|"
@@ -96,9 +96,12 @@ def dados_da_pagina(linhas, contador=0):
 
     cabecalho = " ".join(t for _, t in linhas)
     met = METRONOMO.search(cabecalho)
-    # "em 2" / "em 6" do hino fica junto da tonalidade. Acima disso (y≈6) há
-    # anotações do tipo "Pode agrupar frases em 4", que não são a marcação.
-    marc = MARCACAO.search(faixa_tom)
+    # A marcação "em 2" / "em 6" cai ora junto da tonalidade, ora na linha do
+    # título ("Ó Pai celestial 142 Em 6"). Procura nas duas, nessa ordem.
+    # Fora daí (y≈6) há anotações como "Pode agrupar frases em 4", que são
+    # orientação de execução e não a marcação do hino — por isso não entram.
+    marc = MARCACAO.search(faixa_tom) or MARCACAO.search(por_y.get(18, "")) \
+        or MARCACAO.search(por_y.get(30, ""))
     ind = INDICACOES.search(cabecalho)
     seg = por_y.get(30, "").strip()
     if seg and seg != titulo and not NUMERO.match(seg):
