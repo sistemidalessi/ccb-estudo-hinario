@@ -94,7 +94,11 @@ function exercicioHTML(q, i){
     (verInstrutor ? '<div class="gab"><b>Gabarito</b>'+esc(q.g)+"</div>" : "");
 }
 
+/* Os Planos de Aula do MSA são material interno do GEM e não entram no site
+   público: o roteiro sai só na apostila .docx do instrutor. Se PLANOS existir
+   numa cópia local, a função volta a funcionar sem mais nada. */
 function roteiroHTML(){
+  if(typeof PLANOS === "undefined") return "";
   const pl = (PLANOS[aulaPeriodo]||[]).find(x => x.a === aulaNum);
   if(!pl) return "";
   const lista = (t, itens) => (itens && itens.length)

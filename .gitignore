@@ -5,3 +5,4 @@ ferramentas/diagnostico.txt
 __pycache__/
 *.pyc
 ferramentas/figuras/figuras.html
+dados/planos.js
