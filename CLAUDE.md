@@ -20,22 +20,62 @@ Quatro arquivos, nenhuma biblioteca, nenhum passo de build:
 index.html          estrutura e marcação das quatro telas
 assets/estilo.css   tokens de cor (claro/escuro) e todo o layout
 assets/app.js       abas, gerador de ficha, modo estudo, banco
-dados/curriculo.js  FASES (16 fases do MSA) e TIPOS (os 8 tipos de pergunta)
-dados/questoes.js   const Q — o banco de questões
+assets/figuras/     as 20 figuras em PNG, geradas (não desenhadas à mão)
 .nojekyll           impede o Jekyll de processar o site no Pages
 
-ferramentas/carregar.js       lê os dois arquivos de dados fora do navegador
-ferramentas/gerar-apostila.js gera a apostila .docx de um período
+dados/curriculo.js      FASES (16 fases do MSA), TIPOS (8 tipos) e AULAS (as 60)
+dados/questoes.js       const Q — o banco de questões, todas com gabarito
+dados/planos.js         PLANOS — os 60 Planos de Aula oficiais do GEM
+dados/licoes.js         LICOES — o texto didático de cada uma das 60 aulas
+dados/hinos.js          HINOS — cabeçalho de 363 hinos, extraído do hinário
+dados/hinos-por-aula.js HINOS_AULA — as listas de hinos que o GEM dá por aula
+
+ferramentas/carregar.js       lê os arquivos de dados fora do navegador
+ferramentas/hinos-da-aula.js  escolhe os hinos que fecham cada aula
+ferramentas/gerar-apostila.js gera as duas apostilas .docx de cada período
+ferramentas/extrair-hinario.py extrai o cabeçalho dos hinos do hinário em PDF
+ferramentas/figuras/          desenho.js + gera.js + render.mjs → assets/figuras
 apostila/                     os .docx gerados (candidato e instrutor)
 ```
+
+### As duas apostilas
+
+São documentos diferentes, não um com respostas e outro sem:
+
+- **candidato**: abertura da aula, explicação em blocos com figura, o erro que
+  mais aparece, exercícios com espaço para responder, os hinos que fecham a
+  aula e a tarefa de casa;
+- **instrutor**: antes de cada aula, uma página de roteiro tirada do Plano de
+  Aula oficial (habilidades, objetivos, conteúdo, duração, recursos,
+  metodologia, avaliação); depois, a mesma aula com os gabaritos.
+
+`node ferramentas/gerar-apostila.js` gera os oito arquivos; passando um número,
+gera só aquele período.
+
+### A ordem dos hinos
+
+O que o Anderson pediu — os hinos fora da ordem do hinário, na ordem de
+complexidade da teoria — está nos cadernos **"Atividades das Aulas do MSA
+(para impressão)"** do GEM: ao fim de várias aulas há uma lista de hinos para
+estudo complementar. Essas listas estão em `dados/hinos-por-aula.js`, e elas
+**passam na frente** das regras automáticas de `hinos-da-aula.js`. As regras
+ficam para as aulas em que o próprio caderno manda o instrutor escolher.
+
+### O que não entra aqui
+
+Partitura e letra do hinário não são reproduzidas em lugar nenhum. Do hinário
+saem apenas número, tonalidade, marcação de movimento e metrônomo. O material
+do GEM também não é copiado: a apostila se apresenta como complementar, porque
+o Manual determina que o conteúdo do MSA seja apresentado por inteiro pelo
+instrutor.
 
 A apostila e o site saem do **mesmo banco**: acrescentar uma questão em
 `dados/questoes.js` muda os dois. O gerador usa a biblioteca `docx` (npm), a
 única dependência do repositório, e é usado só na linha de comando — o site
 continua sem dependência nenhuma.
 
-A ordem de carregamento importa: `curriculo.js` → `questoes.js` → `app.js`.
-O `app.js` depende dos globais `FASES`, `TIPOS` e `Q`.
+A ordem de carregamento importa: os arquivos de `dados/` vêm antes de `app.js`,
+que depende dos globais `FASES`, `TIPOS` e `Q`.
 
 **Hospedagem:** GitHub Pages a partir da branch `main`, pasta raiz. Push na `main`
 já publica. Não há Supabase nem backend — o estado (tema escolhido) fica em
