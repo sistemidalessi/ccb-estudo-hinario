@@ -210,8 +210,13 @@ function lista(titulo, itens, cor) {
 }
 
 function roteiro(periodo, num) {
-  const pl = (PLANOS[periodo] || []).find(x => x.a === num);
-  if (!pl) return [];
+  const pl = ((PLANOS || {})[periodo] || []).find(x => x.a === num);
+  // Sem dados/planos.js na máquina, a apostila do instrutor sai sem a página de
+  // roteiro — e diz por quê, em vez de sumir com a seção calada.
+  if (!pl) return num === 1 ? [caixa([
+    texto("Roteiro do instrutor", { caps: true, size: 16, bold: true, cor: CINZA, after: 60 }),
+    texto("Esta apostila foi gerada sem os Planos de Aula do MSA, que são material interno do GEM e ficam fora do repositório. Para incluir a página de roteiro em cada aula, ponha dados/planos.js na máquina antes de gerar — as instruções estão em dados/LEIAME-planos.md.", { size: 19, after: 0 }),
+  ], { faixa: CINZA, fundo: "F2F4F3" }), quebra()] : [];
   const corpo = [
     texto("Roteiro do instrutor", { caps: true, size: 16, bold: true, cor: CINZA, after: 60 }),
     new Paragraph({
