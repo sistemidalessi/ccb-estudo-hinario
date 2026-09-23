@@ -177,7 +177,14 @@ const REGRAS = {
      nessa aula, manda mesmo o instrutor escolher. */
   "4-14": {
     porque: "hinos que trazem indicação interpretativa impressa",
-    escolher: H => espalhar(H.filter(h => h.ind), 3),
+    // Prefere variedade: um hino de cada indicação antes de repetir. Três
+    // "Majestoso" seguidos ensinam menos que um Majestoso ao lado de um Solene.
+    escolher: H => {
+      const com = H.filter(h => h.ind);
+      const vistas = new Set(), primeiros = [], resto = [];
+      com.forEach(h => (vistas.has(h.ind) ? resto : (vistas.add(h.ind), primeiros)).push(h));
+      return [...primeiros, ...resto];
+    },
     perguntas: h => [
       [`O hino ${h.n} traz a indicação “${h.ind}”. O que muda na sua execução?`,
        "Resposta aberta. Espera-se que o candidato cite ataque, intensidade e condução da frase — não apenas o sentimento."],
