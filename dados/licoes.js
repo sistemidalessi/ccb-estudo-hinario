@@ -126,7 +126,7 @@ const LICOES = {
   titulo: "O endecagrama e o Dó Central",
   abre: "As claves separam os instrumentos em regiões, mas todas as regiões pertencem a uma escala só. Juntando a pauta da clave de Sol, a da clave de Fá e a linha que fica entre as duas, obtêm-se onze linhas: o endecagrama.",
   blocos: [
-    { h: "Onze linhas, um sistema só", t: "Do som mais grave ao mais agudo, sem cortes. A linha do meio — a 11ª, contando de baixo — é a do Dó3, chamado Dó Central justamente por ocupar esse lugar no meio de tudo.", fig: "endecagrama" },
+    { h: "Onze linhas, um sistema só", t: "Do som mais grave ao mais agudo, sem cortes. A linha do meio — a 6ª das onze, contando de baixo: cinco da clave de Fá abaixo dela e cinco da clave de Sol acima — é a do Dó3, chamado Dó Central justamente por ocupar esse lugar no meio de tudo.", fig: "endecagrama" },
     { h: "Onde o seu instrumento vive", t: "Cada instrumento ocupa uma faixa do endecagrama. Saber qual é a sua explica por que certas notas do hino são confortáveis e outras exigem posição alta ou corda grave.", fig: "cordas-violino" },
   ],
   atencao: "Achar que o Dó do violoncelo e o Dó da flauta são notas diferentes porque estão escritos em claves diferentes. O endecagrama existe justamente para mostrar que não são.",

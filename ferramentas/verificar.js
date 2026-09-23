@@ -51,6 +51,15 @@ ok(alturaEm("fa", 6) === "Fá3", "clave de Fá: a 4ª linha é Fá3", alturaEm("
 ok(alturaEm("fa", 10) === "Dó4", "clave de Fá: 1ª suplementar acima é o Dó central", alturaEm("fa", 10));
 ok(alturaEm("do", 4) === "Dó4", "clave de Dó: a 3ª linha é o Dó central", alturaEm("do", 4));
 
+// endecagrama: 5 linhas da clave de Fá + a do Dó Central + 5 da clave de Sol.
+// Contando de baixo para cima, o Dó Central é a 6ª — e não a 11ª, como este
+// projeto já chegou a afirmar.
+const LINHAS_ENDECAGRAMA = 5 + 1 + 5;
+ok(LINHAS_ENDECAGRAMA === 11, "o endecagrama tem onze linhas");
+ok(5 + 1 === 6, "no endecagrama, o Dó Central é a 6ª linha de baixo para cima");
+ok(alturaEm("fa", 10) === alturaEm("sol", -2), "a linha do meio é a mesma nota vista das duas claves",
+   `${alturaEm("fa", 10)} × ${alturaEm("sol", -2)}`);
+
 const fonteFig = fs.readFileSync(path.join(RAIZ, "ferramentas", "figuras", "gera.js"), "utf8");
 
 // cordas soltas do violino — o erro que originou este arquivo
@@ -139,6 +148,33 @@ HINOS_AULA.forEach(l => {
   ok(cresce, `lista "${l.rot}": sem número repetido em seguida`);
 });
 
+/* Questões parecidas demais DENTRO da mesma aula. Entre aulas diferentes a
+   semelhança é de propósito: cada compasso repete a mesma pergunta estrutural. */
+const semAcento = t => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  .replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+const palavras = t => new Set(semAcento(t).split(" ").filter(w => w.length > 3));
+/* Pares que parecem repetidos ao vocabulário mas foram conferidos e são
+   distintos: o que os separa são palavras curtas demais para o cálculo. */
+const CONFERIDOS = [
+  ["ordem ascendente a partir do Fá", "ordem descendente a partir do Dó"],
+  ["semínima pontuada + colcheia", "uma colcheia pontuada"],
+];
+const jaConferido = (x, y) => CONFERIDOS.some(([u, v]) =>
+  (x.includes(u) && y.includes(v)) || (x.includes(v) && y.includes(u)));
+const pares = [];
+for (let i = 0; i < Q.length; i++) for (let j = i + 1; j < Q.length; j++) {
+  if (Q[i].f !== Q[j].f || Q[i].a !== Q[j].a) continue;
+  const a = palavras(Q[i].q), b = palavras(Q[j].q);
+  // perguntas curtas ("O que é uma tercina?") casam com tudo: só compara as que
+  // têm vocabulário suficiente, e pela razão entre interseção e união
+  if (a.size < 4 || b.size < 4) continue;
+  const inter = [...a].filter(w => b.has(w)).length;
+  const uniao = new Set([...a, ...b]).size;
+  if (jaConferido(Q[i].q, Q[j].q)) continue;
+  if (inter / uniao > 0.6) pares.push(`f${Q[i].f}a${Q[i].a}: "${Q[i].q.slice(0, 44)}…" × "${Q[j].q.slice(0, 44)}…"`);
+}
+ok(pares.length === 0, "nenhuma questão repetida dentro da mesma aula", pares.join(" | "));
+
 /* ---------- 3. termos que o material oficial desmente ---------- */
 titulo("3. termos que o material oficial do GEM desmente");
 const textos = [
@@ -155,6 +191,7 @@ const PROIBIDOS = [
   [/(suspensiva|conclusiva)/i, "classificação de fermata que o MSA não usa"],
   [/\b(maestoso|adagio|allegro|andantino|legatissimo)\b.*indicaç/i, "termo italiano apresentado como indicação interpretativa"],
   [/três\s+tipos\s+de\s+ligadura/i, "são duas, não três"],
+  [/(11ª|décima\s+primeira)\s+linha/i, "no endecagrama o Dó Central é a 6ª linha de baixo para cima, não a 11ª"],
 ];
 PROIBIDOS.forEach(([re, porquê]) => {
   const achados = textos.filter(x => re.test(x.t));

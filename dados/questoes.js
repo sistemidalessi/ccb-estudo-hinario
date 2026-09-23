@@ -3,7 +3,7 @@
 const Q = [
 /* ---- FASE 1 ---- */
 /* aula 1 — Introdução: origem e finalidade da orquestra na CCB */
-{f:1,a:1,t:"Introdução",k:"ver",n:1,q:"Segundo o MSA, qual é a finalidade da orquestra na Congregação Cristã no Brasil?",g:"Conforme o texto do MSA. Em resumo: acompanhar os hinos de louvores e súplicas nos serviços divinos — a orquestra serve ao cantar da irmandade."},
+{f:1,a:1,t:"Introdução",k:"ver",n:1,q:"Segundo o MSA, qual é a finalidade da orquestra na Congregação Cristã no Brasil?",g:"Auxiliar a irmandade no cantar dos hinos. Daí decorre o resto: o que se espera de cada músico é conjunto, e não destaque pessoal."},
 {f:1,a:1,t:"Introdução",k:"entender",n:2,q:"Por que se diz que o músico acompanha o cantar da irmandade, e não se apresenta?",g:"Resposta aberta. Espera-se: o hino é da igreja reunida; a orquestra sustenta e conduz o canto, e por isso o conjunto vale mais do que o destaque individual."},
 {f:1,a:1,t:"Introdução",k:"ver",n:1,q:"Quantas aulas tem cada período do GEM, e quantos períodos são até completar o MSA?",g:"Quinze aulas por período e quatro períodos — dois anos, somando 60 aulas."},
 {f:1,a:1,t:"Introdução",k:"entender",n:2,q:"O que é o GEM e o que é o MSA? Não são a mesma coisa.",g:"GEM é o Grupo de Estudos Musicais — o grupo e o lugar onde se estuda. MSA é o Método Simplificado de Aprendizagem Musical — o material que ali se estuda."},
@@ -105,7 +105,6 @@ const Q = [
 {f:4,a:1,t:"4.2",k:"ver",n:1,q:"O que o ponto de aumento faz com a figura?",g:"Aumenta metade do valor dela."},
 {f:4,a:1,t:"4.2",k:"ver",n:2,q:"Em 4/4, quanto vale uma semínima pontuada? E uma mínima pontuada?",g:"Semínima pontuada: 1½ tempo. Mínima pontuada: 3 tempos."},
 {f:4,a:1,t:"4.2",k:"entender",n:3,q:"Por que o segundo ponto de aumento vale menos que o primeiro?",g:"Porque cada ponto acrescenta metade do valor do ponto anterior, e não metade da figura original."},
-{f:4,a:1,t:"4.3",k:"ver",n:1,q:"O que é intervalo?",g:"A distância de altura entre duas notas."},
 {f:4,a:1,t:"4.3",k:"ver",n:2,q:"Como se conta um intervalo entre duas notas?",g:"Contando as notas de uma ponta à outra, incluindo as duas: de Dó a Mi são três notas — terça."},
 {f:4,a:1,t:"4.3",k:"tocar",n:2,v:1,q:"Toque Sol e Si na corda Sol: que intervalo é esse? Agora toque as cordas Sol e Ré soltas — que intervalo formam?",g:"Sol–Si é uma terça (maior). Sol–Ré é uma quinta (justa) — é sempre o intervalo entre duas cordas vizinhas do violino."},
 
@@ -129,7 +128,7 @@ const Q = [
 {f:4,a:4,t:"4.4–4.5",k:"tocar",n:2,q:"Repita a leitura métrica com o metrônomo em ♩=60.",g:"Avaliar se os movimentos caem junto com o clique."},
 
 /* aula 5 — leitura métrica em 3 (continuação) */
-{f:4,a:5,t:"4.4–4.5",k:"tocar",n:3,q:"Faça a leitura métrica do hino indicado inteiro, do começo ao fim, sem parar.",g:"O critério aqui é chegar ao fim sem interromper — erros pontuais se anotam e se refazem depois."},
+{f:4,a:5,t:"4.4–4.5",k:"tocar",n:3,q:"Faça a leitura métrica de um hino em 3/4, inteiro, do começo ao fim, sem parar.",g:"O critério aqui é chegar ao fim sem interromper — erros pontuais se anotam e se refazem depois."},
 {f:4,a:5,t:"4.4–4.5",k:"ouvir",n:2,q:"Ouça a leitura de um colega e aponte um compasso em que o gesto e a voz se desencontraram.",g:"Conforme a execução. Ouvir o erro do outro é o que ensina a ouvir o próprio."},
 {f:4,a:5,t:"4.4–4.5",k:"decidir",n:3,q:"Quando você erra no meio da leitura, o certo é parar e voltar ou seguir em frente?",g:"Seguir. Parar quebra o pulso e ensina a parar. Anota-se o compasso e se volta nele depois."},
 {f:4,a:5,t:"4.4–4.5",k:"comparar",n:3,q:"Compare sua leitura de hoje com a da aula 3: o que melhorou e o que continua difícil?",g:"Resposta aberta. Serve para o candidato nomear a própria dificuldade — é o que dirige o estudo em casa."},
@@ -154,7 +153,7 @@ const Q = [
 {f:4,a:8,t:"4.6–4.7",k:"decidir",n:2,q:"Como você estuda em casa um trecho que não sai?",g:"Resposta aberta. Espera-se: isolar o compasso, subdividir, tocar lento com metrônomo e aumentar a velocidade aos poucos — nunca repetir o trecho inteiro no andamento."},
 
 /* aula 9 — leitura métrica em 2 (continuação) */
-{f:4,a:9,t:"4.6–4.7",k:"tocar",n:3,q:"Apresente a leitura métrica completa do hino indicado, do começo ao fim, sem parar.",g:"Exercício individual de apresentação. Avaliar constância do pulso e clareza dos nomes."},
+{f:4,a:9,t:"4.6–4.7",k:"tocar",n:3,q:"Apresente a leitura métrica de um hino em 2/4, inteiro e sem parar.",g:"Exercício individual de apresentação. Avaliar constância do pulso e clareza dos nomes."},
 {f:4,a:9,t:"4.6–4.7",k:"ouvir",n:2,q:"Na leitura de um colega, verifique se ele manteve o pulso durante as pausas.",g:"Conforme a execução. A pausa é onde o pulso mais se perde."},
 {f:4,a:9,t:"4.6–4.7",k:"criar",n:3,q:"Escreva quatro compassos em 2/4, com pelo menos uma pausa em cada, e leia-os metricamente.",g:"Conferir a soma de cada compasso: dois tempos exatos, contando as pausas."},
 
@@ -220,7 +219,7 @@ const Q = [
 {f:6,a:4,t:"6.5–6.7",k:"ver",n:2,q:"Escreva a escala de Fá maior e diga qual nota recebe bemol.",g:"Fá Sol Lá Si♭ Dó Ré Mi Fá — o Si."},
 {f:6,a:4,t:"6.5–6.7",k:"criar",n:3,q:"Escreva a escala de Si bemol maior e marque onde caem os semitons.",g:"Si♭ Dó Ré Mi♭ Fá Sol Lá Si♭ — semitons entre Ré–Mi♭ e entre Lá–Si♭."},
 {f:6,a:4,t:"6.5–6.7",k:"tocar",n:2,q:"Toque as escalas de Fá maior e de Si bemol maior, dizendo os bemóis antes de começar cada uma.",g:"Fá maior: Si♭. Si bemol maior: Si♭ e Mi♭."},
-{f:6,a:4,t:"6.5–6.7",k:"entender",n:3,v:1,q:"Por que Sol, Ré, Lá e Mi maior soam mais ressonantes no violino do que Lá bemol ou Ré bemol maior?",g:"Porque suas tônicas e dominantes coincidem com as cordas soltas, que vibram por simpatia e reforçam o som. Nas tonalidades com muitos bemóis isso não acontece, e a afinação exige mais atenção do ouvido."},
+{f:6,a:4,t:"6.5–6.7",k:"entender",n:3,v:1,q:"Por que Sol, Ré, Lá e Mi maior soam mais ressonantes no violino do que Lá bemol ou Ré bemol maior?",g:"Porque a tônica dessas escalas é uma corda solta, e em Sol, Ré e Lá a dominante também é. As cordas soltas vibram por simpatia e reforçam o som. Em Lá bemol e Ré bemol nenhuma das duas coincide, e a afinação passa a depender só do ouvido e do dedo."},
 
 /* ---- FASE 7 ---- */
 /* aula 5 — 7.1: armadura de clave */
