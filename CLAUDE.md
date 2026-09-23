@@ -212,12 +212,19 @@ O que já foi feito:
   deve alimentar o caderno do instrutor, no lugar do roteiro que eu havia
   inventado na primeira versão. O 1º período tem aulas de 40 min, menos a
   aula 1, de 60 min, tratada como inaugural com os pais presentes.
-- **Amostra de uma aula** em `amostra/`, nas duas versões, com três figuras
-  embutidas — feita para o Anderson aprovar o formato antes da reescrita.
 - **Pipeline de figuras**: desenho em SVG, renderizo em PNG com o Chromium do
-  Playwright (`deviceScaleFactor: 2.5`) e embuto no .docx com `ImageRun`.
-  O LibreOffice deste ambiente não abre .docx, então a conferência é pelo
-  validador de esquema e pela extração do XML.
+  Playwright (`deviceScaleFactor: 3`) e embuto no .docx com `ImageRun`. O
+  projeto parte da página: tudo é proporcional à distância entre linhas do
+  pentagrama, e o gerador aplica a mesma escala física a toda figura.
+- **As apostilas saem em .docx e em .pdf**. O PDF vem de
+  `ferramentas/gerar-pdf.js`, que monta HTML dos mesmos dados e imprime pelo
+  Chromium — o LibreOffice deste ambiente não carrega .docx, e gerar direto dá
+  controle real de quebra de página. A conferência do .docx é pelo validador de
+  esquema e pela extração do XML; a do PDF, pelo pymupdf.
+- **`ferramentas/verificar.js`** prova o que dá para provar: alturas desenhadas
+  nas figuras contra um modelo de pauta, integridade dos dados, termos que o
+  material oficial desmente e a soma dos tempos de cada compasso. Rodar sempre
+  antes de commitar.
 
 O que falta, e é o trabalho de verdade:
 
