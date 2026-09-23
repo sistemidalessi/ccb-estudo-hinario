@@ -58,7 +58,7 @@ const Q = [
 
 /* aulas 8 e 9 — 2.5 e 2.6: ritmo, pulsação e exercícios rítmicos */
 {f:2,a:8,t:"2.5–2.6",k:"entender",n:2,q:"Qual a diferença entre pulso e ritmo?",g:"O pulso é a batida regular e constante que sustenta a música; o ritmo é a organização das durações sobre esse pulso."},
-{f:2,a:8,t:"2.5–2.6",k:"tocar",n:1,q:"Marque o pulso com o pé e faça a leitura rítmica dos dois primeiros compassos do hino indicado, falando a sílaba TA.",g:"Avaliar se o pulso permaneceu constante do primeiro ao último compasso — e não acelerou nas figuras curtas."},
+{f:2,a:8,t:"2.5–2.6",k:"tocar",n:1,q:"Marque o pulso com o pé e faça a leitura rítmica dos dois primeiros compassos do hino indicado, falando a sílaba TÁ.",g:"Avaliar se o pulso permaneceu constante do primeiro ao último compasso — e não acelerou nas figuras curtas."},
 {f:2,a:8,t:"2.5–2.6",k:"erro",n:2,q:"Ao ler um trecho de colcheias, o aluno acelerou. Que erro é esse e como se corrige?",g:"Ele trocou o pulso pela figura: as colcheias são mais rápidas, mas o pulso continua o mesmo. Corrige-se marcando o pulso com o pé e mantendo-o enquanto se lê."},
 {f:2,a:9,t:"2.5–2.6",k:"ouvir",n:2,q:"O instrutor bate palmas apenas o ritmo dos quatro primeiros compassos de um hino já estudado. Descubra qual é.",g:"Conforme o hino escolhido. Vale pedir a justificativa: o que no ritmo entregou o hino."},
 {f:2,a:9,t:"2.5–2.6",k:"ouvir",n:2,q:"O instrutor executa dois trechos: em um mantém o pulso, no outro acelera aos poucos. Diga qual manteve.",g:"Conforme a execução. Pedir que o aluno aponte onde percebeu a mudança."},
@@ -72,7 +72,7 @@ const Q = [
 {f:3,a:10,t:"3.1",k:"tocar",n:2,q:"Localize no endecagrama a nota mais grave e a mais aguda que o seu instrumento toca dentro do hino indicado.",g:"Conforme o hino e o instrumento. O exercício mostra ao aluno em que faixa do endecagrama ele trabalha."},
 
 /* aula 11 — 3.2: leitura rítmica, leitura métrica e solfejo */
-{f:3,a:11,t:"3.2",k:"entender",n:2,q:"Qual a diferença entre leitura rítmica, leitura métrica e solfejo?",g:"Leitura rítmica: falar a sílaba TA, executando com precisão o ritmo das figuras. Leitura métrica: falar o nome da nota, sem cantar, no mesmo ritmo. Solfejo: cantar as notas na altura escrita, dentro do padrão rítmico."},
+{f:3,a:11,t:"3.2",k:"entender",n:2,q:"Qual a diferença entre leitura rítmica, leitura métrica e solfejo?",g:"Leitura rítmica: falar a sílaba TÁ, executando com precisão o ritmo das figuras. Leitura métrica: falar o nome da nota, sem cantar, no mesmo ritmo. Solfejo: cantar as notas na altura escrita, dentro do padrão rítmico."},
 {f:3,a:11,t:"3.2",k:"tocar",n:2,q:"Faça a leitura métrica do primeiro sistema do hino indicado, marcando os movimentos do compasso.",g:"Avaliar clareza dos nomes das notas, constância do pulso e coincidência do gesto com o tempo forte."},
 {f:3,a:11,t:"3.2",k:"tocar",n:3,q:"Faça a leitura rítmica e, em seguida, o solfejo do primeiro sistema do hino indicado.",g:"Avaliar se o ritmo se manteve igual nas duas passagens — é comum o ritmo se desfazer quando entra a afinação."},
 {f:3,a:11,t:"3.2",k:"decidir",n:3,q:"Por que se estuda o hino primeiro pela leitura rítmica e só depois pelo solfejo?",g:"Porque separa as dificuldades: primeiro se resolve a duração, depois a altura. Tentar as duas ao mesmo tempo é onde o aluno trava."},
@@ -95,9 +95,13 @@ const Q = [
 
 /* ---- FASE 4 ---- */
 /* aula 1 — 4.1, 4.2, 4.3: ligadura, ponto de aumento, intervalo */
-{f:4,a:1,t:"4.1",k:"ver",n:1,q:"Quais são os tipos de ligadura e o que cada um indica?",g:"De valor: une notas de mesma altura, somando as durações. De frase (expressão): delimita o fraseado. De portamento/legato: liga notas de alturas diferentes, executadas sem interrupção."},
-{f:4,a:1,t:"4.1",k:"erro",n:2,q:"Uma ligadura une um Lá e um Dó. Pode ser ligadura de valor? Justifique.",g:"Não. Ligadura de valor só une notas de mesma altura. Nesse caso é ligadura de expressão ou de portamento/legato."},
-{f:4,a:1,t:"4.1",k:"tocar",n:2,v:1,q:"Localize no hino indicado uma ligadura de frase e uma de valor. Toque as duas — o que muda na sua arcada em cada caso?",g:"Na ligadura de valor não se reataca a nota: sustenta-se pelo tempo somado. Na de frase, as notas tocam na mesma arcada, sem cortar o som entre elas."},
+{f:4,a:1,t:"4.1",k:"ver",n:1,q:"Quais são os tipos de ligadura e o que cada um indica?",g:"No hinário há duas, e só duas. De valor: liga notas de mesma altura e soma as durações, sem reatacar. De portamento: liga notas de alturas diferentes, fazendo o som passar de uma para a outra sem interrupção."},
+{f:4,a:1,t:"4.1",k:"erro",n:2,q:"Uma ligadura une um Lá e um Dó. Pode ser ligadura de valor? Justifique.",g:"Não. A ligadura de valor só une notas de mesma altura. Unindo Lá e Dó, é ligadura de portamento."},
+{f:4,a:1,t:"4.1",k:"tocar",n:2,v:1,q:"Localize no hino indicado uma ligadura de portamento e uma de valor. Toque as duas — o que muda na sua arcada em cada caso?",g:"Na ligadura de valor não se reataca a nota: sustenta-se pelo tempo somado. Na de portamento as notas vão na mesma arcada, passando de uma altura à outra sem cortar o som."},
+{f:4,a:1,t:"4.3",k:"ver",n:1,q:"O que é intervalo e quais são os dois tipos?",g:"Intervalo é a distância entre dois sons. Melódico quando as notas são ouvidas uma depois da outra; harmônico quando são ouvidas ao mesmo tempo."},
+{f:4,a:1,t:"4.3",k:"ver",n:2,q:"Quando um intervalo é simples e quando é composto?",g:"Simples: de duas a oito notas sucessivas. Composto: acima de oito notas."},
+{f:4,a:1,t:"4.3",k:"entender",n:2,q:"Numa mesma voz do hino, os intervalos são melódicos ou harmônicos? E entre soprano e baixo?",g:"Dentro de uma voz são melódicos — as notas vêm em sequência. Entre soprano e baixo, soando juntos, são harmônicos."},
+{f:4,a:1,t:"4.3",k:"comparar",n:3,q:"Na sua voz do hino indicado, qual é o maior intervalo e qual é o menor? Há algum intervalo composto?",g:"Conforme o hino. Nos hinos os saltos da mesma voz são quase sempre simples; um intervalo composto é raro e pede atenção redobrada na afinação."},
 {f:4,a:1,t:"4.2",k:"ver",n:1,q:"O que o ponto de aumento faz com a figura?",g:"Aumenta metade do valor dela."},
 {f:4,a:1,t:"4.2",k:"ver",n:2,q:"Em 4/4, quanto vale uma semínima pontuada? E uma mínima pontuada?",g:"Semínima pontuada: 1½ tempo. Mínima pontuada: 3 tempos."},
 {f:4,a:1,t:"4.2",k:"entender",n:3,q:"Por que o segundo ponto de aumento vale menos que o primeiro?",g:"Porque cada ponto acrescenta metade do valor do ponto anterior, e não metade da figura original."},
@@ -169,11 +173,11 @@ const Q = [
 {f:5,a:11,t:"5.1",k:"tocar",n:3,q:"Toque a tercina com o metrônomo, um clique por tempo e três notas por clique.",g:"Avaliar se a primeira nota de cada grupo cai exatamente no clique."},
 
 /* aula 12 — 5.2: fermata */
-{f:5,a:12,t:"5.2",k:"ver",n:1,q:"Qual a diferença entre fermata suspensiva e fermata conclusiva?",g:"Suspensiva: prolongamento leve, a música continua depois. Conclusiva: prolongamento mais acentuado, com terminação gradual, no final do hino ou da seção."},
+{f:5,a:12,t:"5.2",k:"ver",n:1,q:"O que é fermata? Diga o que acontece com o som e o que vem logo depois dele.",g:"É o sinal que indica o prolongamento do valor da nota, seguido de uma parada breve, em silêncio, e de uma respiração. As três coisas fazem parte da fermata — não só o prolongamento."},
 {f:5,a:12,t:"5.2",k:"ver",n:1,q:"Como é o sinal da fermata e onde ele se escreve?",g:"Um arco com um ponto no centro, escrito acima (ou abaixo) da nota ou da pausa que se prolonga."},
 {f:5,a:12,t:"5.2",k:"ver",n:2,q:"A fermata pode cair sobre uma pausa?",g:"Pode. Prolonga-se o silêncio do mesmo modo, até o gesto de saída."},
-{f:5,a:12,t:"5.2",k:"decidir",n:2,q:"Há fermata no fim do primeiro período do hino. Quem decide quanto tempo ela dura, e o que você faz enquanto isso?",g:"Quem decide é a condução. O músico sustenta o som firme e afinado até o gesto de saída, sem antecipar nem deixar cair a intensidade."},
-{f:5,a:12,t:"5.2",k:"tocar",n:2,q:"Localize as fermatas do hino indicado e diga, para cada uma, se é suspensiva ou conclusiva.",g:"Conforme o hino. Em geral as internas são suspensivas e a final é conclusiva."},
+{f:5,a:12,t:"5.2",k:"decidir",n:2,q:"Há fermata no fim do primeiro período do hino. Quem decide quanto tempo ela dura, e o que você faz enquanto isso?",g:"O tempo é indefinido: decide-se pelo bom gosto e pelo bom senso musical, acompanhando a condução. E a nota não soa com a mesma intensidade do começo ao fim — vai diminuindo gradativamente até o silêncio."},
+{f:5,a:12,t:"5.2",k:"tocar",n:2,q:"Toque o hino indicado até a primeira fermata, faça-a inteira e retome o hino depois dela.",g:"Avaliar três coisas: se o som foi diminuindo até o silêncio, se houve a parada breve com a respiração, e se a retomada veio exatamente na mesma velocidade de antes da fermata."},
 
 /* aula 13 — 5.3 e 5.4: fórmula de compasso em 6 e movimento de solfejo em 6 */
 {f:5,a:13,t:"5.3–5.5",k:"ver",n:1,q:"Em 6/8: quantos movimentos, quantos tempos, e quais são a unidade de movimento, a unidade de tempo e a unidade de compasso?",g:"Seis movimentos e dois tempos. Unidade de movimento: colcheia. Unidade de tempo: semínima pontuada. Unidade de compasso: mínima pontuada."},
@@ -289,6 +293,8 @@ const Q = [
 {f:10,a:1,t:"10.1",k:"ver",n:1,q:"Coloque em ordem crescente de intensidade: mf, pp, f, p, ff, mp.",g:"pp · p · mp · mf · f · ff."},
 {f:10,a:1,t:"10.1",k:"ver",n:1,q:"O que significam os sinais em forma de ângulo escritos sob a pauta, abrindo e fechando?",g:"Crescendo (abrindo) e diminuendo (fechando) — aumento e diminuição gradual da intensidade."},
 {f:10,a:1,t:"10.1",k:"entender",n:2,q:"Qual a diferença entre f e crescendo?",g:"f é um nível de intensidade, fixo. Crescendo é o aumento gradual de intensidade até chegar a outro nível."},
+{f:10,a:1,t:"10.1",k:"ver",n:1,q:"O que é dinâmica, e quais são os dois estilos de dinâmica?",g:"É a variação da intensidade do som de maneira gradual, tanto para mais forte quanto para mais fraca. Os dois estilos são a dinâmica natural e a artificial."},
+{f:10,a:1,t:"10.1",k:"entender",n:2,q:"Como se aplica a dinâmica no nosso hinário, se ele não traz os sinais escritos?",g:"No hinário não há indicação de dinâmica artificial: segue-se a dinâmica natural, conforme a poesia do hino e o discurso musical. Os sinais se estudam para saber lê-los; no hinário quem dita a dinâmica é o texto."},
 {f:10,a:1,t:"10.1",k:"decidir",n:2,v:1,q:"O hino pede p num trecho agudo. O que muda no seu arco?",g:"Menos peso do braço, arco mais lento e ponto de contato mais próximo da escala — mantendo o som apoiado, sem deixar a nota “soprar”."},
 {f:10,a:1,t:"10.1",k:"decidir",n:2,q:"Nas retomadas, depois da respiração, o som volta forte ou fraco? Por quê?",g:"Fraco. A retomada depois da respiração não recebe acento — quem recebe acento é o tempo forte do compasso, não a entrada do fôlego."},
 {f:10,a:1,t:"10.1",k:"ouvir",n:3,q:"O instrutor toca a mesma frase duas vezes: uma com crescendo e outra em intensidade fixa. Diga qual é qual e onde o crescendo começou.",g:"Conforme a execução. O aluno deve identificar o ponto de partida do crescendo, e não apenas notar que houve."},
@@ -296,14 +302,16 @@ const Q = [
 /* ---- FASE 11 ---- */
 /* aula 2 — 11.1, 11.2 e 11.3: acento métrico, compasso simples e composto */
 {f:11,a:2,t:"11.1",k:"entender",n:2,q:"O que é acento métrico e por que ele não precisa estar escrito na partitura?",g:"É a alternância natural de tempos fortes e fracos determinada pela fórmula de compasso. Não se escreve porque decorre da própria métrica."},
+{f:11,a:2,t:"11.1",k:"ver",n:1,q:"Qual é a sequência do acento métrico no compasso quaternário simples?",g:"Forte, fraco, meio forte, fraco. O 3º tempo tem um peso menor que o 1º, e não igual a ele."},
+{f:11,a:2,t:"11.1",k:"decidir",n:2,q:"De que modo o acento métrico deve ser executado num hino?",g:"De modo natural, conforme a fórmula de compasso — sem marcar com sotaque. Ele organiza o compasso; exagerá-lo deforma a interpretação."},
 {f:11,a:2,t:"11.2–11.3",k:"entender",n:2,q:"Qual a diferença entre compasso simples e compasso composto?",g:"No simples, a unidade de tempo é figura simples e cada tempo se divide em dois. No composto, a unidade de tempo é figura pontuada e cada tempo se divide em três."},
 {f:11,a:2,t:"11.2–11.3",k:"ver",n:2,q:"Classifique cada um em binário, ternário ou quaternário, e em simples ou composto: 2/4, 3/4, 4/4, 6/8, 9/8, 12/8.",g:"2/4 binário simples · 3/4 ternário simples · 4/4 quaternário simples · 6/8 binário composto · 9/8 ternário composto · 12/8 quaternário composto."},
 {f:11,a:2,t:"11.2–11.3",k:"ver",n:2,q:"Como saber, só pela fórmula, se o compasso é simples ou composto?",g:"Pelo número de cima: 2, 3 e 4 indicam compasso simples; 6, 9 e 12 indicam composto."},
 {f:11,a:2,t:"11.2–11.3",k:"erro",n:2,q:"Um aluno classificou o 6/8 como ternário porque tem seis movimentos. Corrija.",g:"6/8 é binário composto: tem dois tempos, cada um com três colcheias. Os seis são movimentos, não tempos."},
 
 /* aula 3 — 11.4: compassos alternados */
-{f:11,a:3,t:"11.4",k:"ver",n:2,q:"O que é compasso alternado?",g:"É quando a fórmula de compasso muda no decorrer da música, alternando entre fórmulas diferentes."},
-{f:11,a:3,t:"11.4",k:"ver",n:1,q:"Como o compasso alternado aparece escrito na partitura?",g:"A nova fórmula é escrita no compasso em que passa a valer, geralmente depois de uma barra dupla."},
+{f:11,a:3,t:"11.4",k:"ver",n:2,q:"O que é compasso alternado?",g:"É a junção de duas ou mais fórmulas de compasso diferentes, aplicadas alternadamente a cada compasso."},
+{f:11,a:3,t:"11.4",k:"ver",n:1,q:"Como os compassos alternados aparecem escritos numa partitura em geral, e como aparecem no nosso hinário?",g:"Numa partitura em geral, as fórmulas vêm no início do pentagrama e também ao longo dele, conforme os compassos alternados surgem. No nosso hinário elas aparecem só junto da armadura de clave — e são sempre a junção de duas fórmulas."},
 {f:11,a:3,t:"11.4",k:"decidir",n:3,q:"O hino muda de 4/4 para 3/4 no meio. O que você confere antes de tocar?",g:"Onde está a barra dupla da mudança, se a unidade de tempo continua sendo a semínima (o pulso não muda) e como fica a condução no compasso da virada."},
 {f:11,a:3,t:"11.4",k:"tocar",n:2,q:"Leia um trecho que muda de fórmula, marcando os movimentos de cada compasso.",g:"Avaliar se o pulso se manteve na virada — é ali que o conjunto se desencontra."},
 {f:11,a:3,t:"11.4",k:"ouvir",n:2,q:"O instrutor executa um trecho com mudança de compasso. Aponte em que compasso ela ocorre.",g:"Conforme a execução."},
@@ -324,7 +332,7 @@ const Q = [
 
 /* ---- FASE 13 ---- */
 /* aula 6 — 13.1: ritmos iniciais */
-{f:13,a:6,t:"13.1",k:"ver",n:1,q:"Quais são os três ritmos iniciais e como se define cada um?",g:"Tético: começa no tempo forte, compasso completo. Anacrúsico: começa em tempo fraco, com o primeiro compasso incompleto (anacruse). Acéfalo: o tempo forte é ocupado por pausa e a melodia entra depois dela."},
+{f:13,a:6,t:"13.1",k:"ver",n:1,q:"Quais são os três ritmos iniciais e como se define cada um?",g:"Tético: a primeira nota cai no tempo forte do 1º compasso. Anacrúsico: as notas iniciais precedem o 1º compasso. Acéfalo: começa por contratempo — o 1º tempo do 1º compasso é ocupado por pausa, escrita ou não."},
 {f:13,a:6,t:"13.1",k:"ver",n:1,q:"Qual é o ritmo inicial do hino indicado? Em que tempo ou movimento ele começa?",g:"Conforme o hino. Exigir as duas respostas: o tipo e o tempo exato de entrada."},
 {f:13,a:6,t:"13.1",k:"entender",n:3,q:"Olhando só o hinário, como confirmar que um hino é anacrúsico?",g:"O primeiro compasso está incompleto, e o último compasso do hino completa exatamente o valor que falta nele."},
 {f:13,a:6,t:"13.1",k:"decidir",n:2,q:"O hino é anacrúsico. Onde a entrada é dada e em que momento você começa a tocar?",g:"O gesto preparatório cai no tempo anterior; o músico entra no tempo (ou movimento) em que a anacruse está escrita, e não no primeiro tempo forte."},
@@ -332,8 +340,9 @@ const Q = [
 
 /* aula 7 — ritmos iniciais (continuação) */
 {f:13,a:7,t:"13.1",k:"comparar",n:3,q:"Escolha um hino tético e um anacrúsico. Toque a entrada dos dois: o que muda na sua preparação?",g:"No tético, o arco ou o sopro parte junto com o gesto para baixo. No anacrúsico é preciso estar pronto um tempo antes, porque a entrada acontece antes do primeiro tempo forte."},
-{f:13,a:7,t:"13.1",k:"tocar",n:2,q:"Procure no hinário um hino acéfalo e toque a entrada, contando em voz alta o tempo da pausa.",g:"Avaliar se a pausa foi contada inteira — encurtá-la é o erro típico."},
+{f:13,a:7,t:"13.1",k:"tocar",n:2,q:"Procure no hinário um hino acéfalo e toque a entrada, contando em voz alta o tempo da pausa.",g:"Avaliar se a pausa foi contada inteira — encurtá-la é o erro típico. São só dois hinos acéfalos no hinário inteiro, e neles a pausa inicial não vem escrita."},
 {f:13,a:7,t:"13.1",k:"decidir",n:2,q:"Num hino anacrúsico, como se comporta o último compasso?",g:"Ele completa o valor que faltava na anacruse, de modo que os dois somados formem um compasso inteiro."},
+{f:13,a:7,t:"13.1",k:"entender",n:2,q:"Fora do início, um hino pode ter trechos téticos, anacrúsicos e acéfalos?",g:"Pode: toda frase e toda semifrase tem o seu ritmo inicial. O que se chama de \u201Critmo inicial do hino\u201D é apenas o da primeira delas."},
 {f:13,a:7,t:"13.1",k:"criar",n:3,q:"Escreva três inícios de melodia em 4/4: um tético, um anacrúsico e um acéfalo.",g:"Conferir: no anacrúsico o primeiro compasso fica incompleto; no acéfalo o compasso está completo, mas começa com pausa."},
 
 /* ---- FASE 14 ---- */
@@ -359,27 +368,32 @@ const Q = [
 /* aula 11 — 15.1 e 15.2: andamento e poco rallentando */
 {f:15,a:11,t:"15.1",k:"ver",n:1,q:"Cite três indicações de andamento e classifique cada uma em lento, moderado ou rápido.",g:"Por exemplo: Adagio (lento), Andante ou Moderato (moderado), Allegro (rápido)."},
 {f:15,a:11,t:"15.1",k:"ver",n:1,q:"Qual é o andamento do hino indicado — lento, moderado ou rápido — e qual a velocidade média marcada?",g:"Conforme o hino: classificar e ler a marcação metronômica escrita."},
-{f:15,a:11,t:"15.2",k:"ver",n:1,q:"O que indica poco rallentando e onde ele costuma aparecer nos hinos?",g:"Retardar pouco a pouco. Costuma aparecer no final do hino ou no fecho de um período."},
-{f:15,a:11,t:"15.2",k:"tocar",n:2,q:"Marque a lápis, no hino indicado, em que nota começa o poco rall. e toque desse ponto até o fim.",g:"Avaliar se o retardamento foi gradual e se começou na nota marcada, não antes."},
+{f:15,a:11,t:"15.2",k:"ver",n:1,q:"O que indica poco rallentando, e que outras expressões de modificação de andamento aparecem nos hinos?",g:"Poco rallentando é a redução gradativa do andamento — só do andamento: a intensidade do som não entra nisso. E é a única expressão de modificação de andamento usada nos nossos hinos."},
+{f:15,a:11,t:"15.2",k:"tocar",n:2,q:"Marque a lápis, no hino indicado, em que nota começa o poco rall. e toque desse ponto até o fim.",g:"Avaliar se o retardamento foi gradual e se começou exatamente na nota sobre a qual está escrito poco rall. — não no começo do compasso nem do sistema."},
+{f:15,a:11,t:"15.1",k:"ver",n:2,q:"A marcação metronômica do hino traz dois números. O que cada um significa?",g:"São a velocidade mínima e a máxima: o hino deve ser entoado dentro desses limites, e convém ficar na média. Abaixo da mínima, em regra não — a exceção é a meia hora, que pode ficar abaixo, mas próxima da mínima."},
+{f:15,a:11,t:"15.1",k:"decidir",n:3,q:"O que, além do número escrito, o músico observa para escolher o andamento dentro dos limites do hino?",g:"O tipo de serviço e o momento do culto; o andamento da introdução, que é a base para a orquestra; e o que o conjunto está efetivamente tocando. Qualquer que seja a velocidade escolhida, a proporção entre as figuras não muda."},
 
 /* aula 12 — 15.3: modificação indevida de andamento */
 {f:15,a:12,t:"15.3",k:"decidir",n:3,q:"O que é modificação indevida de andamento e onde ela costuma acontecer?",g:"É alterar o andamento onde a partitura não pede. Costuma acontecer acelerando nos trechos fáceis ou nas notas curtas, e arrastando nos trechos difíceis e nas notas longas."},
 {f:15,a:12,t:"15.3",k:"entender",n:2,q:"Por que acelerar de leve num trecho fácil é um problema, mesmo que ninguém perceba na hora?",g:"Porque o conjunto se apoia num pulso comum: quem acelera puxa o naipe e o canto atrás, e o hino termina num andamento diferente daquele em que começou."},
+{f:15,a:12,t:"15.3",k:"erro",n:2,q:"Terminada a fermata, o aluno emendou um rallentando que não está escrito. Está certo?",g:"Não. Sem indicação escrita, retoma-se na mesma velocidade de antes da fermata. Aplicar rallentando depois de fermata por hábito é justamente a modificação indevida de andamento."},
 {f:15,a:12,t:"15.3",k:"ouvir",n:2,q:"O instrutor toca o mesmo hino duas vezes, uma delas com aceleração indevida. Identifique qual e em que compasso ela começou.",g:"Conforme a execução. Pedir o compasso, não apenas “no meio”."},
 {f:15,a:12,t:"15.3",k:"tocar",n:2,q:"Toque o hino indicado com metrônomo do começo ao fim e verifique se terminou no mesmo andamento em que começou.",g:"Avaliar em que ponto o aluno se afastou do clique — normalmente nos trechos de figuras curtas."},
 
 /* ---- FASE 16 ---- */
 /* aula 13 — 16.1 e 16.2: frases, semifrases e interpretação */
-{f:16,a:13,t:"16.1",k:"ver",n:1,q:"O que é frase e o que é semifrase?",g:"Frase é a unidade musical com sentido completo; semifrase é cada uma das partes menores que a compõem."},
-{f:16,a:13,t:"16.1",k:"entender",n:2,q:"Como localizar o fim de uma frase no hino?",g:"Pelo repouso da melodia, pelas respirações indicadas e pelo sentido do texto do hino — os três costumam coincidir."},
+{f:16,a:13,t:"16.1",k:"ver",n:1,q:"O que é frase e o que é semifrase? E de quantos compassos são, nos nossos hinos?",g:"Frase é o conjunto de notas que forma uma unidade com sentido de conclusão; semifrase é cada parte que compõe a frase. Nos nossos hinos a frase tem normalmente 4 compassos e se divide em 2 semifrases."},
+{f:16,a:13,t:"16.1",k:"entender",n:2,q:"As vírgulas menores de respiração servem para localizar as semifrases?",g:"Não. A semifrase se reconhece pelo sentido musical — quando falta um trecho para chegar à conclusão. A vírgula de respiração é outra coisa e nem sempre cai no mesmo lugar."},
 {f:16,a:13,t:"16.1",k:"criar",n:3,q:"Marque no hino indicado onde você respiraria, e justifique cada respiração pela frase e pelo texto.",g:"Avaliar se as respirações caem em fim de frase ou de semifrase, e não no meio de uma palavra ou de um desenho melódico."},
-{f:16,a:13,t:"16.2",k:"entender",n:2,q:"O que significa dizer que um hino deve ser executado “com respeito”? Cite duas coisas concretas que mudam na sua execução.",g:"Resposta aberta. Espera-se: andamento estável, som sustentado e sem exageros, ataque suave e atenção ao conjunto em vez de destaque individual."},
+{f:16,a:13,t:"16.2",k:"entender",n:2,q:"O que é interpretação musical? Cite duas coisas concretas que mudam na sua execução por causa dela.",g:"É a arte de compreender as intenções e os sentimentos do compositor e transmiti-los pelo som do instrumento. Em concreto: intensidade e ataque conforme a poesia do hino, som sustentado e sem ornamentos, e atenção ao conjunto em vez de destaque individual."},
 {f:16,a:13,t:"16.2",k:"decidir",n:3,q:"No ensaio, o seu naipe está afinado entre si mas soa destacado do resto da orquestra. O que você verifica primeiro?",g:"Intensidade e ataque: normalmente o naipe está tocando mais forte ou entrando com ataque mais duro que o conjunto. Depois, conferir se a oitava executada é a correta para o instrumento."},
 
 /* aula 14 — 16.3: indicações interpretativas */
-{f:16,a:14,t:"16.3",k:"ver",n:1,q:"O que determinam as indicações “com grandiosidade e bem marcado” e “bem legato e suave”?",g:"A primeira pede som amplo, ataque nítido e separação entre as notas. A segunda pede notas ligadas, sem reataque perceptível, e intensidade contida."},
-{f:16,a:14,t:"16.3",k:"decidir",n:3,v:1,q:"O hino traz “bem legato”. O que muda na sua arcada?",g:"Mais notas dentro da mesma arcada onde houver ligadura, trocas de arco disfarçadas (sem acento na virada) e velocidade de arco constante ao longo da frase."},
+{f:16,a:14,t:"16.3",k:"ver",n:1,q:"Quantas e quais são as indicações interpretativas usadas nos nossos hinos?",g:"São seis: Solene, Majestoso, Com júbilo, Com veneração, Com submissão e Com humildade."},
+{f:16,a:14,t:"16.3",k:"decidir",n:3,v:1,q:"O hino indicado traz uma indicação interpretativa. O que ela muda na sua arcada?",g:"Conforme a indicação. Em Majestoso ou Solene: mais peso e arco mais largo, ataque nítido. Em Com veneração, Com submissão ou Com humildade: arco mais leve, trocas disfarçadas, som contido. Em Com júbilo: ataque mais claro e condução adiante, sem correr."},
 {f:16,a:14,t:"16.3",k:"comparar",n:3,q:"Tome dois hinos no mesmo tom e na mesma fórmula de compasso, mas com indicações interpretativas diferentes. O que muda na execução?",g:"Avaliar se o aluno cita elementos concretos: ataque, ligadura, intensidade, condução da frase e andamento — e não apenas “um é mais alegre”."},
+{f:16,a:14,t:"16.3",k:"entender",n:2,q:"O que são as indicações interpretativas e o que elas NÃO mudam?",g:"São expressões escritas no hino que alertam o músico para uma forma de interpretação mais específica. Não mudam as notas nem a velocidade: mudam o caráter — ataque, intensidade e condução da frase."},
+{f:16,a:14,t:"16.3",k:"decidir",n:3,q:"O hino não traz indicação interpretativa escrita. Então pode ser tocado de qualquer jeito?",g:"Não. Cada hino tem a sua expressão própria, que o músico identifica pela poesia. A indicação escrita, quando existe, só reforça o que a poesia já pede — a maioria dos hinos não tem nenhuma."},
 
 /* aula 15 — indicações interpretativas (continuação) */
 {f:16,a:15,t:"16.3",k:"tocar",n:3,q:"Toque o hino indicado seguindo todas as indicações interpretativas escritas, e explique cada escolha que fez.",g:"Exercício individual de apresentação. Avaliar se cada escolha tem apoio no que está escrito."},
