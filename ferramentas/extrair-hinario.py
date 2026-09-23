@@ -42,10 +42,13 @@ NOTA = re.compile(r"^(D[oó]|R[eé]|Mi|F[aá]|Sol|L[aá]|Si)(♭|♯)?$")
 METRONOMO = re.compile(r"=\s*(\d{2,3})\s*-\s*(\d{2,3})\s*\(?\s*(\d{2,3})?\s*\)?")
 MARCACAO = re.compile(r"\b(?:em|in)\s+(2|3|4|6|9|12)\b", re.I)
 NUMERO = re.compile(r"^(\d{1,3})\.?$")
+# As indicações interpretativas do hinário são seis, e só seis, conforme o
+# caderno de atividades do 4º período do GEM. Uma primeira versão deste script
+# procurava termos italianos de andamento (maestoso, adagio, allegro...) e
+# devolvia palavras que não são indicação interpretativa nenhuma.
 INDICACOES = re.compile(
-    r"\b(maestoso|moderato|andante|andantino|adagio|allegro|allegretto|larghetto|largo|lento|"
-    r"vivace|fluido|legatissimo|grandioso|expressivo|marcial|sereno|suave|solene|choroso|"
-    r"dolente|majestoso|vibrante|terno|calmo|decidido|jubiloso)\b", re.I)
+    r"\b(solene|majestoso|com\s+j[úu]bilo|com\s+venera[çc][ãa]o|"
+    r"com\s+submiss[ãa]o|com\s+humildade)\b", re.I)
 
 TOPO = 100  # os cabeçalhos ficam todos acima de y=100
 
@@ -113,7 +116,7 @@ def dados_da_pagina(linhas, contador=0):
         "tom": tom,
         "marcacao": f"em {marc.group(1)}" if marc else "",
         "met": (f"{met.group(1)}-{met.group(2)}" + (f" ({met.group(3)})" if met.group(3) else "")) if met else "",
-        "ind": ind.group(1).lower() if ind else "",
+        "ind": " ".join(ind.group(1).split()).capitalize() if ind else "",
     }, contador
 
 

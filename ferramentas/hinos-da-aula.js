@@ -2,8 +2,19 @@
    o conceito da aula aparece. Os hinos saem fora da ordem do hinário de
    propósito: quem manda é a teoria.
 
+   Ordem de prioridade, e ela importa:
+   1. a lista oficial do GEM para aquela aula (dados/hinos-por-aula.js), quando
+      existe. O caderno de atividades já traz os hinos na ordem de complexidade
+      do MSA — nada aqui substitui isso;
+   2. as regras abaixo, que escolhem hinos pelos dados do cabeçalho (tom,
+      marcação, metrônomo). Elas existem para as aulas em que o próprio caderno
+      manda o instrutor selecionar os hinos, e para as que não trazem lista.
+
    Cada regra diz por que aqueles hinos foram escolhidos e gera perguntas com
    gabarito, tiradas dos próprios dados do hino. */
+
+let HINOS_AULA = [];
+try { ({ HINOS_AULA } = require("../dados/hinos-por-aula.js")); } catch (e) { /* no navegador vem do <script> */ }
 
 const ARMADURA = {
   "Dó": "nenhum acidente", "Sol": "um sustenido (Fá♯)", "Ré": "dois sustenidos (Fá♯ Dó♯)",
@@ -151,22 +162,56 @@ const REGRAS = {
        `${media(h) < 70 ? "Lento" : media(h) < 100 ? "Moderado" : "Rápido"} — média em torno de ${Math.round(media(h))}.`],
     ],
   },
+  /* As indicações interpretativas são seis — Solene, Majestoso, Com júbilo,
+     Com veneração, Com submissão, Com humildade — e a extração do hinário ainda
+     não as recolheu (a primeira versão do extrator procurava termos italianos,
+     que não são indicação nenhuma). Enquanto h.ind estiver vazio esta regra
+     devolve null e a aula fica sem hino de fecho automático; o caderno do GEM,
+     nessa aula, manda mesmo o instrutor escolher. */
   "4-14": {
     porque: "hinos que trazem indicação interpretativa impressa",
     escolher: H => espalhar(H.filter(h => h.ind), 3),
     perguntas: h => [
       [`O hino ${h.n} traz a indicação “${h.ind}”. O que muda na sua execução?`,
-       "Resposta aberta. Espera-se que o candidato cite ataque, ligadura, intensidade e condução da frase — não apenas o sentimento."],
+       "Resposta aberta. Espera-se que o candidato cite ataque, intensidade e condução da frase — não apenas o sentimento."],
     ],
   },
 };
 
+/* Listas oficiais do GEM para uma aula, com os dados do hino anexados. */
+function listasOficiais(periodo, aula, HINOS) {
+  const porNumero = new Map(HINOS.map(h => [h.n, h]));
+  return (HINOS_AULA || [])
+    .filter(l => l.p === periodo && l.a.includes(aula) && l.hinos.length)
+    .map(l => ({
+      ...l,
+      hinos: l.hinos.map(n => porNumero.get(n) || { n }),
+      comp1: new Set(l.comp1 || []),
+    }));
+}
+
 function hinosDaAula(periodo, aula, HINOS, quantos = 3) {
+  const oficiais = listasOficiais(periodo, aula, HINOS);
+  const comp = oficiais.find(l => l.tipo === "complementar") || oficiais[0];
+  if (comp) {
+    return {
+      fonte: "oficial",
+      porque: `lista do próprio GEM para esta aula — ${comp.rot.toLowerCase()}`,
+      hinos: espalhar(comp.hinos, quantos),
+      nota: comp.nota,
+      comp1: comp.comp1,
+      todas: oficiais,
+      perguntas: h => [
+        [`O hino ${h.n} está na lista do GEM para esta aula. Localize nele o que a aula estudou e mostre onde está.`,
+         "Conforme o hino. Exigir que o candidato aponte o compasso, e não apenas diga que “tem”."],
+      ],
+    };
+  }
   const regra = REGRAS[`${periodo}-${aula}`];
   if (!regra) return null;
   const achados = espalhar((regra.escolher(HINOS) || []).filter(Boolean), quantos);
   if (!achados.length) return null;
-  return { porque: regra.porque, hinos: achados, perguntas: regra.perguntas };
+  return { fonte: "regra", porque: regra.porque, hinos: achados, perguntas: regra.perguntas };
 }
 
-module.exports = { hinosDaAula, ARMADURA };
+module.exports = { hinosDaAula, listasOficiais, ARMADURA };
