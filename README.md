@@ -99,13 +99,24 @@ O script lê **apenas a faixa superior de cada página** — número, título,
 tonalidade, metrônomo e indicação interpretativa. A partitura não é lida nem
 reproduzida.
 
-Ele lê cada página duas vezes. Na primeira, procura o cabeçalho na altura em que
-ele costuma estar. Depois compara o que achou com o que os números impressos
-dizem que deveria haver: entre o hino 143 e o hino 148 têm de caber quatro
-hinos, e se só apareceram dois, as duas aberturas que faltam estão naquelas
-páginas. Só nelas ele lê de novo, realinhando as alturas — é assim que recupera
-as páginas cujo cabeçalho saiu impresso mais abaixo, sem afrouxar nenhuma regra
-e sem risco de inventar hino onde não há.
+**Nem todo hino começa numa página nova.** Em parte do hinário um hino termina
+no alto da folha e o seguinte começa logo abaixo, na mesma página, com o
+cabeçalho inteiro repetido ali no meio. Quem procura só na faixa de cima perde
+esses — foram 94 páginas na primeira extração.
+
+Por isso o script lê cada página duas vezes. Na primeira, procura o cabeçalho
+onde ele costuma estar. Depois compara o que achou com o que os números
+impressos dizem que deveria haver: entre o hino 143 e o hino 148 têm de caber
+quatro hinos, e se só apareceram dois, as duas aberturas que faltam estão
+naquelas páginas. Só nelas ele lê de novo, agora procurando o cabeçalho pela
+**forma** — título e, de 4 a 36 pontos abaixo, a tonalidade — em qualquer
+altura da folha. O que protege contra inventar hino é a página já ter sido
+eleita suspeita: numa página onde a conta acusa falta, achar título e
+tonalidade é achar o hino que faltava.
+
+O hinário também não é uniforme na grafia: escreve `Si♭` numa página e `Sí♭`,
+com acento no i, noutra. A tonalidade é reconhecida sem acento nenhum e
+devolvida já na grafia certa.
 
 O que o script **não** consegue: ritmo inicial (tético, anacrúsico, acéfalo) e os
 sinais presentes (fermata, tercina, síncopa, ritornelo). Isso depende de olhar a

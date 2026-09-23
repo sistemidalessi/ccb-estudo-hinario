@@ -13,8 +13,14 @@ Como o hinário se organiza (medido no arquivo real, não suposto):
     y≈48  TONALIDADE, seguida do compositor original
     y≈66  marcação de metrônomo, no formato "= 56 - 66 (61)"
     y≈84  indicação interpretativa, quando existe
-Cada hino começa numa página nova, então os hinos são contados em sequência e
-o contador é re-sincronizado toda vez que um número aparece escrito.
+Nem todo hino começa numa página nova: em parte do hinário um hino termina no
+alto da página e o seguinte começa logo abaixo, na mesma folha, com o
+cabeçalho inteiro repetido ali no meio. Por isso não basta olhar a faixa de
+cima — o cabeçalho pode estar em qualquer altura, e o que o identifica é a
+forma: título, e uns 24 a 30 pontos abaixo dele, a tonalidade.
+
+Os hinos são contados em sequência e o contador é re-sincronizado toda vez que
+um número aparece escrito.
 
 A partitura não é lida nem reproduzida: o script olha só a faixa do cabeçalho.
 
@@ -47,10 +53,18 @@ except ImportError:
         sys.exit("Falta a biblioteca: pip install pymupdf")
 
 LIXO = re.compile(r"ANDERSON|FERNANDES|DALESSI|\bafdalessi\S*|\S*@\S+\.\w+|\d{3}\.\d{3}\.\d{3}-\d{2}", re.I)
-NOTA = re.compile(r"^(D[oó]|R[eé]|Mi|F[aá]|Sol|L[aá]|Si)(♭|♯)?$")
+# O hinário não é uniforme na grafia da tonalidade: escreve "Si♭" numa página
+# e "Sí♭" — com acento no i — noutra. Por isso a nota é reconhecida sem acento
+# nenhum e devolvida já na grafia certa, que é a que o resto do material usa.
+NOMES_DE_NOTA = {"do": "Dó", "re": "Ré", "mi": "Mi", "fa": "Fá",
+                 "sol": "Sol", "la": "Lá", "si": "Si"}
+NOTA = re.compile(r"^([A-Za-zÀ-ÿ]{2,3})(♭|♯)?$")
 METRONOMO = re.compile(r"=\s*(\d{2,3})\s*-\s*(\d{2,3})\s*\(?\s*(\d{2,3})?\s*\)?")
 MARCACAO = re.compile(r"\b(?:em|in)\s+(2|3|4|6|9|12)\b", re.I)
 NUMERO = re.compile(r"^(\d{1,3})\.?$")
+# Em parte das páginas o número vem sozinho na linha; noutras vem colado à
+# marcação, como "15 em 4". São as duas formas, e não mais que essas.
+NUMERO_COM_MARCACAO = re.compile(r"^(\d{1,3})\s+(?:em|in)\s+\d{1,2}$", re.I)
 # As indicações interpretativas do hinário são seis, e só seis, conforme o
 # caderno de atividades do 4º período do GEM. Uma primeira versão deste script
 # procurava termos italianos de andamento (maestoso, adagio, allegro...) e
@@ -60,8 +74,18 @@ INDICACOES = re.compile(
     r"com\s+submiss[ãa]o|com\s+humildade)\b", re.I)
 
 TOPO = 100   # os cabeçalhos ficam todos acima de y=100
-TOPO_RELATORIO = 320  # o relatório olha mais abaixo: se o cabeçalho de alguma
-                      # página estiver fora da faixa de leitura, é aqui que aparece
+TOPO_RELATORIO = 850  # a segunda leitura e o relatório olham a página inteira:
+                      # o hino pode começar no meio dela, ou já no rodapé
+ALTURA_TITULO = 18    # altura do título quando o hino abre a página
+
+
+def nota_canonica(token):
+    """"Sí♭" e "Si♭" → "Si♭". Devolve "" quando não é nome de nota."""
+    m = NOTA.match(token.strip(".,;:·)(\u2013-"))
+    if not m:
+        return ""
+    nome = NOMES_DE_NOTA.get(sem_acento(m.group(1)))
+    return (nome + (m.group(2) or "")) if nome else ""
 
 
 def linhas_do_topo(pagina, limite=TOPO):
@@ -81,7 +105,7 @@ def linhas_do_topo(pagina, limite=TOPO):
     return [(y, re.sub(r"\s+", " ", LIXO.sub("", t)).strip()) for y, t in linhas]
 
 
-def dados_da_pagina(linhas, contador=0):
+def dados_da_pagina(linhas, contador=0, faixa_tom=(34, 62)):
     """Linhas do cabeçalho de uma página → (dados, contador).
     dados é None quando a página não abre um hino. O campo "impresso" traz o
     número quando ele aparece escrito na página, e None quando não aparece —
@@ -92,13 +116,12 @@ def dados_da_pagina(linhas, contador=0):
         if y <= 34 and len(t.strip()) > 3 and not NUMERO.match(t.strip()):
             titulo = t.strip()
             break
-    # a tonalidade cai em y=42 ou y=48 conforme o hino: varre as duas
-    faixa_tom = " ".join(t for y, t in linhas if 34 <= y <= 62)
-    # "Sol," e "Ré." saem do extrator com a pontuação colada e não casavam com
-    # NOTA, que é ancorada. Tirar a pontuação das pontas não transforma nenhuma
-    # outra palavra em nota: ou já era nota, ou continua não sendo.
-    limpos = [tk.strip(".,;:·)(\u2013-") for tk in faixa_tom.split()]
-    tom = next((tk for tk in limpos if NOTA.match(tk)), "")
+    # A tonalidade cai em y=42 ou y=48 conforme o hino, e por isso a faixa
+    # padrão é larga. Quem já sabe onde ela está — a segunda leitura sabe —
+    # passa a faixa exata, e não corre o risco de pescar palavra de outra linha.
+    de, ate = faixa_tom
+    texto_tom = " ".join(t for y, t in linhas if de <= y <= ate)
+    tom = next((t for t in map(nota_canonica, texto_tom.split()) if t), "")
 
     if not titulo or not tom:
         return None, contador  # não é a página de abertura de um hino
@@ -107,7 +130,7 @@ def dados_da_pagina(linhas, contador=0):
     impresso = None
     for y, t in linhas:
         if 24 <= y <= 40:
-            m = NUMERO.match(t.strip())
+            m = NUMERO.match(t.strip()) or NUMERO_COM_MARCACAO.match(t.strip())
             if m and 1 <= int(m.group(1)) <= 480:
                 impresso = int(m.group(1))
                 break
@@ -118,7 +141,7 @@ def dados_da_pagina(linhas, contador=0):
     # título ("Ó Pai celestial 142 Em 6"). Procura nas duas, nessa ordem.
     # Fora daí (y≈6) há anotações como "Pode agrupar frases em 4", que são
     # orientação de execução e não a marcação do hino — por isso não entram.
-    marc = MARCACAO.search(faixa_tom) or MARCACAO.search(por_y.get(18, "")) \
+    marc = MARCACAO.search(texto_tom) or MARCACAO.search(por_y.get(18, "")) \
         or MARCACAO.search(por_y.get(30, ""))
     ind = INDICACOES.search(cabecalho)
     seg = por_y.get(30, "").strip()
@@ -326,7 +349,34 @@ def paginas_suspeitas(hinos, total_paginas):
     return suspeitas
 
 
-def recuperar(hinos, descartadas, base, total):
+def alturas_de_cabecalho(linhas):
+    """Alturas de linha que podem ser o título de um hino nesta página.
+
+    O que identifica um cabeçalho não é estar no alto da página: é a forma.
+    Vem o título e, logo abaixo, uma linha que traz a tonalidade — o nome de
+    uma nota sozinho, às vezes seguido do compositor. Entre os dois costumam
+    ficar o número e o "Maestro Fulano", mas nem sempre: há página em que o
+    cabeçalho vem comprimido e a tonalidade está seis pontos abaixo do título.
+    Daí a distância aceita ir de 4 a 36. Devolve os pares (título, tonalidade).
+    """
+    texto = {y: t.strip() for y, t in linhas if t.strip()}
+    alturas = sorted(texto)
+    for y in alturas:
+        # Exigir letras, e não só caracteres: o hinário escreve os sinais de
+        # partitura com uma fonte musical cujos glifos são caracteres comuns
+        # que não aparecem na tela. Uma linha dessas tem comprimento mas não é
+        # título de nada, e sem esta conta ela entraria como se fosse.
+        if sum(c.isalpha() for c in texto[y]) < 4 or NUMERO.match(texto[y]):
+            continue
+        for y2 in alturas:
+            if not 4 <= y2 - y <= 36:
+                continue
+            if any(nota_canonica(tk) for tk in texto[y2].split()):
+                yield y, y2
+                break
+
+
+def recuperar(hinos, descartadas, total):
     """Segunda passada, só nas páginas onde a conta diz que falta um hino.
 
     O cabeçalho de algumas páginas está impresso mais abaixo do que o das
@@ -349,23 +399,33 @@ def recuperar(hinos, descartadas, base, total):
             linhas = descartadas.get(pag)
             if not linhas:
                 continue
-            com_texto = [y for y, t in linhas if t]
-            if not com_texto:
-                continue        # página só de pauta: é continuação mesmo
-            delta = min(com_texto) - base
-            if delta <= 0:
-                continue        # não está deslocada para baixo; não é este o caso
-            dados, _ = dados_da_pagina([(y - delta, t) for y, t in linhas])
-            if not dados:
+            # Podem sair vários candidatos a título na mesma página. Entre os
+            # que a leitura aceita, vale o que trouxer o número impresso: esse
+            # é o cabeçalho de verdade, não um resto de linha lido por engano.
+            lidos = []
+            for y_titulo, y_tom in alturas_de_cabecalho(linhas):
+                delta = y_titulo - ALTURA_TITULO
+                pos_tom = ALTURA_TITULO + (y_tom - y_titulo)
+                faixa = (max(ALTURA_TITULO + 2, pos_tom - 3), pos_tom + 3)
+                # corta o que está acima do título e abaixo da faixa do
+                # cabeçalho: numa página de dois hinos, o de cima tem
+                # metrônomo e indicação próprios, e eles não são deste.
+                recortadas = [(y - delta, t) for y, t in linhas
+                              if -6 <= y - delta < TOPO]
+                dados, _ = dados_da_pagina(recortadas, faixa_tom=faixa)
+                if dados:
+                    dados["pag"], dados["y"] = pag, y_titulo
+                    lidos.append(dados)
+            if not lidos:
                 continue
-            dados["pag"] = pag
-            hinos.append(dados)
+            escolhido = next((d for d in lidos if d["impresso"] is not None), lidos[0])
+            hinos.append(escolhido)
             del descartadas[pag]
             recuperados.append(pag)
             achou = True
         if not achou:
             break
-        hinos.sort(key=lambda h: h["pag"])
+        hinos.sort(key=lambda h: (h["pag"], h.get("y", 0)))
         numerar(hinos)
     return recuperados
 
@@ -374,16 +434,14 @@ def ler(caminho, registrar_falhas=True):
     p = conferir_caminho(caminho)
     doc = fitz.open(p)
     print(f"Lendo {p.name} — {doc.page_count} páginas, {p.stat().st_size / 1048576:.0f} MB")
-    hinos, contador, descartadas, topos = [], 0, {}, []
+    hinos, contador, descartadas = [], 0, {}
     for i, pagina in enumerate(doc):
         linhas = linhas_do_topo(pagina)
         dados, contador = dados_da_pagina(linhas, contador)
         if dados:
             dados["pag"] = i + 1
+            dados["y"] = min([y for y, t in linhas if t.strip()], default=0)
             hinos.append(dados)
-            alturas = [y for y, t in linhas if t]
-            if alturas:
-                topos.append(min(alturas))
         else:
             # guarda uma faixa mais alta: se o cabeçalho desta página estiver
             # abaixo de onde a leitura procura, é assim que ele aparece.
@@ -392,15 +450,10 @@ def ler(caminho, registrar_falhas=True):
     doc.close()
     numerar(hinos)
 
-    # altura em que o cabeçalho começa nas páginas que deram certo — é por ela
-    # que as páginas deslocadas são realinhadas na segunda passada.
-    recuperados = []
-    if topos:
-        base = sorted(topos)[len(topos) // 2]
-        recuperados = recuperar(hinos, descartadas, base, total)
-        if recuperados:
-            print(f"  {len(recuperados)} aberturas recuperadas numa segunda leitura "
-                  "(cabeçalho impresso mais abaixo do que nas outras páginas)")
+    recuperados = recuperar(hinos, descartadas, total)
+    if recuperados:
+        print(f"  {len(recuperados)} aberturas recuperadas numa segunda leitura "
+              "(hino que começa no meio da página, e não no alto)")
 
     if registrar_falhas:
         suspeitas = paginas_suspeitas(hinos, total)
@@ -420,10 +473,10 @@ def ler(caminho, registrar_falhas=True):
                 f.write(f"  {len(recuperados)} aberturas foram recuperadas na segunda leitura, "
                         f"nas páginas: {', '.join(map(str, recuperados))}\n")
             f.write("\n")
-            f.write("Cada bloco abaixo é uma dessas páginas suspeitas. O texto vem da\n"
-                    f"faixa de cima da página (até y={TOPO_RELATORIO}), já sem a marca d'água\n"
-                    "com os dados pessoais. A leitura só procura até y=%d: o que\n"
-                    "aparecer abaixo disso é justamente o que ela não está vendo.\n" % TOPO)
+            f.write("Cada bloco abaixo é uma dessas páginas suspeitas: o que há de\n"
+                    "legível nela, em qualquer altura, já sem a marca d'água com os\n"
+                    "dados pessoais. Página que só tem partitura é continuação de\n"
+                    "hino; o hino que falta ali, se existe, está noutra página.\n")
             if not suspeitas:
                 f.write("\nNenhuma página suspeita: a conta dos números impressos fecha em\n"
                         "todos os trechos. O que falta, falta do próprio PDF.\n")
@@ -431,11 +484,21 @@ def ler(caminho, registrar_falhas=True):
                 na, nb, faltam = suspeitas[pag]
                 f.write(f"\n{'='*60}\nPÁGINA {pag}"
                         f"   (entre os hinos {na} e {nb}; faltam {faltam} ali)\n")
-                linhas = [(y, t) for y, t in descartadas.get(pag, []) if t]
+                # Só as linhas legíveis. O resto da página é a partitura,
+                # escrita com uma fonte musical cujos glifos são caracteres
+                # que não aparecem na tela: imprimi-los encheria o relatório
+                # de linhas em branco e esconderia o que interessa.
+                todas = descartadas.get(pag, [])
+                linhas = [(y, t) for y, t in todas
+                          if sum(c.isalpha() for c in t) >= 2]
+                mudas = len([1 for y, t in todas if t]) - len(linhas)
                 if not linhas:
-                    f.write("  (nenhum texto na faixa de cima — provável página só de pauta)\n")
+                    f.write("  (nada legível na página — só partitura: "
+                            "é continuação de hino, não abertura)\n")
                 for y, t in linhas:
                     f.write(f"  y={y:>4}  {t[:150]}\n")
+                if linhas and mudas:
+                    f.write(f"  (e mais {mudas} linha(s) só de partitura)\n")
         print(f"  (relatório das páginas suspeitas em {alvo.name})")
     return hinos
 
