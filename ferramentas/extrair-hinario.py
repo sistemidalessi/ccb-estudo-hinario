@@ -20,13 +20,22 @@ A partitura não é lida nem reproduzida: o script olha só a faixa do cabeçalh
 
 Uso:
     pip install pymupdf
+    python ferramentas/extrair-hinario.py
     python ferramentas/extrair-hinario.py caminho/do/Hinario.pdf
     python ferramentas/extrair-hinario.py caminho/do/Hinario.pdf --diag
+
+Sem caminho, o script procura o hinário sozinho: varre o computador atrás de
+PDFs grandes, mostra os candidatos numerados e pergunta qual é. Digitar caminho
+de arquivo no terminal é onde a coisa mais trava na prática, e não precisa.
 """
 import csv
 import json
+import os
 import re
+import string
 import sys
+import time
+import unicodedata
 from pathlib import Path
 
 try:
@@ -162,6 +171,110 @@ def numerar(hinos):
             hinos[ult + k]["n"] = hinos[ult]["impresso"] + k
             hinos[ult + k]["conf"] = "inferido"
     return hinos
+
+
+# ---------------------------------------------------------------- procura ---
+#
+# Digitar ou arrastar o caminho de um arquivo para dentro do terminal é a
+# parte que mais dá errado — some o espaço, sobra aspas, o Enter escapa antes.
+# Então o script procura o arquivo sozinho e só pergunta qual é.
+
+PASTAS_FORA = {
+    "appdata", "windows", "program files", "program files (x86)", "programdata",
+    "$recycle.bin", "system volume information", "node_modules", "winsxs",
+    "recovery", "perflogs", "msocache", "library", "system", "proc", "sys",
+}
+TAMANHO_MINIMO = 5 * 1024 * 1024   # o hinário tem dezenas de MB
+LIMITE_SEGUNDOS = 120
+PISTAS = ("hinario", "hino", "analise", "capapreta", "ccb")
+
+
+def sem_acento(t):
+    return "".join(c for c in unicodedata.normalize("NFD", t.lower())
+                   if unicodedata.category(c) != "Mn")
+
+
+def raizes_de_busca():
+    """A pasta do usuário primeiro; depois as outras unidades.
+
+    O Google Drive para computador aparece como uma unidade própria (G:, H:),
+    fora da pasta do usuário — e é lá que o hinário costuma estar.
+    """
+    raizes = [Path.home()]
+    if os.name == "nt":
+        for letra in string.ascii_uppercase[2:]:   # pula A: e B:, que travam
+            r = Path(f"{letra}:\\")
+            try:
+                if r.is_dir():
+                    raizes.append(r)
+            except OSError:
+                pass
+    return raizes
+
+
+def procurar_pdfs():
+    """PDFs grandes do computador, os mais parecidos com o hinário primeiro."""
+    achados, vistos, inicio, estourou = [], set(), time.time(), False
+    for raiz in raizes_de_busca():
+        for pasta, subpastas, arquivos in os.walk(raiz, onerror=lambda e: None):
+            if time.time() - inicio > LIMITE_SEGUNDOS:
+                estourou = True
+                break
+            subpastas[:] = [d for d in subpastas
+                            if d.lower() not in PASTAS_FORA and not d.startswith(".")]
+            for nome in arquivos:
+                if not nome.lower().endswith(".pdf"):
+                    continue
+                caminho = Path(pasta) / nome
+                try:
+                    tam = caminho.stat().st_size
+                except OSError:
+                    continue
+                chave = (nome.lower(), tam)
+                if tam >= TAMANHO_MINIMO and chave not in vistos:
+                    vistos.add(chave)
+                    achados.append((caminho, tam))
+        if estourou:
+            break
+    achados.sort(key=lambda a: (-pontos(a[0]), -a[1]))
+    return achados, estourou
+
+
+def pontos(caminho):
+    """Quanto o nome do arquivo e da pasta lembram o hinário."""
+    texto = sem_acento(str(caminho)).replace(" ", "")
+    return sum(2 if p in ("hinario", "hino") else 1 for p in PISTAS if p in texto)
+
+
+def escolher_hinario():
+    """Procura os candidatos e pergunta qual é o hinário."""
+    print("Procurando o hinário no computador. Pode levar um ou dois minutos.")
+    print("(É normal a janela parecer parada enquanto isso.)\n")
+    achados, estourou = procurar_pdfs()
+    if not achados:
+        sys.exit("Não achei nenhum PDF grande no computador.\n"
+                 "Se o hinário estiver no Google Drive só na nuvem, abra-o uma vez\n"
+                 "pelo Explorador de Arquivos para ele baixar, e rode de novo.")
+    if estourou:
+        print(f"(A procura passou de {LIMITE_SEGUNDOS}s e parou; "
+              "se o hinário não estiver na lista, me avise.)\n")
+
+    lista = achados[:15]
+    print(f"Achei {len(achados)} arquivo(s) PDF grande(s). O hinário deve ser um destes:\n")
+    for i, (caminho, tam) in enumerate(lista, 1):
+        print(f"  {i:>2}) {caminho.name}")
+        print(f"      {tam / 1048576:.0f} MB — {caminho.parent}")
+    print()
+    while True:
+        try:
+            resp = input("Digite o número do hinário e tecle Enter (ou 0 para sair): ").strip()
+        except (EOFError, KeyboardInterrupt):
+            sys.exit("\nCancelado.")
+        if resp == "0":
+            sys.exit("Cancelado.")
+        if resp.isdigit() and 1 <= int(resp) <= len(lista):
+            return str(lista[int(resp) - 1][0])
+        print("Não entendi. Digite só o número que está à esquerda do arquivo.")
 
 
 def conferir_caminho(caminho):
@@ -344,13 +457,13 @@ def diagnostico(caminho, paginas=10):
 
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    if not args:
-        sys.exit("Uso: python extrair-hinario.py caminho/do/Hinario.pdf [--diag]")
+    # Sem caminho não é erro: é o caso comum. O script procura o arquivo.
+    caminho = args[0] if args else escolher_hinario()
     if "--diag" in sys.argv:
-        diagnostico(args[0])
+        diagnostico(caminho)
         return
 
-    hinos = ler(args[0])
+    hinos = ler(caminho)
     saida = Path(__file__).parent
 
     # Dois arquivos, de propósito.
