@@ -72,6 +72,16 @@ esses dados no cabeçalho de cada página, e o script os extrai:
 
 ```bash
 pip install pymupdf
+python ferramentas/extrair-hinario.py
+```
+
+Sem caminho nenhum: o script procura os PDFs grandes do computador — inclusive
+nas unidades do Google Drive, que ficam fora da pasta do usuário —, mostra os
+candidatos numerados e pergunta qual é o hinário. Digitar ou arrastar caminho de
+arquivo para dentro do terminal é a parte que mais dá errado na prática, e não
+precisa. Quem preferir pode passar o caminho do jeito de sempre:
+
+```bash
 python ferramentas/extrair-hinario.py caminho/do/Hinario.pdf
 ```
 
