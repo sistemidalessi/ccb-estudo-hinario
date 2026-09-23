@@ -6,3 +6,4 @@ __pycache__/
 *.pyc
 ferramentas/figuras/figuras.html
 dados/planos.js
+apostila/*instrutor*
