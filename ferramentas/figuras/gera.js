@@ -369,7 +369,7 @@ const ids = Object.keys(FIGS);
 fs.writeFileSync(path.join(__dirname, "figuras.html"),
 `<!doctype html><meta charset="utf-8">
 <style>body{margin:0;background:#fff;font-family:Calibri,sans-serif}
-.f{background:#fff;display:block}
+.f{background:#fff;display:inline-block}
 .n{font:12px monospace;color:#999;padding:2px 0 14px 4px}</style>
 ${ids.map(id => `<div class="f" id="${id}">${FIGS[id]()}</div><div class="n">${id}</div>`).join("\n")}`);
 console.log(ids.length + " figuras: " + ids.join(", "));
