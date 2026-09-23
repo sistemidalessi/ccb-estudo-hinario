@@ -170,13 +170,16 @@ const REGRAS = {
     ],
   },
   /* As indicações interpretativas são seis — Solene, Majestoso, Com júbilo,
-     Com veneração, Com submissão, Com humildade — e a extração do hinário ainda
-     não as recolheu (a primeira versão do extrator procurava termos italianos,
-     que não são indicação nenhuma). Enquanto h.ind estiver vazio esta regra
-     devolve null e a aula fica sem hino de fecho automático; o caderno do GEM,
-     nessa aula, manda mesmo o instrutor escolher. */
+     Com veneração, Com submissão, Com humildade. A extração do hinário achou
+     cinco hinos que trazem uma delas impressa: 135, 367 e 390 (Majestoso),
+     464 (Solene) e 147 (Com júbilo). Se h.ind estiver vazio em todos, a regra
+     devolve lista vazia e a aula fica sem hino de fecho automático — o caderno
+     do GEM, nessa aula, manda mesmo o instrutor escolher. */
   "4-14": {
     porque: "hinos que trazem indicação interpretativa impressa",
+    // A ordem devolvida aqui é a de prioridade, não a do hinário: quem escolhe
+    // não deve espalhá-la, senão volta a cair em duas indicações iguais.
+    ordenado: true,
     // Prefere variedade: um hino de cada indicação antes de repetir. Três
     // "Majestoso" seguidos ensinam menos que um Majestoso ao lado de um Solene.
     escolher: H => {
@@ -226,7 +229,12 @@ function hinosDaAula(periodo, aula, HINOS, quantos = 3) {
   }
   const regra = REGRAS[`${periodo}-${aula}`];
   if (!regra) return null;
-  const achados = espalhar((regra.escolher(HINOS) || []).filter(Boolean), quantos);
+  const candidatos = (regra.escolher(HINOS) || []).filter(Boolean);
+  /* Espalhar serve para varrer o hinário inteiro quando a regra devolve os
+     hinos na ordem do número. Se a regra já ordenou por prioridade, espalhar
+     desfaz o trabalho dela — aí vão os primeiros. */
+  const achados = regra.ordenado ? candidatos.slice(0, quantos)
+                                 : espalhar(candidatos, quantos);
   if (!achados.length) return null;
   return { fonte: "regra", porque: regra.porque, hinos: achados, perguntas: regra.perguntas };
 }

@@ -139,6 +139,15 @@ ok(metRuim.length === 0, "todo metrônomo é uma faixa crescente e plausível", 
 const duplicados = HINOS.map(h => h.n).filter((n, i, a) => a.indexOf(n) !== i);
 ok(duplicados.length === 0, "nenhum hino repetido", duplicados.join(" "));
 
+/* O GEM usa seis indicações interpretativas e só essas. Termo italiano de
+   andamento (Allegro, Andante) não é indicação interpretativa: se um aparecer
+   aqui, foi o extrator que confundiu as duas coisas outra vez. */
+const INDICACOES = ["Solene", "Majestoso", "Com júbilo", "Com veneração",
+                    "Com submissão", "Com humildade"];
+const indRuim = HINOS.filter(h => h.ind && !INDICACOES.includes(h.ind));
+ok(indRuim.length === 0, "toda indicação interpretativa é uma das seis",
+   indRuim.map(h => h.n + ":" + h.ind).join(" "));
+
 HINOS_AULA.forEach(l => {
   ok(l.p >= 1 && l.p <= 4, `lista ${l.p}-${l.a}: período válido`);
   ok(l.a.every(a => a >= 1 && a <= 15), `lista ${l.p}-${l.a}: aulas entre 1 e 15`);

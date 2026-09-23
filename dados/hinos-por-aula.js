@@ -91,7 +91,7 @@ const HINOS_AULA = [
   {p:4, a:[11], tipo:"complementar", rot:"Andamento e poco rallentando", hinos:[15,157,378]},
   {p:4, a:[13], tipo:"complementar", rot:"Interpretação musical", hinos:[31,208]},
   {p:4, a:[14,15], tipo:"selecionar", rot:"Indicações interpretativas", hinos:[],
-   nota:"São 6 e só essas: Solene, Majestoso, Com júbilo, Com veneração, Com submissão, Com humildade."},
+   nota:"São 6 e só essas: Solene, Majestoso, Com júbilo, Com veneração, Com submissão, Com humildade. Na extração do hinário, cinco hinos trazem uma delas impressa: 135, 367 e 390 (Majestoso), 464 (Solene) e 147 (Com júbilo)."},
 ];
 
 if (typeof module !== "undefined") module.exports = { HINOS_AULA };
