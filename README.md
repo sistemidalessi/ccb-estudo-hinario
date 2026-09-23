@@ -75,10 +75,27 @@ pip install pymupdf
 python ferramentas/extrair-hinario.py caminho/do/Hinario.pdf
 ```
 
-Saem dois arquivos: `hinos.csv`, para conferir numa planilha, e `hinos.js`, no
-formato que o site e a apostila consomem. O script lê **apenas a faixa superior
-de cada página** — número, título, tonalidade, metrônomo e indicação
-interpretativa. A partitura não é lida nem reproduzida.
+Saem três arquivos:
+
+- `hinos.csv` — com o título de cada hino, para conferir numa planilha. **Fica
+  fora do Git**: o título é a primeira linha do hino, e deste repositório não sai
+  nada do texto do hinário.
+- `extracao.csv` — os mesmos hinos sem os títulos: número, tonalidade, marcação,
+  metrônomo, indicação e página. É este que vai para o repositório.
+- `nao-lidas.txt` — as páginas que o script não reconheceu como abertura de hino
+  **e que, pela conta dos números impressos, deveriam abrir uma**.
+
+O script lê **apenas a faixa superior de cada página** — número, título,
+tonalidade, metrônomo e indicação interpretativa. A partitura não é lida nem
+reproduzida.
+
+Ele lê cada página duas vezes. Na primeira, procura o cabeçalho na altura em que
+ele costuma estar. Depois compara o que achou com o que os números impressos
+dizem que deveria haver: entre o hino 143 e o hino 148 têm de caber quatro
+hinos, e se só apareceram dois, as duas aberturas que faltam estão naquelas
+páginas. Só nelas ele lê de novo, realinhando as alturas — é assim que recupera
+as páginas cujo cabeçalho saiu impresso mais abaixo, sem afrouxar nenhuma regra
+e sem risco de inventar hino onde não há.
 
 O que o script **não** consegue: ritmo inicial (tético, anacrúsico, acéfalo) e os
 sinais presentes (fermata, tercina, síncopa, ritornelo). Isso depende de olhar a
