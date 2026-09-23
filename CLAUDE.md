@@ -27,7 +27,7 @@ dados/curriculo.js      FASES (16 fases do MSA), TIPOS (8 tipos) e AULAS (as 60)
 dados/questoes.js       const Q — o banco de questões, todas com gabarito
 dados/planos.js         PLANOS — os 60 Planos de Aula oficiais do GEM
 dados/licoes.js         LICOES — o texto didático de cada uma das 60 aulas
-dados/hinos.js          HINOS — cabeçalho de 363 hinos, extraído do hinário
+dados/hinos.js          HINOS — cabeçalho dos hinos, extraído do hinário
 dados/hinos-por-aula.js HINOS_AULA — as listas de hinos que o GEM dá por aula
 
 ferramentas/carregar.js       lê os arquivos de dados fora do navegador
