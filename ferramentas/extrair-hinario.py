@@ -158,8 +158,33 @@ def numerar(hinos):
     return hinos
 
 
+def conferir_caminho(caminho):
+    """Para com mensagem clara em vez de abrir um PDF vazio.
+
+    Sem isto, um caminho vazio — que acontece quando a variável do PowerShell
+    não foi preenchida — faz o fitz abrir um documento em branco, e o script
+    relata "0 páginas de abertura lidas" como se fosse um resultado.
+    """
+    if not caminho or not caminho.strip():
+        sys.exit("Nenhum caminho foi recebido. Passe o arquivo do hinário:\n"
+                 '    python ferramentas/extrair-hinario.py "C:\\caminho\\Hinario.pdf"')
+    p = Path(caminho)
+    if not p.exists():
+        sys.exit(f"Arquivo não encontrado: {p}\n"
+                 "Confira o caminho — no PowerShell, arraste o arquivo para a janela "
+                 "para colar o caminho certo.")
+    if p.suffix.lower() != ".pdf":
+        sys.exit(f"Isto não é um PDF: {p.name}")
+    if p.stat().st_size < 100_000:
+        sys.exit(f"O arquivo tem só {p.stat().st_size / 1024:.0f} KB — o hinário tem dezenas de MB. "
+                 "Provavelmente é o arquivo errado.")
+    return p
+
+
 def ler(caminho, registrar_falhas=True):
-    doc = fitz.open(caminho)
+    p = conferir_caminho(caminho)
+    doc = fitz.open(p)
+    print(f"Lendo {p.name} — {doc.page_count} páginas, {p.stat().st_size / 1048576:.0f} MB")
     hinos, contador, falhas = [], 0, []
     for i, pagina in enumerate(doc):
         linhas = linhas_do_topo(pagina)
@@ -186,7 +211,7 @@ def ler(caminho, registrar_falhas=True):
 
 
 def diagnostico(caminho, paginas=10):
-    doc = fitz.open(caminho)
+    doc = fitz.open(conferir_caminho(caminho))
     saida = Path(__file__).parent / "diagnostico.txt"
     with open(saida, "w", encoding="utf-8") as f:
         f.write(f"arquivo: {caminho}\npáginas no PDF: {doc.page_count}\n")
@@ -233,6 +258,12 @@ def main():
     numeros = {h["n"] for h in confiaveis}
     faltando = [n for n in range(1, 481) if n not in numeros]
     incertos = [h for h in hinos if h["conf"] == "incerto"]
+    if not hinos:
+        print("\nNenhuma página de abertura de hino foi reconhecida.")
+        print("Isso quer dizer que o PDF abriu, mas o cabeçalho não está onde o script procura.")
+        print("Rode de novo com --diag: ele grava um relatório do topo das primeiras páginas,")
+        print("e é esse relatório que mostra onde os dados realmente estão.")
+        return
     print(f"\n{len(hinos)} páginas de abertura lidas.")
     print(f"  número impresso na página: {sum(1 for h in hinos if h['conf']=='impresso')}")
     print(f"  número deduzido com segurança: {sum(1 for h in hinos if h['conf']=='inferido')}")
