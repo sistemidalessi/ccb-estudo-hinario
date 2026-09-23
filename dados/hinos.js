@@ -7,9 +7,11 @@
    met  marcação de metrônomo
    ind  indicação interpretativa
 
-   São 479 dos 480 hinos. Falta só o 434: ele não está no PDF de onde isto
-   saiu — o 433 e o 435 estão em páginas seguidas, com número impresso nas
-   duas, então não é página perdida na leitura, é ausência no arquivo.
+   São os 480 hinos. O 434 não estava no PDF de onde o resto saiu — o 433 e o
+   435 estão lá em páginas seguidas — e foi lido à mão da página que o Anderson
+   digitalizou: Dó maior (clave de Sol sem acidente na armadura), compasso 4/4,
+   metrônomo 66-84, sem indicação interpretativa. A marcação fica vazia porque
+   a página que ele mandou é a do hinário com letra, que não traz esse campo.
 
    Os hinos avulsos do fim do hinário não entram: eles recomeçam a numeração
    do 1 e colidiriam com os primeiros hinos.
@@ -150,7 +152,7 @@ const HINOS = [
 {n:423,tom:"Lá♭",met:"63-76"},{n:424,tom:"Fá",met:"58-80"},{n:425,tom:"Ré♭",marc:"em 9"},
 {n:426,tom:"Mi♭",met:"44-60"},{n:427,tom:"Mi♭",marc:"em 9"},{n:428,tom:"Fá",met:"56-60"},
 {n:429,tom:"Mi"},{n:430,tom:"Fá",marc:"em 6"},{n:431,tom:"Dó",met:"63-88"},{n:432,tom:"Lá♭"},
-{n:433,tom:"Si♭"},{n:435,tom:"Mi♭"},{n:436,tom:"Ré"},{n:437,tom:"Sol",met:"60-80"},
+{n:433,tom:"Si♭"},{n:434,tom:"Dó",met:"66-84"},{n:435,tom:"Mi♭"},{n:436,tom:"Ré"},{n:437,tom:"Sol",met:"60-80"},
 {n:438,tom:"Mi♭",marc:"em 2"},{n:439,tom:"Si♭"},{n:440,tom:"Fá",met:"63-92"},
 {n:441,tom:"Ré",marc:"em 2",met:"52-69"},{n:442,tom:"Lá♭"},{n:443,tom:"Si♭"},{n:444,tom:"Ré"},
 {n:445,tom:"Si♭"},{n:446,tom:"Sol"},{n:447,tom:"Mi♭",met:"69-84"},{n:448,tom:"Si♭",marc:"em 6"},
