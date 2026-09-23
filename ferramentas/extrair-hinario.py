@@ -183,6 +183,21 @@ def numerar(hinos):
                 hinos[a + k]["n"] = na + k
                 hinos[a + k]["conf"] = "inferido"
 
+    # Depois do hino 480 o hinário traz os avulsos, que recomeçam a numeração
+    # do 1. Sem marcá-los, eles entrariam na tabela como se fossem os hinos 1 e
+    # 4, duplicando os números. O que os denuncia é a queda: vinha-se de um
+    # número alto e aparece um de um dígito. Ninguém erra assim no meio do
+    # livro — só a virada para a seção dos avulsos faz isso.
+    maior = 0
+    for i, h in enumerate(hinos):
+        if h["impresso"] is None:
+            continue
+        if maior >= 400 and h["impresso"] <= 10:
+            for k in range(i, len(hinos)):
+                hinos[k]["conf"] = "avulso"
+            break
+        maior = max(maior, h["impresso"])
+
     # antes da primeira âncora e depois da última, conta para trás e para frente
     if anc:
         prim, ult = anc[0], anc[-1]
@@ -191,6 +206,8 @@ def numerar(hinos):
                 hinos[prim - k]["n"] = hinos[prim]["impresso"] - k
                 hinos[prim - k]["conf"] = "inferido"
         for k in range(1, len(hinos) - ult):
+            if hinos[ult + k]["conf"] == "avulso":
+                break
             hinos[ult + k]["n"] = hinos[ult]["impresso"] + k
             hinos[ult + k]["conf"] = "inferido"
     return hinos
@@ -553,7 +570,7 @@ def main():
         w.writerows(hinos)
 
     campos = ("n", "titulo", "tom", "marcacao", "met", "ind")
-    confiaveis = [h for h in hinos if h["conf"] != "incerto" and h["n"]]
+    confiaveis = [h for h in hinos if h["conf"] not in ("incerto", "avulso") and h["n"]]
     linhas = ",\n".join(
         " {" + ", ".join(f"{k}:{json.dumps(h[k], ensure_ascii=False)}" for k in campos if h[k] not in ("", None)) + "}"
         for h in confiaveis)
@@ -563,6 +580,7 @@ def main():
                 "   Ritmo inicial e sinais da partitura não saem daqui. */\n"
                 "const HINOS = [\n" + linhas + "\n];\n")
 
+    avulsos = [h for h in hinos if h["conf"] == "avulso"]
     numeros = {h["n"] for h in confiaveis}
     faltando = [n for n in range(1, 481) if n not in numeros]
     incertos = [h for h in hinos if h["conf"] == "incerto"]
@@ -576,6 +594,7 @@ def main():
     print(f"  número impresso na página: {sum(1 for h in hinos if h['conf']=='impresso')}")
     print(f"  número deduzido com segurança: {sum(1 for h in hinos if h['conf']=='inferido')}")
     print(f"  número incerto (ficam de fora do .js): {len(incertos)}")
+    print(f"  avulsos do fim do livro (numeração própria, fora do .js): {len(avulsos)}")
     print(f"  com tonalidade: {sum(1 for h in hinos if h['tom'])}")
     print(f"  com marcação (em 2, em 6...): {sum(1 for h in hinos if h['marcacao'])}")
     print(f"  com metrônomo: {sum(1 for h in hinos if h['met'])}")
