@@ -197,7 +197,10 @@ function hinosDaAula(periodo, aula, HINOS, quantos = 3) {
     return {
       fonte: "oficial",
       porque: `lista do próprio GEM para esta aula — ${comp.rot.toLowerCase()}`,
-      hinos: espalhar(comp.hinos, quantos),
+      // para a ficha (tom, marcação, metrônomo) sair preenchida, prefere-se
+      // os hinos que a extração do hinário reconheceu; os demais aparecem
+      // na lista completa acima, só sem ficha.
+      hinos: espalhar(comp.hinos.filter(h => h.tom).length ? comp.hinos.filter(h => h.tom) : comp.hinos, quantos),
       nota: comp.nota,
       comp1: comp.comp1,
       todas: oficiais,
