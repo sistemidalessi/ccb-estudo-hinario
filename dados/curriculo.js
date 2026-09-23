@@ -45,7 +45,7 @@ const AULAS = {
     [12,"3.3, 3.4","Movimentos de condução. Movimentos de solfejo em 4"],
     [13,"3.4","Movimentos de solfejo em 4 (continuação)"],
     [14,"3.5","Metrônomo"],
-    [15,"1.1 a 3.5","Avaliação do 1º Período"]],
+    [15,"1.1 a 3.5","Conclusão e avaliação do período"]],
  2:[[1,"4.1, 4.2, 4.3","Ligadura. Ponto de aumento. Intervalo"],
     [2,"4.4, 4.5","Fórmula de compasso em 3. Movimento de solfejo em 3"],
     [3,"4.5","Movimento de solfejo em 3. Exercício de leitura rítmica"],
@@ -60,8 +60,7 @@ const AULAS = {
     [12,"5.2","Fermata. Exercícios"],
     [13,"5.3, 5.4","Fórmula de compasso em 6. Movimento de solfejo em 6"],
     [14,"5.5","Movimento alternativo de solfejo em 6. Exercícios"],
-    [15,"","Conclusão dos exercícios individuais"],
-    [16,"4.1 a 5.5","Avaliação do 2º Período"]],
+    [15,"4.1 a 5.5","Conclusão dos exercícios individuais por candidato"]],
  3:[[1,"6.1, 6.2","Tom e semitom. Acidentes — sustenido e bemol"],
     [2,"6.3, 6.4","Escalas. Escalas diatônicas"],
     [3,"6.5, 6.6","Escalas maiores. Escalas maiores com sustenidos"],
@@ -76,8 +75,7 @@ const AULAS = {
     [12,"8.1","Tonalidade. Exercícios"],
     [13,"8.2","Acidentes ocorrentes e de precaução. Exercícios"],
     [14,"9.1","Barra de compasso — repetição"],
-    [15,"","Conclusão dos exercícios individuais"],
-    [16,"6.1 a 9.1","Avaliação do 3º Período"]],
+    [15,"6.1 a 9.1","Conclusão dos exercícios individuais por candidato"]],
  4:[[1,"10.1","Dinâmica. Exercícios"],
     [2,"11.1, 11.2, 11.3","Acento métrico. Compasso simples. Compasso composto"],
     [3,"11.4","Compassos alternados. Exercícios"],
@@ -92,6 +90,5 @@ const AULAS = {
     [12,"15.3","Modificação indevida de andamento"],
     [13,"16.1, 16.2","Frases e semifrases. Interpretação musical"],
     [14,"16.3","Indicações interpretativas. Exercícios"],
-    [15,"","Indicações interpretativas. Exercícios (continuação)"],
-    [16,"10.1 a 16.3","Avaliação do 4º Período"]]
+    [15,"10.1 a 16.3","Indicações interpretativas (continuação). Conclusão do curso"]]
 };
