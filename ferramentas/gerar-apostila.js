@@ -39,11 +39,16 @@ const CINZA = "5C6B75";
 const PRATICA = "8A5A2B";
 const VERDE = "4A6B3F";
 const LARGURA = 9350;                 // largura útil, em DXA
-const MAX_FIG = 470;                  // largura máxima da figura, em pontos
-// Cada pixel de projeto vale sempre o mesmo em pontos. Sem isso, uma figura
-// desenhada larga e outra estreita saíam com tamanhos aparentes diferentes: a
-// larga encolhia até o fio de cabelo e a estreita ficava enorme.
-const PT_POR_PX = 0.72;
+// A biblioteca docx mede a imagem em PIXEL de 96 dpi, não em ponto: 1 px = 0,75 pt.
+// A área de texto da página (21 cm menos 2 cm de margem de cada lado) são 17 cm,
+// ou seja 643 px. MAX_FIG fica um pouco abaixo disso.
+const MAX_FIG = 620;                  // largura máxima da figura, em px de documento
+// Cada pixel de PROJETO (os do gera.js) vale este tanto de pixel de documento,
+// em toda figura. Sem isso, uma figura desenhada larga e outra estreita saíam
+// com tamanhos aparentes diferentes na página.
+const PX_DOC_POR_PX_PROJETO = 0.96;
+// O PNG é fotografado em 3x, então cada pixel do arquivo é 1/3 de pixel de projeto.
+const ESCALA_RENDER = 3;
 
 /* ---------- blocos reutilizáveis ---------- */
 
@@ -112,7 +117,7 @@ function figura(nome, legenda) {
   if (!cacheFig.has(nome)) {
     const buf = fs.readFileSync(arq);
     const { larg, alt } = tamanhoPNG(buf);
-    const escala = Math.min(PT_POR_PX, MAX_FIG / larg);
+    const escala = Math.min(PX_DOC_POR_PX_PROJETO / ESCALA_RENDER, MAX_FIG / larg);
     cacheFig.set(nome, { buf, w: Math.round(larg * escala), h: Math.round(alt * escala) });
   }
   const { buf, w, h } = cacheFig.get(nome);
