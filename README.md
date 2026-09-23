@@ -91,7 +91,9 @@ Saem três arquivos:
   fora do Git**: o título é a primeira linha do hino, e deste repositório não sai
   nada do texto do hinário.
 - `extracao.csv` — os mesmos hinos sem os títulos: número, tonalidade, marcação,
-  metrônomo, indicação e página. É este que vai para o repositório.
+  metrônomo, indicação e página. É este que vai para o repositório. Os hinos
+  avulsos do fim do livro aparecem marcados como `avulso`: eles recomeçam a
+  numeração do 1 e colidiriam com os primeiros hinos.
 - `nao-lidas.txt` — as páginas que o script não reconheceu como abertura de hino
   **e que, pela conta dos números impressos, deveriam abrir uma**.
 
@@ -102,7 +104,10 @@ reproduzida.
 **Nem todo hino começa numa página nova.** Em parte do hinário um hino termina
 no alto da folha e o seguinte começa logo abaixo, na mesma página, com o
 cabeçalho inteiro repetido ali no meio. Quem procura só na faixa de cima perde
-esses — foram 94 páginas na primeira extração.
+esses — eram 94 páginas, e com elas 117 dos 480 hinos ficavam sem ficha. Com a
+segunda leitura o resultado passou a ser **479 hinos de 480**: falta só o 434,
+que não está no PDF (o 433 e o 435 estão em páginas seguidas, com número
+impresso nas duas).
 
 Por isso o script lê cada página duas vezes. Na primeira, procura o cabeçalho
 onde ele costuma estar. Depois compara o que achou com o que os números

@@ -170,9 +170,9 @@ const REGRAS = {
     ],
   },
   /* As indicações interpretativas são seis — Solene, Majestoso, Com júbilo,
-     Com veneração, Com submissão, Com humildade. A extração do hinário achou
-     cinco hinos que trazem uma delas impressa: 135, 367 e 390 (Majestoso),
-     464 (Solene) e 147 (Com júbilo). Se h.ind estiver vazio em todos, a regra
+     Com veneração, Com submissão, Com humildade. No hinário, onze hinos trazem
+     uma delas impressa — cinco Solene, quatro Majestoso, um Com júbilo e um
+     Com veneração. Se h.ind estiver vazio em todos, a regra
      devolve lista vazia e a aula fica sem hino de fecho automático — o caderno
      do GEM, nessa aula, manda mesmo o instrutor escolher. */
   "4-14": {
