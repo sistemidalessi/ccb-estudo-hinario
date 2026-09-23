@@ -213,6 +213,106 @@ def numerar(hinos):
     return hinos
 
 
+# --------------------------------------------------------------- partitura ---
+#
+# A partitura deste PDF não é desenho: é texto, escrito com uma fonte musical
+# do padrão SMuFL, em que cada símbolo tem um código fixo. Os códigos não
+# aparecem na tela — caem na faixa de uso privado do Unicode —, mas estão lá e
+# podem ser lidos. É assim que sai o que o cabeçalho não diz: fórmula de
+# compasso, nota pontuada, fermata, tercina, ritornelo.
+#
+# Abaixo só entram os códigos de que se tem certeza. O que não estiver aqui é
+# contado à parte, em glifos-desconhecidos.txt, para ser conferido antes de
+# virar informação — em vez de ser adivinhado.
+
+SMUFL_DIGITO = range(0xE080, 0xE08A)      # E080..E089 = dígitos 0 a 9 da fórmula
+SMUFL_PONTO = 0xE1E7                      # ponto de aumento
+SMUFL_FERMATA = range(0xE4C0, 0xE4CA)     # fermata, em todas as durações
+SMUFL_RESPIRACAO = range(0xE4CE, 0xE4D0)  # vírgula e tique de respiração
+SMUFL_PAUSA = range(0xE4E0, 0xE4F0)       # pausas, da máxima à fusa
+SMUFL_RITORNELO = range(0xE040, 0xE044)   # barras de repetição
+SMUFL_TERCINA = range(0xE880, 0xE88A)     # dígitos de quiáltera
+SMUFL_CABECA = range(0xE0A0, 0xE0A8)      # cabeças de nota
+SMUFL_CLAVE = {0xE050: "sol", 0xE062: "fá", 0xE05C: "dó"}
+SMUFL_ACIDENTE = {0xE260: "bemol", 0xE261: "bequadro", 0xE262: "sustenido"}
+SMUFL_CONHECIDOS = (set(SMUFL_DIGITO) | {SMUFL_PONTO} | set(SMUFL_FERMATA)
+                    | set(SMUFL_RESPIRACAO) | set(SMUFL_PAUSA)
+                    | set(SMUFL_RITORNELO) | set(SMUFL_TERCINA)
+                    | set(SMUFL_CABECA) | set(SMUFL_CLAVE) | set(SMUFL_ACIDENTE))
+
+USO_PRIVADO = range(0xE000, 0xF900)
+
+
+def glifos_da_pagina(pagina):
+    """Símbolos musicais da página, como (y, x, código), na ordem da leitura."""
+    saida = []
+    for bloco in pagina.get_text("rawdict")["blocks"]:
+        for linha in bloco.get("lines", []):
+            for trecho in linha.get("spans", []):
+                for c in trecho.get("chars", []):
+                    cod = ord(c["c"])
+                    if cod in USO_PRIVADO:
+                        saida.append((round(c["bbox"][1]), round(c["bbox"][0]), cod))
+    saida.sort(key=lambda g: (round(g[0] / 6), g[1]))
+    return saida
+
+
+def formulas(glifos):
+    """Fórmulas de compasso: pares de dígitos empilhados, o de cima sobre o de
+    baixo. Na fonte eles saem lado a lado na ordem de leitura, primeiro o
+    numerador. Só conta par que dê uma fórmula que existe em música."""
+    digitos = [g for g in glifos if g[2] in SMUFL_DIGITO]
+    achadas = []
+    for (y1, x1, c1), (y2, x2, c2) in zip(digitos, digitos[1:]):
+        num, den = c1 - 0xE080, c2 - 0xE080
+        if abs(x1 - x2) > 14 or den not in (2, 4, 8, 16) or not 1 <= num <= 12:
+            continue
+        f = f"{num}/{den}"
+        if f not in achadas:
+            achadas.append(f)
+    return achadas
+
+
+def ritmo_inicial(glifos):
+    """Só o que dá para afirmar: o hino que abre com pausa é acéfalo.
+
+    Distinguir tético de anacrúsico exigiria somar a duração do primeiro
+    compasso, e a duração não está legível: quando as notas são ligadas por
+    barra, a barra é traço desenhado e não símbolo, e a cabeça de nota sozinha
+    não diz se vale semínima ou colcheia. Chutar aqui seria inventar, então
+    esses dois ficam em branco, para o instrutor decidir.
+    """
+    depois = False
+    for _, _, cod in glifos:
+        if cod in SMUFL_DIGITO:
+            depois = True
+            continue
+        if not depois:
+            continue
+        if cod in SMUFL_PAUSA:
+            return "acéfalo"
+        if cod in SMUFL_CABECA:
+            return ""
+    return ""
+
+
+def sinais(glifos):
+    """O que a partitura deste hino traz, dos sinais que a apostila estuda."""
+    cods = {g[2] for g in glifos}
+    tem = []
+    if SMUFL_PONTO in cods:
+        tem.append("nota pontuada")
+    if cods & set(SMUFL_FERMATA):
+        tem.append("fermata")
+    if cods & set(SMUFL_TERCINA):
+        tem.append("tercina")
+    if cods & set(SMUFL_RITORNELO):
+        tem.append("ritornelo")
+    if cods & set(SMUFL_RESPIRACAO):
+        tem.append("respiração")
+    return tem
+
+
 # ---------------------------------------------------------------- procura ---
 #
 # Digitar ou arrastar o caminho de um arquivo para dentro do terminal é a
