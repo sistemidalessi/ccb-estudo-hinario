@@ -13,8 +13,15 @@
    Cada regra diz por que aqueles hinos foram escolhidos e gera perguntas com
    gabarito, tiradas dos próprios dados do hino. */
 
-let HINOS_AULA = [];
-try { ({ HINOS_AULA } = require("../dados/hinos-por-aula.js")); } catch (e) { /* no navegador vem do <script> */ }
+/* As listas oficiais vêm do require no Node e do <script> no navegador. O nome
+   interno é outro (LISTAS) de propósito: `const HINOS_AULA` do arquivo de dados
+   já ocupa o escopo global da página, e redeclarar quebraria o carregamento. */
+let LISTAS = [];
+try {
+  LISTAS = require("../dados/hinos-por-aula.js").HINOS_AULA;
+} catch (e) {
+  if (typeof HINOS_AULA !== "undefined") LISTAS = HINOS_AULA;
+}
 
 const ARMADURA = {
   "Dó": "nenhum acidente", "Sol": "um sustenido (Fá♯)", "Ré": "dois sustenidos (Fá♯ Dó♯)",
@@ -181,7 +188,7 @@ const REGRAS = {
 /* Listas oficiais do GEM para uma aula, com os dados do hino anexados. */
 function listasOficiais(periodo, aula, HINOS) {
   const porNumero = new Map(HINOS.map(h => [h.n, h]));
-  return (HINOS_AULA || [])
+  return (LISTAS || [])
     .filter(l => l.p === periodo && l.a.includes(aula) && l.hinos.length)
     .map(l => ({
       ...l,
@@ -217,4 +224,4 @@ function hinosDaAula(periodo, aula, HINOS, quantos = 3) {
   return { fonte: "regra", porque: regra.porque, hinos: achados, perguntas: regra.perguntas };
 }
 
-module.exports = { hinosDaAula, listasOficiais, ARMADURA };
+if (typeof module !== "undefined") module.exports = { hinosDaAula, listasOficiais, ARMADURA };
