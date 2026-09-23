@@ -28,7 +28,7 @@ $("#themeBtn").addEventListener("click", () => {
 $$("nav.tabs button").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 function setTab(name){
   $$("nav.tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === name)));
-  ["trilha","ficha","estudo","banco"].forEach(n => { $("#p-"+n).hidden = n !== name; });
+  ["trilha","aulas","ficha","estudo","banco"].forEach(n => { $("#p-"+n).hidden = n !== name; });
   window.scrollTo({top:0, behavior:"instant"});
 }
 
@@ -52,6 +52,122 @@ function setTab(name){
     $("#b-fase").value = li.dataset.fase; setTab("banco"); renderBank();
   });
 })();
+
+/* ---------------- aulas ---------------- */
+/* Põe na tela a mesma aula da apostila. Os dados são os mesmos que o gerador
+   .docx usa: LICOES (explicação), Q (exercícios), PLANOS (roteiro do
+   instrutor) e hinosDaAula (os hinos que fecham a aula). */
+const FASES_DO_PERIODO = {1:[1,2,3], 2:[4,5], 3:[6,7,8,9], 4:[10,11,12,13,14,15,16]};
+let aulaPeriodo = 1, aulaNum = 1, verInstrutor = false;
+
+(function aulasUI(){
+  $("#a-periodo").addEventListener("change", e => {
+    aulaPeriodo = Number(e.target.value); aulaNum = 1; listaDeAulas(); renderAula();
+  });
+  $("#a-instr").addEventListener("click", e => {
+    verInstrutor = !verInstrutor;
+    e.target.setAttribute("aria-pressed", String(verInstrutor));
+    e.target.textContent = verInstrutor ? "Ver como candidato" : "Ver como instrutor";
+    renderAula();
+  });
+  $("#a-aulas").addEventListener("click", e => {
+    const b = e.target.closest(".tg"); if(!b) return;
+    aulaNum = Number(b.dataset.a); listaDeAulas(); renderAula();
+  });
+  listaDeAulas(); renderAula();
+})();
+
+function listaDeAulas(){
+  $("#a-aulas").innerHTML = AULAS[aulaPeriodo].map(([n,,assunto]) => {
+    const lic = LICOES[aulaPeriodo+"-"+n];
+    return '<button type="button" class="tg" data-a="'+n+'" aria-pressed="'+(n===aulaNum)+
+      '" title="'+esc((lic && lic.titulo) || assunto)+'">'+n+"</button>";
+  }).join("");
+}
+
+function exercicioHTML(q, i){
+  const precisaLinha = ["ver","entender","erro","comparar","criar"].includes(q.k);
+  return '<li><div class="qhead"><span class="qnum">'+(i+1)+'.</span>'+chip(q.k)+
+    '<span class="fasecode">fase '+q.f+" · "+q.t+"</span>"+lvl(q.n)+"</div>"+
+    '<div class="qtext">'+esc(q.q)+
+      (verInstrutor ? "" : (precisaLinha ? '<span class="answerline"></span>' : "")) + "</div>"+
+    (verInstrutor ? '<div class="gab"><b>Gabarito</b>'+esc(q.g)+"</div>" : "");
+}
+
+function roteiroHTML(){
+  const pl = (PLANOS[aulaPeriodo]||[]).find(x => x.a === aulaNum);
+  if(!pl) return "";
+  const lista = (t, itens) => (itens && itens.length)
+    ? '<div class="rot-bloco"><h4>'+t+"</h4><ul>"+itens.map(i => "<li>"+esc(i)+"</li>").join("")+"</ul></div>" : "";
+  return '<div class="roteiro"><p class="eyebrow">Roteiro do instrutor · Plano de Aula oficial</p>'+
+    "<h3>"+esc(pl.topico)+"</h3><p class=\"muted\">"+esc(pl.tema||"")+
+    " &middot; fase "+pl.fase+(pl.duracao ? " &middot; "+esc(pl.duracao) : "")+"</p>"+
+    lista("Habilidades a desenvolver", pl.habilidades)+lista("Objetivos", pl.objetivos)+
+    lista("Conteúdo", pl.conteudo)+lista("Recursos", pl.recursos)+lista("Recursos complementares", pl.extras)+
+    lista("Metodologia", pl.metodologia)+lista("Avaliação", pl.avaliacao)+"</div>";
+}
+
+function hinosHTML(){
+  const fecho = (typeof hinosDaAula === "function") ? hinosDaAula(aulaPeriodo, aulaNum, HINOS) : null;
+  if(!fecho) return "";
+  let dentro = "";
+  if(fecho.fonte === "oficial"){
+    dentro += listasOficiais(aulaPeriodo, aulaNum, HINOS).map(l => {
+      const rot = l.tipo === "exercicio" ? "Executado na aula — "+l.rot.toLowerCase()
+                : l.tipo === "citado" ? "Citado na aula — "+l.rot.toLowerCase() : l.rot;
+      const nums = l.hinos.map(h => '<span class="hn">'+h.n+(l.comp1.has(h.n)?"*":"")+"</span>").join("");
+      return "<h4>"+esc(rot)+'</h4><div class="hinos">'+nums+"</div>"+
+        (l.comp1.size ? '<p class="muted">* ler a partir do 1º compasso completo</p>' : "")+
+        (l.nota ? '<p class="muted">'+esc(l.nota)+"</p>" : "");
+    }).join("");
+    dentro += '<p class="muted" style="margin-top:8px">Lista do próprio GEM para esta aula.</p>';
+  } else {
+    dentro += '<p class="muted">Hinos '+fecho.hinos.map(h=>h.n).join(", ")+" — "+esc(fecho.porque)+".</p>";
+  }
+  fecho.hinos.forEach(h => {
+    if(!h.tom) return;
+    const ficha = [h.tom+" maior", h.marc, h.met ? "♩ = "+h.met : "", h.ind].filter(Boolean).join(" · ");
+    dentro += '<div class="hino-ficha"><b>Hino '+h.n+"</b> <span class=\"muted\">"+esc(ficha)+"</span>";
+    fecho.perguntas(h).forEach(([pergunta, gab]) => {
+      dentro += '<div class="hino-q">'+esc(pergunta)+"</div>"+
+        (verInstrutor ? '<div class="gab"><b>Gabarito</b>'+esc(gab)+"</div>" : '<span class="answerline"></span>');
+    });
+    dentro += "</div>";
+  });
+  return '<div class="box pratica"><h3>O hino da aula</h3>'+dentro+"</div>";
+}
+
+function renderAula(){
+  const linha = AULAS[aulaPeriodo].find(a => a[0] === aulaNum) || [aulaNum, "", ""];
+  const [num, tops, assunto] = linha;
+  const lic = LICOES[aulaPeriodo+"-"+num];
+  const doAula = Q.filter(q => q.a === num && FASES_DO_PERIODO[aulaPeriodo].includes(q.f));
+
+  let html = '<article class="aula">';
+  html += '<header class="aula-h"><p class="eyebrow">'+aulaPeriodo+'º período · aula '+num+"</p>"+
+          "<h2>"+esc((lic && lic.titulo) || assunto)+"</h2>"+
+          '<p class="muted">MSA · '+(tops ? "tópicos "+esc(tops) : "continuação da aula anterior")+"</p></header>";
+
+  if(verInstrutor) html += roteiroHTML();
+
+  if(lic){
+    html += '<p class="abre">'+esc(lic.abre)+"</p>";
+    lic.blocos.forEach(b => {
+      html += "<h3>"+esc(b.h)+"</h3><p>"+esc(b.t)+"</p>";
+      if(b.fig) html += '<figure><img loading="lazy" src="assets/figuras/'+b.fig+'.png" alt="'+esc(b.h)+'"></figure>';
+    });
+    if(lic.atencao) html += '<div class="box atencao"><h3>Atenção</h3><p>'+esc(lic.atencao)+"</p></div>";
+  }
+
+  if(doAula.length){
+    html += "<h3>Exercícios</h3><ol class=\"qs qs-aula\">"+doAula.map(exercicioHTML).join("")+"</ol>";
+  }
+
+  html += hinosHTML();
+  if(lic && lic.casa) html += '<div class="box casa"><h3>Para casa</h3><p>'+esc(lic.casa)+"</p></div>";
+  html += "</article>";
+  $("#aula-out").innerHTML = html;
+}
 
 /* ---------------- gerador de ficha ---------------- */
 const tiposAtivos = new Set(Object.keys(TIPOS));
