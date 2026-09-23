@@ -7,7 +7,13 @@ const COR = {
   fundo: "#E9EDEC", borda: "#C2CBC8", apagado: "#5C6B75", alerta: "#9C4A2F",
 };
 
-const D = 14;               // distância entre linhas do pentagrama
+// Distância entre linhas do pentagrama. Tudo o mais é proporcional a ela, para
+// que a figura possa crescer ou encolher sem virar um emaranhado de ajustes.
+// O destino é a página impressa: em gerar-apostila.js cada pixel de projeto vale
+// 0,72 ponto, então D=17 dá uma pauta de ~17 mm de altura — tamanho de livro.
+const D = 17;
+const HASTE = 3.2 * D;      // comprimento da haste
+const RX = 0.62 * D, RY = 0.44 * D;   // cabeça da nota
 const el = (t, a = {}, f = "") =>
   `<${t} ${Object.entries(a).map(([k, v]) => `${k}="${v}"`).join(" ")}>${f}</${t}>`;
 
@@ -17,19 +23,19 @@ const posY = (topo, p) => topo + 4 * D - p * (D / 2);
 
 function pauta(x, topo, larg, opts = {}) {
   const cor = opts.cor || COR.tinta;
-  return el("g", { stroke: cor, "stroke-width": opts.fina ? 1.1 : 1.4 },
+  return el("g", { stroke: cor, "stroke-width": opts.fina ? 1.3 : 1.7 },
     [0, 1, 2, 3, 4].map(i =>
       el("line", { x1: x, y1: topo + i * D, x2: x + larg, y2: topo + i * D })).join(""));
 }
 
 /* linhas suplementares para uma nota fora da pauta */
-function suplementares(x, topo, p) {
+function suplementares(x, topo, p, opts = {}) {
   const out = [];
   for (let k = 10; k <= p; k += 2) out.push(k);
   for (let k = -2; k >= p; k -= 2) out.push(k);
   return out.map(k => el("line", {
-    x1: x - 13, y1: posY(topo, k), x2: x + 13, y2: posY(topo, k),
-    stroke: COR.tinta, "stroke-width": 1.4,
+    x1: x - RX * 1.55, y1: posY(topo, k), x2: x + RX * 1.55, y2: posY(topo, k),
+    stroke: opts.cor || COR.tinta, "stroke-width": 1.7,
   })).join("");
 }
 
@@ -39,35 +45,37 @@ function nota(x, topo, p, dur = 4, opts = {}) {
   const y = posY(topo, p);
   const cor = opts.cor || COR.tinta;
   const cheia = dur >= 4;
-  const rx = 9.2, ry = 6.6;
-  const partes = [suplementares(x, topo, p)];
+  const rx = RX, ry = RY;
+  const partes = [suplementares(x, topo, p, { cor })];
   partes.push(el("ellipse", {
     cx: x, cy: y, rx, ry, transform: `rotate(-20 ${x} ${y})`,
-    fill: cheia ? cor : "none", stroke: cor, "stroke-width": cheia ? 0 : 2.4,
+    fill: cheia ? cor : "none", stroke: cor, "stroke-width": cheia ? 0 : 2.8,
   }));
   if (dur >= 2) {
     const pracima = opts.haste === "cima" || (opts.haste !== "baixo" && p < 4);
-    const hx = pracima ? x + rx - 0.8 : x - rx + 0.8;
-    const hy = pracima ? y - 46 : y + 46;
-    partes.push(el("line", { x1: hx, y1: y, x2: hx, y2: hy, stroke: cor, "stroke-width": 2.1 }));
+    const hx = pracima ? x + rx - 0.9 : x - rx + 0.9;
+    const hy = pracima ? y - HASTE : y + HASTE;
+    partes.push(el("line", { x1: hx, y1: y, x2: hx, y2: hy, stroke: cor, "stroke-width": 2.5 }));
     for (let i = 0; !opts.semFlag && i < Math.log2(dur / 4); i++) {
-      const fy = hy + (pracima ? i * 11 : -i * 11);
+      const fy = hy + (pracima ? i * D * 0.78 : -i * D * 0.78);
+      const a = D * 0.88, b = D * 1.5, c = D * 0.95;
       partes.push(el("path", {
-        d: pracima ? `M${hx} ${fy} q13 7 12 22 q-5 -12 -12 -14 z`
-                   : `M${hx} ${fy} q13 -7 12 -22 q-5 12 -12 14 z`,
+        d: pracima ? `M${hx} ${fy} q${a} ${a * 0.55} ${a * 0.9} ${b} q${-a * 0.35} ${-b * 0.55} ${-a * 0.9} ${-c} z`
+                   : `M${hx} ${fy} q${a} ${-a * 0.55} ${a * 0.9} ${-b} q${-a * 0.35} ${b * 0.55} ${-a * 0.9} ${c} z`,
         fill: cor, stroke: "none",
       }));
     }
   }
   for (let i = 0; i < (opts.pontos || 0); i++)
-    partes.push(el("circle", { cx: x + 16 + i * 8, cy: posY(topo, p % 2 ? p : p + 1), r: 2.8, fill: cor }));
+    partes.push(el("circle", { cx: x + RX * 1.75 + i * D * 0.5, cy: posY(topo, p % 2 ? p : p + 1), r: D * 0.19, fill: cor }));
   return el("g", {}, partes.join(""));
 }
 
 /* Barra de ligação entre duas notas (colcheias unidas) */
 const barra = (x1, x2, topo, p1, p2, cima = true) => {
-  const y1 = posY(topo, p1) + (cima ? -46 : 46), y2 = posY(topo, p2) + (cima ? -46 : 46);
-  return el("path", { d: `M${x1} ${y1} L${x2} ${y2} L${x2} ${y2 + (cima ? 7 : -7)} L${x1} ${y1 + (cima ? 7 : -7)} z`, fill: COR.tinta });
+  const e = D * 0.46;                                   // espessura da barra de ligação
+  const y1 = posY(topo, p1) + (cima ? -HASTE : HASTE), y2 = posY(topo, p2) + (cima ? -HASTE : HASTE);
+  return el("path", { d: `M${x1} ${y1} L${x2} ${y2} L${x2} ${y2 + (cima ? e : -e)} L${x1} ${y1 + (cima ? e : -e)} z`, fill: COR.tinta });
 };
 
 /* Pausas. dur igual ao da nota. */
@@ -195,7 +203,7 @@ const svg = (larg, alt, corpo) =>
    <rect width="${larg}" height="${alt}" fill="#fff"/>${corpo}</svg>`;
 
 module.exports = {
-  COR, D, el, posY, pauta, nota, barra, pausa, suplementares,
+  COR, D, RX0: 0.62 * 17 - 0.9, el, posY, pauta, nota, barra, pausa, suplementares,
   claveSol, claveFa, claveDo, sustenido, bemol, bequadro, fermata,
   barraCompasso, formula, rotulo, rotuloDir, chave, svg,
 };

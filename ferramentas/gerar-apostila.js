@@ -40,6 +40,10 @@ const PRATICA = "8A5A2B";
 const VERDE = "4A6B3F";
 const LARGURA = 9350;                 // largura útil, em DXA
 const MAX_FIG = 470;                  // largura máxima da figura, em pontos
+// Cada pixel de projeto vale sempre o mesmo em pontos. Sem isso, uma figura
+// desenhada larga e outra estreita saíam com tamanhos aparentes diferentes: a
+// larga encolhia até o fio de cabelo e a estreita ficava enorme.
+const PT_POR_PX = 0.72;
 
 /* ---------- blocos reutilizáveis ---------- */
 
@@ -108,7 +112,7 @@ function figura(nome, legenda) {
   if (!cacheFig.has(nome)) {
     const buf = fs.readFileSync(arq);
     const { larg, alt } = tamanhoPNG(buf);
-    const escala = Math.min(MAX_FIG / larg, 1);
+    const escala = Math.min(PT_POR_PX, MAX_FIG / larg);
     cacheFig.set(nome, { buf, w: Math.round(larg * escala), h: Math.round(alt * escala) });
   }
   const { buf, w, h } = cacheFig.get(nome);

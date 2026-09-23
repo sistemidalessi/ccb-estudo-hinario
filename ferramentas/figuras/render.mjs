@@ -13,7 +13,7 @@ const html = readFileSync(join(aqui, 'figuras.html'), 'utf8');
 const ids = [...html.matchAll(/class="f" id="([^"]+)"/g)].map(m => m[1]);
 
 const b = await chromium.launch();
-const p = await b.newPage({ viewport: { width: 1000, height: 900 }, deviceScaleFactor: 2.5 });
+const p = await b.newPage({ viewport: { width: 1000, height: 900 }, deviceScaleFactor: 3 });
 await p.goto('file://' + join(aqui, 'figuras.html'));
 await p.waitForTimeout(500);
 for (const id of ids) await p.locator('#' + id).screenshot({ path: join(saida, id + '.png') });
