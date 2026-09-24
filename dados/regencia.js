@@ -1,8 +1,10 @@
-/* Curso de regência para os instrutores — só no caderno do instrutor.
+/* Dicas de regência para os instrutores — só no caderno do instrutor.
+   (Até 24/09/2026 chamava-se "curso de regência"; o Anderson pediu outro
+   nome, "para não parecer soberba".)
 
    Pedido do Anderson (24/09/2026): uma vez por mês o GEM tem uma aula prática
    em que os próprios instrutores regem dois ou três hinos e falam sobre eles.
-   O curso acompanha a análise de hinos: um módulo ao fim de cada fase, e os
+   As dicas acompanham a análise de hinos: uma parte ao fim de cada fase, e os
    hinos da análise são os que se regem naquela aula prática. A técnica
    cresce junto com o conteúdo do MSA — o compasso em 3 entra quando o MSA
    ensina o compasso em 3, a fermata quando o MSA ensina a fermata, e assim
@@ -22,17 +24,17 @@
    Cada módulo: { titulo, abre, blocos: [{h, t, fig}], pratica: [..] }. */
 const REGENCIA = {
   intro: {
-    titulo: "Curso de regência para instrutores",
-    abre: "Uma vez por mês, na aula prática, os instrutores regem. Este curso prepara essa aula: ao fim de cada fase há um módulo de técnica e, para cada hino da análise daquela fase, as observações de regência. A técnica cresce com o material — os primeiros hinos são em 4, sem mudança de compasso; os últimos trazem compasso composto, fermata, ritornelo, mudança de fórmula e entrada acéfala.",
+    titulo: "Dicas de regência para a aula prática",
+    abre: "Uma vez por mês, na aula prática, os instrutores regem. Estas dicas ajudam a preparar essa aula: ao fim de cada fase há uma parte de técnica e, para cada hino da análise daquela fase, as observações de regência. A técnica cresce com o material — os primeiros hinos são em 4, sem mudança de compasso; os últimos trazem compasso composto, fermata, ritornelo, mudança de fórmula e entrada acéfala.",
     blocos: [
       { h: "Como funciona a aula prática",
         t: "Cada instrutor rege dois ou três hinos da análise da fase mais recente, com os demais tocando. Antes de reger, ele diz em dois minutos o que vai fazer: o desenho, o andamento, como é a entrada, onde há fermata e como termina. Depois de reger, ouve dos colegas uma coisa que funcionou e uma coisa a mudar — só uma. Quem rege de novo na aula seguinte começa pela coisa a mudar." },
       { h: "Como estudar um hino antes de regê-lo",
         t: "Primeiro, cante a voz do soprano inteira, marcando o compasso com a mão. Depois responda por escrito: em quanto se rege (o hinário às vezes traz a marcação impressa, 'em 2', 'em 6'); qual o andamento, dentro da faixa do metrônomo; em que tempo o hino começa e qual é o gesto de preparação; onde estão as fermatas e o que vem depois de cada uma; como se faz a volta entre as estrofes; como termina. Por fim, ensaie os gestos em silêncio diante de um espelho, com o metrônomo. Quem sabe o hino de cor rege olhando para o grupo, e não para a folha." },
       { h: "O que o regente dá ao grupo",
-        t: "O começo, o andamento, o fim, e a respiração entre uma coisa e outra. O gesto de regência não enfeita a música: informa. Por isso vale a regra de todo o curso — o menor gesto que o grupo inteiro consegue ler. Gesto demais cansa e confunde; gesto de menos não é visto do fundo." },
+        t: "O começo, o andamento, o fim, e a respiração entre uma coisa e outra. O gesto de regência não enfeita a música: informa. Por isso vale a regra de todas estas dicas — o menor gesto que o grupo inteiro consegue ler. Gesto demais cansa e confunde; gesto de menos não é visto do fundo." },
       { h: "Uma observação sobre este material",
-        t: "É um resumo, em palavras próprias, de material de curso de regência de hinos e de manuais de técnica de batuta. Onde a prática da orquestra da sua região for outra, vale a orientação do encarregado." },
+        t: "É um resumo, em palavras próprias, de material de estudo de regência de hinos e de manuais de técnica de batuta. Onde a prática da orquestra da sua região for outra, vale a orientação do encarregado." },
     ],
   },
 
@@ -55,7 +57,7 @@ const REGENCIA = {
     ],
     pratica: [
       "Cada instrutor toma a posição de atenção — braço levantado, batuta pronta, olhar no grupo — e a sustenta dez segundos sem tensão. Os colegas dizem se ela parece firme e solta.",
-      "Nos hinos desta fase, só o desenho em 4. Para começar, siga a observação de entrada de cada hino, logo abaixo: ela diz o gesto de preparação — um tempo só. O porquê é o módulo 3.",
+      "Nos hinos desta fase, só o desenho em 4. Para começar, siga a observação de entrada de cada hino, logo abaixo: ela diz o gesto de preparação — um tempo só. O porquê é o parte 3.",
     ],
   },
 
@@ -129,7 +131,7 @@ const REGENCIA = {
       { h: "Em 6 ou em 2",
         t: "O compasso 6/8 tem dois tempos, cada um com três colcheias. Quando o andamento é movido, rege-se em 2, cada gesto valendo uma semínima pontuada, com um rebote redondo que 'carrega' as três colcheias. Quando é lento, rege-se em 6, um gesto por colcheia. O hinário muitas vezes traz a marcação impressa ('em 2', 'em 6'): ela manda. Sem marcação, a faixa do metrônomo sozinha não decide — no hinário há 6/8 marcados em 6 e em 2 na mesma faixa. Pese o caráter, a segurança do grupo e quantos gestos por minuto cada opção dá." },
       { h: "O desenho em 6 na regência",
-        t: "Aqui há uma diferença a conhecer. O movimento de solfejo em 6 do MSA segue o desenho do compasso em 2: pontos 1 a 3 abaixo, 4 a 6 acima. Na regência de conjunto, a maioria dos manuais usa outro desenho, que parte do compasso em 4: 1 abaixo, 2 e 3 para dentro, 4 e 5 para fora, 6 acima — o 4 é o segundo tempo forte e cruza para fora com peso. O do MSA é o que os manuais chamam de 6 subdividido em 2. Os dois estão corretos, e o curso deixa as duas opções abertas: o regente escolhe o que dá mais segurança ao grupo. O que não pode é misturar os dois no mesmo hino — e é bom avisar o grupo antes qual será.",
+        t: "Aqui há uma diferença a conhecer. O movimento de solfejo em 6 do MSA segue o desenho do compasso em 2: pontos 1 a 3 abaixo, 4 a 6 acima. Na regência de conjunto, a maioria dos manuais usa outro desenho, que parte do compasso em 4: 1 abaixo, 2 e 3 para dentro, 4 e 5 para fora, 6 acima — o 4 é o segundo tempo forte e cruza para fora com peso. O do MSA é o que os manuais chamam de 6 subdividido em 2. Os dois estão corretos, e as duas opções ficam abertas: o regente escolhe o que dá mais segurança ao grupo. O que não pode é misturar os dois no mesmo hino — e é bom avisar o grupo antes qual será.",
         fig: "reg-6" },
       { h: "A tercina",
         t: "A tercina não muda o gesto: o tempo continua do mesmo tamanho, e as três notas cabem dentro dele. Se o grupo correr na tercina, o regente não a desenha — firma o ictus do tempo seguinte." },
@@ -325,7 +327,7 @@ const REGENCIA = {
 
   16: {
     titulo: "A frase — e como avaliar um colega",
-    abre: "No fim do MSA, o candidato aprendeu a frase. No fim deste curso, o regente aprende a reger frases, e não compassos.",
+    abre: "No fim do MSA, o candidato aprendeu a frase. Nesta última parte, o regente passa a reger frases, e não compassos.",
     blocos: [
       { h: "Reger a frase",
         t: "Uma frase tem começo, ponto alto e fim. O gesto acompanha: cresce um pouco para o ponto alto e se recolhe para o fim, e a respiração entre uma frase e outra é dada pelo regente, com a mesma respiração da preparação. Nos hinos, as frases acompanham os versos: onde a congregação respira, a orquestra respira junto." },
@@ -333,8 +335,8 @@ const REGENCIA = {
         t: "A indicação no alto do hino — solene, majestoso, com fervor — é o primeiro dado da preparação. Solene: gesto largo, pesado e ligado, preparação sem pressa. Majestoso: gesto amplo e firme, com peso no 1º tempo, sem arrastar. O caráter aparece antes da primeira nota, na postura e na preparação." },
       { h: "Como avaliar um colega",
         t: "Na aula prática, a avaliação de quem rege segue sempre a mesma ordem: o começo foi junto? O andamento se manteve? As fermatas e os cortes foram claros? O fim foi junto? Só depois disso vêm caráter e dinâmica. E a devolutiva é curta: uma coisa que funcionou, uma coisa a mudar." },
-      { h: "Depois do curso",
-        t: "Os módulos se repetem com hinos novos: a lista de repertório do fim do volume serve para isso. Cada instrutor pode reger, a cada mês, um hino que traga uma dificuldade que ele ainda não enfrentou." },
+      { h: "Daqui em diante",
+        t: "As partes se repetem com hinos novos: a lista de repertório do fim do volume serve para isso. Cada instrutor pode reger, a cada mês, um hino que traga uma dificuldade que ele ainda não enfrentou." },
     ],
     pratica: [
       "Cada instrutor rege os hinos desta fase marcando com o gesto o começo, o ponto alto e o fim de cada frase.",

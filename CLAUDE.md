@@ -20,7 +20,7 @@ Quatro arquivos, nenhuma biblioteca, nenhum passo de build:
 index.html          estrutura e marcação das quatro telas
 assets/estilo.css   tokens de cor (claro/escuro) e todo o layout
 assets/app.js       abas, gerador de ficha, modo estudo, banco
-assets/figuras/     as 30 figuras em PNG, geradas (não desenhadas à mão)
+assets/figuras/     as 63 figuras em PNG, geradas (não desenhadas à mão)
 .nojekyll           impede o Jekyll de processar o site no Pages
 
 dados/curriculo.js      FASES (16 fases do MSA), TIPOS (8 tipos) e AULAS (as 60)
@@ -450,3 +450,17 @@ isso. O curso de regência segue o oficial: a dinâmica se decide pela letra.
   "toque a escala do tom escrito no seu hinário"; a tabela é a
   correspondência. Trombone, eufônio e tuba não são nomeados — tocam pelo
   hinário que usam. A trompa tem hinário próprio, em Fá: é a quarta coluna.
+
+## Sexta rodada — escalas em partitura e "dicas de regência" (24/09/2026)
+
+- **"Curso de regência" virou "Dicas de regência"** em toda a apostila, a
+  pedido do Anderson ("para não parecer soberba"); os módulos viraram
+  "partes" (1 a 16). O código continua chamando `REGENCIA`.
+- **Escalas em partitura** (`ferramentas/figuras/escalas.js`), no formato da
+  apostila de escalas que ele mostrou: 4/4, uma oitava subindo e descendo em
+  semínimas, mínima no fim, barra dupla e o arpejo. Clave de Sol com duas
+  oitavas sobrepostas (no violino, a de baixo é o soprano no natural e a de
+  cima o 8ª acima), 13 tons — os dez do hinário e Si, Fá♯, Dó♯, que aparecem
+  nos hinários em Si♭ e Mi♭; clave de Dó (viola) e de Fá (violoncelo, graves),
+  os dez. Ficam na página "As escalas do hinário", e a da clave de Sol entra
+  na caixa de escala de cada hino da análise. Desenho próprio, com a Bravura.

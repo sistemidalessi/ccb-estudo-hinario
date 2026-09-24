@@ -1,6 +1,6 @@
 /* Observações de regência para cada hino da análise — caderno do instrutor.
 
-   O texto de cada módulo do curso está em dados/regencia.js; aqui saem as
+   O texto de cada parte das dicas está em dados/regencia.js; aqui saem as
    observações de cada hino, dos dados de dados/hinos.js (fórmula, marcação
    impressa, metrônomo, ritmo inicial, sinais, indicação) e da tabela ENTRADA
    abaixo.
@@ -30,7 +30,7 @@ const ENTRADA = {
   431: ["no 4º tempo, com duas colcheias", "o gesto do 3 (fora)"],
   466: ["no 3º tempo, com colcheia pontuada e semicolcheia", "o gesto do 2 (fora)"],
   469: ["no 4º tempo, com colcheia pontuada e semicolcheia", "o gesto do 3 (fora)"],
-  438: ["na 6ª colcheia, o último terço do 2º tempo", "o próprio 2º tempo (acima): o grupo entra no fim dele (anacruse de fração, módulo 13)"],
+  438: ["na 6ª colcheia, o último terço do 2º tempo", "o próprio 2º tempo (acima): o grupo entra no fim dele (anacruse de fração, parte 13)"],
   444: ["no 3º tempo, com duas colcheias", "o gesto do 2 (fora)"],
   313: ["na 6ª colcheia", "em 6, o gesto do 5 (fora no desenho de conjunto; no do MSA, o 2º pulso do grupo de cima); em 2, o próprio 2º tempo, com o grupo entrando no fim dele"],
   425: ["na 7ª colcheia, com três colcheias — o 3º tempo inteiro", "o 6º pulso, o último do grupo de fora"],
@@ -53,9 +53,9 @@ const FIG = { 2: "mínima", 4: "semínima", 8: "colcheia" };
 const dur = fig => ({ "mínima": 2, "semínima": 1, "colcheia": 0.5 }[fig.replace(" pontuada", "")] || 1) * (/pontuada/.test(fig) ? 1.5 : 1);
 const PADRAO = {
   2: "1 abaixo, 2 acima", 3: "1 abaixo, 2 fora, 3 acima", 4: "1 abaixo, 2 dentro, 3 fora, 4 acima",
-  6: "qualquer dos dois desenhos de 6 do módulo 5 (o do MSA ou o de conjunto), sem misturá-los no mesmo hino",
-  9: "o desenho do 3 com três pulsos em cada direção, o primeiro de cada grupo maior (módulo 7)",
-  12: "o desenho do 4 com três pulsos em cada direção, o primeiro de cada grupo maior (módulo 7)",
+  6: "qualquer dos dois desenhos de 6 do parte 5 (o do MSA ou o de conjunto), sem misturá-los no mesmo hino",
+  9: "o desenho do 3 com três pulsos em cada direção, o primeiro de cada grupo maior (parte 7)",
+  12: "o desenho do 4 com três pulsos em cada direção, o primeiro de cada grupo maior (parte 7)",
 };
 
 /* Marcação impressa que não é desenho do compasso — "em 4" num 2/4, "em 3"
@@ -85,16 +85,16 @@ function desenho(h) {
   }
   if (fs.length > 1) {
     const [a, b] = fs.map(x => Number(x.split("/")[0]));
-    return { n: a, gesto: tempo, texto: `Começa em ${a} (${PADRAO[a]}) e passa a ${b} onde a fórmula muda (${fs.join(" → ")}). O 1º tempo do compasso novo é o que precisa estar claro: prepare-o com o último tempo do desenho antigo e olhe para o grupo na passagem (módulo 11).` };
+    return { n: a, gesto: tempo, texto: `Começa em ${a} (${PADRAO[a]}) e passa a ${b} onde a fórmula muda (${fs.join(" → ")}). O 1º tempo do compasso novo é o que precisa estar claro: prepare-o com o último tempo do desenho antigo e olhe para o grupo na passagem (parte 11).` };
   }
   const marc = h.marc ? Number(h.marc.replace(/\D/g, "")) : null;
   const tempos = comp ? num / 3 : num;
   if (comp && !marc) {
     const m = media(h);
     if (m && (h.mf || "") === pulso) {
-      return { n: null, gesto: null, texto: `Sem marcação impressa. Com a ${pulso} por volta de ${Math.round(m)}, em ${num} seriam ${Math.round(m)} gestos por minuto; em ${tempos}, uns ${Math.round(m / 3)}, com o rebote carregando os três pulsos. O hinário usa as duas maneiras nessa faixa: decida pelo caráter e pela segurança do grupo, e diga antes qual será (módulo 5).` };
+      return { n: null, gesto: null, texto: `Sem marcação impressa. Com a ${pulso} por volta de ${Math.round(m)}, em ${num} seriam ${Math.round(m)} gestos por minuto; em ${tempos}, uns ${Math.round(m / 3)}, com o rebote carregando os três pulsos. O hinário usa as duas maneiras nessa faixa: decida pelo caráter e pela segurança do grupo, e diga antes qual será (parte 5).` };
     }
-    return { n: tempos, gesto: tempo, texto: `Em ${tempos}: cada gesto uma ${tempo}, e o rebote carrega os três pulsos (${PADRAO[tempos]}). Nos trechos lentos, pode-se subdividir em ${num} (módulo 14).` };
+    return { n: tempos, gesto: tempo, texto: `Em ${tempos}: cada gesto uma ${tempo}, e o rebote carrega os três pulsos (${PADRAO[tempos]}). Nos trechos lentos, pode-se subdividir em ${num} (parte 14).` };
   }
   const n = marc || num;
   let gesto = pulso;
@@ -104,7 +104,7 @@ function desenho(h) {
   let t = `Em ${n}${imp}: ${PADRAO[n] || ""}.`;
   if (comp && n === tempos) t = `Em ${n}${imp}: cada gesto uma ${gesto}, e o rebote redondo carrega os três pulsos (${PADRAO[n]}).`;
   else if (comp && n === num) t = `Em ${n}${imp}: um gesto por ${pulso} — ${PADRAO[n]}.`;
-  else if (!comp && n !== num) t += ` O compasso é ${f}, mas o regente dá ${n} gestos por compasso, cada um uma ${gesto}${n < num ? " (módulo 11)" : ""}; o grupo continua contando ${num}.`;
+  else if (!comp && n !== num) t += ` O compasso é ${f}, mas o regente dá ${n} gestos por compasso, cada um uma ${gesto}${n < num ? " (parte 11)" : ""}; o grupo continua contando ${num}.`;
   if ((h.fc || [])[0] === "C") t += " O sinal C é o 4/4.";
   if ((h.fc || [])[0] === "C cortado") t += " O C cortado é o 2/2: tempo de mínima.";
   else if (f === "2/2") t += " O tempo é a mínima.";
@@ -128,7 +128,7 @@ function andamento(h, d) {
     else t += ` Atenção: o sinal traz ${fig}, e o gesto vale ${d.gesto} — confira no hinário como ler esse número.`;
   }
   // lento: menos de 56 semínimas por minuto, qualquer que seja o gesto
-  if (!/Atenção/.test(t) && m * dur(fig || "semínima") < 56) t += " Andamento lento: subdivida onde o grupo se espalhar (módulo 14).";
+  if (!/Atenção/.test(t) && m * dur(fig || "semínima") < 56) t += " Andamento lento: subdivida onde o grupo se espalhar (parte 14).";
   return t + car;
 }
 
@@ -139,10 +139,10 @@ function entrada(h, d) {
   }
   const e = ENTRADA[h.n];
   if (!e) return h.ri === "acéfalo"
-    ? "Acéfalo: o 1º tempo é pausa. Prepare com o último tempo e dê o 1 seco e firme; o grupo entra logo depois (módulo 13)."
+    ? "Acéfalo: o 1º tempo é pausa. Prepare com o último tempo e dê o 1 seco e firme; o grupo entra logo depois (parte 13)."
     : "Anacrúsico: conte na partitura quanto falta ao primeiro compasso. A preparação é o tempo anterior ao da entrada.";
   return h.ri === "acéfalo"
-    ? `Acéfalo: entra ${e[0]}. Preparação: ${e[1]} (módulo 13).`
+    ? `Acéfalo: entra ${e[0]}. Preparação: ${e[1]} (parte 13).`
     : `Anacrúsico: entra ${e[0]}. Preparação: ${e[1]}. Os tempos vazios do começo não se marcam.`;
 }
 
@@ -167,12 +167,12 @@ function dicasDoHino(h, fase) {
   const d = desenho(h), s = h.s || [];
   const out = [["Desenho", d.texto], ["Andamento", andamento(h, d)], ["Entrada", entrada(h, d)]];
   if (s.includes("fermata")) out.push(["Fermata", fase < 5
-    ? "O hino tem fermata, assunto do módulo 5. Por ora: pare o gesto no ponto do tempo, com a mão viva, sem cair; se depois dela vem respiração ou pausa, retome com um corte pequeno que já é a preparação do tempo seguinte; se a música segue ligada, saia direto no tempo seguinte."
+    ? "O hino tem fermata, assunto do parte 5. Por ora: pare o gesto no ponto do tempo, com a mão viva, sem cair; se depois dela vem respiração ou pausa, retome com um corte pequeno que já é a preparação do tempo seguinte; se a música segue ligada, saia direto no tempo seguinte."
     : "Antes de reger, decida quanto dura cada fermata e se há corte depois dela — há corte quando vem respiração ou pausa; se a música segue ligada, sai-se direto no tempo seguinte."]);
   if (s.includes("tercina")) out.push(["Tercina", "O gesto não muda: a tercina cabe dentro do tempo. Se o grupo correr, firme o ictus do tempo seguinte."]);
   if (s.includes("ritornelo")) out.push(["Ritornelo", "Na barra de repetição não se corta: o último gesto antes dela leva de volta ao começo do trecho. Nas casas 1 e 2, olhe para o grupo na passagem."]);
   if (SINCOPA.has(h.n) || CONTRATEMPO.has(h.n))
-    out.push([SINCOPA.has(h.n) ? "Síncopa" : "Contratempo", `O GEM lista este hino com ${SINCOPA.has(h.n) ? "síncopa" : "contratempo"}: no trecho, o gesto fica nítido e do mesmo tamanho — não se rege o som fora do tempo (módulo 12).`]);
+    out.push([SINCOPA.has(h.n) ? "Síncopa" : "Contratempo", `O GEM lista este hino com ${SINCOPA.has(h.n) ? "síncopa" : "contratempo"}: no trecho, o gesto fica nítido e do mesmo tamanho — não se rege o som fora do tempo (parte 12).`]);
   if (fase >= 9) out.push(["Entre as estrofes", voltaDaEstrofe(h)]);
   if (fase >= 10) out.push(["Dinâmica", "O hinário não traz sinais de dinâmica: decida antes, pela letra e pela frase, onde o som cresce e diminui, e mostre cada mudança só com o tamanho do gesto."]);
   return out;

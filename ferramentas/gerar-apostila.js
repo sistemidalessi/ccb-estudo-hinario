@@ -30,6 +30,7 @@ const { todasAsAnalises, ultimaAulaDaFase } = require("./analise.js");
 const { repertorio } = require("./repertorio.js");
 const { dicasDoHino, REGENCIA } = require("./regencia.js");
 const ESC = require("./escalas.js");
+const ESCFIG = require("./figuras/escalas.js");
 const { PROGRAMA_MINIMO } = require(path.join(RAIZ, "dados", "programa-minimo.js"));
 const ANALISES = todasAsAnalises(HINOS);
 const FIM_DA_FASE = ultimaAulaDaFase(AULAS);
@@ -202,8 +203,8 @@ function comoUsar(periodo, instrutor) {
     texto("Cada exercício traz um nível de 1 a 3. Nível 1 é reconhecer o que está escrito; nível 2 é explicar por que é assim; nível 3 é aplicar, comparar ou decidir. Não é nota — é para o candidato saber o que ainda falta."),
     vazio(180),
     ...(instrutor ? [
-      texto("O curso de regência", { font: SERIF, size: 24, bold: true, after: 140 }),
-      texto("Só neste caderno. Depois da análise de hinos de cada fase vem um módulo de regência para a aula prática mensal, em que os instrutores regem: a técnica do módulo, com figuras, e as observações para reger cada hino da análise. A técnica cresce com o conteúdo do MSA, do compasso em 4 ao começo acéfalo."),
+      texto("Dicas de regência", { font: SERIF, size: 24, bold: true, after: 140 }),
+      texto("Só neste caderno. Depois da análise de hinos de cada fase vêm algumas dicas de regência para a aula prática mensal, em que os instrutores regem: a técnica, com figuras, e as observações para reger cada hino da análise. A técnica cresce com o conteúdo do MSA, do compasso em 4 ao começo acéfalo."),
       vazio(180)] : []),
   ];
 
@@ -486,6 +487,7 @@ function escalasDaAnalise(f, hinos) {
       new TextRun({ text: `Hino ${h.n}`, font: SANS, size: 20, bold: true, color: TINTA }),
       new TextRun({ text: ` — escala de ${e.tom} maior`, font: SANS, size: 20, color: TINTA })] }),
       texto(leituraTexto(e.tom), { size: 16, cor: CINZA, after: 40 }),
+      ...figura(ESCFIG.idDaEscala("sol", e.tom)),
       ...e.passos.map((p, k) => texto(`${k + 1}. ${p}`, { size: 18, after: 30, indent: { left: 280 } })));
   });
   return [caixa(linhas, { faixa: AZUL, fundo: "F7F9F9" }), vazio(120)];
@@ -507,10 +509,19 @@ function escalasDoHinario() {
   b.push(texto("Os quatro níveis", { font: SERIF, size: 25, bold: true, cor: AZUL, before: 160, after: 60 }));
   ESC.NIVEIS.filter(Boolean).forEach(n => b.push(texto(`${n.nome} (${n.fases}).`, { size: 18, after: 30 })));
   b.push(texto("Cada instrumento toca na oitava do seu método. Em conjunto, o instrutor dá a tônica, e cada um toca a escala do seu hinário — soa tudo junto.", { size: 17, italico: true, cor: CINZA, before: 100 }), quebra());
+  b.push(texto("As escalas na clave de Sol", { font: SERIF, size: 25, bold: true, cor: AZUL, after: 60 }),
+    texto("Violino, flauta, oboé, clarinetes, saxofones, trompete, cornet, flugelhorn e trompa. Duas oitavas sobrepostas: no violino, a de baixo é o soprano no natural e a de cima, o soprano 8ª acima; nos outros instrumentos, toque a oitava do seu método. Além dos dez tons do hinário em Dó, entram Si, Fá♯ e Dó♯ maior, que aparecem nos hinários em Si♭ e em Mi♭.", { size: 18, after: 100 }));
+  ESCFIG.TONS_SOL.forEach(t => b.push(...figura(ESCFIG.idDaEscala("sol", t))));
+  b.push(quebra(), texto("As escalas na clave de Dó — viola", { font: SERIF, size: 25, bold: true, cor: AZUL, after: 100 }));
+  ESCFIG.TONS10.forEach(t => b.push(...figura(ESCFIG.idDaEscala("do", t))));
+  b.push(quebra(), texto("As escalas na clave de Fá", { font: SERIF, size: 25, bold: true, cor: AZUL, after: 60 }),
+    texto("Violoncelo, fagote, e trombone, eufônio e tuba quando leem em clave de Fá.", { size: 18, after: 100 }));
+  ESCFIG.TONS10.forEach(t => b.push(...figura(ESCFIG.idDaEscala("fa", t))));
+  b.push(quebra());
   return b;
 }
 
-/* ---------- curso de regência (só no caderno do instrutor) ---------- */
+/* ---------- dicas de regência (só no caderno do instrutor) ---------- */
 
 const MARROM = PRATICA;
 function blocosDeRegencia(mod) {
@@ -529,9 +540,9 @@ function regencia(f) {
     new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: t, font: SERIF, size: 32, bold: true, color: MARROM })] })];
   if (f === 1) {
     const I = REGENCIA.intro;
-    b.push(...titulo("Curso de regência · para os instrutores", I.titulo), texto(I.abre, { size: 20, cor: "3F4C55", after: 160 }), ...blocosDeRegencia(I));
+    b.push(...titulo("Dicas de regência · para os instrutores", I.titulo), texto(I.abre, { size: 20, cor: "3F4C55", after: 160 }), ...blocosDeRegencia(I));
   }
-  b.push(...titulo(`Curso de regência · módulo ${f} de 16`, mod.titulo), texto(mod.abre, { size: 20, cor: "3F4C55", after: 160 }), ...blocosDeRegencia(mod));
+  b.push(...titulo(`Dicas de regência · parte ${f} de 16`, mod.titulo), texto(mod.abre, { size: 20, cor: "3F4C55", after: 160 }), ...blocosDeRegencia(mod));
   b.push(caixa([texto("Na aula prática", { caps: true, size: 16, bold: true, cor: MARROM, after: 60 }),
     ...mod.pratica.map(p => texto(`· ${p}`, { size: 19, after: 60 }))], { faixa: MARROM, fundo: "F7F1E8" }), vazio(200));
   b.push(texto("Para reger os hinos da análise desta fase", { font: SERIF, size: 25, bold: true, cor: MARROM, after: 100,
