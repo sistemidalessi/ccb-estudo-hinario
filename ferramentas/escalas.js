@@ -48,8 +48,8 @@ const SUST = ["Fá", "Dó", "Sol", "Ré", "Lá", "Mi", "Si"], BEM = ["Si", "Mi",
 const NSUST = { "Dó": 0, "Sol": 1, "Ré": 2, "Lá": 3, "Mi": 4, "Si": 5, "Fá♯": 6, "Dó♯": 7 };
 const NBEM = { "Fá": 1, "Si♭": 2, "Mi♭": 3, "Lá♭": 4, "Ré♭": 5, "Sol♭": 6 };
 function armadura(tom) {
-  if (tom in NSUST) { const k = NSUST[tom]; return k ? `${k} sustenido${k > 1 ? "s" : ""} (${SUST.slice(0, k).join(", ")})` : "sem acidentes"; }
-  if (tom in NBEM) { const k = NBEM[tom]; return `${k} ${k > 1 ? "bemóis" : "bemol"} (${BEM.slice(0, k).join(", ")})`; }
+  if (tom in NSUST) { const k = NSUST[tom]; return k ? `${k} sustenido${k > 1 ? "s" : ""} — ${SUST.slice(0, k).join(", ")}` : "sem acidentes"; }
+  if (tom in NBEM) { const k = NBEM[tom]; return `${k} ${k > 1 ? "bemóis" : "bemol"} — ${BEM.slice(0, k).join(", ")}`; }
   return "";
 }
 const leitura = tom => [{ grupo: "Hinário em Dó", tom }, ...["sib", "mib", "fa"].map(g =>
