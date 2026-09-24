@@ -1,7 +1,12 @@
 /* Gera as apostilas em PDF, a partir dos mesmos dados do gerador .docx.
  *
- * Uso:  node ferramentas/gerar-pdf.js        (os quatro períodos)
+ * Uso:  node ferramentas/gerar-pdf.js        (os quatro períodos e a apostila geral)
  *       node ferramentas/gerar-pdf.js 2      (só o 2º)
+ *       node ferramentas/gerar-pdf.js geral  (só a apostila geral)
+ *
+ * A apostila geral junta os quatro períodos num volume, com a análise de
+ * hinos ao fim de cada fase (que também sai nas apostilas por período) e, no
+ * fim, o repertório por etapa e o Programa Mínimo de todos os instrumentos.
  *
  * Por que PDF, além do Word: o .docx depende da fonte instalada e do programa
  * que o abrir — numa máquina sem Cambria a paginação muda e as figuras andam
@@ -18,7 +23,13 @@ const { carregar } = require("./carregar.js");
 const { hinosDaAula, listasOficiais, fcTexto } = require("./hinos-da-aula.js");
 
 const RAIZ = path.join(__dirname, "..");
-const { TIPOS, AULAS, Q, HINOS, PLANOS } = carregar(RAIZ);
+const { TIPOS, AULAS, Q, HINOS, PLANOS, FASES } = carregar(RAIZ);
+const { todasAsAnalises, ultimaAulaDaFase } = require("./analise.js");
+const { repertorio } = require("./repertorio.js");
+const { PROGRAMA_MINIMO } = require(path.join(RAIZ, "dados", "programa-minimo.js"));
+const ANALISES = todasAsAnalises(HINOS);
+const FIM_DA_FASE = ultimaAulaDaFase(AULAS);
+const faseQueFecha = (p, a) => Number(Object.keys(FIM_DA_FASE).find(f => FIM_DA_FASE[f].p === p && FIM_DA_FASE[f].a === a)) || null;
 const { LICOES } = require(path.join(RAIZ, "dados", "licoes.js"));
 
 const FASES_DO_PERIODO = { 1: [1, 2, 3], 2: [4, 5], 3: [6, 7, 8, 9], 4: [10, 11, 12, 13, 14, 15, 16] };
@@ -136,6 +147,76 @@ function aula(periodo, [num, tops, assunto], instrutor) {
   return c + `</section>`;
 }
 
+/* ---------- análise de hinos, ao fim de cada fase ---------- */
+
+const CONFERIR_RITMO = "O ritmo inicial foi lido da partitura (largura do primeiro compasso e indicação de regência na margem); conferir no hinário antes de usar em avaliação.";
+
+function fichaDoHino(h) {
+  const ficha = [h.tom + " maior", fcTexto(h), h.marc, h.met ? "♩ = " + h.met : "", h.ind].filter(Boolean).join(" · ");
+  return esc(ficha).replace("♩ = ", '<span class="seminima">♩</span>\u202F=\u00A0');
+}
+
+function analiseHTML(f, instrutor) {
+  const bloco = ANALISES[f];
+  if (!bloco || !bloco.length) return "";
+  const fase = FASES.find(x => x.f === f);
+  let c = `<section class="analise"><p class="olho">Fim da fase ${f} · análise de hinos</p>
+    <h2>Com o hinário em mãos</h2>
+    <p class="abre">Fase ${f} — ${esc(fase ? fase.nome.toLowerCase() : "")}. As perguntas cobrem só o que foi estudado até aqui:
+      as marcadas <span class="novo">novo</span> são desta fase; as outras revisam as anteriores.</p>`;
+  if (instrutor && f === 13) c += `<p class="nota alerta">${esc(CONFERIR_RITMO)}</p>`;
+  bloco.forEach(({ h, novas, revisao }) => {
+    c += `<div class="hino-analise"><p class="hcab"><b>Hino ${h.n}</b> <span class="nota">${fichaDoHino(h)}</span></p><ol class="qa">`;
+    [...novas.map(q => [q, true]), ...revisao.map(q => [q, false])].forEach(([[pergunta, gab], nova]) => {
+      c += `<li><p>${nova ? '<span class="novo">novo</span> ' : ""}${esc(pergunta)}</p>` +
+        (instrutor ? `<p class="gab"><b>Gabarito</b>${esc(gab)}</p>` : `<div class="linhas"><span></span></div>`) + `</li>`;
+    });
+    c += `</ol></div>`;
+  });
+  return c + `</section>`;
+}
+
+/* ---------- repertório e Programa Mínimo (apostila geral) ---------- */
+
+function repertorioHTML(instrutor) {
+  const R = repertorio(HINOS);
+  let c = `<section class="pagina apendice"><p class="olho">Apêndice</p><h2>Repertório de estudo por etapa</h2>
+    <p class="abre">Hinos para estudar em cada etapa do Programa Mínimo, em ordem de dificuldade. Cada um traz
+      alguma coisa que os anteriores da mesma etapa ainda não trouxeram — uma fórmula, uma tonalidade, um sinal,
+      um jeito de entrar —, para o estudo não ser aleatório. A voz é a do Programa Mínimo; os dados de violino
+      vêm ao lado.</p>
+    <p class="nota">A dificuldade soma o que pesa na execução: armadura, compasso composto, mudança de fórmula,
+      tercina, síncopa e contratempo, ritornelo, entrada, andamento, tamanho e, no violino, a posição exigida
+      pelo soprano 8ª acima. A posição é orientação geral; a digitação é a do método do aluno.</p>`;
+  R.forEach(et => {
+    c += `<h3 class="etapa">${esc(et.nome)}</h3><p class="nota">Violino: ${esc(et.violino)}</p>
+      <table class="rep"><thead><tr><th>Hino</th><th>Ficha</th><th>O que traz</th><th>Violino</th>${instrutor ? "" : "<th>Visto</th>"}</tr></thead><tbody>`;
+    et.hinos.forEach((x, i) => {
+      const traz = i === 0 ? `ponto de partida — ${x.tudo.filter(t => !t.startsWith("violino:")).join(", ")}` : x.traz.join(", ");
+      c += `<tr><td class="n">${x.n}</td><td>${fichaDoHino(x.h)}</td><td>${esc(traz)}</td><td>${esc(x.violino)}</td>${instrutor ? "" : "<td></td>"}</tr>`;
+    });
+    c += `</tbody></table>`;
+  });
+  return c + `</section>`;
+}
+
+function programaMinimoHTML() {
+  const P = PROGRAMA_MINIMO;
+  let c = `<section class="pagina apendice"><p class="olho">Apêndice</p><h2>Programa Mínimo — todos os instrumentos</h2>
+    <p class="abre">O que cada etapa exige, conforme a sugestão de métodos da CCB (jan/2018). Entre as alternativas
+      de uma mesma etapa, basta uma.</p>
+    <table class="pm"><thead><tr><th>Instrumento</th>${P.etapas.map(e => `<th>${esc(e)}</th>`).join("")}</tr></thead><tbody>`;
+  P.instrumentos.forEach(i => {
+    c += `<tr><td class="inst">${esc(i.nome)}</td>` + i.etapas.map(e =>
+      `<td>${e.metodos.map(esc).join(' <span class="ou">ou</span> ')}${e.voz ? `<p class="voz">${esc(e.voz)}</p>` : ""}</td>`).join("") + `</tr>`;
+  });
+  P.todos.forEach(t => {
+    c += `<tr class="todos"><td class="inst">${esc(t.item)}</td>${t.etapas.map(e => `<td>${esc(e)}</td>`).join("")}</tr>`;
+  });
+  c += `</tbody></table><ul class="obs">${P.observacoes.map(o => `<li>${esc(o)}</li>`).join("")}</ul></section>`;
+  return c;
+}
+
 const ESTILO = `
 @page { size: A4; margin: 20mm 20mm 18mm; }
 * { box-sizing: border-box; }
@@ -210,8 +291,97 @@ figure.estreita img { width:97mm; }
 .corrido { font-size:9pt; color:#3F4C55; margin:0 0 1.2mm; line-height:1.4; }
 .corrido b { color:#1F5673; font-weight:600; }
 .instr h2 { font-size:15pt; }
+.analise { break-before:page; }
+.analise h2 { font-size:17pt; color:#4A6B3F; margin:1mm 0 2mm; }
+.analise .abre { font-size:10pt; color:#3F4C55; }
+.novo { font-family:"Liberation Sans",sans-serif; font-size:7pt; font-weight:700; letter-spacing:.06em;
+  text-transform:uppercase; color:#4A6B3F; background:#E3ECDD; padding:.3mm 1.3mm; border-radius:1mm; }
+.hino-analise { border-left:2.5pt solid #4A6B3F; background:#F4F7F2; padding:2.5mm 4mm; margin:4mm 0; break-inside:avoid; }
+.hino-analise .hcab { margin:0 0 1mm; font-size:11pt; }
+.qa { margin:0; padding-left:5mm; }
+.qa > li { break-inside:avoid; padding:1.2mm 0; }
+.qa > li p { margin:0; font-size:10pt; }
+.qa .linhas span { height:5.5mm; }
+.apendice h2 { font-size:17pt; color:#1F5673; margin:1mm 0 2mm; }
+.apendice .abre { font-size:10pt; color:#3F4C55; }
+h3.etapa { font-size:12.5pt; color:#1F5673; margin:6mm 0 1mm; }
+table.rep, table.pm { width:100%; border-collapse:collapse; font-size:8.5pt; margin:2mm 0 4mm; }
+table.rep th, table.pm th { font-family:"Liberation Sans",sans-serif; font-size:7.5pt; font-weight:600;
+  letter-spacing:.06em; text-transform:uppercase; color:#1F5673; text-align:left; border-bottom:.8pt solid #1F5673; padding:1.2mm 1.5mm; }
+table.rep td, table.pm td { border-bottom:.4pt solid #DDE3E1; padding:1.4mm 1.5mm; vertical-align:top; line-height:1.35; }
+table.rep tr, table.pm tr { break-inside:avoid; }
+table.rep td.n { font-family:"Liberation Mono",monospace; font-weight:700; font-size:10pt; width:11mm; }
+table.rep td:last-child { width:14mm; }
+table.pm td.inst { font-weight:600; width:32mm; }
+table.pm .ou { font-style:italic; color:#7D8F99; }
+table.pm .voz { margin:1mm 0 0; color:#8A5A2B; font-size:8pt; }
+table.pm tr.todos td { background:#F2F4F3; }
+ul.obs { font-size:9pt; color:#3F4C55; padding-left:5mm; }
+.divisor { display:flex; flex-direction:column; justify-content:center; min-height:238mm; text-align:center; }
+.divisor h2 { font-size:28pt; color:#1F5673; }
+.divisor p { color:#5C6B75; }
+.sumario { list-style:none; padding:0; margin:2mm 0 0; }
+.sumario li { display:flex; gap:2mm; margin:.8mm 0; font-size:10pt; }
+.sumario li .pont { flex:1; border-bottom:.5pt dotted #AFBAC0; transform:translateY(-1.2mm); }
+.sumario li.sub { padding-left:6mm; font-size:9pt; color:#3F4C55; }
 .instr p { margin-bottom:.6em; }
 `;
+
+function corpoDoPeriodo(periodo, instrutor) {
+  return AULAS[periodo].map(a => {
+    const f = faseQueFecha(periodo, a[0]);
+    return (instrutor ? roteiro(periodo, a[0]) : "") + aula(periodo, a, instrutor) + (f ? analiseHTML(f, instrutor) : "");
+  }).join("");
+}
+
+/* Os quatro períodos num volume só, com o repertório e o Programa Mínimo. */
+/* O sumário leva número de página: o volume é gerado duas vezes, e na
+   segunda os números vêm da primeira (ver o fim do arquivo). */
+function documentoGeral(instrutor, paginas = {}) {
+  const pg = k => paginas[k] ? String(paginas[k]) : "";
+  const linha = (k, texto, sub) => `<li${sub ? ' class="sub"' : ""}><span>${esc(texto)}</span><span class="pont"></span><span>${pg(k)}</span></li>`;
+  const capa = `<section class="capa">
+    <p class="org">Congregação Cristã no Brasil</p><p class="org">Grupo de Estudos Musicais</p>
+    <h1>Estudo do Hinário</h1>
+    <p class="sub">${instrutor ? "Caderno do instrutor" : "Caderno do candidato"}</p>
+    <p><span class="periodo">Apostila geral</span></p>
+    <p class="fases">Os quatro períodos do MSA · 16 fases · 60 aulas</p>
+    ${instrutor
+      ? `<div class="caixa" style="margin-top:14mm;text-align:left"><h3>Uso do instrutor</h3>
+         <p>Roteiro de cada aula, gabaritos de todos os exercícios e das análises de hinos, repertório por etapa
+         e o Programa Mínimo de todos os instrumentos, para orientar os demais instrutores.</p></div>`
+      : `<div class="campos">Nome: ______________________________________________<br>
+         Comum congregação: _________________________________<br>
+         Instrumento: ____________________ Ano letivo: _________</div>`}
+    <p class="rodape">Material complementar. O MSA continua sendo o material didático da aula,
+      apresentado por inteiro pelo instrutor.</p></section>`;
+  const instrucoes = `<section class="pagina instr"><h2>Como usar este caderno</h2>
+    <p>Este volume reúne os quatro períodos do MSA, aula por aula, na ordem do Manual de aplicação. Ele é
+      complementar: o conteúdo do MSA continua sendo apresentado por inteiro pelo instrutor.</p>
+    <p>Os exercícios usam o <b>Hinário em Dó, capa preta</b>; as perguntas de arcada, o hinário de cordas
+      (capa marrom). O hinário não é reproduzido aqui.</p>
+    <h3>O que há em cada aula</h3>
+    <p>Abertura, explicação com figura, o erro que mais aparece, exercícios, os hinos que fecham a aula e a tarefa de casa.</p>
+    <h3>A análise de hinos</h3>
+    <p>Ao fim de cada uma das 16 fases, dois ou três hinos para analisar com o hinário em mãos. As perguntas
+      cobrem só o que já foi estudado: a cada fase entram as perguntas novas, e as anteriores voltam como revisão.</p>
+    <h3>No fim do volume</h3>
+    <p>O repertório de estudo por etapa — reuniões de jovens e menores, cultos oficiais, oficialização — e o
+      Programa Mínimo de todos os instrumentos.</p>
+    </section><section class="pagina instr"><h2>Sumário</h2>
+    <ol class="sumario">${[1, 2, 3, 4].map(p =>
+      linha(`p${p}`, `${ORDINAL[p]} período — fases ${FASES_DO_PERIODO[p][0]} a ${FASES_DO_PERIODO[p].slice(-1)[0]}`) +
+      FASES_DO_PERIODO[p].map(f => linha(`f${f}`, `Análise de hinos — fase ${f}: ${FASES.find(x => x.f === f).nome.toLowerCase()}`, true)).join("")).join("")}
+      ${linha("rep", "Repertório de estudo por etapa")}${linha("pm", "Programa Mínimo — todos os instrumentos")}</ol></section>`;
+  const corpo = [1, 2, 3, 4].map(p =>
+    `<section class="pagina divisor"><p class="olho">Estudo do Hinário</p><h2>${ORDINAL[p]} período</h2>
+      <p>Fases ${FASES_DO_PERIODO[p][0]} a ${FASES_DO_PERIODO[p].slice(-1)[0]} do MSA · 15 aulas</p>
+      <p>${FASES_DO_PERIODO[p].map(f => esc(FASES.find(x => x.f === f).nome)).join(" · ")}</p></section>` +
+    corpoDoPeriodo(p, instrutor)).join("");
+  return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+    <title>Estudo do Hinário — apostila geral — ${instrutor ? "instrutor" : "candidato"}</title>
+    <style>${ESTILO}</style></head><body>${capa}${instrucoes}${corpo}${repertorioHTML(instrutor)}${programaMinimoHTML()}</body></html>`;
+}
 
 function documento(periodo, instrutor) {
   const fases = FASES_DO_PERIODO[periodo];
@@ -248,35 +418,63 @@ function documento(periodo, instrutor) {
     <p>Nível 1 é reconhecer o que está escrito; nível 2 é explicar por que é assim;
       nível 3 é aplicar, comparar ou decidir. Não é nota.</p></section>`;
 
-  const corpo = AULAS[periodo].map(a =>
-    (instrutor ? roteiro(periodo, a[0]) : "") + aula(periodo, a, instrutor)).join("");
+  const corpo = corpoDoPeriodo(periodo, instrutor);
 
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
     <title>Estudo do Hinário — ${ORDINAL[periodo]} Período — ${instrutor ? "instrutor" : "candidato"}</title>
     <style>${ESTILO}</style></head><body>${capa}${instrucoes}${corpo}</body></html>`;
 }
 
+/* Lê o PDF da primeira passada e acha a página de cada parte do sumário.
+   A numeração do rodapé conta da capa, igual ao índice da página no PDF. */
+function paginasDoSumario(arquivo) {
+  const { execFileSync } = require("child_process");
+  const paginas = execFileSync("pdftotext", ["-layout", arquivo, "-"], { encoding: "utf8", maxBuffer: 64 << 20 }).split("\f");
+  const achar = (teste, ultima) => {
+    const idx = paginas.map((t, i) => (teste(t) ? i : -1)).filter(i => i >= 0);
+    return idx.length ? (ultima ? idx[idx.length - 1] : idx[0]) + 1 : null;
+  };
+  const out = {};
+  [1, 2, 3, 4].forEach(p => {
+    const f = FASES_DO_PERIODO[p];
+    out[`p${p}`] = achar(t => t.includes(`Fases ${f[0]} a ${f[f.length - 1]} do MSA · 15 aulas`) && t.includes("período") && !t.includes("Sumário"));
+    f.forEach(ff => { out[`f${ff}`] = achar(t => new RegExp(`FIM DA FASE ${ff} · ANÁLISE`, "i").test(t)); });
+  });
+  out.rep = achar(t => /APÊNDICE/i.test(t) && t.includes("Repertório de estudo por etapa"), true);
+  out.pm = achar(t => /APÊNDICE/i.test(t) && t.includes("Programa Mínimo — todos os instrumentos"), true);
+  return out;
+}
+
 (async () => {
   const { chromium } = await import("/opt/node22/lib/node_modules/playwright/index.mjs");
   const dir = path.join(RAIZ, "apostila");
   fs.mkdirSync(dir, { recursive: true });
-  const pedido = Number(process.argv[2]);
-  const periodos = pedido ? [pedido] : [1, 2, 3, 4];
+  const arg = process.argv[2];
+  const periodos = arg === "geral" ? ["geral"] : Number(arg) ? [Number(arg)] : [1, 2, 3, 4, "geral"];
   const navegador = await chromium.launch();
   const pagina = await navegador.newPage();
   for (const p of periodos) {
     for (const instrutor of [false, true]) {
-      const nome = `Apostila-${p}o-periodo-${instrutor ? "instrutor" : "candidato"}.pdf`;
-      await pagina.setContent(documento(p, instrutor), { waitUntil: "load" });
-      await pagina.pdf({
+      const nome = p === "geral" ? `Apostila-geral-${instrutor ? "instrutor" : "candidato"}.pdf`
+                                 : `Apostila-${p}o-periodo-${instrutor ? "instrutor" : "candidato"}.pdf`;
+      const opcoes = {
         path: path.join(dir, nome), format: "A4", printBackground: true,
         margin: { top: "20mm", bottom: "18mm", left: "20mm", right: "20mm" },
         displayHeaderFooter: true, headerTemplate: "<span></span>",
         footerTemplate: `<div style="width:100%;font:8pt 'Liberation Sans',sans-serif;color:#7D8F99;
           padding:0 20mm;display:flex;justify-content:space-between">
-          <span>Estudo do Hinário · ${ORDINAL[p]} período · ${instrutor ? "instrutor" : "candidato"}</span>
+          <span>Estudo do Hinário · ${p === "geral" ? "apostila geral" : ORDINAL[p] + " período"} · ${instrutor ? "instrutor" : "candidato"}</span>
           <span class="pageNumber"></span></div>`,
-      });
+      };
+      if (p === "geral") {
+        await pagina.setContent(documentoGeral(instrutor), { waitUntil: "load" });
+        await pagina.pdf(opcoes);
+        const paginas = paginasDoSumario(opcoes.path);
+        await pagina.setContent(documentoGeral(instrutor, paginas), { waitUntil: "load" });
+      } else {
+        await pagina.setContent(documento(p, instrutor), { waitUntil: "load" });
+      }
+      await pagina.pdf(opcoes);
       console.log("gerado:", path.join("apostila", nome));
     }
   }

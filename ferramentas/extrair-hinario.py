@@ -319,7 +319,7 @@ def elementos_da_pagina(pagina):
     """O que interessa da partitura de uma página.
 
     Devolve três listas:
-      glifos    (y, x, x_fim, código, tamanho) de cada símbolo musical
+      glifos    (y, x, x_fim, código, tamanho, linha de base) de cada símbolo musical
       tercinas  (y, x) de cada "3" de tercina
       selos     (y, rótulo) de cada indicação de regência carimbada
     """
@@ -334,7 +334,10 @@ def elementos_da_pagina(pagina):
                     cod = ord(c["c"])
                     if cod in USO_PRIVADO:
                         x0, y0, x1, _ = c["bbox"]
-                        glifos.append((y0, x0, x1, cod, trecho["size"]))
+                        # origin: a linha de base do glifo. Na fonte musical
+                        # ela passa pelo centro da cabeça da nota e, na clave
+                        # de Sol, pela linha do Sol — é por ela que se lê a altura
+                        glifos.append((y0, x0, x1, cod, trecho["size"], c["origin"][1]))
     selos = []
     for img in pagina.get_image_info(hashes=True):
         rot = SELOS.get(img["digest"].hex()[:10])
@@ -365,7 +368,7 @@ def formulas(glifos):
     repete nas duas pautas do sistema, a mesma fórmula sai duas vezes — quem
     usa tira as repetições."""
     numeros = []
-    for y, x, x1, cod, tam in sorted((g for g in glifos if g[3] in SMUFL_DIGITO),
+    for y, x, x1, cod, tam, _ in sorted((g for g in glifos if g[3] in SMUFL_DIGITO),
                                      key=lambda g: (g[0], g[1])):
         ult = numeros[-1] if numeros else None
         if ult and abs(ult["y"] - y) < 1.5 and -0.5 <= x - ult["x1"] < 2:
@@ -387,7 +390,7 @@ def formulas(glifos):
                 usados |= {i, j}
                 achadas.append((a["y"], a["x"], f"{a['v']}/{b['v']}"))
                 break
-    for y, x, _, cod, _ in glifos:
+    for y, x, _, cod, _, _ in glifos:
         if cod == SMUFL_C:
             achadas.append((y, x, "C"))
         elif cod == SMUFL_C_CORTADO:
@@ -459,6 +462,57 @@ def arco_inicial(glifos, formula):
     return "baixo" if arcos[0][3] == SMUFL_ARCO_BAIXO else "cima"
 
 
+NOTAS_DIATONICAS = ["Sol", "Lá", "Si", "Dó", "Ré", "Mi", "Fá"]   # a partir do Sol4
+# acidentes da armadura de cada tonalidade maior do hinário
+ARMADURA_NOTAS = {
+    "Dó": {}, "Sol": {"Fá": "♯"}, "Ré": {"Fá": "♯", "Dó": "♯"}, "Lá": {"Fá": "♯", "Dó": "♯", "Sol": "♯"},
+    "Mi": {"Fá": "♯", "Dó": "♯", "Sol": "♯", "Ré": "♯"}, "Fá": {"Si": "♭"},
+    "Si♭": {"Si": "♭", "Mi": "♭"}, "Mi♭": {"Si": "♭", "Mi": "♭", "Lá": "♭"},
+    "Lá♭": {"Si": "♭", "Mi": "♭", "Lá": "♭", "Ré": "♭"},
+    "Ré♭": {"Si": "♭", "Mi": "♭", "Lá": "♭", "Ré": "♭", "Sol": "♭"},
+}
+
+
+def nome_da_nota(passos, tom=""):
+    """Passos diatônicos acima do Sol4 → "Mi5" (com a armadura do tom).
+    Acidente ocorrente não entra: é a nota da armadura."""
+    idx = NOTAS_DIATONICAS.index("Sol") + passos
+    letra = NOTAS_DIATONICAS[idx % 7]
+    # a oitava muda no Dó: Sol4 Lá4 Si4 | Dó5
+    oitava = 4 + (passos + 4) // 7
+    return letra + ARMADURA_NOTAS.get(tom, {}).get(letra, "") + str(oitava)
+
+
+def ambito(glifos):
+    """Sistemas, e a nota mais aguda e a mais grave da pauta de Sol.
+
+    A pauta de Sol traz soprano e contralto: a nota mais aguda dela é do
+    soprano, a mais grave é do contralto. A altura sai da linha de base de
+    cada cabeça de nota, contada em meios espaços a partir da linha do Sol,
+    onde passa a linha de base da clave. Cada nota vai para a clave de Sol
+    mais próxima acima dela ou logo abaixo — a pauta de Fá do mesmo sistema
+    fica a vários espaços de distância e tem clave própria.
+    Devolve (sistemas, passos_max, passos_min), em passos acima do Sol4."""
+    sols = [(g[5], g[1]) for g in glifos if g[3] == 0xE050]
+    fas = [g[5] for g in glifos if g[3] == 0xE062]
+    alto, baixo = None, None
+    for g in glifos:
+        if g[3] not in SMUFL_CABECA:
+            continue
+        meio = g[4] * 0.125                   # meio espaço de pauta
+        cand = [c for c, _ in sols if -14 * meio <= c - g[5] <= 12 * meio]
+        if not cand:
+            continue
+        linha_sol = min(cand, key=lambda c: abs(c - g[5]))
+        # nota mais perto de uma clave de Fá do que da de Sol é do baixo/tenor
+        if any(abs(f - g[5]) < abs(linha_sol - g[5]) for f in fas):
+            continue
+        passos = round((linha_sol - g[5]) / meio)
+        alto = passos if alto is None else max(alto, passos)
+        baixo = passos if baixo is None else min(baixo, passos)
+    return len(sols), alto, baixo
+
+
 def ritmo_inicial(razao, selo, formula):
     """Tético, anacrúsico ou acéfalo — sempre para conferir. Devolve (ritmo, base).
 
@@ -502,6 +556,9 @@ def ler_partitura(doc, hinos):
       rbase   de onde veio o ritmo: selo, medida, os dois, ou a discordância
       sinais  nota pontuada, fermata, tercina, ritornelo
       arco    arcada impressa sobre a primeira nota — ver arco_inicial()
+      sis     número de sistemas (pautas duplas) do hino
+      agudo   nota mais aguda da pauta de Sol (soprano), com a armadura
+      grave   nota mais grave da pauta de Sol (contralto)
     Devolve a contagem dos códigos que o mapa não conhece, com os hinos."""
     cache = {}
 
@@ -516,7 +573,7 @@ def ler_partitura(doc, hinos):
     for i, h in enumerate(ordem):
         prox = ordem[i + 1] if i + 1 < len(ordem) else None
         ultima = prox["pag"] if prox else doc.page_count
-        glifos, tercinas, selos, primeira = [], 0, [], None
+        glifos, tercinas, selos, primeira, por_pagina = [], 0, [], None, []
         for n in range(h["pag"], ultima + 1):
             g, t, s, barras = pagina(n)
             de = h.get("y", 0) - 5 if n == h["pag"] else -1e9
@@ -525,6 +582,7 @@ def ler_partitura(doc, hinos):
             if primeira is None and formulas(aqui):
                 primeira = (aqui, barras)
             glifos += aqui
+            por_pagina.append(aqui)
             tercinas += sum(1 for e in t if de <= e[0] < ate)
             selos += [r for y, r in s if de <= y < ate]
         achadas = [f for _, _, f in formulas(glifos)]
@@ -550,6 +608,16 @@ def ler_partitura(doc, hinos):
         ritmo, base = ritmo_inicial(razao, selo, fc[0] if fc else "")
         if h.get("conf") != "avulso" and h.get("n") in CONFERIDOS_NO_OLHO:
             ritmo, base = CONFERIDOS_NO_OLHO[h["n"]], "conferido no olho"
+        sis, alto, baixo = 0, None, None
+        for aqui in por_pagina:               # altura só se compara na mesma página
+            s_, a_, b_ = ambito(aqui)
+            sis += s_
+            if a_ is not None:
+                alto = a_ if alto is None else max(alto, a_)
+                baixo = b_ if baixo is None else min(baixo, b_)
+        tom = h.get("tom", "")
+        h.update(sis=sis, agudo=nome_da_nota(alto, tom) if alto is not None else "",
+                 grave=nome_da_nota(baixo, tom) if baixo is not None else "")
         h.update(fc=" ".join(fc), ritmo=ritmo, rbase=base, razao=razao, selo=selo, arco=arco,
                  sinais=", ".join(sinais))
         for c, q in cods.items():
@@ -937,14 +1005,15 @@ def main():
         # que não vão para o CSV. Sem isso, o DictWriter estoura na primeira linha.
         w = csv.DictWriter(f, extrasaction="ignore",
                            fieldnames=["n", "conf", "titulo", "tom", "marcacao", "met", "ind",
-                                       "fc", "ritmo", "rbase", "razao", "selo", "sinais", "arco", "pag"])
+                                       "fc", "ritmo", "rbase", "razao", "selo", "sinais", "arco",
+                                       "sis", "agudo", "grave", "pag"])
         w.writeheader()
         w.writerows(hinos)
 
     with open(saida / "extracao.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, extrasaction="ignore",
                            fieldnames=["n", "conf", "tom", "marcacao", "met", "ind",
-                                       "fc", "ritmo", "rbase", "sinais", "arco", "pag"])
+                                       "fc", "ritmo", "rbase", "sinais", "arco", "sis", "agudo", "grave", "pag"])
         w.writeheader()
         w.writerows(hinos)
 

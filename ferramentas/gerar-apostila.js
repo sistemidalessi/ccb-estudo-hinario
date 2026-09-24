@@ -25,7 +25,14 @@ const { carregar } = require("./carregar.js");
 const { hinosDaAula, listasOficiais, fcTexto } = require("./hinos-da-aula.js");
 
 const RAIZ = path.join(__dirname, "..");
-const { TIPOS, AULAS, Q, HINOS, PLANOS } = carregar(RAIZ);
+const { TIPOS, AULAS, Q, HINOS, PLANOS, FASES } = carregar(RAIZ);
+const { todasAsAnalises, ultimaAulaDaFase } = require("./analise.js");
+const { repertorio } = require("./repertorio.js");
+const { PROGRAMA_MINIMO } = require(path.join(RAIZ, "dados", "programa-minimo.js"));
+const ANALISES = todasAsAnalises(HINOS);
+const FIM_DA_FASE = ultimaAulaDaFase(AULAS);
+const faseQueFecha = (p, a) => Number(Object.keys(FIM_DA_FASE).find(f => FIM_DA_FASE[f].p === p && FIM_DA_FASE[f].a === a)) || null;
+const VERDE = "4A6B3F";
 const { LICOES } = require(path.join(RAIZ, "dados", "licoes.js"));
 
 const FASES_DO_PERIODO = { 1: [1, 2, 3], 2: [4, 5], 3: [6, 7, 8, 9], 4: [10, 11, 12, 13, 14, 15, 16] };
@@ -37,7 +44,6 @@ const TINTA = "16212A";
 const AZUL = "1F5673";
 const CINZA = "5C6B75";
 const PRATICA = "8A5A2B";
-const VERDE = "4A6B3F";
 const LARGURA = 9350;                 // largura útil, em DXA
 // A biblioteca docx mede a imagem em PIXEL de 96 dpi, não em ponto: 1 px = 0,75 pt.
 // A área de texto da página (21 cm menos 2 cm de margem de cada lado) são 17 cm,
@@ -132,7 +138,8 @@ function figura(nome, legenda) {
 /* ---------- capa ---------- */
 
 function capa(periodo, instrutor) {
-  const fases = FASES_DO_PERIODO[periodo];
+  const geral = periodo === "geral";
+  const fases = geral ? [1, 16] : FASES_DO_PERIODO[periodo];
   return [
     vazio(1300),
     texto("Congregação Cristã no Brasil", { align: AlignmentType.CENTER, caps: true, size: 18, cor: CINZA, after: 60 }),
@@ -146,9 +153,9 @@ function capa(periodo, instrutor) {
     new Paragraph({
       alignment: AlignmentType.CENTER, spacing: { after: 100 },
       border: { top: { style: BorderStyle.SINGLE, size: 8, space: 12, color: AZUL } },
-      children: [new TextRun({ text: `${ORDINAL[periodo]} Período`, font: SERIF, size: 32, bold: true, color: AZUL })],
+      children: [new TextRun({ text: geral ? "Apostila geral" : `${ORDINAL[periodo]} Período`, font: SERIF, size: 32, bold: true, color: AZUL })],
     }),
-    texto(`Fases ${fases[0]} a ${fases[fases.length - 1]} do MSA · 15 aulas`,
+    texto(geral ? "Os quatro períodos do MSA · 16 fases · 60 aulas" : `Fases ${fases[0]} a ${fases[fases.length - 1]} do MSA · 15 aulas`,
       { align: AlignmentType.CENTER, size: 20, cor: CINZA, after: instrutor ? 640 : 900 }),
     ...(instrutor
       ? [caixa([
@@ -393,14 +400,110 @@ function hinoDaAula(periodo, num, instrutor) {
   return [caixa(linhas, { faixa: PRATICA, fundo: "F7F1E8" })];
 }
 
+/* ---------- análise de hinos, ao fim de cada fase ---------- */
+
+function analise(f, instrutor) {
+  const bloco = ANALISES[f];
+  if (!bloco || !bloco.length) return [];
+  const fase = FASES.find(x => x.f === f);
+  const b = [
+    quebra(),
+    texto(`Fim da fase ${f} · análise de hinos`, { caps: true, size: 16, cor: CINZA, after: 60 }),
+    new Paragraph({ spacing: { after: 100 },
+      children: [new TextRun({ text: "Com o hinário em mãos", font: SERIF, size: 32, bold: true, color: VERDE })] }),
+    texto(`Fase ${f} — ${fase ? fase.nome.toLowerCase() : ""}. As perguntas cobrem só o que foi estudado até aqui: as marcadas “novo” são desta fase; as outras revisam as anteriores.`,
+      { size: 19, cor: "3F4C55", after: 160 }),
+  ];
+  if (instrutor && f === 13) {
+    b.push(texto("O ritmo inicial foi lido da partitura (largura do primeiro compasso e indicação de regência na margem); conferir no hinário antes de usar em avaliação.",
+      { size: 17, italico: true, cor: PRATICA, after: 120 }));
+  }
+  bloco.forEach(({ h, novas, revisao }) => {
+    const ficha = [h.tom + " maior", fcTexto(h), h.marc, h.met ? "♩ = " + h.met : "", h.ind].filter(Boolean).join(" · ");
+    const linhas = [new Paragraph({ spacing: { after: 80 }, children: [
+      new TextRun({ text: `Hino ${h.n}  `, font: SERIF, size: 23, bold: true, color: TINTA }),
+      new TextRun({ text: ficha, font: SERIF, size: 18, italics: true, color: CINZA })] })];
+    [...novas.map(q => [q, true]), ...revisao.map(q => [q, false])].forEach(([[pergunta, gab], nova], i) => {
+      linhas.push(new Paragraph({ spacing: { before: 60, after: 20 }, children: [
+        new TextRun({ text: `${i + 1}. `, font: SANS, size: 19, bold: true, color: TINTA }),
+        ...(nova ? [new TextRun({ text: "NOVO  ", font: SANS, size: 14, bold: true, color: VERDE })] : []),
+        new TextRun({ text: pergunta, font: SANS, size: 19, color: TINTA })] }));
+      if (instrutor) {
+        linhas.push(new Paragraph({ spacing: { after: 40 }, indent: { left: 340 },
+          children: [new TextRun({ text: gab, font: SANS, size: 18, italics: true, color: "3F4C55" })] }));
+      } else {
+        linhas.push(...linhaResposta(1));
+      }
+    });
+    b.push(caixa(linhas, { faixa: VERDE, fundo: "F4F7F2" }), vazio(160));
+  });
+  return b;
+}
+
+/* ---------- repertório e Programa Mínimo (só na apostila geral) ---------- */
+
+function apendices(instrutor) {
+  const b = [quebra(), texto("Apêndice", { caps: true, size: 16, cor: CINZA, after: 60 }),
+    new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: "Repertório de estudo por etapa", font: SERIF, size: 32, bold: true, color: AZUL })] }),
+    texto("Hinos para estudar em cada etapa do Programa Mínimo, em ordem de dificuldade. Cada um traz alguma coisa que os anteriores da mesma etapa ainda não trouxeram. A posição do violino é orientação geral; a digitação é a do método do aluno.", { size: 19, after: 160 })];
+  repertorio(HINOS).forEach(et => {
+    b.push(texto(et.nome, { font: SERIF, size: 25, bold: true, cor: AZUL, before: 200, after: 40 }),
+      texto(`Violino: ${et.violino}`, { size: 17, italico: true, cor: CINZA, after: 100 }));
+    et.hinos.forEach((x, i) => {
+      const ficha = [x.h.tom + " maior", fcTexto(x.h), x.h.met ? "♩ = " + x.h.met : ""].filter(Boolean).join(" · ");
+      const traz = i === 0 ? `ponto de partida — ${x.tudo.filter(t => !t.startsWith("violino:")).join(", ")}` : x.traz.join(", ");
+      b.push(new Paragraph({ spacing: { after: 20 }, children: [
+        new TextRun({ text: `Hino ${x.n}  `, font: SANS, size: 20, bold: true, color: TINTA }),
+        new TextRun({ text: ficha, font: SANS, size: 18, color: CINZA }),
+        ...(instrutor ? [] : [new TextRun({ text: "     visto: ________", font: SANS, size: 16, color: CINZA })])] }),
+        texto(`Traz: ${traz}.`, { size: 18, after: 10, indent: { left: 340 } }),
+        texto(`Violino: ${x.violino}.`, { size: 17, cor: PRATICA, after: 100, indent: { left: 340 } }));
+    });
+  });
+  const P = PROGRAMA_MINIMO;
+  b.push(quebra(), texto("Apêndice", { caps: true, size: 16, cor: CINZA, after: 60 }),
+    new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: "Programa Mínimo — todos os instrumentos", font: SERIF, size: 32, bold: true, color: AZUL })] }),
+    texto("O que cada etapa exige, conforme a sugestão de métodos da CCB (jan/2018). Entre as alternativas de uma mesma etapa, basta uma.", { size: 19, after: 160 }));
+  P.instrumentos.forEach(i => {
+    b.push(texto(i.nome, { bold: true, size: 21, before: 140, after: 40 }));
+    i.etapas.forEach((e, k) => b.push(texto(`${P.etapas[k]}: ${e.metodos.join(" ou ")}${e.voz ? ` — ${e.voz}` : ""}.`, { size: 18, after: 30, indent: { left: 340 } })));
+  });
+  b.push(texto("Todos os instrumentos", { bold: true, size: 21, before: 200, after: 40 }));
+  P.todos.forEach(t => b.push(texto(`${t.item}: ${t.etapas.map((e, k) => `${P.etapas[k]} — ${e}`).join("; ")}.`, { size: 18, after: 30, indent: { left: 340 } })));
+  P.observacoes.forEach(o => b.push(texto(`· ${o}`, { size: 18, cor: "3F4C55", after: 30 })));
+  return b;
+}
+
 /* ---------- monta o documento ---------- */
 
-function documento(periodo, instrutor) {
-  const corpo = [...capa(periodo, instrutor), ...comoUsar(periodo, instrutor)];
+function aulasDoPeriodo(periodo, instrutor) {
+  const corpo = [];
   AULAS[periodo].forEach(a => {
     if (instrutor) corpo.push(...roteiro(periodo, a[0]));
     corpo.push(...aula(periodo, a, instrutor));
+    const f = faseQueFecha(periodo, a[0]);
+    if (f) corpo.push(...analise(f, instrutor));
   });
+  return corpo;
+}
+
+function documento(periodo, instrutor) {
+  const geral = periodo === "geral";
+  const corpo = [...capa(periodo, instrutor), ...comoUsar(geral ? 1 : periodo, instrutor)];
+  if (geral) {
+    [1, 2, 3, 4].forEach(p => {
+      corpo.push(quebra(), vazio(2400),
+        new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 120 },
+          children: [new TextRun({ text: `${ORDINAL[p]} período`, font: SERIF, size: 52, bold: true, color: AZUL })] }),
+        texto(`Fases ${FASES_DO_PERIODO[p][0]} a ${FASES_DO_PERIODO[p].slice(-1)[0]} do MSA · 15 aulas`, { align: AlignmentType.CENTER, cor: CINZA, after: 60 }),
+        texto(FASES_DO_PERIODO[p].map(f => FASES.find(x => x.f === f).nome).join(" · "), { align: AlignmentType.CENTER, size: 18, cor: CINZA }),
+        quebra());
+      corpo.push(...aulasDoPeriodo(p, instrutor));
+    });
+    corpo.push(...apendices(instrutor), quebra());
+  } else {
+    corpo.push(...aulasDoPeriodo(periodo, instrutor));
+  }
   corpo.push(
     new Paragraph({
       heading: HeadingLevel.HEADING_1, spacing: { after: 200 },
@@ -415,7 +518,7 @@ function documento(periodo, instrutor) {
 
   return new Document({
     creator: "Sistemi Dalessi",
-    title: `Estudo do Hinário — ${ORDINAL[periodo]} Período — ${instrutor ? "instrutor" : "candidato"}`,
+    title: `Estudo do Hinário — ${geral ? "apostila geral" : ORDINAL[periodo] + " Período"} — ${instrutor ? "instrutor" : "candidato"}`,
     description: "Caderno complementar do GEM, alinhado às fases do MSA",
     styles: { default: { document: { run: { font: SANS, size: 21, color: TINTA } } } },
     sections: [{
@@ -428,11 +531,12 @@ function documento(periodo, instrutor) {
 (async () => {
   const dir = path.join(RAIZ, "apostila");
   fs.mkdirSync(dir, { recursive: true });
-  const pedido = Number(process.argv[2]);
-  const periodos = pedido ? [pedido] : [1, 2, 3, 4];
+  const arg = process.argv[2];
+  const periodos = arg === "geral" ? ["geral"] : Number(arg) ? [Number(arg)] : [1, 2, 3, 4, "geral"];
   for (const p of periodos) {
     for (const instrutor of [false, true]) {
-      const nome = `Apostila-${p}o-periodo-${instrutor ? "instrutor" : "candidato"}.docx`;
+      const nome = p === "geral" ? `Apostila-geral-${instrutor ? "instrutor" : "candidato"}.docx`
+                                 : `Apostila-${p}o-periodo-${instrutor ? "instrutor" : "candidato"}.docx`;
       fs.writeFileSync(path.join(dir, nome), await Packer.toBuffer(documento(p, instrutor)));
       console.log("gerado:", path.join("apostila", nome));
     }

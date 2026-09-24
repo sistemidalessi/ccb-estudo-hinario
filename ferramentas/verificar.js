@@ -186,6 +186,38 @@ conferePelaLista("Hinos a estudar ignorando as fermatas", h => (h.s || []).inclu
 conferePelaLista("Ritornello com 2 casas", h => (h.s || []).includes("ritornelo"), "ritornelo com 2 casas");
 conferePelaLista("Ritornello com 3 casas", h => (h.s || []).includes("ritornelo"), "ritornelo com 3 casas");
 
+/* Análise de hinos ao fim de cada fase: nenhuma pergunta de fase futura,
+   nenhum hino com assunto ainda não ensinado, nenhum hino repetido. */
+const A = require("./analise.js");
+const ANAL = A.todasAsAnalises(HINOS);
+const vistosA = [];
+for (let f = 1; f <= 16; f++) {
+  ok(ANAL[f].length >= 1, `fase ${f}: tem hino de análise`, String(ANAL[f].length));
+  ANAL[f].forEach(({ h, novas, revisao }) => {
+    ok(A.cabeNaFase(h, f), `fase ${f}: o hino ${h.n} só traz o que já foi ensinado`);
+    const futuras = A.PERGUNTAS.filter(p => p.f > f && p.aplica(h)).map(p => p.faz(h)[0]);
+    ok(![...novas, ...revisao].some(([q]) => futuras.includes(q)), `fase ${f}: hino ${h.n} sem pergunta de fase futura`);
+    ok([...novas, ...revisao].every(([q, g]) => q && g), `fase ${f}: hino ${h.n}, toda pergunta com gabarito`);
+    vistosA.push(h.n);
+  });
+}
+ok(new Set(vistosA).size === vistosA.length, "nenhum hino repetido entre as análises das fases");
+const fimFase = A.ultimaAulaDaFase(AULAS);
+ok(Object.keys(fimFase).length === 16, "toda fase tem a aula em que a análise entra", Object.keys(fimFase).join(" "));
+
+/* Repertório por etapa. */
+const R = require("./repertorio.js");
+const REP = R.repertorio(HINOS);
+ok(REP.length === 3, "três etapas no repertório");
+ok(REP[0].hinos.every(x => x.n >= 431), "RJM: só hinos 431 a 480, como manda o Programa Mínimo");
+const todosRep = REP.flatMap(e => e.hinos.map(x => x.n));
+ok(new Set(todosRep).size === todosRep.length, "nenhum hino repetido entre as etapas do repertório");
+REP.forEach(e => ok(e.hinos.every((x, i) => i === 0 || x.dificuldade >= e.hinos[i - 1].dificuldade),
+  `${e.curto}: hinos em ordem crescente de dificuldade`));
+const { PROGRAMA_MINIMO } = require(path.join(RAIZ, "dados", "programa-minimo.js"));
+ok(PROGRAMA_MINIMO.instrumentos.every(i => i.etapas.length === 3 && i.etapas.every(e => e.metodos.length)),
+   "Programa Mínimo: todo instrumento com as três etapas preenchidas");
+
 HINOS_AULA.forEach(l => {
   ok(l.p >= 1 && l.p <= 4, `lista ${l.p}-${l.a}: período válido`);
   ok(l.a.every(a => a >= 1 && a <= 15), `lista ${l.p}-${l.a}: aulas entre 1 e 15`);

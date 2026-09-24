@@ -1,483 +1,483 @@
-﻿n,conf,tom,marcacao,met,ind,fc,ritmo,rbase,sinais,arco,pag
-1,impresso,Mi♭,,56-66 (61),,4/4,tético,selo e medida,"nota pontuada, fermata",baixo,2
-2,inferido,Mi♭,,60-80 (70),,4/4,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,3
-3,impresso,Sol,,,,4/4,tético,selo e medida,"nota pontuada, fermata",baixo,4
-4,impresso,Lá♭,em 2,112-138 (125),,6/4,tético,medida,"nota pontuada, fermata",baixo,5
-5,impresso,Lá♭,em 2,112-144 (128),,6/8,tético,medida,nota pontuada,baixo,6
-6,inferido,Dó,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, ritornelo",cima,7
-7,inferido,Mi♭,em 6,80-100,,6/4,anacrúsico,medida,nota pontuada,cima,8
-8,impresso,Si♭,em 2,,,6/8,tético,medida,nota pontuada,baixo,9
-9,impresso,Sol,,63-72 (68),,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,10
-10,inferido,Si♭,,69-84 (77),,4/4,anacrúsico,selo e medida,nota pontuada,cima,11
-11,impresso,Si♭,,72-84 (78),,4/4,anacrúsico,selo e medida,nota pontuada,cima,12
-12,inferido,Mi♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina",cima,13
-13,inferido,Lá♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,14
-14,inferido,Fá,,112-144 (128),,6/8,tético,medida,nota pontuada,baixo,15
-15,impresso,Si♭,em 4,,,12/8,tético,medida,nota pontuada,baixo,16
-16,impresso,Sol,em 6,100-120 (110),,6/4,anacrúsico,medida,"nota pontuada, fermata",cima,17
-17,impresso,Sol,,60-76 (68),,3/4,anacrúsico,medida,"nota pontuada, fermata",baixo,18
-18,impresso,Sol,,76-92 (84),,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,19
-19,impresso,Lá♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,21
-20,inferido,Fá,,72-84 (78),,4/4,anacrúsico,selo e medida,nota pontuada,baixo,22
-21,impresso,Mi♭,em 6,116-138,,6/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,23
-22,impresso,Lá,em 6,104-132 (118),,6/8,tético,medida,nota pontuada,baixo,25
-23,impresso,Sol,em 6,96-120 (108),,6/4,tético,medida,"nota pontuada, fermata",baixo,26
-24,impresso,Sol,em 6,,,6/4,anacrúsico,medida,nota pontuada,cima,27
-25,impresso,Sol,,,,3/4,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,28
-26,impresso,Lá♭,,69-88,,4/4,tético,selo e medida,"nota pontuada, fermata",baixo,29
-27,impresso,Mi♭,em 2,116-144 (130),,6/8,anacrúsico,medida,"nota pontuada, fermata",baixo,31
-28,impresso,Dó,,69-80 (75),,4/4,tético,selo e medida,nota pontuada,baixo,32
-29,impresso,Lá♭,,66-84 (75),,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,33
-30,impresso,Fá,em 6,,,6/8,tético,medida,"nota pontuada, fermata",baixo,34
-31,impresso,Ré,,60-76 (68),,2/2,tético,conferido no olho,"nota pontuada, fermata",baixo,35
-32,impresso,Lá♭,em 4,52-72 (62),,2/4,tético,medida,"nota pontuada, fermata",baixo,36
-33,inferido,Dó,em 4,,,6/8,tético,medida,"nota pontuada, fermata",baixo,37
-34,impresso,Mi♭,,50-66 (58),,3/4,anacrúsico,medida,nota pontuada,cima,38
-35,impresso,Mi♭,,108-120,,6/8,anacrúsico,medida,nota pontuada,cima,39
-36,impresso,Sol,,84-100,,6/4,anacrúsico,medida,nota pontuada,baixo,40
-37,impresso,Ré,,,,4/4,tético,selo e medida,nota pontuada,baixo,41
-38,impresso,Mi♭,,,,4/4,tético,medida,"nota pontuada, fermata",baixo,42
-39,inferido,Fá,,,,3/4,anacrúsico,medida,"nota pontuada, fermata",baixo,43
-40,inferido,Lá♭,,72-88 (80),,4/4,anacrúsico,selo e medida,nota pontuada,cima,44
-41,impresso,Lá,em 3,120-144 (132),,9/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,45
-42,impresso,Fá,em 4,50-60,,12/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,47
-43,impresso,Mi♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,49
-44,inferido,Fá,em 3,,,9/8,anacrúsico,medida,nota pontuada,baixo,50
-45,impresso,Dó,em 3,96-120,,9/4,tético,medida,"nota pontuada, fermata",baixo,51
-46,impresso,Lá♭,em 2,,,6/8,tético,medida,"nota pontuada, fermata",baixo,52
-47,impresso,Fá,em 2,120-152 (136),,6/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,53
-48,impresso,Mi♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,55
-49,impresso,Fá,em 6,,,6/4,tético,medida,"nota pontuada, fermata",baixo,56
-50,impresso,Dó,em 2,,,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,57
-51,impresso,Si♭,em 4,,,C,tético,medida,,baixo,59
-52,inferido,Dó,,,,6/8,tético,medida,"nota pontuada, fermata",baixo,60
-53,impresso,Mi♭,em 4,72-92 (82),,4/4,tético,conferido no olho,nota pontuada,baixo,61
-54,impresso,Fá,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,62
-55,impresso,Dó,em 2,,,6/8,tético,medida,"nota pontuada, fermata",baixo,63
-56,impresso,Mi♭,,70-84 (77),,C,tético,medida,"nota pontuada, fermata, ritornelo",baixo,65
-57,impresso,Ré♭,,,,4/4,tético,medida,nota pontuada,baixo,67
-58,impresso,Ré,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,68
-59,impresso,Fá,,,,3/4,anacrúsico,selo e medida,nota pontuada,cima,69
-60,impresso,Fá,em 2,116-132,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,70
-61,impresso,Mi♭,em 3,,,9/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",baixo,71
-62,impresso,Lá♭,,63-80 (72),,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,72
-63,inferido,Si♭,em 3,46-56 (51),,9/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",baixo,73
-64,inferido,Fá,,69-88 (79),,3/4,tético,medida,nota pontuada,baixo,74
-65,impresso,Ré♭,em 2,,,6/8,tético,medida,"nota pontuada, fermata",baixo,75
-66,inferido,Sol,,,,3/4,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,76
-67,impresso,Ré♭,,,,3/4,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,77
-68,impresso,Ré,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,79
-69,impresso,Ré♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,80
-70,impresso,Sol,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,81
-71,impresso,Dó,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,82
-72,impresso,Lá♭,,69-84,,4/4,tético,medida,nota pontuada,baixo,83
-73,impresso,Dó,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,84
-74,impresso,Ré,,72-88 (80),,4/4,tético,medida,"nota pontuada, fermata, ritornelo",baixo,85
-75,impresso,Lá♭,,69-84 (77),,3/4,tético,medida,"nota pontuada, fermata",baixo,86
-76,impresso,Dó,em 6,,,6/4,tético,medida,"nota pontuada, fermata",baixo,87
-77,impresso,Si♭,em 2,112-138 (125),,6/8,tético,medida,nota pontuada,,88
-78,impresso,Sol,,,,6/8,tético,medida,nota pontuada,baixo,89
-79,impresso,Mi♭,,60-80 (70),,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,90
-80,impresso,Lá♭,,,,4/4,tético,medida,nota pontuada,baixo,91
-81,impresso,Dó,,108-120 (114),,6/8,anacrúsico,medida,nota pontuada,cima,92
-82,impresso,Lá♭,,54-72 (63),,2/4,anacrúsico,medida,nota pontuada,baixo,93
-83,impresso,Mi♭,em 6,88-112 (100),,6/4,anacrúsico,medida,nota pontuada,cima,94
-84,impresso,Mi♭,,69-84 (77),,4/4,tético,medida,"nota pontuada, fermata",baixo,95
-85,impresso,Lá♭,,66-92 (79),,4/4,tético,medida,,baixo,96
-86,impresso,Mi♭,em 6,80-108 (94),,6/4,anacrúsico,medida,"nota pontuada, fermata",cima,97
-87,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,98
-88,impresso,Sol,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,99
-89,impresso,Si♭,,80-96,,4/4,tético,medida,nota pontuada,baixo,100
-90,impresso,Lá♭,,63-76 (70),,3/4,anacrúsico,conferido no olho,nota pontuada,baixo,101
-91,impresso,Ré♭,em 6,92-120 (106),,6/4,tético,medida,"nota pontuada, fermata",baixo,102
-92,impresso,Mi♭,,69-84 (76),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, ritornelo",cima,103
-93,inferido,Si♭,,60-72 (66),,3/4,anacrúsico,medida,nota pontuada,cima,104
-94,impresso,Dó,em 4,56-76 (66),,4/4 3/4,anacrúsico,medida,nota pontuada,baixo,105
-95,impresso,Lá♭,em 4,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,107
-96,inferido,Sol,,,Solene,3/4,tético,medida,nota pontuada,baixo,108
-97,impresso,Lá♭,,42-52,,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,109
-98,impresso,Lá♭,em 6,,,6/4,tético,medida,"nota pontuada, fermata",baixo,111
-99,impresso,Sol,,63-84 (73),,4/4,anacrúsico,medida,nota pontuada,cima,112
-100,impresso,Si♭,,60-80 (70),,4/4,anacrúsico,medida,"nota pontuada, fermata",baixo,113
-101,inferido,Sol,,60-72 (66),,4/4,anacrúsico,selo e medida,fermata,cima,114
-102,impresso,Mi♭,em 2,,,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,115
-103,impresso,Dó,em 2,72-88 (80),,4/4,tético,medida,"nota pontuada, fermata",baixo,117
-104,impresso,Fá,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,118
-105,impresso,Si♭,em 4,44-60 (52),,12/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,119
-106,inferido,Ré,,58-72 (65),,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,120
-107,impresso,Fá,em 2,,,6/8,anacrúsico,medida,nota pontuada,cima,121
-108,impresso,Sol,,60-80,,4/4,anacrúsico,medida,"nota pontuada, fermata",baixo,122
-109,impresso,Si♭,,112-132 (122),,6/8,tético,medida,nota pontuada,baixo,123
-110,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina",cima,124
-111,impresso,Mi♭,,63-80 (72),,3/4,anacrúsico,selo e medida,nota pontuada,cima,125
-112,inferido,Mi♭,,112-138 (125),,6/8,anacrúsico,medida,nota pontuada,cima,126
-113,impresso,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,127
-114,impresso,Si♭,,,,4/4,tético,medida,nota pontuada,baixo,128
-115,impresso,Sol,,,,3/4,tético,conferido no olho,"nota pontuada, fermata",baixo,129
-116,impresso,Dó,em 2,,,6/8,tético,medida,nota pontuada,baixo,130
-117,impresso,Lá♭,,132-152 (125),,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,131
-118,impresso,Ré♭,,,,6/8,anacrúsico,medida,nota pontuada,cima,133
-119,impresso,Mi♭,,88-112,,4/4,tético,medida,nota pontuada,baixo,134
-120,impresso,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,135
-121,impresso,Mi♭,,,,9/8,anacrúsico,medida,nota pontuada,baixo,136
-122,impresso,Lá♭,,66-84 (75),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,137
-123,impresso,Si♭,,,,3/4,tético,medida,nota pontuada,baixo,138
-124,impresso,Sol,em 6,80-96 (88),,6/4,tético,medida,"nota pontuada, fermata",baixo,139
-125,impresso,Fá,em 6,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,140
-126,impresso,Lá♭,,63-80,,4/4,anacrúsico,selo e medida,nota pontuada,cima,141
-127,impresso,Ré,,63-80,,4/4,tético,medida,"nota pontuada, fermata",baixo,142
-128,impresso,Si♭,,,,6/8,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,143
-129,impresso,Si♭,,66-80 (73),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,144
-130,impresso,Dó,,,,6/8,tético,medida,nota pontuada,baixo,145
-131,impresso,Sol,,63-80 (72),,4/4,tético,medida,,baixo,146
-132,impresso,Si♭,em 2,108-132 (120),,6/8,tético,medida,nota pontuada,baixo,147
-133,impresso,Fá,,88-112,,4/4,anacrúsico,selo e medida,nota pontuada,cima,148
-134,impresso,Mi♭,,66-80,,4/4,anacrúsico,selo e medida,nota pontuada,cima,149
-135,impresso,Fá,,,Majestoso,C,tético,medida,nota pontuada,baixo,150
-136,impresso,Ré,em 2,,,6/8,tético,medida,"nota pontuada, fermata",baixo,151
-137,impresso,Sol,,112-138,,6/8,tético,medida,nota pontuada,baixo,152
-138,impresso,Lá,em 6,,,6/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,153
-139,impresso,Sol,,60-76 (68),,3/4,anacrúsico,medida,"nota pontuada, fermata",,155
-140,impresso,Fá,,,,4/4,tético,medida,nota pontuada,baixo,156
-141,impresso,Mi♭,em 6,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,157
-142,impresso,Fá,em 6,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,158
-143,impresso,Ré,,66-80 (73),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,159
-144,impresso,Mi♭,,66-80 (73),,3/4,tético,medida,nota pontuada,baixo,160
-145,impresso,Ré♭,em 2,,,6/8,tético,medida,nota pontuada,baixo,161
-146,inferido,Ré,,,,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,162
-147,impresso,Lá♭,em 6,72-88 (80),Com júbilo,4/4,anacrúsico,selo e medida,nota pontuada,cima,163
-148,impresso,Lá♭,,,,3/4,anacrúsico,conferido no olho,"nota pontuada, fermata",baixo,164
-149,impresso,Sol,,,,4/4,tético,conferido no olho,"nota pontuada, fermata, ritornelo",baixo,165
-150,impresso,Lá♭,,54-69 (62),,4/4,anacrúsico,selo e medida,nota pontuada,baixo,166
-151,impresso,Lá♭,,66-84 (62),,4/4,tético,medida,"nota pontuada, fermata",baixo,167
-152,inferido,Lá♭,,72-92 (82),,4/4,anacrúsico,medida,nota pontuada,cima,168
-153,impresso,Si♭,,,,C,anacrúsico,selo e medida,nota pontuada,cima,169
-154,impresso,Mi♭,em 6,108-126 (117),,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,170
-155,impresso,Dó,,,,4/4,tético,medida,"nota pontuada, fermata",baixo,171
-156,impresso,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,172
-157,impresso,Lá♭,,,,3/4,anacrúsico,medida,"nota pontuada, tercina",cima,173
-158,inferido,Dó,,60-72 (66),,2/4,tético,medida,,baixo,174
-159,impresso,Sol,,,,4/4,tético,medida,nota pontuada,baixo,175
-160,impresso,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,176
-161,impresso,Lá♭,,69-84 (77),,4/4,anacrúsico,medida,nota pontuada,cima,177
-162,impresso,Sol,em 3,,,9/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",baixo,178
-163,impresso,Mi♭,,112-138 (125),,6/8,tético,medida,nota pontuada,baixo,179
-164,impresso,Mi♭,,72-88,,4/4,anacrúsico,selo e medida,nota pontuada,cima,180
-165,impresso,Si♭,em 2,,,6/8,tético,medida,nota pontuada,baixo,181
-166,impresso,Sol,em 6,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,182
-167,impresso,Mi♭,,72-88 (80),,4/4,anacrúsico,selo e medida,nota pontuada,cima,183
-168,impresso,Si♭,,69-80,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,184
-169,inferido,Lá♭,em 2,100-126 (113),,6/8,tético,medida,nota pontuada,,185
-170,impresso,Dó,em 3,,,9/8,anacrúsico,medida,nota pontuada,cima,186
-171,impresso,Lá♭,,56-76 (66),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,187
-172,inferido,Dó,,,,3/4,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,188
-173,impresso,Si♭,,66-84 (75),,4/4,tético,medida,nota pontuada,baixo,189
-174,impresso,Lá♭,,66-84 (75),,4/4,anacrúsico,medida,"nota pontuada, fermata",baixo,190
-175,impresso,Dó,,,,4/4,tético,medida,nota pontuada,baixo,191
-176,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,192
-177,inferido,Mi♭,em 3,,,9/8,tético,medida,nota pontuada,baixo,193
-178,inferido,Si♭,,,,3/4,anacrúsico,selo e medida,nota pontuada,cima,194
-179,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,195
-180,impresso,Sol,,76-88 (82),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,196
-181,impresso,Mi♭,,66-80 (73),,4/4,anacrúsico,selo e medida,nota pontuada,baixo,197
-182,impresso,Si♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina",cima,198
-183,inferido,Mi♭,em 2,,,6/8,tético,medida,nota pontuada,baixo,199
-184,inferido,Sol,,,Solene,3/4,tético,medida,nota pontuada,baixo,200
-185,impresso,Sol,,,,4/4,tético,medida,"nota pontuada, fermata, ritornelo",baixo,201
-186,impresso,Mi♭,,,,3/4,tético,medida,nota pontuada,baixo,202
-187,inferido,Ré,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,203
-188,inferido,Lá,,69-84 (77),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,205
-189,inferido,Mi♭,,69-84,,4/4,tético,medida,nota pontuada,baixo,206
-190,impresso,Si♭,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,207
-191,impresso,Lá♭,,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,208
-192,inferido,Lá♭,,108-126 (117),,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,209
-193,inferido,Mi♭,em 3,120-144,,9/8,anacrúsico,medida,nota pontuada,baixo,210
-194,impresso,Ré♭,,,,C,anacrúsico,selo e medida,nota pontuada,cima,211
-195,inferido,Lá♭,,69-88 (79),,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,212
-196,inferido,Si♭,,88-112 (100),,6/4,tético,medida,"nota pontuada, fermata",baixo,213
-197,impresso,Fá,em 6,84-104,,6/4,anacrúsico,medida,"nota pontuada, fermata",cima,214
-198,impresso,Ré,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,215
-199,inferido,Sol,,88-120,,6/4,anacrúsico,medida,nota pontuada,cima,216
-200,impresso,Lá,,,,4/4,anacrúsico,selo e medida,nota pontuada,baixo,217
-201,impresso,Dó,,,,4/4,tético,medida,"nota pontuada, fermata",baixo,218
-202,impresso,Ré,em 6,,,6/4,anacrúsico,medida,"nota pontuada, fermata",cima,219
-203,impresso,Ré,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,220
-204,impresso,Ré♭,,66-80 (73),,4/4,anacrúsico,selo e medida,nota pontuada,baixo,221
-205,impresso,Lá♭,em 4,42-56 (49),,12/8,anacrúsico,medida,"nota pontuada, fermata",cima,222
-206,impresso,Mi♭,em 2,100-138 (119),,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,223
-207,impresso,Sol,em 2,69-92 (81),,4/4,tético,medida,"nota pontuada, fermata",baixo,224
-208,impresso,Fá,,,,C cortado,tético,medida,nota pontuada,cima,225
-209,impresso,Sol,,72-84 (78),,4/4,tético,medida,nota pontuada,baixo,226
-210,inferido,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,227
-211,impresso,Dó,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina",cima,228
-212,impresso,Mi♭,,72-88 (80),,4/4,anacrúsico,medida,nota pontuada,cima,229
-213,impresso,Mi♭,,,,6/8,tético,medida,nota pontuada,baixo,230
-214,impresso,Ré,,66-76 (71),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, ritornelo",baixo,231
-215,impresso,Dó,em 4,44-60 (52),,12/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,233
-216,impresso,Ré♭,,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,234
-217,impresso,Ré♭,em 2,,,6/8,tético,medida,"nota pontuada, fermata",baixo,235
-218,impresso,Lá♭,,60-76,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,236
-219,impresso,Si♭,em 2,,,6/8,tético,medida,nota pontuada,,237
-220,impresso,Dó,,56-76 (66),,4/4,tético,medida,"nota pontuada, fermata",baixo,239
-221,impresso,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,240
-222,impresso,Si♭,,69-84 (77),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,241
-223,impresso,Fá,em 2,,,6/8,tético,medida,nota pontuada,baixo,242
-224,impresso,Dó,em 2,,,2/2,tético,medida,nota pontuada,baixo,243
-225,impresso,Mi♭,,63-84,,4/4,anacrúsico,selo e medida,nota pontuada,cima,244
-226,impresso,Ré,,69-76 (73),,4/4,anacrúsico,medida,"fermata, ritornelo",baixo,245
-227,impresso,Sol,,56-76 (66),,3/4,acéfalo,selo,"nota pontuada, fermata",baixo,247
-228,impresso,Sol,,63-80 (66),,3/4,anacrúsico,selo e medida,nota pontuada,,248
-229,impresso,Ré,,69-92 (81),,4/4,anacrúsico,selo e medida,nota pontuada,cima,249
-230,impresso,Sol,,69-84 (77),,,anacrúsico,conferido no olho,nota pontuada,,250
-231,impresso,Sol,,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,251
-232,impresso,Sol,,60-84 (72),,3/4,anacrúsico,selo,"nota pontuada, fermata",cima,252
-233,impresso,Dó,,69-84,,4/4,anacrúsico,selo e medida,"nota pontuada, tercina",cima,253
-234,impresso,Ré,,,,4/4,tético,medida,nota pontuada,baixo,254
-235,impresso,Fá,,84-104,,4/4,tético,medida,,baixo,255
-236,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,256
-237,impresso,Mi♭,,100-126 (113),,6/4,tético,medida,nota pontuada,baixo,257
-238,impresso,Ré♭,,,,9/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",baixo,258
-239,impresso,Fá,,60-76 (68),,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,259
-240,impresso,Lá♭,,112-132,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,260
-241,impresso,Fá,,66-84 (75),,4/4,tético,medida,nota pontuada,baixo,261
-242,impresso,Lá,,63-76,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,262
-243,impresso,Sol,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,263
-244,impresso,Fá,,,,4/4,tético,medida,nota pontuada,baixo,264
-245,impresso,Sol,,,,3/4,tético,medida,"nota pontuada, fermata",baixo,265
-246,impresso,Lá♭,,116-132 (124),,6/8,anacrúsico,medida,nota pontuada,cima,266
-247,impresso,Lá♭,em 4,100-132,,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,267
-248,impresso,Ré,em 3,,,9/8,anacrúsico,medida,nota pontuada,baixo,268
-249,impresso,Si♭,,66-84 (75),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,269
-250,impresso,Ré,,60-76,,3/4,anacrúsico,selo e medida,fermata,,270
-251,impresso,Sol,,,,4/4,tético,medida,"nota pontuada, fermata, ritornelo",baixo,271
-252,inferido,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,272
-253,impresso,Sol,,,,4/4,anacrúsico,selo e medida,nota pontuada,baixo,273
-254,impresso,Fá,,52-66 (59),,4/4,tético,medida,"nota pontuada, fermata",baixo,274
-255,impresso,Si♭,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,275
-256,inferido,Sol,,100-120 (110),,6/4,tético,medida,"nota pontuada, fermata",baixo,276
-257,impresso,Fá,,116-144,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,277
-258,impresso,Si♭,,,,4/4,anacrúsico,medida,nota pontuada,cima,278
-259,impresso,Sol,,,,4/4,tético,medida,nota pontuada,baixo,279
-260,impresso,Mi♭,em 6,,,6/8,tético,medida,nota pontuada,baixo,280
-261,impresso,Fá,,,,2/2,tético,medida,"nota pontuada, fermata",baixo,281
-262,impresso,Ré,,66-80 (73),,4/4,anacrúsico,medida,nota pontuada,cima,282
-263,inferido,Ré,,,,4/4,tético,medida,nota pontuada,baixo,283
-264,impresso,Dó,,,,4/4,tético,medida,nota pontuada,baixo,284
-265,impresso,Si♭,em 3,,,6/8,tético,medida,nota pontuada,baixo,285
-266,impresso,Si♭,,,,2/4,tético,medida,,baixo,286
-267,impresso,Si♭,,,,4/4,tético,medida,"nota pontuada, tercina",baixo,287
-268,impresso,Fá,,,,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,289
-269,inferido,Sol,,,,9/8,anacrúsico,medida,nota pontuada,baixo,290
-270,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,,291
-271,impresso,Sol,,,Com veneração,3/4,tético,medida,nota pontuada,baixo,292
-272,impresso,Mi♭,em 2,,,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,293
-273,impresso,Lá♭,,,,4/4,anacrúsico,medida,nota pontuada,,295
-274,impresso,Mi♭,,,,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,296
-275,impresso,Lá,,66-84 (75),,4/4,anacrúsico,medida,"nota pontuada, tercina",cima,297
-276,impresso,Mi♭,,58-72,,4/4,tético,medida,nota pontuada,baixo,298
-277,impresso,Sol,em 2,120-144,,6/8,tético,medida,nota pontuada,baixo,299
-278,impresso,Sol,,,,6/8,tético,medida,nota pontuada,baixo,300
-279,impresso,Lá♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,301
-280,impresso,Mi♭,,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,302
-281,impresso,Fá,,88-100 (95),,4/4,anacrúsico,medida,nota pontuada,cima,303
-282,impresso,Dó,,,,6/4,tético,medida,"nota pontuada, fermata",baixo,305
-283,impresso,Sol,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,306
-284,impresso,Fá,,66-80,,4/4,anacrúsico,selo e medida,nota pontuada,cima,307
-285,impresso,Lá,,66-84 (75),,4/4,tético,conferido no olho,"nota pontuada, fermata",,308
-286,impresso,Ré,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,309
-287,impresso,Sol,em 3,,,9/8,anacrúsico,medida,nota pontuada,baixo,310
-288,impresso,Sol,em 6,108-120,,6/4,anacrúsico,medida,"nota pontuada, fermata",baixo,311
-289,impresso,Mi,,63-84,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,312
-290,impresso,Lá♭,,72-92 (82),,4/4,tético,medida,"nota pontuada, fermata",baixo,313
-291,impresso,Sol,,76-92 (84),,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,314
-292,impresso,Si♭,,63-88 (76),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,315
-293,impresso,Mi♭,,,,9/4,anacrúsico,medida,nota pontuada,baixo,316
-294,impresso,Mi♭,em 6,,,6/4,anacrúsico,medida,nota pontuada,cima,317
-295,impresso,Sol,,,,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,318
-296,impresso,Si♭,,,,3/4 4/4,anacrúsico,selo e medida,nota pontuada,cima,319
-297,inferido,Sol,,100-126 (113),,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,320
-298,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, ritornelo",cima,321
-299,inferido,Mi♭,,,Solene,4/4,tético,medida,"nota pontuada, fermata",baixo,322
-300,impresso,Ré,,,,4/4,tético,medida,nota pontuada,baixo,323
-301,inferido,Ré♭,,,,4/4,tético,medida,nota pontuada,baixo,324
-302,impresso,Dó,,,,3/4,anacrúsico,medida,nota pontuada,cima,325
-303,inferido,Dó,,,,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,326
-304,impresso,Mi♭,,,,3/4,tético,medida,"nota pontuada, tercina",baixo,327
-305,inferido,Lá♭,em 4,88-112 (100),,4/4,anacrúsico,medida,nota pontuada,cima,328
-306,impresso,Sol,,92-116 (104),,6/4,anacrúsico,medida,"nota pontuada, fermata",cima,329
-307,impresso,Mi♭,,,,4/4,anacrúsico,medida,nota pontuada,cima,331
-308,inferido,Lá♭,em 6,,,6/8,tético,medida,"nota pontuada, fermata",baixo,332
-309,impresso,Lá♭,,,,4/4,tético,medida,"nota pontuada, fermata",baixo,333
-310,impresso,Si♭,,,Solene,2/4,tético,medida,fermata,baixo,334
-311,impresso,Lá♭,,69-84,,4/4,anacrúsico,medida,nota pontuada,cima,335
-312,impresso,Ré,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,336
-313,impresso,Dó,,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,337
-314,impresso,Mi♭,,84-100 (92),,4/4,anacrúsico,medida,nota pontuada,cima,339
-315,impresso,Sol,,80-100 (90),,6/4,anacrúsico,medida,"nota pontuada, fermata",cima,340
-316,impresso,Si♭,em 2,44-56 (50),,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,341
-317,inferido,Lá♭,,,,6/8,tético,medida,"nota pontuada, fermata",baixo,342
-318,impresso,Si♭,,60-76 (68),,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,343
-319,impresso,Sol,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,344
-320,impresso,Si♭,,60-80,,4/4,anacrúsico,medida,"nota pontuada, fermata, tercina",cima,345
-321,inferido,Lá♭,,,,4/4,anacrúsico,medida,nota pontuada,cima,346
-322,impresso,Dó,em 4,,,6/4,tético,medida,nota pontuada,baixo,347
-323,impresso,Si♭,,63-80,,4/4,tético,medida,nota pontuada,baixo,348
-324,impresso,Dó,,63-76,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,349
-325,impresso,Sol,,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,351
-326,impresso,Fá,,,,6/8,anacrúsico,medida,nota pontuada,baixo,352
-327,impresso,Sol,,,,4/4,anacrúsico,medida,nota pontuada,cima,353
-328,impresso,Si♭,,63-80,,4/4,anacrúsico,medida,nota pontuada,cima,354
-329,impresso,Sol,em 6,,,6/8,tético,medida,nota pontuada,baixo,355
-330,impresso,Lá♭,,66-88 (77),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,356
-331,impresso,Lá♭,,66-84 (75),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, ritornelo",baixo,357
-332,inferido,Si♭,,,,6/8,tético,medida,"nota pontuada, fermata",baixo,358
-333,impresso,Dó,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,359
-334,impresso,Sol,,,,4/4,anacrúsico,selo e medida,nota pontuada,,360
-335,impresso,Mi♭,,,,2/4,tético,medida,"nota pontuada, fermata",baixo,361
-336,impresso,Ré,,,,4/4,tético,medida,nota pontuada,baixo,362
-337,impresso,Si♭,,,,4/4,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,363
-338,impresso,Si♭,,,,4/4,tético,medida,nota pontuada,baixo,365
-339,impresso,Lá♭,em 2,112-132,,6/4,tético,medida,"nota pontuada, fermata",baixo,366
-340,impresso,Ré♭,em 2,,,6/4,tético,medida,nota pontuada,baixo,367
-341,impresso,Ré,,,,6/8,anacrúsico,medida,fermata,cima,368
-342,inferido,Dó,em 9,88-112 (100),,9/4 6/4,anacrúsico,medida,nota pontuada,cima,369
-343,impresso,Dó,,,,4/4,tético,medida,nota pontuada,baixo,371
-344,impresso,Lá♭,,96-126,,6/4,tético,medida,nota pontuada,baixo,372
-345,impresso,Fá,,69-84 (77),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,373
-346,impresso,Lá♭,em 6,,,6/4 9/4,tético,medida,"nota pontuada, fermata",baixo,374
-347,impresso,Lá♭,em 2,116-138 (127),,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,375
-348,impresso,Dó,,,,3/4 4/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina",cima,377
-349,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,378
-350,impresso,Ré,,,,3/4 4/4,anacrúsico,selo e medida,nota pontuada,,379
-351,inferido,Dó,,,,6/8,anacrúsico,medida,nota pontuada,cima,380
-352,impresso,Sol,,,,3/4 4/4,anacrúsico,selo e medida,"nota pontuada, fermata",,381
-353,impresso,Sol,,58-69 (64),,C cortado,anacrúsico,medida,"nota pontuada, fermata",cima,382
-354,impresso,Sol,,69-80,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",,383
-355,impresso,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,384
-356,impresso,Ré,,,,4/4,anacrúsico,medida,"nota pontuada, fermata, tercina",cima,385
-357,inferido,Fá,,,,3/4,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,386
-358,impresso,Dó,,,,C,tético,medida,nota pontuada,,387
-359,impresso,Ré,,,,3/4 4/4,anacrúsico,selo e medida,"nota pontuada, tercina",,388
-360,impresso,Mi♭,,66-80,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,389
-361,impresso,Ré♭,,,,6/4,tético,medida,"nota pontuada, fermata",baixo,390
-362,impresso,Lá♭,,112-152 (132),,9/8,anacrúsico,medida,"nota pontuada, fermata",baixo,391
-363,inferido,Sol,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,392
-364,impresso,Dó,,,,4/4,anacrúsico,medida,nota pontuada,cima,393
-365,impresso,Lá♭,,56-76 (66),,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,394
-366,impresso,Fá,,69-88 (79),,4/4,anacrúsico,conferido no olho,"nota pontuada, fermata",baixo,395
-367,impresso,Ré,,,Majestoso,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,396
-368,impresso,Sol,,66-84 (75),,4/4 3/4,tético,selo e medida,"nota pontuada, fermata",,397
-369,impresso,Mi♭,em 2,120-138,,6/8,tético,medida,"nota pontuada, fermata",baixo,398
-370,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,399
-371,impresso,Mi♭,,60-76,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,400
-372,impresso,Dó,,88-120 (104),,6/4,anacrúsico,medida,"nota pontuada, fermata, ritornelo",baixo,401
-373,impresso,Lá♭,,63-80 (72),,3/4,tético,medida,nota pontuada,baixo,402
-374,impresso,Mi♭,,56-76 (66),,4/4,tético,medida,nota pontuada,baixo,403
-375,impresso,Dó,,,,2/2,anacrúsico,medida,"nota pontuada, fermata",cima,404
-376,impresso,Mi♭,,66-80 (73),,4/4,tético,medida,nota pontuada,baixo,405
-377,impresso,Lá♭,,54-72 (63),,2/4,acéfalo,selo,"nota pontuada, fermata",cima,406
-378,impresso,Si♭,,,,4/4,anacrúsico,medida,nota pontuada,cima,407
-379,impresso,Lá♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,408
-380,impresso,Ré,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",baixo,409
-381,impresso,Ré♭,em 6,,,6/8,tético,medida,"nota pontuada, fermata",baixo,411
-382,impresso,Si♭,,,,4/4,tético,medida,"nota pontuada, fermata",baixo,413
-383,inferido,Fá,,,,6/8,tético,medida,nota pontuada,baixo,414
-384,impresso,Ré,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,415
-385,inferido,Ré,,,,3/4,tético,medida,"nota pontuada, fermata",baixo,416
-386,impresso,Dó,,69-84 (77),,4/4,tético,medida,nota pontuada,baixo,417
-387,impresso,Ré♭,,,,4/4,tético,medida,,baixo,418
-388,impresso,Dó,,,,4/4,tético,medida,nota pontuada,baixo,419
-389,impresso,Si♭,,,,6/8,tético,medida,nota pontuada,baixo,420
-390,impresso,Dó,,,Majestoso,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,421
-391,impresso,Lá♭,,58-72 (65),,3/4,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,422
-392,impresso,Lá♭,,,,4/4,anacrúsico,medida,nota pontuada,cima,423
-393,inferido,Si♭,,,,6/8,tético,medida,"nota pontuada, fermata",baixo,424
-394,impresso,Ré,,69-80,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,425
-395,impresso,Mi♭,,,Majestoso,4/4,tético,medida,nota pontuada,baixo,426
-396,impresso,Si♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,baixo,427
-397,impresso,Lá♭,,66-80 (73),,3/4,tético,medida,nota pontuada,baixo,428
-398,impresso,Si♭,,50-63 (57),,2/2,anacrúsico,medida,"nota pontuada, fermata",cima,429
-399,inferido,Fá,em 3,,,9/8,anacrúsico,medida,nota pontuada,baixo,431
-400,impresso,Mi♭,,,,3/4,anacrúsico,selo e medida,fermata,cima,432
-401,impresso,Dó,,,,3/4,anacrúsico,selo e medida,nota pontuada,cima,433
-402,impresso,Fá,,60-80 (70),,4/4,tético,medida,nota pontuada,baixo,434
-403,impresso,Dó,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,435
-404,impresso,Lá♭,,60-80 (70),,4/4,anacrúsico,selo e medida,nota pontuada,cima,436
-405,impresso,Lá♭,,63-76 (70),,4/4,anacrúsico,selo e medida,nota pontuada,baixo,437
-406,impresso,Sol,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,438
-407,impresso,Sol,,,,4/4,anacrúsico,medida,nota pontuada,cima,439
-408,inferido,Lá♭,,,,3/2,anacrúsico,medida,nota pontuada,cima,440
-409,impresso,Sol,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,441
-410,impresso,Sol,,,,2/2,anacrúsico,medida,"nota pontuada, fermata",cima,442
-411,impresso,Mi♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,443
-412,inferido,Fá,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",,444
-413,impresso,Fá,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,445
-414,impresso,Ré,,54-69 (62),,4/4,tético,medida,nota pontuada,baixo,446
-415,impresso,Dó,,80-100 (90),,9/8 6/8,tético,medida,nota pontuada,baixo,447
-416,impresso,Mi♭,,,,C,anacrúsico,selo e medida,"nota pontuada, fermata",cima,448
-417,impresso,Ré,em 6,,,6/4,anacrúsico,medida,"nota pontuada, fermata",baixo,449
-418,inferido,Ré,em 3,,,9/8,anacrúsico,medida,"nota pontuada, fermata",baixo,450
-419,impresso,Sol,em 4,,,2/2,tético,medida,"nota pontuada, fermata",baixo,451
-420,impresso,Sol,,50-66,,4/4,anacrúsico,medida,nota pontuada,cima,452
-421,impresso,Mi♭,em 6,,,6/8,anacrúsico,medida,nota pontuada,cima,453
-422,impresso,Mi♭,em 6,,,6/8 4/4,anacrúsico,medida,"nota pontuada, fermata",baixo,454
-423,impresso,Lá♭,,63-76 (70),,4/4,anacrúsico,selo e medida,nota pontuada,baixo,455
-424,impresso,Fá,,58-80 (69),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,456
-425,impresso,Ré♭,em 9,,,9/8,anacrúsico,medida,nota pontuada,,457
-426,impresso,Mi♭,,44-60 (55),,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,458
-427,impresso,Mi♭,em 9,,,C,tético,medida,nota pontuada,baixo,459
-428,impresso,Fá,,56-60 (58),,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,460
-429,impresso,Mi,,,,4/4,tético,medida,nota pontuada,baixo,461
-430,impresso,Fá,em 6,,,6/8,tético,medida,nota pontuada,baixo,462
-431,impresso,Dó,,63-88,,4/4,anacrúsico,selo e medida,nota pontuada,baixo,465
-432,impresso,Lá♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,466
-433,impresso,Si♭,,,,3/4 4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,467
-435,impresso,Mi♭,,,,3/4,anacrúsico,selo e medida,nota pontuada,cima,468
-436,impresso,Ré,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,469
-437,impresso,Sol,,60-80 (70),,4/4,tético,medida,,baixo,470
-438,impresso,Mi♭,em 2,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,471
-439,impresso,Si♭,,,,C,anacrúsico,selo e medida,nota pontuada,cima,472
-440,inferido,Fá,,63-92 (78),,C,tético,medida,nota pontuada,baixo,473
-441,impresso,Ré,em 2,52-69,,C cortado,anacrúsico,medida,"nota pontuada, fermata",cima,474
-442,impresso,Lá♭,,,,4/4,tético,medida,nota pontuada,baixo,475
-443,impresso,Si♭,,,,4/4,tético,medida,fermata,baixo,476
-444,inferido,Ré,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,477
-445,impresso,Si♭,,,,4/4,tético,medida,nota pontuada,baixo,478
-446,impresso,Sol,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,479
-447,impresso,Mi♭,,69-84,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,481
-448,impresso,Si♭,em 6,,,6/8,anacrúsico,medida,nota pontuada,baixo,482
-449,impresso,Lá♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,483
-450,impresso,Lá♭,,63-84,,4/4,tético,medida,"nota pontuada, fermata",baixo,484
-451,impresso,Si♭,em 6,104-132 (118),,6/8,tético,medida,"nota pontuada, fermata",baixo,485
-452,impresso,Lá♭,,63-80 (72),,4/4,anacrúsico,selo e medida,nota pontuada,cima,486
-453,impresso,Fá,,,,6/4,anacrúsico,medida,"nota pontuada, fermata",baixo,487
-454,impresso,Sol,,104-126,,6/8,tético,medida,nota pontuada,baixo,488
-455,impresso,Ré♭,,63-84 (74),,4/4,tético,medida,"nota pontuada, fermata",baixo,489
-456,impresso,Mi♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,490
-457,impresso,Dó,,,,6/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,491
-458,inferido,Mi♭,,56-76,,2/4,tético,medida,"nota pontuada, fermata",baixo,492
-459,impresso,Dó,,,,12/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,493
-460,impresso,Fá,,,,4/4,tético,medida,nota pontuada,baixo,494
-461,impresso,Dó,,69-84 (77),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",,495
-462,impresso,Mi♭,,,,3/4 4/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina",cima,496
-463,impresso,Lá♭,,,,4/4,tético,medida,"nota pontuada, fermata",baixo,497
-464,impresso,Mi♭,,,Solene,3/4,anacrúsico,selo e medida,"fermata, tercina",baixo,498
-465,impresso,Si♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina, ritornelo",cima,499
-466,inferido,Sol,,63-80 (72),,3/4,anacrúsico,selo e medida,nota pontuada,cima,500
-467,inferido,Mi♭,,63-80 (72),,2/4,anacrúsico,medida,"nota pontuada, fermata",cima,501
-468,inferido,Fá,,63-80 (72),,2/4,tético,medida,fermata,baixo,502
-469,impresso,Lá♭,,76-84 (80),,4/4,anacrúsico,medida,"nota pontuada, tercina",cima,503
-470,impresso,Ré,,,,C,tético,medida,"nota pontuada, fermata",baixo,504
-471,impresso,Dó,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,505
-472,impresso,Dó,,,,4/4,tético,medida,nota pontuada,baixo,506
-473,inferido,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,507
-474,impresso,Si♭,,,,4/4,tético,medida,nota pontuada,baixo,508
-475,impresso,Mi♭,,,,4/4,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,509
-476,impresso,Si♭,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,510
-477,impresso,Si♭,,,,4/4,tético,medida,nota pontuada,baixo,511
-478,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,512
-479,impresso,Si♭,,,,3/4,anacrúsico,selo e medida,nota pontuada,cima,513
-480,impresso,Si♭,em 2,,,6/8,tético,medida,"nota pontuada, fermata",,514
-1,avulso,Lá,,60-80 (70),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,515
-,avulso,Sol,,,,2/4 4/4,tético,medida,"nota pontuada, fermata",baixo,516
-4,avulso,Lá♭,,60-84 (72),,4/4,,selo e medida discordam,nota pontuada,baixo,517
+﻿n,conf,tom,marcacao,met,ind,fc,ritmo,rbase,sinais,arco,sis,agudo,grave,pag
+1,impresso,Mi♭,,56-66 (61),,4/4,tético,selo e medida,"nota pontuada, fermata",baixo,4,Mi♭5,Si♭3,2
+2,inferido,Mi♭,,60-80 (70),,4/4,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,4,Mi♭5,Si♭3,3
+3,impresso,Sol,,,,4/4,tético,selo e medida,"nota pontuada, fermata",baixo,5,Mi5,Si3,4
+4,impresso,Lá♭,em 2,112-138 (125),,6/4,tético,medida,"nota pontuada, fermata",baixo,4,Mi♭5,Lá♭3,5
+5,impresso,Lá♭,em 2,112-144 (128),,6/8,tético,medida,nota pontuada,baixo,5,Mi♭5,Lá♭3,6
+6,inferido,Dó,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, ritornelo",cima,5,Mi5,Si3,7
+7,inferido,Mi♭,em 6,80-100,,6/4,anacrúsico,medida,nota pontuada,cima,5,Mi♭5,Si♭3,8
+8,impresso,Si♭,em 2,,,6/8,tético,medida,nota pontuada,baixo,4,Ré5,Ré4,9
+9,impresso,Sol,,63-72 (68),,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,4,Ré5,Si3,10
+10,inferido,Si♭,,69-84 (77),,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi♭5,Lá3,11
+11,impresso,Si♭,,72-84 (78),,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Ré5,Si♭3,12
+12,inferido,Mi♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina",cima,4,Mi♭5,Si♭3,13
+13,inferido,Lá♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi♭5,Lá♭3,14
+14,inferido,Fá,,112-144 (128),,6/8,tético,medida,nota pontuada,baixo,6,Ré5,Sol3,15
+15,impresso,Si♭,em 4,,,12/8,tético,medida,nota pontuada,baixo,3,Ré5,Si♭3,16
+16,impresso,Sol,em 6,100-120 (110),,6/4,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi5,Si3,17
+17,impresso,Sol,,60-76 (68),,3/4,anacrúsico,medida,"nota pontuada, fermata",baixo,5,Mi5,Si3,18
+18,impresso,Sol,,76-92 (84),,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,8,Mi5,Si3,19
+19,impresso,Lá♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,6,Mi♭5,Dó4,21
+20,inferido,Fá,,72-84 (78),,4/4,anacrúsico,selo e medida,nota pontuada,baixo,4,Ré5,Dó4,22
+21,impresso,Mi♭,em 6,116-138,,6/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,10,Mi♭5,Si♭3,23
+22,impresso,Lá,em 6,104-132 (118),,6/8,tético,medida,nota pontuada,baixo,4,Ré5,Lá3,25
+23,impresso,Sol,em 6,96-120 (108),,6/4,tético,medida,"nota pontuada, fermata",baixo,4,Mi5,Si3,26
+24,impresso,Sol,em 6,,,6/4,anacrúsico,medida,nota pontuada,cima,5,Ré5,Sol3,27
+25,impresso,Sol,,,,3/4,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,5,Mi5,Lá3,28
+26,impresso,Lá♭,,69-88,,4/4,tético,selo e medida,"nota pontuada, fermata",baixo,8,Mi♭5,Si♭3,29
+27,impresso,Mi♭,em 2,116-144 (130),,6/8,anacrúsico,medida,"nota pontuada, fermata",baixo,4,Mi♭5,Dó4,31
+28,impresso,Dó,,69-80 (75),,4/4,tético,selo e medida,nota pontuada,baixo,5,Mi5,Si3,32
+29,impresso,Lá♭,,66-84 (75),,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,6,Mi♭5,Dó4,33
+30,impresso,Fá,em 6,,,6/8,tético,medida,"nota pontuada, fermata",baixo,4,Ré5,Si♭3,34
+31,impresso,Ré,,60-76 (68),,2/2,tético,conferido no olho,"nota pontuada, fermata",baixo,6,Ré5,Lá3,35
+32,impresso,Lá♭,em 4,52-72 (62),,2/4,tético,medida,"nota pontuada, fermata",baixo,3,Mi♭5,Si♭3,36
+33,inferido,Dó,em 4,,,6/8,tético,medida,"nota pontuada, fermata",baixo,7,Mi5,Sol3,37
+34,impresso,Mi♭,,50-66 (58),,3/4,anacrúsico,medida,nota pontuada,cima,2,Mi♭5,Si♭3,38
+35,impresso,Mi♭,,108-120,,6/8,anacrúsico,medida,nota pontuada,cima,5,Mi♭5,Si♭3,39
+36,impresso,Sol,,84-100,,6/4,anacrúsico,medida,nota pontuada,baixo,5,Ré5,Si3,40
+37,impresso,Ré,,,,4/4,tético,selo e medida,nota pontuada,baixo,6,Mi5,Lá3,41
+38,impresso,Mi♭,,,,4/4,tético,medida,"nota pontuada, fermata",baixo,2,Mi♭5,Si♭3,42
+39,inferido,Fá,,,,3/4,anacrúsico,medida,"nota pontuada, fermata",baixo,4,Ré5,Dó4,43
+40,inferido,Lá♭,,72-88 (80),,4/4,anacrúsico,selo e medida,nota pontuada,cima,4,Mi♭5,Lá♭3,44
+41,impresso,Lá,em 3,120-144 (132),,9/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,8,Mi5,Si3,45
+42,impresso,Fá,em 4,50-60,,12/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,8,Fá5,Lá3,47
+43,impresso,Mi♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,4,Mi♭5,Si♭3,49
+44,inferido,Fá,em 3,,,9/8,anacrúsico,medida,nota pontuada,baixo,5,Ré5,Si♭3,50
+45,impresso,Dó,em 3,96-120,,9/4,tético,medida,"nota pontuada, fermata",baixo,4,Ré5,Lá3,51
+46,impresso,Lá♭,em 2,,,6/8,tético,medida,"nota pontuada, fermata",baixo,4,Mi♭5,Dó4,52
+47,impresso,Fá,em 2,120-152 (136),,6/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,8,Ré5,Si♭3,53
+48,impresso,Mi♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,4,Mi♭5,Si♭3,55
+49,impresso,Fá,em 6,,,6/4,tético,medida,"nota pontuada, fermata",baixo,4,Si♭4,Lá3,56
+50,impresso,Dó,em 2,,,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,8,Fá5,Sol3,57
+51,impresso,Si♭,em 4,,,C,tético,medida,,baixo,6,Mi♭5,Si♭3,59
+52,inferido,Dó,,,,6/8,tético,medida,"nota pontuada, fermata",baixo,4,Mi5,Sol3,60
+53,impresso,Mi♭,em 4,72-92 (82),,4/4,tético,conferido no olho,nota pontuada,baixo,4,Mi♭5,Si♭3,61
+54,impresso,Fá,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Ré5,Sol3,62
+55,impresso,Dó,em 2,,,6/8,tético,medida,"nota pontuada, fermata",baixo,9,Mi5,Si3,63
+56,impresso,Mi♭,,70-84 (77),,C,tético,medida,"nota pontuada, fermata, ritornelo",baixo,8,Mi♭5,Si♭3,65
+57,impresso,Ré♭,,,,4/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Dó4,67
+58,impresso,Ré,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,4,Mi5,Lá3,68
+59,impresso,Fá,,,,3/4,anacrúsico,selo e medida,nota pontuada,cima,4,Ré5,Si♭3,69
+60,impresso,Fá,em 2,116-132,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,4,Ré5,Dó4,70
+61,impresso,Mi♭,em 3,,,9/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",baixo,5,Mi♭5,Si♭3,71
+62,impresso,Lá♭,,63-80 (72),,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,3,Mi♭5,Dó4,72
+63,inferido,Si♭,em 3,46-56 (51),,9/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",baixo,7,Fá5,Si♭3,73
+64,inferido,Fá,,69-88 (79),,3/4,tético,medida,nota pontuada,baixo,2,Ré5,Si♭3,74
+65,impresso,Ré♭,em 2,,,6/8,tético,medida,"nota pontuada, fermata",baixo,6,Mi♭5,Lá♭3,75
+66,inferido,Sol,,,,3/4,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,4,Mi5,Si3,76
+67,impresso,Ré♭,,,,3/4,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,8,Mi♭5,Dó4,77
+68,impresso,Ré,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,4,Ré5,Lá3,79
+69,impresso,Ré♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,4,Ré♭5,Lá♭3,80
+70,impresso,Sol,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi5,Lá3,81
+71,impresso,Dó,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi5,Si3,82
+72,impresso,Lá♭,,69-84,,4/4,tético,medida,nota pontuada,baixo,4,Mi♭5,Dó4,83
+73,impresso,Dó,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi5,Si3,84
+74,impresso,Ré,,72-88 (80),,4/4,tético,medida,"nota pontuada, fermata, ritornelo",baixo,7,Ré5,Lá3,85
+75,impresso,Lá♭,,69-84 (77),,3/4,tético,medida,"nota pontuada, fermata",baixo,2,Ré♭5,Dó4,86
+76,impresso,Dó,em 6,,,6/4,tético,medida,"nota pontuada, fermata",baixo,4,Ré5,Lá3,87
+77,impresso,Si♭,em 2,112-138 (125),,6/8,tético,medida,nota pontuada,,4,Ré5,Ré4,88
+78,impresso,Sol,,,,6/8,tético,medida,nota pontuada,baixo,5,Mi5,Lá3,89
+79,impresso,Mi♭,,60-80 (70),,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi♭5,Si♭3,90
+80,impresso,Lá♭,,,,4/4,tético,medida,nota pontuada,baixo,4,Mi♭5,Si♭3,91
+81,impresso,Dó,,108-120 (114),,6/8,anacrúsico,medida,nota pontuada,cima,4,Ré5,Dó4,92
+82,impresso,Lá♭,,54-72 (63),,2/4,anacrúsico,medida,nota pontuada,baixo,5,Mi♭5,Lá♭3,93
+83,impresso,Mi♭,em 6,88-112 (100),,6/4,anacrúsico,medida,nota pontuada,cima,4,Ré5,Si♭3,94
+84,impresso,Mi♭,,69-84 (77),,4/4,tético,medida,"nota pontuada, fermata",baixo,4,Mi♭5,Si♭3,95
+85,impresso,Lá♭,,66-92 (79),,4/4,tético,medida,,baixo,5,Dó5,Si♭3,96
+86,impresso,Mi♭,em 6,80-108 (94),,6/4,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi♭5,Si♭3,97
+87,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi♭5,Si♭3,98
+88,impresso,Sol,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,6,Mi5,Si3,99
+89,impresso,Si♭,,80-96,,4/4,tético,medida,nota pontuada,baixo,3,Mi♭5,Si♭3,100
+90,impresso,Lá♭,,63-76 (70),,3/4,anacrúsico,conferido no olho,nota pontuada,baixo,4,Ré♭5,Dó4,101
+91,impresso,Ré♭,em 6,92-120 (106),,6/4,tético,medida,"nota pontuada, fermata",baixo,5,Mi♭5,Lá♭3,102
+92,impresso,Mi♭,,69-84 (76),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, ritornelo",cima,6,Mi♭5,Lá♭3,103
+93,inferido,Si♭,,60-72 (66),,3/4,anacrúsico,medida,nota pontuada,cima,3,Ré5,Si♭3,104
+94,impresso,Dó,em 4,56-76 (66),,4/4 3/4,anacrúsico,medida,nota pontuada,baixo,8,Mi5,Sol3,105
+95,impresso,Lá♭,em 4,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi♭5,Lá♭3,107
+96,inferido,Sol,,,Solene,3/4,tético,medida,nota pontuada,baixo,3,Mi5,Ré4,108
+97,impresso,Lá♭,,42-52,,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,8,Mi♭5,Lá♭3,109
+98,impresso,Lá♭,em 6,,,6/4,tético,medida,"nota pontuada, fermata",baixo,5,Mi♭5,Lá♭3,111
+99,impresso,Sol,,63-84 (73),,4/4,anacrúsico,medida,nota pontuada,cima,5,Mi5,Si3,112
+100,impresso,Si♭,,60-80 (70),,4/4,anacrúsico,medida,"nota pontuada, fermata",baixo,6,Mi♭5,Lá3,113
+101,inferido,Sol,,60-72 (66),,4/4,anacrúsico,selo e medida,fermata,cima,3,Dó5,Dó4,114
+102,impresso,Mi♭,em 2,,,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,8,Mi♭5,Si♭3,115
+103,impresso,Dó,em 2,72-88 (80),,4/4,tético,medida,"nota pontuada, fermata",baixo,6,Mi5,Lá3,117
+104,impresso,Fá,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,3,Ré5,Lá3,118
+105,impresso,Si♭,em 4,44-60 (52),,12/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,7,Mi♭5,Lá3,119
+106,inferido,Ré,,58-72 (65),,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,2,Ré5,Si3,120
+107,impresso,Fá,em 2,,,6/8,anacrúsico,medida,nota pontuada,cima,6,Fá5,Lá3,121
+108,impresso,Sol,,60-80,,4/4,anacrúsico,medida,"nota pontuada, fermata",baixo,3,Mi5,Dó4,122
+109,impresso,Si♭,,112-132 (122),,6/8,tético,medida,nota pontuada,baixo,4,Ré5,Dó4,123
+110,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina",cima,5,Mi♭5,Si♭3,124
+111,impresso,Mi♭,,63-80 (72),,3/4,anacrúsico,selo e medida,nota pontuada,cima,6,Mi♭5,Si♭3,125
+112,inferido,Mi♭,,112-138 (125),,6/8,anacrúsico,medida,nota pontuada,cima,4,Mi♭5,Si♭3,126
+113,impresso,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,4,Mi♭5,Si♭3,127
+114,impresso,Si♭,,,,4/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Ré4,128
+115,impresso,Sol,,,,3/4,tético,conferido no olho,"nota pontuada, fermata",baixo,5,Mi5,Si3,129
+116,impresso,Dó,em 2,,,6/8,tético,medida,nota pontuada,baixo,4,Mi5,Si3,130
+117,impresso,Lá♭,,132-152 (125),,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,8,Mi♭5,Lá♭3,131
+118,impresso,Ré♭,,,,6/8,anacrúsico,medida,nota pontuada,cima,6,Mi♭5,Lá♭3,133
+119,impresso,Mi♭,,88-112,,4/4,tético,medida,nota pontuada,baixo,3,Mi♭5,Si♭3,134
+120,impresso,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Lá♭3,135
+121,impresso,Mi♭,,,,9/8,anacrúsico,medida,nota pontuada,baixo,5,Mi♭5,Si♭3,136
+122,impresso,Lá♭,,66-84 (75),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,7,Mi♭5,Dó4,137
+123,impresso,Si♭,,,,3/4,tético,medida,nota pontuada,baixo,2,Mi♭5,Dó4,138
+124,impresso,Sol,em 6,80-96 (88),,6/4,tético,medida,"nota pontuada, fermata",baixo,5,Mi5,Dó4,139
+125,impresso,Fá,em 6,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,5,Ré5,Si♭3,140
+126,impresso,Lá♭,,63-80,,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi♭5,Si♭3,141
+127,impresso,Ré,,63-80,,4/4,tético,medida,"nota pontuada, fermata",baixo,5,Mi5,Lá3,142
+128,impresso,Si♭,,,,6/8,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,5,Ré5,Si♭3,143
+129,impresso,Si♭,,66-80 (73),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,5,Fá5,Lá3,144
+130,impresso,Dó,,,,6/8,tético,medida,nota pontuada,baixo,5,Mi5,Sol3,145
+131,impresso,Sol,,63-80 (72),,4/4,tético,medida,,baixo,4,Ré5,Si3,146
+132,impresso,Si♭,em 2,108-132 (120),,6/8,tético,medida,nota pontuada,baixo,4,Mi♭5,Lá3,147
+133,impresso,Fá,,88-112,,4/4,anacrúsico,selo e medida,nota pontuada,cima,4,Ré5,Lá3,148
+134,impresso,Mi♭,,66-80,,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Dó5,Si♭3,149
+135,impresso,Fá,,,Majestoso,C,tético,medida,nota pontuada,baixo,4,Ré5,Dó4,150
+136,impresso,Ré,em 2,,,6/8,tético,medida,"nota pontuada, fermata",baixo,4,Mi5,Lá3,151
+137,impresso,Sol,,112-138,,6/8,tético,medida,nota pontuada,baixo,4,Mi5,Si3,152
+138,impresso,Lá,em 6,,,6/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,8,Mi5,Si3,153
+139,impresso,Sol,,60-76 (68),,3/4,anacrúsico,medida,"nota pontuada, fermata",,4,Mi5,Si3,155
+140,impresso,Fá,,,,4/4,tético,medida,nota pontuada,baixo,5,Ré5,Dó4,156
+141,impresso,Mi♭,em 6,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi♭5,Si♭3,157
+142,impresso,Fá,em 6,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi5,Si♭3,158
+143,impresso,Ré,,66-80 (73),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,6,Ré5,Sol3,159
+144,impresso,Mi♭,,66-80 (73),,3/4,tético,medida,nota pontuada,baixo,3,Mi♭5,Lá♭3,160
+145,impresso,Ré♭,em 2,,,6/8,tético,medida,nota pontuada,baixo,6,Mi♭5,Lá♭3,161
+146,inferido,Ré,,,,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,3,Mi5,Lá3,162
+147,impresso,Lá♭,em 6,72-88 (80),Com júbilo,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi♭5,Si♭3,163
+148,impresso,Lá♭,,,,3/4,anacrúsico,conferido no olho,"nota pontuada, fermata",baixo,4,Mi♭5,Dó4,164
+149,impresso,Sol,,,,4/4,tético,conferido no olho,"nota pontuada, fermata, ritornelo",baixo,6,Mi5,Si3,165
+150,impresso,Lá♭,,54-69 (62),,4/4,anacrúsico,selo e medida,nota pontuada,baixo,2,Mi♭5,Dó4,166
+151,impresso,Lá♭,,66-84 (62),,4/4,tético,medida,"nota pontuada, fermata",baixo,4,Dó5,Si♭3,167
+152,inferido,Lá♭,,72-92 (82),,4/4,anacrúsico,medida,nota pontuada,cima,4,Mi♭5,Lá♭3,168
+153,impresso,Si♭,,,,C,anacrúsico,selo e medida,nota pontuada,cima,4,Mi♭5,Ré4,169
+154,impresso,Mi♭,em 6,108-126 (117),,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi♭5,Si♭3,170
+155,impresso,Dó,,,,4/4,tético,medida,"nota pontuada, fermata",baixo,5,Dó5,Si3,171
+156,impresso,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Si♭3,172
+157,impresso,Lá♭,,,,3/4,anacrúsico,medida,"nota pontuada, tercina",cima,5,Ré♭5,Lá♭3,173
+158,inferido,Dó,,60-72 (66),,2/4,tético,medida,,baixo,3,Mi5,Lá3,174
+159,impresso,Sol,,,,4/4,tético,medida,nota pontuada,baixo,6,Mi5,Lá3,175
+160,impresso,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,3,Dó5,Ré4,176
+161,impresso,Lá♭,,69-84 (77),,4/4,anacrúsico,medida,nota pontuada,cima,5,Mi♭5,Si♭3,177
+162,impresso,Sol,em 3,,,9/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",baixo,5,Ré5,Si3,178
+163,impresso,Mi♭,,112-138 (125),,6/8,tético,medida,nota pontuada,baixo,5,Mi♭5,Lá♭3,179
+164,impresso,Mi♭,,72-88,,4/4,anacrúsico,selo e medida,nota pontuada,cima,4,Mi♭5,Si♭3,180
+165,impresso,Si♭,em 2,,,6/8,tético,medida,nota pontuada,baixo,4,Ré5,Si♭3,181
+166,impresso,Sol,em 6,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,5,Ré5,Ré4,182
+167,impresso,Mi♭,,72-88 (80),,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Ré5,Si♭3,183
+168,impresso,Si♭,,69-80,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi♭5,Lá3,184
+169,inferido,Lá♭,em 2,100-126 (113),,6/8,tético,medida,nota pontuada,,4,Mi♭5,Lá♭3,185
+170,impresso,Dó,em 3,,,9/8,anacrúsico,medida,nota pontuada,cima,5,Mi5,Dó4,186
+171,impresso,Lá♭,,56-76 (66),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,6,Mi♭5,Lá♭3,187
+172,inferido,Dó,,,,3/4,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,2,Ré5,Si3,188
+173,impresso,Si♭,,66-84 (75),,4/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Lá3,189
+174,impresso,Lá♭,,66-84 (75),,4/4,anacrúsico,medida,"nota pontuada, fermata",baixo,5,Mi♭5,Lá♭3,190
+175,impresso,Dó,,,,4/4,tético,medida,nota pontuada,baixo,4,Mi5,Si3,191
+176,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi♭5,Si♭3,192
+177,inferido,Mi♭,em 3,,,9/8,tético,medida,nota pontuada,baixo,6,Mi♭5,Lá♭3,193
+178,inferido,Si♭,,,,3/4,anacrúsico,selo e medida,nota pontuada,cima,4,Mi♭5,Dó4,194
+179,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi♭5,Si♭3,195
+180,impresso,Sol,,76-88 (82),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi5,Sol3,196
+181,impresso,Mi♭,,66-80 (73),,4/4,anacrúsico,selo e medida,nota pontuada,baixo,6,Mi♭5,Si♭3,197
+182,impresso,Si♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina",cima,3,Mi♭5,Ré4,198
+183,inferido,Mi♭,em 2,,,6/8,tético,medida,nota pontuada,baixo,6,Mi♭5,Si♭3,199
+184,inferido,Sol,,,Solene,3/4,tético,medida,nota pontuada,baixo,3,Mi5,Si3,200
+185,impresso,Sol,,,,4/4,tético,medida,"nota pontuada, fermata, ritornelo",baixo,5,Mi5,Si3,201
+186,impresso,Mi♭,,,,3/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Si♭3,202
+187,inferido,Ré,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,8,Mi5,Ré4,203
+188,inferido,Lá,,69-84 (77),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,5,Mi5,Lá3,205
+189,inferido,Mi♭,,69-84,,4/4,tético,medida,nota pontuada,baixo,4,Mi♭5,Dó4,206
+190,impresso,Si♭,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,6,Ré5,Dó4,207
+191,impresso,Lá♭,,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,4,Fá5,Dó4,208
+192,inferido,Lá♭,,108-126 (117),,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,5,Ré♭5,Lá♭3,209
+193,inferido,Mi♭,em 3,120-144,,9/8,anacrúsico,medida,nota pontuada,baixo,5,Mi♭5,Si♭3,210
+194,impresso,Ré♭,,,,C,anacrúsico,selo e medida,nota pontuada,cima,4,Dó5,Lá♭3,211
+195,inferido,Lá♭,,69-88 (79),,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,4,Mi♭5,Dó4,212
+196,inferido,Si♭,,88-112 (100),,6/4,tético,medida,"nota pontuada, fermata",baixo,5,Ré5,Lá3,213
+197,impresso,Fá,em 6,84-104,,6/4,anacrúsico,medida,"nota pontuada, fermata",cima,5,Ré5,Lá3,214
+198,impresso,Ré,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,6,Ré5,Lá3,215
+199,inferido,Sol,,88-120,,6/4,anacrúsico,medida,nota pontuada,cima,4,Mi5,Si3,216
+200,impresso,Lá,,,,4/4,anacrúsico,selo e medida,nota pontuada,baixo,6,Mi5,Lá3,217
+201,impresso,Dó,,,,4/4,tético,medida,"nota pontuada, fermata",baixo,4,Mi5,Sol3,218
+202,impresso,Ré,em 6,,,6/4,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi5,Lá3,219
+203,impresso,Ré,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi5,Lá3,220
+204,impresso,Ré♭,,66-80 (73),,4/4,anacrúsico,selo e medida,nota pontuada,baixo,5,Mi♭5,Lá♭3,221
+205,impresso,Lá♭,em 4,42-56 (49),,12/8,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi♭5,Si♭3,222
+206,impresso,Mi♭,em 2,100-138 (119),,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi♭5,Lá♭3,223
+207,impresso,Sol,em 2,69-92 (81),,4/4,tético,medida,"nota pontuada, fermata",baixo,4,Dó5,Si3,224
+208,impresso,Fá,,,,C cortado,tético,medida,nota pontuada,cima,4,Ré5,Dó4,225
+209,impresso,Sol,,72-84 (78),,4/4,tético,medida,nota pontuada,baixo,5,Ré5,Si3,226
+210,inferido,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,4,Mi♭5,Si♭3,227
+211,impresso,Dó,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina",cima,4,Mi5,Si3,228
+212,impresso,Mi♭,,72-88 (80),,4/4,anacrúsico,medida,nota pontuada,cima,5,Mi♭5,Sol3,229
+213,impresso,Mi♭,,,,6/8,tético,medida,nota pontuada,baixo,4,Mi♭5,Si♭3,230
+214,impresso,Ré,,66-76 (71),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, ritornelo",baixo,8,Ré5,Si3,231
+215,impresso,Dó,em 4,44-60 (52),,12/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,6,Mi5,Lá3,233
+216,impresso,Ré♭,,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,4,Mi♭5,Lá♭3,234
+217,impresso,Ré♭,em 2,,,6/8,tético,medida,"nota pontuada, fermata",baixo,4,Mi♭5,Lá♭3,235
+218,impresso,Lá♭,,60-76,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,4,Mi♭5,Lá♭3,236
+219,impresso,Si♭,em 2,,,6/8,tético,medida,nota pontuada,,9,Mi♭5,Si♭3,237
+220,impresso,Dó,,56-76 (66),,4/4,tético,medida,"nota pontuada, fermata",baixo,5,Mi5,Lá3,239
+221,impresso,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,4,Mi♭5,Si♭3,240
+222,impresso,Si♭,,69-84 (77),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi♭5,Lá3,241
+223,impresso,Fá,em 2,,,6/8,tético,medida,nota pontuada,baixo,5,Mi5,Lá3,242
+224,impresso,Dó,em 2,,,2/2,tético,medida,nota pontuada,baixo,5,Mi5,Dó4,243
+225,impresso,Mi♭,,63-84,,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Fá5,Si♭3,244
+226,impresso,Ré,,69-76 (73),,4/4,anacrúsico,medida,"fermata, ritornelo",baixo,8,Ré5,Lá3,245
+227,impresso,Sol,,56-76 (66),,3/4,acéfalo,selo,"nota pontuada, fermata",baixo,4,Ré5,Lá3,247
+228,impresso,Sol,,63-80 (66),,3/4,anacrúsico,selo e medida,nota pontuada,,4,Mi5,Si3,248
+229,impresso,Ré,,69-92 (81),,4/4,anacrúsico,selo e medida,nota pontuada,cima,6,Mi5,Lá3,249
+230,impresso,Sol,,69-84 (77),,,anacrúsico,conferido no olho,nota pontuada,,3,Mi5,Si3,250
+231,impresso,Sol,,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi5,Si3,251
+232,impresso,Sol,,60-84 (72),,3/4,anacrúsico,selo,"nota pontuada, fermata",cima,4,Mi5,Ré4,252
+233,impresso,Dó,,69-84,,4/4,anacrúsico,selo e medida,"nota pontuada, tercina",cima,6,Mi5,Sol3,253
+234,impresso,Ré,,,,4/4,tético,medida,nota pontuada,baixo,4,Ré5,Lá3,254
+235,impresso,Fá,,84-104,,4/4,tético,medida,,baixo,4,Ré5,Si♭3,255
+236,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi♭5,Si♭3,256
+237,impresso,Mi♭,,100-126 (113),,6/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Lá♭3,257
+238,impresso,Ré♭,,,,9/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",baixo,5,Ré♭5,Lá♭3,258
+239,impresso,Fá,,60-76 (68),,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Fá5,Lá3,259
+240,impresso,Lá♭,,112-132,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi♭5,Lá♭3,260
+241,impresso,Fá,,66-84 (75),,4/4,tético,medida,nota pontuada,baixo,6,Fá5,Lá3,261
+242,impresso,Lá,,63-76,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,3,Mi5,Si3,262
+243,impresso,Sol,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi5,Si3,263
+244,impresso,Fá,,,,4/4,tético,medida,nota pontuada,baixo,4,Mi5,Dó4,264
+245,impresso,Sol,,,,3/4,tético,medida,"nota pontuada, fermata",baixo,5,Ré5,Si3,265
+246,impresso,Lá♭,,116-132 (124),,6/8,anacrúsico,medida,nota pontuada,cima,5,Mi♭5,Dó4,266
+247,impresso,Lá♭,em 4,100-132,,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,5,Ré♭5,Lá♭3,267
+248,impresso,Ré,em 3,,,9/8,anacrúsico,medida,nota pontuada,baixo,5,Mi5,Lá3,268
+249,impresso,Si♭,,66-84 (75),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,5,Ré5,Si♭3,269
+250,impresso,Ré,,60-76,,3/4,anacrúsico,selo e medida,fermata,,5,Mi5,Lá3,270
+251,impresso,Sol,,,,4/4,tético,medida,"nota pontuada, fermata, ritornelo",baixo,6,Mi5,Ré4,271
+252,inferido,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,3,Mi♭5,Lá♭3,272
+253,impresso,Sol,,,,4/4,anacrúsico,selo e medida,nota pontuada,baixo,7,Mi5,Sol3,273
+254,impresso,Fá,,52-66 (59),,4/4,tético,medida,"nota pontuada, fermata",baixo,2,Ré5,Dó4,274
+255,impresso,Si♭,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,6,Ré5,Si♭3,275
+256,inferido,Sol,,100-120 (110),,6/4,tético,medida,"nota pontuada, fermata",baixo,3,Ré5,Si3,276
+257,impresso,Fá,,116-144,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,7,Ré5,Lá3,277
+258,impresso,Si♭,,,,4/4,anacrúsico,medida,nota pontuada,cima,2,Mi♭5,Dó4,278
+259,impresso,Sol,,,,4/4,tético,medida,nota pontuada,baixo,6,Mi5,Si3,279
+260,impresso,Mi♭,em 6,,,6/8,tético,medida,nota pontuada,baixo,3,Fá5,Si♭3,280
+261,impresso,Fá,,,,2/2,tético,medida,"nota pontuada, fermata",baixo,6,Mi5,Lá3,281
+262,impresso,Ré,,66-80 (73),,4/4,anacrúsico,medida,nota pontuada,cima,3,Mi5,Lá3,282
+263,inferido,Ré,,,,4/4,tético,medida,nota pontuada,baixo,5,Ré5,Dó♯4,283
+264,impresso,Dó,,,,4/4,tético,medida,nota pontuada,baixo,4,Mi5,Dó4,284
+265,impresso,Si♭,em 3,,,6/8,tético,medida,nota pontuada,baixo,6,Fá5,Lá3,285
+266,impresso,Si♭,,,,2/4,tético,medida,,baixo,3,Mi♭5,Dó4,286
+267,impresso,Si♭,,,,4/4,tético,medida,"nota pontuada, tercina",baixo,8,Fá5,Lá3,287
+268,impresso,Fá,,,,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,6,Fá5,Dó4,289
+269,inferido,Sol,,,,9/8,anacrúsico,medida,nota pontuada,baixo,3,Ré5,Dó4,290
+270,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,,7,Mi♭5,Si♭3,291
+271,impresso,Sol,,,Com veneração,3/4,tético,medida,nota pontuada,baixo,2,Ré5,Si3,292
+272,impresso,Mi♭,em 2,,,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,8,Ré5,Si♭3,293
+273,impresso,Lá♭,,,,4/4,anacrúsico,medida,nota pontuada,,5,Mi♭5,Dó4,295
+274,impresso,Mi♭,,,,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,4,Dó5,Si♭3,296
+275,impresso,Lá,,66-84 (75),,4/4,anacrúsico,medida,"nota pontuada, tercina",cima,7,Dó♯5,Si3,297
+276,impresso,Mi♭,,58-72,,4/4,tético,medida,nota pontuada,baixo,2,Mi♭5,Si♭3,298
+277,impresso,Sol,em 2,120-144,,6/8,tético,medida,nota pontuada,baixo,6,Mi5,Lá3,299
+278,impresso,Sol,,,,6/8,tético,medida,nota pontuada,baixo,3,Ré5,Si3,300
+279,impresso,Lá♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi♭5,Si♭3,301
+280,impresso,Mi♭,,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi♭5,Si♭3,302
+281,impresso,Fá,,88-100 (95),,4/4,anacrúsico,medida,nota pontuada,cima,8,Mi5,Lá3,303
+282,impresso,Dó,,,,6/4,tético,medida,"nota pontuada, fermata",baixo,5,Fá5,Lá3,305
+283,impresso,Sol,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi5,Si3,306
+284,impresso,Fá,,66-80,,4/4,anacrúsico,selo e medida,nota pontuada,cima,4,Ré5,Si♭3,307
+285,impresso,Lá,,66-84 (75),,4/4,tético,conferido no olho,"nota pontuada, fermata",,5,Dó♯5,Lá3,308
+286,impresso,Ré,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Ré5,Lá3,309
+287,impresso,Sol,em 3,,,9/8,anacrúsico,medida,nota pontuada,baixo,5,Mi5,Si3,310
+288,impresso,Sol,em 6,108-120,,6/4,anacrúsico,medida,"nota pontuada, fermata",baixo,4,Ré5,Si3,311
+289,impresso,Mi,,63-84,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi5,Si3,312
+290,impresso,Lá♭,,72-92 (82),,4/4,tético,medida,"nota pontuada, fermata",baixo,5,Mi♭5,Lá♭3,313
+291,impresso,Sol,,76-92 (84),,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi5,Dó4,314
+292,impresso,Si♭,,63-88 (76),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,6,Mi♭5,Lá3,315
+293,impresso,Mi♭,,,,9/4,anacrúsico,medida,nota pontuada,baixo,3,Ré5,Si♭3,316
+294,impresso,Mi♭,em 6,,,6/4,anacrúsico,medida,nota pontuada,cima,7,Fá5,Si♭3,317
+295,impresso,Sol,,,,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,2,Ré5,Si3,318
+296,impresso,Si♭,,,,3/4 4/4,anacrúsico,selo e medida,nota pontuada,cima,6,Fá5,Si♭3,319
+297,inferido,Sol,,100-126 (113),,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,4,Mi5,Si3,320
+298,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, ritornelo",cima,6,Fá5,Lá♭3,321
+299,inferido,Mi♭,,,Solene,4/4,tético,medida,"nota pontuada, fermata",baixo,4,Ré5,Si♭3,322
+300,impresso,Ré,,,,4/4,tético,medida,nota pontuada,baixo,6,Mi5,Si3,323
+301,inferido,Ré♭,,,,4/4,tético,medida,nota pontuada,baixo,4,Mi♭5,Si♭3,324
+302,impresso,Dó,,,,3/4,anacrúsico,medida,nota pontuada,cima,6,Mi5,Si3,325
+303,inferido,Dó,,,,3/4,anacrúsico,medida,"nota pontuada, fermata",cima,4,Mi5,Si3,326
+304,impresso,Mi♭,,,,3/4,tético,medida,"nota pontuada, tercina",baixo,5,Mi♭5,Si♭3,327
+305,inferido,Lá♭,em 4,88-112 (100),,4/4,anacrúsico,medida,nota pontuada,cima,5,Mi♭5,Dó4,328
+306,impresso,Sol,,92-116 (104),,6/4,anacrúsico,medida,"nota pontuada, fermata",cima,8,Ré5,Lá3,329
+307,impresso,Mi♭,,,,4/4,anacrúsico,medida,nota pontuada,cima,6,Mi♭5,Si♭3,331
+308,inferido,Lá♭,em 6,,,6/8,tético,medida,"nota pontuada, fermata",baixo,4,Mi♭5,Si♭3,332
+309,impresso,Lá♭,,,,4/4,tético,medida,"nota pontuada, fermata",baixo,6,Mi♭5,Lá♭3,333
+310,impresso,Si♭,,,Solene,2/4,tético,medida,fermata,baixo,3,Mi♭5,Ré4,334
+311,impresso,Lá♭,,69-84,,4/4,anacrúsico,medida,nota pontuada,cima,6,Mi♭5,Dó4,335
+312,impresso,Ré,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,3,Mi5,Lá3,336
+313,impresso,Dó,,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,9,Fá5,Si3,337
+314,impresso,Mi♭,,84-100 (92),,4/4,anacrúsico,medida,nota pontuada,cima,4,Mi♭5,Si♭3,339
+315,impresso,Sol,,80-100 (90),,6/4,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi5,Si3,340
+316,impresso,Si♭,em 2,44-56 (50),,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,6,Ré5,Si♭3,341
+317,inferido,Lá♭,,,,6/8,tético,medida,"nota pontuada, fermata",baixo,4,Mi♭5,Lá♭3,342
+318,impresso,Si♭,,60-76 (68),,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi♭5,Lá3,343
+319,impresso,Sol,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi5,Dó4,344
+320,impresso,Si♭,,60-80,,4/4,anacrúsico,medida,"nota pontuada, fermata, tercina",cima,6,Mi♭5,Si♭3,345
+321,inferido,Lá♭,,,,4/4,anacrúsico,medida,nota pontuada,cima,3,Mi♭5,Si♭3,346
+322,impresso,Dó,em 4,,,6/4,tético,medida,nota pontuada,baixo,6,Fá5,Si3,347
+323,impresso,Si♭,,63-80,,4/4,tético,medida,nota pontuada,baixo,4,Mi♭5,Si♭3,348
+324,impresso,Dó,,63-76,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,8,Mi5,Si3,349
+325,impresso,Sol,,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi5,Si3,351
+326,impresso,Fá,,,,6/8,anacrúsico,medida,nota pontuada,baixo,5,Ré5,Dó4,352
+327,impresso,Sol,,,,4/4,anacrúsico,medida,nota pontuada,cima,5,Ré5,Ré4,353
+328,impresso,Si♭,,63-80,,4/4,anacrúsico,medida,nota pontuada,cima,5,Mi♭5,Lá3,354
+329,impresso,Sol,em 6,,,6/8,tético,medida,nota pontuada,baixo,5,Mi5,Si3,355
+330,impresso,Lá♭,,66-88 (77),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Fá5,Lá♭3,356
+331,impresso,Lá♭,,66-84 (75),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, ritornelo",baixo,6,Mi♭5,Dó4,357
+332,inferido,Si♭,,,,6/8,tético,medida,"nota pontuada, fermata",baixo,4,Mi♭5,Lá3,358
+333,impresso,Dó,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,5,Mi5,Si3,359
+334,impresso,Sol,,,,4/4,anacrúsico,selo e medida,nota pontuada,,5,Ré5,Sol3,360
+335,impresso,Mi♭,,,,2/4,tético,medida,"nota pontuada, fermata",baixo,6,Mi♭5,Si♭3,361
+336,impresso,Ré,,,,4/4,tético,medida,nota pontuada,baixo,4,Mi5,Lá3,362
+337,impresso,Si♭,,,,4/4,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,9,Mi♭5,Si♭3,363
+338,impresso,Si♭,,,,4/4,tético,medida,nota pontuada,baixo,4,Mi♭5,Si♭3,365
+339,impresso,Lá♭,em 2,112-132,,6/4,tético,medida,"nota pontuada, fermata",baixo,5,Mi♭5,Lá♭3,366
+340,impresso,Ré♭,em 2,,,6/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Dó4,367
+341,impresso,Ré,,,,6/8,anacrúsico,medida,fermata,cima,4,Ré5,Lá3,368
+342,inferido,Dó,em 9,88-112 (100),,9/4 6/4,anacrúsico,medida,nota pontuada,cima,8,Ré5,Sol3,369
+343,impresso,Dó,,,,4/4,tético,medida,nota pontuada,baixo,5,Mi5,Si3,371
+344,impresso,Lá♭,,96-126,,6/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Si♭3,372
+345,impresso,Fá,,69-84 (77),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,5,Ré5,Si♭3,373
+346,impresso,Lá♭,em 6,,,6/4 9/4,tético,medida,"nota pontuada, fermata",baixo,5,Mi♭5,Si♭3,374
+347,impresso,Lá♭,em 2,116-138 (127),,6/8,tético,medida,"nota pontuada, fermata, ritornelo",baixo,8,Mi♭5,Lá♭3,375
+348,impresso,Dó,,,,3/4 4/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina",cima,5,Fá5,Si3,377
+349,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi♭5,Si♭3,378
+350,impresso,Ré,,,,3/4 4/4,anacrúsico,selo e medida,nota pontuada,,7,Mi5,Lá3,379
+351,inferido,Dó,,,,6/8,anacrúsico,medida,nota pontuada,cima,2,Mi5,Si3,380
+352,impresso,Sol,,,,3/4 4/4,anacrúsico,selo e medida,"nota pontuada, fermata",,5,Mi5,Si3,381
+353,impresso,Sol,,58-69 (64),,C cortado,anacrúsico,medida,"nota pontuada, fermata",cima,5,Mi5,Si3,382
+354,impresso,Sol,,69-80,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",,5,Mi5,Ré4,383
+355,impresso,Mi♭,,,,4/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Si♭3,384
+356,impresso,Ré,,,,4/4,anacrúsico,medida,"nota pontuada, fermata, tercina",cima,6,Mi5,Lá3,385
+357,inferido,Fá,,,,3/4,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,4,Mi5,Dó4,386
+358,impresso,Dó,,,,C,tético,medida,nota pontuada,,4,Ré5,Si3,387
+359,impresso,Ré,,,,3/4 4/4,anacrúsico,selo e medida,"nota pontuada, tercina",,5,Mi5,Dó♯4,388
+360,impresso,Mi♭,,66-80,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi♭5,Si♭3,389
+361,impresso,Ré♭,,,,6/4,tético,medida,"nota pontuada, fermata",baixo,5,Mi♭5,Lá♭3,390
+362,impresso,Lá♭,,112-152 (132),,9/8,anacrúsico,medida,"nota pontuada, fermata",baixo,7,Mi♭5,Si♭3,391
+363,inferido,Sol,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,2,Mi5,Si3,392
+364,impresso,Dó,,,,4/4,anacrúsico,medida,nota pontuada,cima,5,Fá5,Sol3,393
+365,impresso,Lá♭,,56-76 (66),,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,4,Ré♭5,Dó4,394
+366,impresso,Fá,,69-88 (79),,4/4,anacrúsico,conferido no olho,"nota pontuada, fermata",baixo,5,Ré5,Lá3,395
+367,impresso,Ré,,,Majestoso,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,4,Mi5,Lá3,396
+368,impresso,Sol,,66-84 (75),,4/4 3/4,tético,selo e medida,"nota pontuada, fermata",,5,Ré5,Si3,397
+369,impresso,Mi♭,em 2,120-138,,6/8,tético,medida,"nota pontuada, fermata",baixo,4,Mi♭5,Si♭3,398
+370,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,6,Mi♭5,Si♭3,399
+371,impresso,Mi♭,,60-76,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,4,Mi♭5,Si♭3,400
+372,impresso,Dó,,88-120 (104),,6/4,anacrúsico,medida,"nota pontuada, fermata, ritornelo",baixo,7,Mi5,Lá3,401
+373,impresso,Lá♭,,63-80 (72),,3/4,tético,medida,nota pontuada,baixo,2,Ré♭5,Lá♭3,402
+374,impresso,Mi♭,,56-76 (66),,4/4,tético,medida,nota pontuada,baixo,4,Mi♭5,Si♭3,403
+375,impresso,Dó,,,,2/2,anacrúsico,medida,"nota pontuada, fermata",cima,4,Ré5,Si3,404
+376,impresso,Mi♭,,66-80 (73),,4/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Si♭3,405
+377,impresso,Lá♭,,54-72 (63),,2/4,acéfalo,selo,"nota pontuada, fermata",cima,4,Mi♭5,Si♭3,406
+378,impresso,Si♭,,,,4/4,anacrúsico,medida,nota pontuada,cima,5,Mi♭5,Lá3,407
+379,impresso,Lá♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi♭5,Dó4,408
+380,impresso,Ré,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",baixo,8,Mi5,Lá3,409
+381,impresso,Ré♭,em 6,,,6/8,tético,medida,"nota pontuada, fermata",baixo,8,Mi♭5,Lá♭3,411
+382,impresso,Si♭,,,,4/4,tético,medida,"nota pontuada, fermata",baixo,6,Mi♭5,Si♭3,413
+383,inferido,Fá,,,,6/8,tético,medida,nota pontuada,baixo,4,Ré5,Si♭3,414
+384,impresso,Ré,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,6,Ré5,Lá3,415
+385,inferido,Ré,,,,3/4,tético,medida,"nota pontuada, fermata",baixo,3,Ré5,Dó♯4,416
+386,impresso,Dó,,69-84 (77),,4/4,tético,medida,nota pontuada,baixo,5,Mi5,Si3,417
+387,impresso,Ré♭,,,,4/4,tético,medida,,baixo,4,Mi♭5,Lá♭3,418
+388,impresso,Dó,,,,4/4,tético,medida,nota pontuada,baixo,5,Ré5,Si3,419
+389,impresso,Si♭,,,,6/8,tético,medida,nota pontuada,baixo,5,Ré5,Si♭3,420
+390,impresso,Dó,,,Majestoso,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,6,Mi5,Dó4,421
+391,impresso,Lá♭,,58-72 (65),,3/4,anacrúsico,conferido no olho,"nota pontuada, fermata",cima,4,Mi♭5,Si♭3,422
+392,impresso,Lá♭,,,,4/4,anacrúsico,medida,nota pontuada,cima,6,Mi♭5,Lá♭3,423
+393,inferido,Si♭,,,,6/8,tético,medida,"nota pontuada, fermata",baixo,4,Ré5,Si♭3,424
+394,impresso,Ré,,69-80,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,6,Ré5,Lá3,425
+395,impresso,Mi♭,,,Majestoso,4/4,tético,medida,nota pontuada,baixo,3,Mi♭5,Si♭3,426
+396,impresso,Si♭,,,,4/4,anacrúsico,selo e medida,nota pontuada,baixo,6,Ré5,Lá3,427
+397,impresso,Lá♭,,66-80 (73),,3/4,tético,medida,nota pontuada,baixo,3,Ré♭5,Si♭3,428
+398,impresso,Si♭,,50-63 (57),,2/2,anacrúsico,medida,"nota pontuada, fermata",cima,10,Fá5,Lá3,429
+399,inferido,Fá,em 3,,,9/8,anacrúsico,medida,nota pontuada,baixo,5,Ré5,Si♭3,431
+400,impresso,Mi♭,,,,3/4,anacrúsico,selo e medida,fermata,cima,4,Mi♭5,Lá♭3,432
+401,impresso,Dó,,,,3/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi5,Lá3,433
+402,impresso,Fá,,60-80 (70),,4/4,tético,medida,nota pontuada,baixo,4,Ré5,Lá3,434
+403,impresso,Dó,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi5,Lá3,435
+404,impresso,Lá♭,,60-80 (70),,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi♭5,Lá♭3,436
+405,impresso,Lá♭,,63-76 (70),,4/4,anacrúsico,selo e medida,nota pontuada,baixo,6,Mi♭5,Lá♭3,437
+406,impresso,Sol,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,4,Mi5,Si3,438
+407,impresso,Sol,,,,4/4,anacrúsico,medida,nota pontuada,cima,6,Mi5,Si3,439
+408,inferido,Lá♭,,,,3/2,anacrúsico,medida,nota pontuada,cima,4,Fá5,Lá♭3,440
+409,impresso,Sol,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,6,Ré5,Lá3,441
+410,impresso,Sol,,,,2/2,anacrúsico,medida,"nota pontuada, fermata",cima,4,Ré5,Si3,442
+411,impresso,Mi♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi♭5,Si♭3,443
+412,inferido,Fá,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",,3,Ré5,Lá3,444
+413,impresso,Fá,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,6,Fá5,Dó4,445
+414,impresso,Ré,,54-69 (62),,4/4,tético,medida,nota pontuada,baixo,3,Ré5,Dó♯4,446
+415,impresso,Dó,,80-100 (90),,9/8 6/8,tético,medida,nota pontuada,baixo,6,Fá5,Sol3,447
+416,impresso,Mi♭,,,,C,anacrúsico,selo e medida,"nota pontuada, fermata",cima,2,Mi♭5,Si♭3,448
+417,impresso,Ré,em 6,,,6/4,anacrúsico,medida,"nota pontuada, fermata",baixo,5,Ré5,Lá3,449
+418,inferido,Ré,em 3,,,9/8,anacrúsico,medida,"nota pontuada, fermata",baixo,5,Ré5,Lá3,450
+419,impresso,Sol,em 4,,,2/2,tético,medida,"nota pontuada, fermata",baixo,4,Mi5,Dó4,451
+420,impresso,Sol,,50-66,,4/4,anacrúsico,medida,nota pontuada,cima,5,Mi5,Lá3,452
+421,impresso,Mi♭,em 6,,,6/8,anacrúsico,medida,nota pontuada,cima,4,Dó5,Si♭3,453
+422,impresso,Mi♭,em 6,,,6/8 4/4,anacrúsico,medida,"nota pontuada, fermata",baixo,5,Dó5,Si♭3,454
+423,impresso,Lá♭,,63-76 (70),,4/4,anacrúsico,selo e medida,nota pontuada,baixo,5,Ré♭5,Lá♭3,455
+424,impresso,Fá,,58-80 (69),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,5,Ré5,Lá3,456
+425,impresso,Ré♭,em 9,,,9/8,anacrúsico,medida,nota pontuada,,6,Mi♭5,Dó4,457
+426,impresso,Mi♭,,44-60 (55),,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,4,Mi♭5,Si♭3,458
+427,impresso,Mi♭,em 9,,,C,tético,medida,nota pontuada,baixo,5,Mi♭5,Si♭3,459
+428,impresso,Fá,,56-60 (58),,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,4,Ré5,Lá3,460
+429,impresso,Mi,,,,4/4,tético,medida,nota pontuada,baixo,4,Mi5,Si3,461
+430,impresso,Fá,em 6,,,6/8,tético,medida,nota pontuada,baixo,5,Ré5,Sol3,462
+431,impresso,Dó,,63-88,,4/4,anacrúsico,selo e medida,nota pontuada,baixo,4,Mi5,Sol3,465
+432,impresso,Lá♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,4,Mi♭5,Dó4,466
+433,impresso,Si♭,,,,3/4 4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi♭5,Lá3,467
+435,impresso,Mi♭,,,,3/4,anacrúsico,selo e medida,nota pontuada,cima,3,Mi♭5,Si♭3,468
+436,impresso,Ré,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,7,Ré5,Lá3,469
+437,impresso,Sol,,60-80 (70),,4/4,tético,medida,,baixo,3,Ré5,Si3,470
+438,impresso,Mi♭,em 2,,,6/8,anacrúsico,medida,"nota pontuada, fermata",cima,4,Mi♭5,Si♭3,471
+439,impresso,Si♭,,,,C,anacrúsico,selo e medida,nota pontuada,cima,5,Fá5,Si♭3,472
+440,inferido,Fá,,63-92 (78),,C,tético,medida,nota pontuada,baixo,5,Mi5,Lá3,473
+441,impresso,Ré,em 2,52-69,,C cortado,anacrúsico,medida,"nota pontuada, fermata",cima,4,Ré5,Dó♯4,474
+442,impresso,Lá♭,,,,4/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Dó4,475
+443,impresso,Si♭,,,,4/4,tético,medida,fermata,baixo,4,Mi♭5,Lá3,476
+444,inferido,Ré,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,4,Mi5,Lá3,477
+445,impresso,Si♭,,,,4/4,tético,medida,nota pontuada,baixo,5,Fá5,Lá3,478
+446,impresso,Sol,,,,4/4,anacrúsico,selo e medida,nota pontuada,cima,8,Mi5,Sol3,479
+447,impresso,Mi♭,,69-84,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,4,Mi♭5,Si♭3,481
+448,impresso,Si♭,em 6,,,6/8,anacrúsico,medida,nota pontuada,baixo,5,Mi♭5,Si♭3,482
+449,impresso,Lá♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi♭5,Dó4,483
+450,impresso,Lá♭,,63-84,,4/4,tético,medida,"nota pontuada, fermata",baixo,4,Ré♭5,Dó4,484
+451,impresso,Si♭,em 6,104-132 (118),,6/8,tético,medida,"nota pontuada, fermata",baixo,4,Ré5,Si♭3,485
+452,impresso,Lá♭,,63-80 (72),,4/4,anacrúsico,selo e medida,nota pontuada,cima,5,Mi♭5,Dó4,486
+453,impresso,Fá,,,,6/4,anacrúsico,medida,"nota pontuada, fermata",baixo,5,Fá5,Lá3,487
+454,impresso,Sol,,104-126,,6/8,tético,medida,nota pontuada,baixo,3,Mi5,Si3,488
+455,impresso,Ré♭,,63-84 (74),,4/4,tético,medida,"nota pontuada, fermata",baixo,5,Mi♭5,Lá♭3,489
+456,impresso,Mi♭,,,,3/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,4,Mi♭5,Si♭3,490
+457,impresso,Dó,,,,6/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,7,Mi5,Si3,491
+458,inferido,Mi♭,,56-76,,2/4,tético,medida,"nota pontuada, fermata",baixo,3,Mi♭5,Si♭3,492
+459,impresso,Dó,,,,12/8,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,7,Fá5,Si3,493
+460,impresso,Fá,,,,4/4,tético,medida,nota pontuada,baixo,3,Fá5,Si♭3,494
+461,impresso,Dó,,69-84 (77),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",,4,Mi5,Si3,495
+462,impresso,Mi♭,,,,3/4 4/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina",cima,5,Mi♭5,Si♭3,496
+463,impresso,Lá♭,,,,4/4,tético,medida,"nota pontuada, fermata",baixo,5,Mi♭5,Dó4,497
+464,impresso,Mi♭,,,Solene,3/4,anacrúsico,selo e medida,"fermata, tercina",baixo,4,Mi♭5,Si♭3,498
+465,impresso,Si♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata, tercina, ritornelo",cima,7,Mi♭5,Si♭3,499
+466,inferido,Sol,,63-80 (72),,3/4,anacrúsico,selo e medida,nota pontuada,cima,2,Mi5,Ré4,500
+467,inferido,Mi♭,,63-80 (72),,2/4,anacrúsico,medida,"nota pontuada, fermata",cima,6,Mi♭5,Si♭3,501
+468,inferido,Fá,,63-80 (72),,2/4,tético,medida,fermata,baixo,3,Ré5,Dó4,502
+469,impresso,Lá♭,,76-84 (80),,4/4,anacrúsico,medida,"nota pontuada, tercina",cima,5,Mi♭5,Lá♭3,503
+470,impresso,Ré,,,,C,tético,medida,"nota pontuada, fermata",baixo,5,Mi5,Dó♯4,504
+471,impresso,Dó,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,4,Ré5,Dó4,505
+472,impresso,Dó,,,,4/4,tético,medida,nota pontuada,baixo,5,Ré5,Sol3,506
+473,inferido,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,5,Mi♭5,Si♭3,507
+474,impresso,Si♭,,,,4/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Si♭3,508
+475,impresso,Mi♭,,,,4/4,anacrúsico,medida,"nota pontuada, fermata, ritornelo",cima,6,Mi♭5,Si♭3,509
+476,impresso,Si♭,,,,4/4,anacrúsico,medida,"nota pontuada, fermata",cima,3,Mi♭5,Si♭3,510
+477,impresso,Si♭,,,,4/4,tético,medida,nota pontuada,baixo,5,Mi♭5,Si♭3,511
+478,impresso,Mi♭,,,,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",baixo,5,Mi♭5,Si♭3,512
+479,impresso,Si♭,,,,3/4,anacrúsico,selo e medida,nota pontuada,cima,4,Ré5,Si♭3,513
+480,impresso,Si♭,em 2,,,6/8,tético,medida,"nota pontuada, fermata",,4,Mi♭5,Lá3,514
+1,avulso,Lá,,60-80 (70),,4/4,anacrúsico,selo e medida,"nota pontuada, fermata",cima,5,Mi5,Lá3,515
+,avulso,Sol,,,,2/4 4/4,tético,medida,"nota pontuada, fermata",baixo,4,Mi5,Si3,516
+4,avulso,Lá♭,,60-84 (72),,4/4,,selo e medida discordam,nota pontuada,baixo,8,Mi♭5,Lá♭3,517

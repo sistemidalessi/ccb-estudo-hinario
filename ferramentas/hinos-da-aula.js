@@ -108,7 +108,7 @@ function perguntaArco(h) {
   } else {
     porque = "No acéfalo o tempo forte fica em silêncio; a arcada impressa é a que o hinário indica para a entrada logo depois dele.";
   }
-  return [[`Violino: com que arco começa o hino ${h.n}, segundo a arcada impressa? Por que esse arco?`,
+  return [[`Violino: no hinário de cordas (capa marrom), com que arco começa o hino ${h.n}? Por que esse arco?`,
            `Com ${imp}. ${porque}`]];
 }
 
@@ -396,4 +396,6 @@ function hinosDaAula(periodo, aula, HINOS, quantos = 3) {
            conferir: regra.conferir };
 }
 
-if (typeof module !== "undefined") module.exports = { hinosDaAula, listasOficiais, ARMADURA, fcTexto };
+if (typeof module !== "undefined") module.exports = {
+  hinosDaAula, listasOficiais, ARMADURA, RELATIVA, fcTexto, formula, umaFormula, composto,
+  UNIDADES, tempos, valoresPontuados, perguntaArco, media, LISTAS };
