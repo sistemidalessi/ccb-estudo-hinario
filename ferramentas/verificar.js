@@ -162,6 +162,11 @@ const acefalos = HINOS.filter(h => h.ri === "acéfalo").map(h => h.n);
 ok(JSON.stringify(acefalos) === "[227,377]", "os acéfalos são dois, como diz o caderno do GEM: 227 e 377", acefalos.join(" "));
 ok(HINOS.every(h => !h.s || h.s.every(x => ["pontuada", "fermata", "tercina", "ritornelo"].includes(x))),
    "todo sinal é um dos quatro lidos");
+ok(HINOS.every(h => !h.arc || ["baixo", "cima"].includes(h.arc)), "toda arcada inicial é para baixo ou para cima");
+const arcTetico = HINOS.filter(h => h.ri === "tético" && h.arc);
+ok(arcTetico.filter(h => h.arc === "baixo").length / arcTetico.length > 0.95,
+   "quase todo hino tético começa com arco para baixo (confere a leitura da arcada)",
+   arcTetico.filter(h => h.arc === "cima").map(h => h.n).join(" "));
 const porN = new Map(HINOS.map(h => [h.n, h]));
 const base = f => f === "C" ? "4/4" : f === "C cortado" ? "2/2" : f;
 const conferePelaLista = (rot, teste, oque) => {

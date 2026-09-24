@@ -88,6 +88,30 @@ function valoresPontuados(f) {
     : "mínima pontuada, um tempo inteiro (é a unidade de tempo); semínima pontuada, meio tempo; semibreve pontuada, dois tempos";
 }
 
+/* Pergunta de violino sobre a arcada da primeira nota (campo arc). O hinário
+   marca a arcada no começo de todo hino; a regra de fundo é chegar ao tempo
+   forte com arco para baixo. O gabarito diz o que está impresso e explica —
+   sem inventar a distribuição das notas da anacruse, que o hinário mostra. */
+const SINAL_ARCO = { baixo: "arco para baixo (⊓)", cima: "arco para cima (V)" };
+function perguntaArco(h) {
+  if (!h.arc) return [];
+  const imp = SINAL_ARCO[h.arc];
+  let porque;
+  if (h.ri === "tético") {
+    porque = h.arc === "baixo"
+      ? "O hino começa no tempo forte, e o tempo forte pede arco para baixo — o de mais peso."
+      : "É exceção: o hino começa no tempo forte, mas a arcada pede arco para cima. Conferir no hinário o motivo (ligadura, repetição da frase).";
+  } else if (h.ri === "anacrúsico") {
+    porque = h.arc === "cima"
+      ? "A anacruse vem antes do tempo forte: começando para cima, o arco chega ao 1º tempo descendo."
+      : "Mesmo sendo anacruse, começa para baixo: a anacruse tem mais de uma nota, ou ocupa um tempo inteiro, e a arcada se organiza para o arco chegar ao tempo forte descendo. Mostrar no hinário como as notas da anacruse se distribuem.";
+  } else {
+    porque = "No acéfalo o tempo forte fica em silêncio; a arcada impressa é a que o hinário indica para a entrada logo depois dele.";
+  }
+  return [[`Violino: com que arco começa o hino ${h.n}, segundo a arcada impressa? Por que esse arco?`,
+           `Com ${imp}. ${porque}`]];
+}
+
 /* O ritmo inicial foi lido da partitura por medida e pelo selo de regência:
    é o dado menos certo da tabela, e o instrutor precisa saber disso. */
 const CONFERIR_RITMO = "O ritmo inicial destes hinos foi lido da partitura pela largura do primeiro compasso e pela indicação de regência impressa na margem; os casos duvidosos foram olhados um a um. Mesmo assim, conferir no hinário antes de usar em avaliação.";
@@ -236,6 +260,7 @@ const REGRAS = {
          : "Anacrúsico: as notas iniciais vêm antes do 1º tempo — o primeiro compasso é incompleto."],
       [`Toque os dois primeiros compassos do hino ${h.n} marcando os tempos. Em que tempo você entrou?`,
        h.ri === "tético" ? "No 1º tempo." : "Num tempo fraco, antes do 1º tempo do primeiro compasso completo. Conferir no hinário em qual."],
+      ...perguntaArco(h),
     ],
   },
   "4-7": {
@@ -253,6 +278,7 @@ const REGRAS = {
        h.ri === "acéfalo"
          ? "O 1º tempo, que não soa: a entrada vem logo depois dele. Quem não sente o tempo forte em silêncio entra adiantado."
          : "O tempo em que a anacruse começa, para que a primeira nota do compasso completo caia no tempo forte."],
+      ...perguntaArco(h),
     ],
   },
   "4-8": {
