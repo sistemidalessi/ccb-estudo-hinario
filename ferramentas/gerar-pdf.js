@@ -27,6 +27,7 @@ const { TIPOS, AULAS, Q, HINOS, PLANOS, FASES } = carregar(RAIZ);
 const { todasAsAnalises, ultimaAulaDaFase } = require("./analise.js");
 const { repertorio } = require("./repertorio.js");
 const { dicasDoHino, REGENCIA } = require("./regencia.js");
+const ESC = require("./escalas.js");
 const { PROGRAMA_MINIMO } = require(path.join(RAIZ, "dados", "programa-minimo.js"));
 const ANALISES = todasAsAnalises(HINOS);
 const FIM_DA_FASE = ultimaAulaDaFase(AULAS);
@@ -176,6 +177,7 @@ function analiseHTML(f, instrutor) {
     <p class="abre">Fase ${f} — ${esc(fase ? fase.nome.toLowerCase() : "")}. Olhe o hino e responda. As perguntas cobrem só
       o que foi estudado até aqui: as marcadas <span class="novo">novo</span> são desta fase; as outras revisam as anteriores.</p>`;
   if (instrutor && f === 13) c += `<p class="nota alerta">${esc(CONFERIR_RITMO)}</p>`;
+  c += escalasHTML(f, bloco.map(x => x.h));
   bloco.forEach(({ h, novas, revisao }, i) => {
     const imgs = partituras(h.n);
     if (!imgs.length && !avisouSemPartitura) {
@@ -183,7 +185,7 @@ function analiseHTML(f, instrutor) {
       avisouSemPartitura = true;
     }
     // a ficha (tom, fórmula, metrônomo) entrega as respostas: só no instrutor
-    c += `<div class="hino-analise${imgs.length ? " com-partitura" : ""}${i ? " novo-hino" : ""}">
+    c += `<div class="hino-analise${imgs.length ? " com-partitura novo-hino" : ""}">
       <p class="hcab"><b>Hino ${h.n}</b>${instrutor ? ` <span class="nota">${fichaDoHino(h)}</span>` : ""}</p>` +
       imgs.map(src => `<img class="partitura" src="${src}">`).join("") + `<ol class="qa">`;
     [...novas.map(q => [q, true]), ...revisao.map(q => [q, false])].forEach(([[pergunta, gab], nova]) => {
@@ -193,6 +195,42 @@ function analiseHTML(f, instrutor) {
     c += `</ol></div>`;
   });
   return c + `</section>`;
+}
+
+/* ---------- escalas: antes dos hinos da análise, e a tabela no início ---------- */
+
+const linhaDeLeitura = tom => `<table class="leitura"><tr>${ESC.leitura(tom).map(l => `<td><span>${esc(l.grupo)}</span>${esc(l.tom)} maior</td>`).join("")}</tr></table>`;
+
+function escalasHTML(f, hinos) {
+  const nv = ESC.NIVEIS[ESC.nivel(f)];
+  let c = `<div class="escalas"><h3>Antes dos hinos: a escala de cada um</h3>
+    <p class="nota">${esc(nv.nome)}. Cada instrumento toca a escala na leitura do seu grupo — veja a tabela
+      "As escalas do hinário", no início. Só a escala do tom do hino, e não escala por fazer.</p>`;
+  hinos.forEach(h => {
+    const e = ESC.escalaDoHino(h, f);
+    c += `<div class="escala"><p class="ecab"><b>Hino ${h.n}</b> — escala de ${esc(e.tom)} maior</p>${linhaDeLeitura(e.tom)}
+      <ol>${e.passos.map(p => `<li>${esc(p)}</li>`).join("")}</ol></div>`;
+  });
+  return c + `</div>`;
+}
+
+function escalasDoHinarioHTML() {
+  return `<section class="pagina antes"><p class="olho">Antes de começar</p><h2>As escalas do hinário</h2>
+    <p class="abre">Escala por fazer rende pouco. Aqui, cada análise de hinos começa com a escala do tom de cada hino,
+      tocada do jeito que o hino pede: no compasso dele, com o ritmo dele, até a nota mais aguda dele, no andamento
+      dele. Só escalas maiores, uma oitava subindo e descendo, e o arpejo — o formato da apostila de escalas e arpejos
+      das tonalidades do Hinário 5.</p>
+    <h3>O que cada instrumento toca</h3>
+    <p>O hinário está em Dó. Os instrumentos transpositores leem outra escala para soar na mesma: o de Si♭ soa um tom
+      abaixo do que lê; o de Mi♭, uma sexta maior abaixo; o de Fá, uma quinta abaixo.</p>
+    <table class="transp"><thead><tr><th>Tom do hino</th>${ESC.GRUPOS.map(g => `<th>${esc(g.nome)}</th>`).join("")}</tr></thead><tbody>
+      ${ESC.TONS_DO_HINARIO.map(t => `<tr><td class="inst">${esc(t)} maior</td>${ESC.leitura(t).map(l => `<td>${esc(l.tom)} maior</td>`).join("")}</tr>`).join("")}
+    </tbody></table>
+    <ul class="obs">${ESC.GRUPOS.map(g => `<li><b>${esc(g.nome)}</b>: ${esc(g.quem)}.</li>`).join("")}</ul>
+    <h3>Os quatro níveis</h3>
+    <ul class="obs">${ESC.NIVEIS.filter(Boolean).map(n => `<li><b>${esc(n.nome)}</b> (${esc(n.fases)}).</li>`).join("")}</ul>
+    <p class="nota">Cada instrumento toca na oitava do seu método. Em conjunto, o instrutor dá a tônica, e cada grupo toca
+      a escala da sua coluna — soa tudo junto.</p></section>`;
 }
 
 /* ---------- curso de regência (só no caderno do instrutor) ---------- */
@@ -416,6 +454,18 @@ h3.familia { font-size:13pt; color:#8A5A2B; border-bottom:.8pt solid #8A5A2B; ma
 .sumario li .pont { flex:1; border-bottom:.5pt dotted #AFBAC0; transform:translateY(-1.2mm); }
 .sumario li.sub { padding-left:6mm; font-size:9pt; color:#3F4C55; }
 .instr p { margin-bottom:.6em; }
+.escalas { border:1pt solid #C2CBC8; border-radius:2mm; padding:3mm 4mm; margin:3mm 0 5mm; break-inside:auto; }
+.escalas h3 { font-size:12pt; color:#1F5673; margin:0 0 1mm; }
+.escala { break-inside:avoid; margin-top:3mm; }
+.escala .ecab { font-size:10.5pt; margin:0 0 1mm; }
+.escala ol { margin:1mm 0 0; padding-left:5mm; font-size:9.6pt; line-height:1.4; }
+table.leitura { width:100%; border-collapse:collapse; font-size:9pt; }
+table.leitura td { border:.4pt solid #DDE3E1; padding:.8mm 1.5mm; background:#F7F9F9; }
+table.leitura td span { display:block; font:600 6.5pt "Liberation Sans",sans-serif; letter-spacing:.05em; text-transform:uppercase; color:#5C6B75; }
+table.transp { width:100%; border-collapse:collapse; font-size:9.5pt; margin:2mm 0 3mm; }
+table.transp th { font:600 7.5pt "Liberation Sans",sans-serif; letter-spacing:.06em; text-transform:uppercase; color:#1F5673; text-align:left; border-bottom:.8pt solid #1F5673; padding:1.2mm 1.5mm; }
+table.transp td { border-bottom:.4pt solid #DDE3E1; padding:1.2mm 1.5mm; }
+table.transp td.inst { font-weight:600; }
 .regencia { break-before:page; }
 .regencia h2 { font-size:17pt; color:#8A5A2B; margin:1mm 0 2mm; }
 .regencia h3 { font-size:12pt; margin:4mm 0 1.5mm; clear:both; }
@@ -485,7 +535,7 @@ function documentoGeral(instrutor, paginas = {}) {
     <h3>No fim do volume</h3>
     <p>O repertório de estudo por etapa: hinos em ordem de dificuldade, cada um trazendo algo novo.</p>
     </section><section class="pagina instr"><h2>Sumário</h2>
-    <ol class="sumario">${linha("pm", "Antes de começar — o caminho na orquestra (Programa Mínimo)")}${[1, 2, 3, 4].map(p =>
+    <ol class="sumario">${linha("pm", "Antes de começar — o caminho na orquestra (Programa Mínimo)")}${linha("esc", "Antes de começar — as escalas do hinário")}${[1, 2, 3, 4].map(p =>
       linha(`p${p}`, `${ORDINAL[p]} período — fases ${FASES_DO_PERIODO[p][0]} a ${FASES_DO_PERIODO[p].slice(-1)[0]}`) +
       FASES_DO_PERIODO[p].map(f => linha(`f${f}`, `Análise de hinos — fase ${f}: ${FASES.find(x => x.f === f).nome.toLowerCase()}`, true) +
         (instrutor ? linha(`r${f}`, `Regência — ${f === 1 ? "introdução e " : ""}módulo ${f}: ${REGENCIA[f].titulo.toLowerCase()}`, true) : "")).join("")).join("")}
@@ -497,7 +547,7 @@ function documentoGeral(instrutor, paginas = {}) {
     corpoDoPeriodo(p, instrutor)).join("");
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
     <title>Estudo do Hinário — apostila geral — ${instrutor ? "instrutor" : "candidato"}</title>
-    <style>${ESTILO}</style></head><body>${capa}${instrucoes}${programaMinimoHTML()}${corpo}${repertorioHTML(instrutor)}</body></html>`;
+    <style>${ESTILO}</style></head><body>${capa}${instrucoes}${programaMinimoHTML()}${escalasDoHinarioHTML()}${corpo}${repertorioHTML(instrutor)}</body></html>`;
 }
 
 function documento(periodo, instrutor) {
@@ -544,7 +594,7 @@ function documento(periodo, instrutor) {
 
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
     <title>Estudo do Hinário — ${ORDINAL[periodo]} Período — ${instrutor ? "instrutor" : "candidato"}</title>
-    <style>${ESTILO}</style></head><body>${capa}${instrucoes}${periodo === 1 ? programaMinimoHTML() : ""}${corpo}</body></html>`;
+    <style>${ESTILO}</style></head><body>${capa}${instrucoes}${periodo === 1 ? programaMinimoHTML() : ""}${escalasDoHinarioHTML()}${corpo}</body></html>`;
 }
 
 /* Lê o PDF da primeira passada e acha a página de cada parte do sumário.
@@ -567,6 +617,7 @@ function paginasDoSumario(arquivo) {
     });
   });
   out.rep = achar(t => /APÊNDICE/i.test(t) && t.includes("Repertório de estudo por etapa"), true);
+  out.esc = achar(t => /ANTES DE COMEÇAR/i.test(t) && t.includes("As escalas do hinário") && !t.includes("Sumário"));
   out.pm = achar(t => /ANTES DE COMEÇAR/i.test(t) && t.includes("O caminho na orquestra") && !t.includes("Sumário"));
   return out;
 }

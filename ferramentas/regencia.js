@@ -15,6 +15,10 @@ const { formula, composto, media, LISTAS } = require("./hinos-da-aula.js");
 const { REGENCIA } = require(path.join(__dirname, "..", "dados", "regencia.js"));
 
 const ENTRADA = {
+  146: ["no 3º tempo, com uma semínima", "o gesto do 2 (fora)"],
+  216: ["na 6ª colcheia", "em 6, o gesto do 5 (fora no desenho de conjunto; no do MSA, o 2º pulso do grupo de cima); em 2, o próprio 2º tempo, com o grupo entrando no fim dele"],
+  291: ["no 4º tempo, com uma semínima", "o gesto do 3 (fora)"],
+  372: ["na 6ª semínima, com duas colcheias", "em 6, o gesto do 5 (fora no desenho de conjunto; no do MSA, o 2º pulso do grupo de cima); em 2, o próprio 2º tempo, com o grupo entrando no fim dele"],
   446: ["no 4º tempo, com colcheia pontuada e semicolcheia", "o gesto do 3 (fora)"],
   432: ["no 4º tempo, com uma semínima", "o gesto do 3 (fora)"],
   330: ["no 4º tempo, com colcheia pontuada e semicolcheia", "o gesto do 3 (fora)"],
@@ -49,7 +53,7 @@ const FIG = { 2: "mínima", 4: "semínima", 8: "colcheia" };
 const dur = fig => ({ "mínima": 2, "semínima": 1, "colcheia": 0.5 }[fig.replace(" pontuada", "")] || 1) * (/pontuada/.test(fig) ? 1.5 : 1);
 const PADRAO = {
   2: "1 abaixo, 2 acima", 3: "1 abaixo, 2 fora, 3 acima", 4: "1 abaixo, 2 dentro, 3 fora, 4 acima",
-  6: "qualquer dos dois desenhos de 6 do módulo 5 — o do MSA ou o de conjunto —, sem misturá-los no mesmo hino",
+  6: "qualquer dos dois desenhos de 6 do módulo 5 (o do MSA ou o de conjunto), sem misturá-los no mesmo hino",
   9: "o desenho do 3 com três pulsos em cada direção, o primeiro de cada grupo maior (módulo 7)",
   12: "o desenho do 4 com três pulsos em cada direção, o primeiro de cada grupo maior (módulo 7)",
 };
@@ -87,8 +91,8 @@ function desenho(h) {
   const tempos = comp ? num / 3 : num;
   if (comp && !marc) {
     const m = media(h);
-    if (m && /colcheia/.test(h.mf || "") && den === 8) {
-      return { n: null, gesto: null, texto: `Sem marcação impressa. Com a colcheia por volta de ${Math.round(m)}, em ${num} seriam ${Math.round(m)} gestos por minuto; em ${tempos}, uns ${Math.round(m / 3)}, com o rebote carregando as três colcheias. O hinário usa as duas maneiras nessa faixa: decida pelo caráter e pela segurança do grupo, e diga antes qual será (módulo 5).` };
+    if (m && (h.mf || "") === pulso) {
+      return { n: null, gesto: null, texto: `Sem marcação impressa. Com a ${pulso} por volta de ${Math.round(m)}, em ${num} seriam ${Math.round(m)} gestos por minuto; em ${tempos}, uns ${Math.round(m / 3)}, com o rebote carregando os três pulsos. O hinário usa as duas maneiras nessa faixa: decida pelo caráter e pela segurança do grupo, e diga antes qual será (módulo 5).` };
     }
     return { n: tempos, gesto: tempo, texto: `Em ${tempos}: cada gesto uma ${tempo}, e o rebote carrega os três pulsos (${PADRAO[tempos]}). Nos trechos lentos, pode-se subdividir em ${num} (módulo 14).` };
   }
