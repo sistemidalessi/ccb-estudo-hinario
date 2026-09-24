@@ -67,7 +67,8 @@ const NIVEIS = [
 function compassoDaEscala(h) {
   const f = (h.fc && h.fc.length) ? formula(h.fc[0]) : "4/4";
   const [num] = f.split("/").map(Number);
-  if (composto(f)) return `em colcheias, de três em três, com a primeira de cada grupo mais apoiada — o ${f} do hino`;
+  const fig = { 2: "mínimas", 4: "semínimas", 8: "colcheias" }[Number(f.split("/")[1])] || "colcheias";
+  if (composto(f)) return `em ${fig}, de três em três, com a primeira de cada grupo mais apoiada — o ${f} do hino`;
   if (num === 2) return `de duas em duas notas, a primeira mais apoiada — o ${f} do hino`;
   if (num === 3) return `de três em três notas, a primeira mais apoiada — o ${f} do hino`;
   return `de quatro em quatro notas, a primeira mais apoiada e a terceira um pouco — o ${f} do hino`;
