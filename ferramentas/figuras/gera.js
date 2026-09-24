@@ -56,7 +56,7 @@ FIGS["pentagrama"] = () => {
 FIGS["claves"] = () => {
   const quais = [
     [claveSol, 2, "clave de Sol", "na 2ª linha", "violino, flauta, oboé, clarinete, saxofone, trompete"],
-    [claveFa, 6, "clave de Fá", "na 4ª linha", "violoncelo, fagote"],
+    [claveFa, 6, "clave de Fá", "na 4ª linha", "violoncelo, fagote, trombone, eufônio, tuba"],
     [claveDo, 4, "clave de Dó", "na 3ª linha", "viola"],
   ];
   const x = 40, larg = 220, alt = 8.4 * D;

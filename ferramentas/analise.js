@@ -223,7 +223,7 @@ const PERGUNTAS = [
       `Conforme a figura. Em ${formulaPrincipal(h)}: ${valoresPontuados(formulaPrincipal(h))}.`] },
 
   // fase 15 — andamento
-  { f: 15, aplica: h => media(h) && !composto(formulaPrincipal(h) || ""),
+  { f: 15, aplica: h => media(h) && !composto(formulaPrincipal(h) || "") && (h.mf || "semínima") === "semínima",
     faz: h => {
       const m = media(h);
       return [`Pela marcação de velocidade, o andamento do hino ${h.n} é lento, moderado ou rápido?`,
