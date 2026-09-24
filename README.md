@@ -164,3 +164,19 @@ instrutor indicar, com o hinário em mãos.
 É HTML, CSS e JavaScript puros, sem dependências e sem build. Abrir o
 `index.html` no navegador já funciona; o push na branch `main` publica no
 GitHub Pages.
+
+
+## Apostilas fora do Git
+
+Desde 24/09/2026 as apostilas trazem, na análise de hinos ao fim de cada fase,
+a partitura do próprio hino, recortada do hinário (decisão do Anderson). Como
+o repositório é público, **nenhuma apostila vai para o Git**: elas são geradas
+na máquina e publicadas no Drive. Para gerá-las:
+
+    python ferramentas/extrair-planos.py p1.pdf p2.pdf p3.pdf p4.pdf   # só se dados/planos.js faltar
+    node ferramentas/analise.js --lista > lista.json
+    python ferramentas/recortar-hinos.py Hinario_revisado.pdf lista.json
+    node ferramentas/gerar-apostila.js && node ferramentas/gerar-pdf.js
+
+O recorte tira do PDF a marca d'água com os dados pessoais do Anderson antes
+de renderizar.

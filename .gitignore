@@ -6,4 +6,7 @@ __pycache__/
 *.pyc
 ferramentas/figuras/figuras.html
 dados/planos.js
-apostila/*instrutor*
+ferramentas/hinos-img/
+# as apostilas trazem a partitura dos hinos da análise: nenhuma vai para o Git
+apostila/*.pdf
+apostila/*.docx

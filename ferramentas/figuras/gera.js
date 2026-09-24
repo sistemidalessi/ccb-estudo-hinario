@@ -16,6 +16,16 @@ const W = 640;                       // largura útil de uma figura de página i
 const TAM = { titulo: 20, forte: 16, corpo: 15, leg: 13.5, mini: 12.5 };
 
 const FIGS = {};
+
+/* Ligadura (de valor ou de portamento): curva mais grossa no meio, como na
+   gravura, do lado oposto às hastes. dy: diferença de altura entre as notas. */
+function ligadura(x1, x2, y, embaixo = true, cor = COR.tinta, dy = 0) {
+  const s = embaixo ? 1 : -1, mx = (x1 + x2) / 2, alto = 0.9 * D + Math.abs(dy) * 0.25;
+  const e1 = 0.1 * D, e2 = 0.3 * D;
+  const a = `M${x1 + 4} ${y}`, b = `${x2 - 4} ${y + dy}`;
+  return el("path", { d: `${a} Q${mx} ${y + dy / 2 + s * alto} ${b} Q${mx} ${y + dy / 2 + s * (alto - e2)} ${x1 + 4} ${y} z`,
+    fill: cor, stroke: cor, "stroke-width": e1, "stroke-linejoin": "round" });
+}
 const centro = (y, t, o = {}) => rotulo(W / 2, y, t, { centro: 1, tam: o.tam || TAM.leg, cor: o.cor, forte: o.forte });
 
 /* Legenda de rodapé, quebrada em linhas de no máximo `max` caracteres. */
@@ -45,8 +55,8 @@ FIGS["pentagrama"] = () => {
 /* ---------- 2. as três claves ---------- */
 FIGS["claves"] = () => {
   const quais = [
-    [claveSol, 2, "clave de Sol", "na 2ª linha", "violino, flauta, clarinete, trompete, sax"],
-    [claveFa, 6, "clave de Fá", "na 4ª linha", "violoncelo, trombone, tuba, baixo"],
+    [claveSol, 2, "clave de Sol", "na 2ª linha", "violino, flauta, oboé, clarinete, saxofone, trompete"],
+    [claveFa, 6, "clave de Fá", "na 4ª linha", "violoncelo, fagote"],
     [claveDo, 4, "clave de Dó", "na 3ª linha", "viola"],
   ];
   const x = 40, larg = 220, alt = 8.4 * D;
@@ -148,7 +158,7 @@ FIGS["ritmos-iniciais"] = () => {
 
 /* ---------- 7. síncopa e contratempo ---------- */
 FIGS["sincopa"] = () => {
-  const x = 176, T = 72, p = 5;                     // T = largura de um tempo
+  const x = 150, T = 94, p = 3;                     // T = largura de um tempo; 2º espaço
   const topo = 60, topo2 = topo + 9.4 * D;
   const ticks = (t, fortes) => [0, 1, 2, 3].map(i => {
     const px = x + 96 + i * T, on = fortes.includes(i);
@@ -157,18 +167,16 @@ FIGS["sincopa"] = () => {
       + rotulo(px, t + 4 * D + 44, String(i + 1), { centro: 1, tam: TAM.mini, cor: on ? COR.alerta : COR.apagado });
   }).join("");
 
-  let c = pauta(x, topo, 400) + formula(x + 26, topo, "4", "4")
-        + pauta(x, topo2, 400) + formula(x + 26, topo2, "4", "4");
+  let c = pauta(x, topo, 470) + formula(x + 26, topo, "4", "4")
+        + pauta(x, topo2, 470) + formula(x + 26, topo2, "4", "4");
   // Síncopa: ♪ ♩ ♪ 𝅗𝅥 — a semínima nasce na parte fraca e atravessa o 2º tempo
   c += el("rect", { x: x + 96 + T / 2 - 6, y: topo - 8, width: T + 12, height: 4 * D + 16, fill: COR.alerta, opacity: .1 });
-  c += nota(x + 96, topo, p, 8, { haste: "cima" })
-     + nota(x + 96 + T / 2, topo, p, 4, { haste: "cima" })
-     + nota(x + 96 + T * 1.5, topo, p, 8, { haste: "cima" })
-     + nota(x + 96 + T * 2, topo, p, 2, { haste: "cima" });
+  c += nota(x + 96, topo, p, 8) + nota(x + 96 + T / 2, topo, p, 4)
+     + nota(x + 96 + T * 1.5, topo, p, 8) + nota(x + 96 + T * 2, topo, p, 2);
   c += ticks(topo, [1]);
   // Contratempo: pausa no tempo, nota depois — quatro vezes
   [0, 1, 2, 3].forEach(i => {
-    c += pausa(x + 96 + i * T, topo2, 8, COR.alerta) + nota(x + 96 + i * T + T / 2, topo2, p, 8, { haste: "cima" });
+    c += pausa(x + 96 + i * T, topo2, 8, COR.alerta) + nota(x + 96 + i * T + T / 2, topo2, p, 8);
   });
   c += ticks(topo2, [0, 1, 2, 3]);
   c += rotuloDir(x - 18, topo + 2 * D - 2, "Síncopa", { tam: TAM.forte + 2, forte: 1, cor: COR.tinta });
@@ -176,26 +184,26 @@ FIGS["sincopa"] = () => {
   c += rotuloDir(x - 18, topo2 + 2 * D - 2, "Contratempo", { tam: TAM.forte + 2, forte: 1, cor: COR.tinta });
   c += rotuloDir(x - 18, topo2 + 2 * D + 20, "entra depois dele", { tam: TAM.mini });
   const base = topo2 + 4 * D + 68;
-  const leg = legenda(base, "na síncopa o som nasce na parte fraca e atravessa o tempo forte, sem ser reatacado; no contratempo o tempo fica em silêncio e o som entra depois");
+  const leg = legenda(base, "na síncopa o som nasce na parte fraca do tempo e se prolonga pela parte forte do tempo seguinte, sem ser reatacado; no contratempo a parte forte fica em silêncio e o som entra depois");
   return svg(W, base + leg.alt + 6, c + leg.svg);
 };
 
 /* ---------- 8. tercina ---------- */
 FIGS["tercina"] = () => {
-  const topo = 104, x = 60, p = 5, y = posY(topo, p);
+  // 2º espaço: haste para cima pela regra, e o "3" fica do lado da barra
+  const topo = 104, x = 60, p = 3, y = posY(topo, p);
   let c = pauta(x, topo, 520) + formula(x + 26, topo, "4", "4");
   const grupo = (x0, n, marcar) => {
     let g = "";
     for (let i = 0; i < n; i++) g += nota(x0 + i * 44, topo, p, 8, { haste: "cima", semFlag: 1 });
-    g += barra(x0 + f.RX0, x0 + (n - 1) * 44 + f.RX0, topo, p, p, true);
-    if (marcar) g += rotulo(x0 + ((n - 1) * 44) / 2, y - 3.2 * D - 22, "3", { centro: 1, tam: 22, forte: 1, cor: COR.alerta });
+    g += barra(x0, x0 + (n - 1) * 44, topo, p, p, true);
     return g;
   };
-  c += grupo(x + 120, 2) + chave(x + 112, x + 176, y - 3.2 * D - 34, "1 tempo: duas colcheias");
+  c += grupo(x + 120, 2) + chave(x + 104, x + 180, y - 3.7 * D - 30, "1 tempo: duas colcheias");
   c += el("rect", { x: x + 246, y: y - 18, width: 44, height: 36, fill: "#fff" });
   c += rotulo(x + 268, y + 9, "=", { tam: 30, cor: COR.apagado, centro: 1, forte: 1 });
-  c += grupo(x + 352, 3) + chave(x + 344, x + 452, y - 3.2 * D - 34, "o mesmo tempo: três colcheias");
-  c += rotulo(x + 396, y - 3.2 * D - 22, "3", { centro: 1, tam: 22, forte: 1, cor: COR.alerta });
+  c += grupo(x + 352, 3) + chave(x + 336, x + 456, y - 3.7 * D - 30, "o mesmo tempo: três colcheias");
+  c += rotulo(x + 396, y - 3.7 * D - 10, "3", { centro: 1, tam: 20, forte: 1, cor: COR.alerta });
   const base = topo + 4 * D + 34;
   const leg = legenda(base, "a tercina põe três figuras onde caberiam duas do mesmo valor — o tempo não muda; muda a divisão dele");
   return svg(W, base + leg.alt + 6, c + leg.svg);
@@ -206,17 +214,16 @@ FIGS["ligaduras"] = () => {
   const x = 150, larg = 230, alt = 7.4 * D;
   const bloco = (t, pa, pb, cor, titulo, sub) => {
     let g = pauta(x, t, larg);
-    g += nota(x + 74, t, pa, 4, { haste: "cima" }) + nota(x + 150, t, pb, 4, { haste: "cima" });
-    g += el("path", { d: `M${x + 74} ${posY(t, pa) + RY()} q38 28 76 ${posY(t, pb) - posY(t, pa)}`,
-                      fill: "none", stroke: cor, "stroke-width": 2.8 });
+    g += nota(x + 74, t, pa, 4) + nota(x + 150, t, pb, 4);
+    g += ligadura(x + 74, x + 150, posY(t, pa) + 0.8 * D, true, cor, posY(t, pb) - posY(t, pa));
     g += rotulo(x + larg + 30, t + 2 * D - 4, titulo, { tam: TAM.forte, forte: 1, cor });
     g += rotulo(x + larg + 30, t + 2 * D + 18, sub[0], { tam: TAM.mini });
     g += rotulo(x + larg + 30, t + 2 * D + 36, sub[1], { tam: TAM.mini });
     return g;
   };
-  function RY(){ return D * 0.9; }
-  let c = bloco(60, 5, 5, COR.destaque, "de VALOR", ["mesma altura · soma as durações", "toca-se uma vez só"]);
-  c += bloco(60 + alt, 3, 6, COR.alerta, "de PORTAMENTO", ["alturas diferentes, sem interrupção", "tocam-se as duas, ligadas"]);
+  // notas abaixo da 3ª linha: haste para cima pela regra, ligadura por baixo
+  let c = bloco(60, 2, 2, COR.destaque, "de VALOR", ["mesma altura · soma as durações", "toca-se uma vez só"]);
+  c += bloco(60 + alt, 1, 3, COR.alerta, "de PORTAMENTO", ["alturas diferentes, sem interrupção", "tocam-se as duas, ligadas"]);
   const base = 60 + alt + 4 * D + 34;
   const leg = legenda(base, "no hinário há estas duas ligaduras, e só estas duas");
   return svg(W, base + leg.alt + 6, c + leg.svg);
@@ -224,15 +231,15 @@ FIGS["ligaduras"] = () => {
 
 /* ---------- 10. ponto de aumento ---------- */
 FIGS["ponto"] = () => {
-  const topo = 100, x = 66, p = 5, y = posY(topo, p);
+  const topo = 100, x = 66, p = 3, y = posY(topo, p);
   let c = pauta(x, topo, 508) + formula(x + 26, topo, "4", "4");
-  c += nota(x + 130, topo, p, 4, { haste: "cima", pontos: 1 });
-  c += chave(x + 112, x + 164, y - 3.2 * D - 30, "1 tempo e meio");
+  c += nota(x + 130, topo, p, 4, { pontos: 1 });
+  c += chave(x + 110, x + 168, y - 3.7 * D - 24, "1 tempo e meio");
   c += el("rect", { x: x + 228, y: y - 18, width: 44, height: 36, fill: "#fff" });
   c += rotulo(x + 250, y + 9, "=", { tam: 30, cor: COR.apagado, centro: 1, forte: 1 });
-  c += nota(x + 336, topo, p, 4, { haste: "cima" }) + nota(x + 412, topo, p, 8, { haste: "cima" });
-  c += el("path", { d: `M${x + 336} ${y + D * 0.9} q38 26 76 0`, fill: "none", stroke: COR.destaque, "stroke-width": 2.6 });
-  c += chave(x + 322, x + 428, y - 3.2 * D - 30, "1 tempo + meio tempo");
+  c += nota(x + 336, topo, p, 4) + nota(x + 412, topo, p, 8);
+  c += ligadura(x + 336, x + 412, y + 0.8 * D, true, COR.destaque);
+  c += chave(x + 318, x + 432, y - 3.7 * D - 24, "1 tempo + meio tempo");
   const base = topo + 4 * D + 34;
   const leg = legenda(base, "o ponto vale metade da figura que está à esquerda dele");
   return svg(W, base + leg.alt + 6, c + leg.svg);
@@ -240,14 +247,16 @@ FIGS["ponto"] = () => {
 
 /* ---------- 11. os quatro tempos da fermata ---------- */
 FIGS["fermata"] = () => {
-  const topo = 78, x = 60, p = 5;
+  const topo = 92, x = 60, p = 5;
   let c = pauta(x, topo, 520) + formula(x + 26, topo, "4", "4");
-  c += nota(x + 108, topo, p, 4, { haste: "cima" }) + nota(x + 160, topo, 4, 4, { haste: "cima" });
-  c += nota(x + 226, topo, p, 2, { haste: "cima" }) + fermata(x + 226, posY(topo, p) - 3.2 * D - 22);
+  // da 3ª linha para cima, haste para baixo; a fermata vai acima da pauta
+  c += nota(x + 108, topo, p, 4) + nota(x + 160, topo, 4, 4);
+  c += nota(x + 226, topo, p, 2) + fermata(x + 226, topo - 0.7 * D);
   c += barraCompasso(x + 330, topo);
   // o compasso seguinte fica em aberto de propósito: é só a retomada
-  [0, 1, 2, 3].forEach(i => { c += nota(x + 382 + i * 42, topo, [4, 5, 6, 4][i], 4, { haste: "cima" }); });
-  const yb = topo + 4 * D + 18;
+  [0, 1, 2, 3].forEach(i => { c += nota(x + 382 + i * 42, topo, [4, 5, 6, 4][i], 4); });
+  c += barraCompasso(x + 520, topo);
+  const yb = topo + 6 * D + 4;          // abaixo das hastes, que descem da pauta
   // Os quatro tempos da fermata numa linha só: empilhá-los fazia os tracejados
   // cruzarem o texto uns dos outros.
   c += el("line", { x1: x + 226, y1: yb - 4, x2: x + 226, y2: yb + 22,
@@ -313,15 +322,15 @@ FIGS["formula"] = () => {
   c += el("defs", {}, el("marker", { id: "sf", viewBox: "0 0 10 10", refX: 8, refY: 5, markerWidth: 6, markerHeight: 6, orient: "auto-start-reverse" },
     el("path", { d: "M0 0 L10 5 L0 10 z", fill: COR.destaque })));
   c += el("path", { d: `M${x + 56} ${topo - 8} L${x + 112} ${topo - 34}`, fill: "none", stroke: COR.destaque, "stroke-width": 2.4, "marker-end": "url(#sf)" });
-  c += el("path", { d: `M${x + 56} ${topo + 4 * D + 8} L${x + 112} ${topo + 4 * D + 34}`, fill: "none", stroke: COR.destaque, "stroke-width": 2.4, "marker-end": "url(#sf)" });
+  c += el("path", { d: `M${x + 56} ${topo + 4 * D + 8} L${x + 112} ${topo + 4 * D + 40}`, fill: "none", stroke: COR.destaque, "stroke-width": 2.4, "marker-end": "url(#sf)" });
   c += rotulo(x + 120, topo - 30, "número de CIMA — quantos tempos há no compasso", { tam: TAM.corpo, cor: COR.destaque, forte: 1 });
-  c += rotulo(x + 120, topo + 4 * D + 38, "número de BAIXO — que figura vale um tempo", { tam: TAM.corpo, cor: COR.destaque, forte: 1 });
+  c += rotulo(x + 120, topo + 4 * D + 46, "número de BAIXO — que figura vale um tempo", { tam: TAM.corpo, cor: COR.destaque, forte: 1 });
   [0, 1, 2, 3].forEach(i => {
-    c += nota(x + 186 + i * 72, topo, 5, 4, { haste: "cima" });
+    c += nota(x + 186 + i * 72, topo, 3, 4);
     c += rotulo(x + 186 + i * 72, topo + 4 * D + 22, String(i + 1), { centro: 1, tam: TAM.leg });
   });
   c += barraCompasso(x + 470, topo);
-  c += rotulo(x + 472, topo + 4 * D + 44, "barra de compasso", { centro: 1, tam: TAM.mini });
+  c += rotulo(x + 470, topo + 4 * D + 22, "barra de compasso", { centro: 1, tam: TAM.mini });
   return svg(W, topo + 4 * D + 62, c);
 };
 
@@ -368,7 +377,8 @@ FIGS["cordas-violino"] = () => {
 const ids = Object.keys(FIGS);
 fs.writeFileSync(path.join(__dirname, "figuras.html"),
 `<!doctype html><meta charset="utf-8">
-<style>body{margin:0;background:#fff;font-family:Calibri,sans-serif}
+<style>@font-face{font-family:Bravura;src:url(fontes/Bravura.otf)}
+body{margin:0;background:#fff;font-family:Calibri,sans-serif}
 .f{background:#fff;display:inline-block}
 .n{font:12px monospace;color:#999;padding:2px 0 14px 4px}</style>
 ${ids.map(id => `<div class="f" id="${id}">${FIGS[id]()}</div><div class="n">${id}</div>`).join("\n")}`);

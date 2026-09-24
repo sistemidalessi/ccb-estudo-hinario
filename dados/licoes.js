@@ -129,7 +129,7 @@ const LICOES = {
     { h: "Onze linhas, um sistema só", t: "Do som mais grave ao mais agudo, sem cortes. A linha do meio — a 6ª das onze, contando de baixo: cinco da clave de Fá abaixo dela e cinco da clave de Sol acima — é a do Dó3, chamado Dó Central justamente por ocupar esse lugar no meio de tudo.", fig: "endecagrama" },
     { h: "Onde o seu instrumento vive", t: "Cada instrumento ocupa uma faixa do endecagrama. Saber qual é a sua explica por que certas notas do hino são confortáveis e outras exigem posição alta ou corda grave.", fig: "cordas-violino" },
   ],
-  atencao: "Achar que o Dó do violoncelo e o Dó da flauta são notas diferentes porque estão escritos em claves diferentes. O endecagrama existe justamente para mostrar que não são.",
+  atencao: "Achar que a mesma nota muda de altura porque muda de clave. O Dó3, o Dó central, é um só: na clave de Sol fica na linha suplementar abaixo da pauta, na clave de Fá, na linha suplementar acima — e o endecagrama mostra que as duas são a mesma linha.",
   casa: "Localize no endecagrama a nota mais grave e a mais aguda que o seu instrumento toca dentro do hino indicado.",
 },
 
@@ -149,7 +149,7 @@ const LICOES = {
   titulo: "O movimento de condução",
   abre: "O gesto da mão não é enfeite: é o relógio que você carrega. Ele mostra onde cada tempo cai e mantém o pulso quando a leitura aperta.",
   blocos: [
-    { h: "A janela de movimento", t: "Imagine à sua frente uma janela — também chamada de mesa invisível. É dentro dela que a mão se move: os gestos ficam contidos, sempre no mesmo plano, sem estourar para os lados nem para a frente." },
+    { h: "A janela de movimento", t: "Imagine à sua frente uma janela: é dentro dela que a mão se move. Os gestos ficam contidos, sem estourar para os lados nem para a frente, nem grandes nem pequenos demais. A mesa invisível é outra orientação do método, sobre o plano em que a mão marca os pontos; o instrutor a apresenta com o MSA." },
     { h: "Como se move a mão", t: "De maneira natural, leve, sem esforço e sem exagero. O pulso acompanha; a mão e o braço não enrijecem. Canhotos fazem o movimento espelhado, com a mão esquerda — não há problema nenhum nisso." },
     { h: "Cada tempo, um movimento", t: "No movimento de condução, cada tempo do compasso corresponde a um movimento. Essa correspondência é o que torna o gesto útil: olhando a mão, sabe-se em que tempo se está." },
   ],
@@ -311,13 +311,14 @@ const LICOES = {
   blocos: [
     { h: "O que a fórmula diz", t: "Número de cima 6: seis pulsos ou movimentos no compasso. O de baixo diz a figura que representa cada pulso — em 6/8, a colcheia." },
     { h: "O gesto", t: "O desenho é o do compasso em 2, com três pulsos em cada tempo: pulsos 1, 2 e 3 no movimento de baixo; 4, 5 e 6 no de cima. O deslocamento maior da mão acontece entre o 3 e o 4, que é onde o gesto sobe.", fig: "mov6" },
+    { h: "Também em 6/4", t: "O hinário tem hinos em 6/4, e a lógica é a mesma: seis pulsos em dois tempos, o mesmo gesto. Muda só a figura: cada pulso é uma semínima, e a unidade de tempo é a mínima pontuada." },
   ],
-  atencao: "Reger seis movimentos separados. No MSA o gesto é em 2, e os seis pulsos moram dentro dele — quem faz seis pontos perde o balanço do compasso.",
+  atencao: "Fazer os seis pontos com a mesma amplitude. O movimento do 3º para o 4º ponto é o mais amplo: é ele que separa os dois tempos — sem isso, o 6 vira uma fila de pulsos iguais.",
   casa: "Leitura métrica e solfejo dos hinos da lista, na velocidade mínima indicada.",
 },
 
 "2-14": { titulo: "Movimento alternativo para solfejo em 6",
-  abre: "Quando o desenho rítmico é denso ou o andamento é lento, pode convir mostrar os pulsos. É esse o movimento alternativo.",
+  abre: "Quando o gesto em seis fica rápido demais, conduz-se em 2, agrupando três pulsos em cada tempo. É esse o movimento alternativo.",
   blocos: [
     { h: "Quando usar", t: "Quando o movimento da mão está muito rápido e fica difícil alocar as figuras nos tempos, ou quando há notas longas correspondentes a vários pulsos. É recurso de estudo, não regra." },
   ],
@@ -374,7 +375,7 @@ const LICOES = {
   abre: "Mesmo padrão, caminho oposto. Em vez da 5ª nota, usa-se a 4ª — e em vez de sustenidos, entram bemóis.",
   blocos: [
     { h: "Como nascem", t: "Parte-se de Dó Maior, identifica-se a 4ª nota, e ela vira a tônica da escala seguinte: Fá, Si♭, Mi♭, Lá♭, Ré♭, Sol♭, Dó♭. O bemol serve para abaixar a altura da nota que precisa ser ajustada para manter o padrão." },
-    { h: "Por que isso importa no hinário", t: "Porque a maioria esmagadora dos hinos está em tons com bemóis — Mi♭, Lá♭, Si♭ e Fá concentram boa parte do hinário. Estas escalas são as que você vai encontrar todo domingo." },
+    { h: "Por que isso importa no hinário", t: "Porque a maioria dos hinos — cerca de seis em cada dez — está em tons com bemóis: Mi♭, Lá♭, Si♭ e Fá concentram boa parte do hinário, e Sol maior é o segundo tom mais frequente. Estas escalas são as que você vai encontrar todo domingo." },
   ],
   atencao: "Achar que bemol \"eleva\" porque o nome da escala é mais complicada. Bemol abaixa, sempre, um semitom.",
   casa: "Construa as escalas maiores com bemóis e anote a ordem dos bemóis de cada uma.",
@@ -399,7 +400,7 @@ const LICOES = {
     { h: "O que a fórmula diz", t: "Número de cima 9: nove pulsos ou movimentos. O de baixo diz a figura que representa cada pulso — em 9/8, a colcheia." },
     { h: "O gesto", t: "O desenho é o do compasso em 3, com três pulsos em cada tempo: 1·2·3 abaixo, 4·5·6 fora, 7·8·9 acima.", fig: "mov9" },
   ],
-  atencao: "Contar os nove pulsos como se fossem nove tempos. São nove pulsos dentro de três tempos — e o gesto tem três pontos, não nove.",
+  atencao: "Contar os nove pulsos como se fossem nove tempos. São nove pulsos dentro de três tempos: os movimentos mais amplos — do 3º para o 4º ponto, do 6º para o 7º e do 9º de volta ao 1º — é que mostram onde começa cada tempo.",
   casa: "Estude os hinos da lista do GEM para esta aula; nos marcados com asterisco, comece a leitura a partir do 1º compasso completo.",
 },
 
@@ -461,7 +462,7 @@ const LICOES = {
   blocos: [
     { h: "Acidente ocorrente", t: "Escrito à esquerda de uma nota, no meio da peça. Altera aquela nota e todas as demais de mesmo nome e mesma altura dentro daquele compasso. Passou a barra de compasso, o efeito acabou." },
     { h: "Quais existem no hinário", t: "Além do bemol e do sustenido: dobrado sustenido, dobrado bemol e bequadro. O bequadro desfaz qualquer alteração anterior e devolve a nota ao estado natural." },
-    { h: "Acidente de precaução", t: "Colocado diante de uma nota que já estava alterada — pela armadura ou por um acidente anterior no mesmo compasso. Não muda nada: serve para evitar erro de leitura." },
+    { h: "Acidente de precaução", t: "Lembra o estado da nota quando pode haver dúvida — o caso mais comum é no compasso seguinte a um acidente ocorrente, avisando que a nota voltou ao que manda a armadura. Não muda nada: serve para evitar erro de leitura." },
     { h: "Ligadura de valor atravessando a barra", t: "Quando uma nota com acidente ocorrente está ligada por ligadura de valor a outra no compasso seguinte, o efeito do acidente se prolonga junto com a soma dos valores." },
   ],
   atencao: "Aplicar o acidente ocorrente à mesma nota em outra oitava. Vale para mesmo nome e mesma altura — a oitava de cima segue como estava.",
@@ -473,7 +474,7 @@ const LICOES = {
   abre: "Para não escrever duas vezes o mesmo trecho, a partitura usa barras de repetição. Ler isso errado leva a orquestra inteira para o lugar errado.",
   blocos: [
     { h: "As barras", t: "Barra de início de repetição e barra de final de repetição delimitam o trecho. Sem nenhum outro sinal, o trecho é tocado duas vezes, e depois segue-se adiante." },
-    { h: "As casas", t: "A casa 1 se toca na primeira passagem; na repetição, pula-se a casa 1 e vai-se para a casa 2. Havendo três casas, a sequência segue a numeração. As casas indicam a ordem, não a quantidade de repetições." },
+    { h: "As casas", t: "A casa 1 se toca na primeira passagem; na repetição, pula-se a casa 1 e vai-se para a casa 2. Havendo três casas, a sequência segue a numeração. Cada casa corresponde a uma passagem, na ordem da numeração." },
   ],
   atencao: "Repetir a casa 1 na volta. A casa 1 existe justamente para ser pulada na repetição.",
   casa: "Percorra o hino indicado em voz alta dizendo só os números dos compassos, na ordem em que serão tocados.",
@@ -566,7 +567,7 @@ const LICOES = {
   titulo: "Notas pontuadas e a subdivisão",
   abre: "O ponto de aumento já é velho conhecido. O que muda aqui é perceber que a mesma figura pontuada se comporta de modo diferente no compasso simples e no composto.",
   blocos: [
-    { h: "Divisão, subdivisão e bi-subdivisão", t: "Duas colcheias dentro de um compasso referem-se à subdivisão de um tempo; quatro semicolcheias, à bi-subdivisão de um tempo. Nomear a camada ajuda a contar sem se perder." },
+    { h: "Divisão, subdivisão e bi-subdivisão", t: "Quando a semínima é a unidade de tempo (2/4, 3/4, 4/4), duas colcheias são a subdivisão de um tempo, e quatro semicolcheias, a bi-subdivisão. Nomear a camada ajuda a contar sem se perder." },
     { h: "A mesma figura, dois comportamentos", t: "No compasso simples, a colcheia pontuada vale três quartos de tempo e a semicolcheia seguinte, um quarto. No composto, a unidade de tempo já é uma figura pontuada — em 6/8, a semínima pontuada —, e a colcheia pontuada vale metade do tempo: um pulso e meio. É o mesmo desenho no papel, com contas diferentes." },
   ],
   atencao: "Encompridar a figura curta. O ritmo pontuado vira tercina quando a curta ganha tempo — e a diferença se ouve na hora.",
