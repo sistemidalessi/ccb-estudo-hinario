@@ -140,9 +140,11 @@ ok(Q.every(q => FASES.some(f => f.f === q.f)), "toda questão aponta para uma fa
 ok(Q.every(q => q.n >= 1 && q.n <= 3), "todo nível está entre 1 e 3");
 
 const figsNoDisco = new Set(fs.readdirSync(path.join(RAIZ, "assets", "figuras")).map(f => f.replace(".png", "")));
-const figsCitadas = new Set(Object.values(LICOES).flatMap(l => l.blocos.map(b => b.fig).filter(Boolean)));
+const { REGENCIA } = require(path.join(RAIZ, "dados", "regencia.js"));
+const figsCitadas = new Set([...Object.values(LICOES), ...Object.values(REGENCIA)]
+  .flatMap(l => l.blocos.map(b => b.fig).filter(Boolean)));
 figsCitadas.forEach(f => ok(figsNoDisco.has(f), `figura citada existe no disco: ${f}`));
-figsNoDisco.forEach(f => ok(figsCitadas.has(f), `figura no disco é usada em alguma aula: ${f}`));
+figsNoDisco.forEach(f => ok(figsCitadas.has(f), `figura no disco é usada em alguma aula ou módulo: ${f}`));
 
 ok(HINOS.every(h => h.n >= 1 && h.n <= 480), "todo hino está entre 1 e 480");
 const TONS = ["Dó", "Ré♭", "Ré", "Mi♭", "Mi", "Fá", "Sol♭", "Sol", "Lá♭", "Lá", "Si♭", "Si"];
@@ -222,6 +224,26 @@ for (let f = 1; f <= 16; f++) {
 ok(new Set(vistosA).size === vistosA.length, "nenhum hino repetido entre as análises das fases");
 const fimFase = A.ultimaAulaDaFase(AULAS);
 ok(Object.keys(fimFase).length === 16, "toda fase tem a aula em que a análise entra", Object.keys(fimFase).join(" "));
+
+/* Metrônomo: todo hino com a faixa tem a figura (menos o 434, lido à mão). */
+ok(HINOS.every(h => !h.met || h.mf || h.n === 434), "todo metrônomo traz a figura (mf)",
+   HINOS.filter(h => h.met && !h.mf && h.n !== 434).map(h => h.n).join(" "));
+ok(HINOS.every(h => !h.mf || ["semínima", "colcheia", "mínima", "semínima pontuada"].includes(h.mf)),
+   "toda figura de metrônomo é uma das do hinário");
+
+/* Curso de regência: um módulo por fase, e todo hino da análise que não
+   começa no 1º tempo tem a entrada lida na partitura. */
+const RG = require("./regencia.js");
+for (let f = 1; f <= 16; f++) {
+  const m = REGENCIA[f];
+  ok(m && m.titulo && m.blocos.length && m.pratica.length, `regência: módulo ${f} completo`);
+  ANAL[f].forEach(({ h }) => {
+    if (h.ri && h.ri !== "tético") ok(!!RG.ENTRADA[h.n], `regência: hino ${h.n} (${h.ri}) tem a entrada lida`);
+    const d = RG.dicasDoHino(h, f);
+    ok(d.length >= 3 && d.every(([r, t]) => r && t && !/undefined|NaN/.test(t)), `regência: observações do hino ${h.n} completas`);
+  });
+}
+ok(!JSON.stringify(REGENCIA).includes("Rômulo"), "regência: nenhum nome de maestro no texto do curso");
 
 /* Repertório por etapa. */
 const R = require("./repertorio.js");

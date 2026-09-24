@@ -37,6 +37,7 @@ AQUI = Path(__file__).resolve().parent
 SAIDA = AQUI / "hinos-img"
 ESCALA = 2.4          # ~173 dpi: nítido na impressão, sem pesar demais o PDF
 MARCA = re.compile(rb"ANDERSON|afdalessi|\d{3}\.\d{3}\.\d{3}-\d{2}")
+MAESTRO = re.compile(r"\bMaestro\b")   # é o único trecho do hinário com essa palavra
 
 
 def carregar_extrator():
@@ -60,6 +61,26 @@ def tirar_marca_dagua(doc):
             if MARCA.search(resto):
                 raise SystemExit(f"Marca d'água em formato inesperado na página {pagina.number + 1}")
             doc.update_stream(xref, resto)
+
+
+def tirar_maestro(doc):
+    """O cabeçalho de cada hino traz o nome do maestro responsável pela
+    revisão. O Anderson pediu
+    que saia (24/09/2026), "para não fazer propaganda de ninguém"; título e
+    autor ficam. É um trecho de texto só, e sai por redação: nenhuma nota nem
+    linha é tocada (images/graphics = NONE)."""
+    for pagina in doc:
+        achou = False
+        for bloco in pagina.get_text("dict")["blocks"]:
+            for linha in bloco.get("lines", []):
+                for sp in linha["spans"]:
+                    if MAESTRO.search(sp["text"]):
+                        r = pymupdf.Rect(sp["bbox"])
+                        pagina.add_redact_annot(r + (0.5, 0.5, -0.5, -0.5))
+                        achou = True
+        if achou:
+            pagina.apply_redactions(images=pymupdf.PDF_REDACT_IMAGE_NONE,
+                                    graphics=pymupdf.PDF_REDACT_LINE_ART_NONE)
 
 
 def aparar(img):
@@ -108,6 +129,7 @@ def main():
 
     doc = pymupdf.open(pdf)
     tirar_marca_dagua(doc)
+    tirar_maestro(doc)
     SAIDA.mkdir(exist_ok=True)
     feitos = {}
     for i, h in enumerate(ordem):
@@ -135,8 +157,11 @@ def main():
 
     # prova: o texto da marca não existe mais em nenhuma página usada
     for n in {h["pag"] for h in ordem if h["n"] in numeros and h["conf"] != "avulso"}:
-        if MARCA.search(doc[n - 1].get_text().encode("utf-8")):
+        texto = doc[n - 1].get_text()
+        if MARCA.search(texto.encode("utf-8")):
             raise SystemExit(f"A marca d'água continua na página {n}")
+        if MAESTRO.search(texto):
+            raise SystemExit(f"O nome do maestro continua na página {n}")
     faltam = sorted(numeros - set(feitos))
     print(f"{sum(feitos.values())} imagens de {len(feitos)} hinos em {SAIDA.name}/"
           + (f" — sem imagem: {faltam}" if faltam else ""))
