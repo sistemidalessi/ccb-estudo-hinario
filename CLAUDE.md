@@ -66,8 +66,12 @@ ficam para as aulas em que o próprio caderno manda o instrutor escolher.
 
 ### O que não entra aqui
 
-Partitura e letra do hinário não são reproduzidas em lugar nenhum. Do hinário
-sai só informação **sobre** o hino, nunca o hino: do cabeçalho, número,
+Partitura e letra do hinário não entram no repositório nem no site, que são
+públicos. A exceção, decidida pelo Anderson em 24/09/2026: a **análise de
+hinos** das apostilas traz a partitura do hino (recortada por
+`recortar-hinos.py`, sem a marca d'água com os dados dele) — e por isso as
+apostilas inteiras ficam fora do Git e só vão para o Drive. Fora da análise,
+do hinário sai só informação **sobre** o hino: do cabeçalho, número,
 tonalidade, marcação de movimento, metrônomo e indicação; da partitura, fórmula
 de compasso, ritmo inicial e se há nota pontuada, fermata, tercina, ritornelo;
 e a arcada impressa sobre a primeira nota. Os campos da partitura foram decisão
@@ -311,4 +315,42 @@ demais instrutores.
 - Arcadas: o hinário de cordas é o **capa marrom**, e traz arcada em todos os
   hinos. A pergunta de violino cita esse hinário. As arcadas lidas vêm do PDF
   revisado; supõe-se que batam com as do capa marrom — o Anderson confirma.
+
+## Terceira rodada — figuras, hino na análise, Programa Mínimo no início (24/09/2026)
+
+O Anderson viu as apostilas e apontou: claves e pausas "horríveis", e a pausa
+de mínima errada (pendurada abaixo da linha; ela fica **apoiada sobre a 3ª
+linha** — pendurada na 4ª é a de semibreve). Pediu revisão de tudo.
+
+- **Figuras com a fonte Bravura** (SMuFL, OFL, `ferramentas/figuras/fontes/`,
+  obtida pelo pacote npm `@vexflow-fonts/bravura`, porque o GitHub da
+  Steinberg não está liberado). Claves, cabeças, colchetes, pausas,
+  acidentes, fermata e algarismos de fórmula saem da fonte, posicionados
+  pelas medidas do `bravura_metadata.json`. Haste pela regra de gravura
+  (abaixo da 3ª linha para cima; da 3ª para cima, para baixo). O
+  `verificar.js` agora testa as pausas e a direção das hastes.
+- **Revisão independente** (um revisor sem contexto leu lições, questões e
+  figuras). Corrigido: lições 2-13, 2-14 e 3-6 confundiam o movimento de
+  solfejo em 6 e em 9 (seis e nove pontos) com o alternativo (em 2 e em 3);
+  hastes erradas em `ligaduras` e `fermata`; tercina "colcheia pontuada +
+  duas semicolcheias" (não fecha o tempo); definição de movimento de
+  condução; janela de movimento ≠ mesa invisível (são dois itens nos
+  Planos); acidente de precaução; casas de ritornelo; ♩ = 72 conta a figura,
+  não é sempre a unidade de tempo; subdivisão do pontuado conforme a figura;
+  "último compasso completa a anacruse" vira "em geral"; escolha entre 6 e 2
+  começa pela marcação impressa; fermata em quatro tempos; estatística das
+  tonalidades; lição 2-13 ganhou o 6/4.
+- **Pendente de confirmação do Anderson**: em que clave leem trombone,
+  eufônio e tuba na CCB (tirados da figura das claves até ele dizer); escala
+  de Ré maior em duas oitavas no 3º período (exige 3ª posição); ponto de
+  contato do arco no p em região aguda; "dinâmica é variação gradual" é
+  literal do MSA?
+- **Análise com o hino na página**: `recortar-hinos.py` recorta a partitura
+  dos hinos da análise para `ferramentas/hinos-img/` (fora do Git), esvaziando
+  o fluxo de conteúdo da marca d'água e encurtando o vão branco entre os
+  sistemas, para hino e perguntas caberem juntos. No caderno do aluno a
+  linha de ficha (tom, fórmula, metrônomo) sai: entregaria as respostas.
+- **Programa Mínimo no início** ("Antes de começar — o caminho na
+  orquestra"), por família e instrumento, na apostila geral e na do 1º
+  período. O repertório por etapa continua no fim do volume geral.
 

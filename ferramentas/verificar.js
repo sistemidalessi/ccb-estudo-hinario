@@ -81,6 +81,24 @@ if (mCordas) {
   ok(sobe, "figura das cordas: da mais grave para a mais aguda");
 }
 
+// Regras de gravura, no próprio desenho (ferramentas/figuras/desenho.js).
+// Nasceram de erro apontado pelo Anderson: a pausa de mínima estava pendurada
+// abaixo da linha, e em duas figuras a haste estava do lado errado.
+const DES = require(path.join(RAIZ, "ferramentas", "figuras", "desenho.js"));
+const yDe = svgTxt => Number(/<text x="[^"]+" y="([^"]+)"/.exec(svgTxt)[1]);
+ok(Math.abs(yDe(DES.pausa(100, 50, 1)) - DES.posY(50, 6)) < 0.01, "pausa de semibreve pendurada na 4ª linha");
+ok(Math.abs(yDe(DES.pausa(100, 50, 2)) - DES.posY(50, 4)) < 0.01, "pausa de mínima apoiada na 3ª linha");
+for (let p = -3; p <= 9; p++) {
+  // a haste é o traço vertical (as linhas suplementares são horizontais)
+  const m = [...DES.nota(100, 50, p, 4).matchAll(/<line x1="([^"]+)" y1="([^"]+)" x2="([^"]+)" y2="([^"]+)"/g)]
+    .find(l => l[1] === l[3]);
+  const pracima = Number(m[4]) < Number(m[2]);
+  ok(pracima === (p < 4), `haste da nota na posição ${p}: ${p < 4 ? "para cima" : "para baixo"}`);
+}
+// e nenhuma figura força a haste contra a regra
+[...fonteFig.matchAll(/nota\([^;]*?,\s*(?:t|topo|topo2|topoG)\w*,\s*(-?\d+)\s*,\s*\d+\s*,\s*\{[^}]*haste:\s*"(cima|baixo)"/g)]
+  .forEach(m => ok((m[2] === "cima") === (Number(m[1]) < 4), `figura força haste "${m[2]}" em nota na posição ${m[1]}`));
+
 // ordem e altura dos acidentes na armadura, em clave de Sol
 const ARMADURA = {
   sus: [["Fá5", "Fá"], ["Dó5", "Dó"], ["Sol5", "Sol"], ["Ré5", "Ré"], ["Lá4", "Lá"], ["Mi5", "Mi"], ["Si4", "Si"]],

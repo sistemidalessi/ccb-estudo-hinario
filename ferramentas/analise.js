@@ -340,3 +340,12 @@ function ultimaAulaDaFase(AULAS) {
 
 module.exports = { PERGUNTAS, todasAsAnalises, ultimaAulaDaFase, hinosDaFase, perguntasDoHino,
                    cabeNaFase, lugarNaPauta, escala, FASE_DA_FORMULA };
+
+/* node ferramentas/analise.js --lista → os números dos hinos da análise, para
+   o recortar-hinos.py saber que partituras recortar. */
+if (require.main === module && process.argv.includes("--lista")) {
+  const { carregar } = require("./carregar.js");
+  const { HINOS } = carregar();
+  const T = todasAsAnalises(HINOS);
+  console.log(JSON.stringify(Object.values(T).flat().map(x => x.h.n)));
+}

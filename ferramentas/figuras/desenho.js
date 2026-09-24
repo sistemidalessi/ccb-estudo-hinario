@@ -1,6 +1,7 @@
-/* Desenho das figuras da apostila, em SVG, sem nenhuma dependência.
-   Não há fonte musical instalada no ambiente (e o download é bloqueado), então
-   claves, figuras e pausas são caminhos vetoriais escritos aqui. */
+/* Desenho das figuras da apostila, em SVG. Os símbolos musicais vêm da fonte
+   Bravura (fontes/Bravura.otf, licença OFL): a primeira versão desenhava
+   claves e pausas à mão, e ficaram feias e, no caso da pausa de mínima,
+   erradas. */
 
 const COR = {
   tinta: "#16212A", destaque: "#1F5673", claro: "#7FA9BF",
@@ -23,150 +24,125 @@ const posY = (topo, p) => topo + 4 * D - p * (D / 2);
 
 function pauta(x, topo, larg, opts = {}) {
   const cor = opts.cor || COR.tinta;
-  return el("g", { stroke: cor, "stroke-width": opts.fina ? 1.3 : 1.7 },
+  return el("g", { stroke: cor, "stroke-width": opts.fina ? 1.3 : 0.13 * D + 0.4 },
     [0, 1, 2, 3, 4].map(i =>
       el("line", { x1: x, y1: topo + i * D, x2: x + larg, y2: topo + i * D })).join(""));
 }
 
+/* ------------------------------------------------------------------------
+   Símbolos musicais: glifos da fonte Bravura (padrão SMuFL, licença OFL, em
+   fontes/). Nada de desenho à mão — claves, cabeças, colchetes, pausas,
+   acidentes e fermata saem da fonte, com as medidas do bravura_metadata.json:
+   a fonte tem 4 espaços de pauta por em, então font-size = 4·D, e cada glifo
+   se posiciona pela linha de base, como manda o SMuFL:
+     clave de Sol na 2ª linha, de Fá na 4ª, de Dó na 3ª;
+     pausa de semibreve PENDURADA na 4ª linha; de mínima APOIADA na 3ª;
+     semínima, colcheia e semicolcheia centradas na 3ª linha.
+   ------------------------------------------------------------------------ */
+const FONTE = `font-family="Bravura" font-size="${4 * D}"`;
+const G = {
+  claveSol: "", claveFa: "", claveDo: "",
+  cabecaPreta: "", cabecaMinima: "", cabecaSemibreve: "",
+  pausa1: "", pausa2: "", pausa4: "", pausa8: "", pausa16: "",
+  sustenido: "", bemol: "", bequadro: "",
+  fermata: "", ponto: "",
+  colchete8cima: "", colchete8baixo: "", colchete16cima: "", colchete16baixo: "",
+  quialtera3: "",
+};
+const LARG = { cabeca: 1.18, semibreve: 1.688, sustenido: 0.996, bemol: 0.904, bequadro: 0.672,
+               fermata: 2.42, pausa1: 1.128, pausa2: 1.128, pausa4: 1.08, pausa8: 0.988, pausa16: 1.28 };
+const ESP = { haste: 0.12 * D, linha: 0.13 * D, suplementar: 0.16 * D, barraLig: 0.5 * D, extSup: 0.4 * D };
+const glifo = (x, y, g, cor = COR.tinta) => `<text x="${x}" y="${y}" ${FONTE} fill="${cor}">${g}</text>`;
+
 /* linhas suplementares para uma nota fora da pauta */
 function suplementares(x, topo, p, opts = {}) {
+  const meia = (opts.larg || LARG.cabeca) * D / 2 + ESP.extSup;
   const out = [];
   for (let k = 10; k <= p; k += 2) out.push(k);
   for (let k = -2; k >= p; k -= 2) out.push(k);
   return out.map(k => el("line", {
-    x1: x - RX * 1.55, y1: posY(topo, k), x2: x + RX * 1.55, y2: posY(topo, k),
-    stroke: opts.cor || COR.tinta, "stroke-width": 1.7,
+    x1: x - meia, y1: posY(topo, k), x2: x + meia, y2: posY(topo, k),
+    stroke: opts.cor || COR.tinta, "stroke-width": ESP.suplementar,
   })).join("");
 }
 
-/* Uma nota. dur: 1=semibreve 2=mínima 4=semínima 8=colcheia 16=semicolcheia.
-   pontos: quantidade de pontos de aumento. */
+/* Uma nota, com x no centro da cabeça. dur: 1=semibreve 2=mínima 4=semínima
+   8=colcheia 16=semicolcheia. pontos: pontos de aumento. Haste para cima
+   abaixo da 3ª linha, para baixo da 3ª linha para cima — a regra de gravura. */
 function nota(x, topo, p, dur = 4, opts = {}) {
   const y = posY(topo, p);
   const cor = opts.cor || COR.tinta;
-  const cheia = dur >= 4;
-  const rx = RX, ry = RY;
-  const partes = [suplementares(x, topo, p, { cor })];
-  partes.push(el("ellipse", {
-    cx: x, cy: y, rx, ry, transform: `rotate(-20 ${x} ${y})`,
-    fill: cheia ? cor : "none", stroke: cor, "stroke-width": cheia ? 0 : 2.8,
-  }));
+  const larg = (dur === 1 ? LARG.semibreve : LARG.cabeca) * D;
+  const x0 = x - larg / 2;
+  const partes = [suplementares(x, topo, p, { cor, larg: larg / D })];
+  partes.push(glifo(x0, y, dur === 1 ? G.cabecaSemibreve : dur === 2 ? G.cabecaMinima : G.cabecaPreta, cor));
   if (dur >= 2) {
     const pracima = opts.haste === "cima" || (opts.haste !== "baixo" && p < 4);
-    const hx = pracima ? x + rx - 0.9 : x - rx + 0.9;
-    const hy = pracima ? y - HASTE : y + HASTE;
-    partes.push(el("line", { x1: hx, y1: y, x2: hx, y2: hy, stroke: cor, "stroke-width": 2.5 }));
-    for (let i = 0; !opts.semFlag && i < Math.log2(dur / 4); i++) {
-      const fy = hy + (pracima ? i * D * 0.78 : -i * D * 0.78);
-      const a = D * 0.88, b = D * 1.5, c = D * 0.95;
-      partes.push(el("path", {
-        d: pracima ? `M${hx} ${fy} q${a} ${a * 0.55} ${a * 0.9} ${b} q${-a * 0.35} ${-b * 0.55} ${-a * 0.9} ${-c} z`
-                   : `M${hx} ${fy} q${a} ${-a * 0.55} ${a * 0.9} ${-b} q${-a * 0.35} ${b * 0.55} ${-a * 0.9} ${c} z`,
-        fill: cor, stroke: "none",
-      }));
+    // âncoras do metadata: stemUpSE (1.18, 0.168) e stemDownNW (0, -0.168)
+    const hx = pracima ? x0 + 1.18 * D - ESP.haste / 2 : x0 + ESP.haste / 2;
+    const hy0 = pracima ? y - 0.168 * D : y + 0.168 * D;
+    // haste de 3,5 espaços; chega pelo menos à 3ª linha quando a nota é suplementar
+    let comp = 3.5 * D;
+    const meio = posY(topo, 4);
+    if (pracima && hy0 - comp > meio) comp = hy0 - meio;
+    if (!pracima && hy0 + comp < meio) comp = meio - hy0;
+    const hy = pracima ? hy0 - comp : hy0 + comp;
+    partes.push(el("line", { x1: hx, y1: hy0, x2: hx, y2: hy, stroke: cor, "stroke-width": ESP.haste }));
+    if (!opts.semFlag && dur >= 8) {
+      const g = dur === 8 ? (pracima ? G.colchete8cima : G.colchete8baixo)
+                          : (pracima ? G.colchete16cima : G.colchete16baixo);
+      partes.push(glifo(hx - ESP.haste / 2, hy, g, cor));
     }
+    partes.push(`<!--haste ${hx.toFixed(2)} ${hy.toFixed(2)}-->`);
   }
-  for (let i = 0; i < (opts.pontos || 0); i++)
-    partes.push(el("circle", { cx: x + RX * 1.75 + i * D * 0.5, cy: posY(topo, p % 2 ? p : p + 1), r: D * 0.19, fill: cor }));
+  for (let i = 0; i < (opts.pontos || 0); i++) {
+    // o ponto vai no espaço: nota em linha sobe meio espaço
+    const pp = p % 2 === 0 ? p + 1 : p;
+    partes.push(glifo(x0 + larg + 0.3 * D + i * 0.55 * D, posY(topo, pp), G.ponto, cor));
+  }
   return el("g", {}, partes.join(""));
 }
 
-/* Barra de ligação entre duas notas (colcheias unidas) */
-const barra = (x1, x2, topo, p1, p2, cima = true) => {
-  const e = D * 0.46;                                   // espessura da barra de ligação
-  const y1 = posY(topo, p1) + (cima ? -HASTE : HASTE), y2 = posY(topo, p2) + (cima ? -HASTE : HASTE);
-  return el("path", { d: `M${x1} ${y1} L${x2} ${y2} L${x2} ${y2 + (cima ? e : -e)} L${x1} ${y1 + (cima ? e : -e)} z`, fill: COR.tinta });
+/* Ponta da haste de uma nota desenhada por nota(), para ligar barras. */
+function pontaDaHaste(x, topo, p, cima = true) {
+  const x0 = x - LARG.cabeca * D / 2, y = posY(topo, p);
+  const hx = cima ? x0 + 1.18 * D - ESP.haste / 2 : x0 + ESP.haste / 2;
+  return { x: hx, y: cima ? y - 0.168 * D - 3.5 * D : y + 0.168 * D + 3.5 * D };
+}
+
+/* Barra de ligação (colcheias unidas): as notas devem ser desenhadas com
+   semFlag e haste na mesma direção. Espessura: 0,5 espaço (beamThickness). */
+const barra = (x1, x2, topo, p1, p2, cima = true, qtd = 1) => {
+  const a = pontaDaHaste(x1, topo, p1, cima), b = pontaDaHaste(x2, topo, p2, cima);
+  const e = ESP.barraLig, s = cima ? 1 : -1;
+  let out = "";
+  for (let i = 0; i < qtd; i++) {
+    const d = i * (e + 0.25 * D) * s;
+    out += el("path", { d: `M${a.x - ESP.haste / 2} ${a.y + d} L${b.x + ESP.haste / 2} ${b.y + d} L${b.x + ESP.haste / 2} ${b.y + d + s * e} L${a.x - ESP.haste / 2} ${a.y + d + s * e} z`, fill: COR.tinta });
+  }
+  return out;
 };
 
-/* Pausas. dur igual ao da nota. */
+/* Pausas, com x no centro. dur igual ao da nota. */
 function pausa(x, topo, dur = 4, cor = COR.tinta) {
-  const l3 = topo + 2 * D;                       // 3ª linha
-  if (dur === 1) return el("rect", { x: x - 11, y: l3 - D, width: 22, height: 7, fill: cor });
-  if (dur === 2) return el("rect", { x: x - 11, y: l3, width: 22, height: 7, fill: cor });
-  if (dur === 4) return el("path", {
-    d: `M${x - 5} ${l3 - 20} q10 9 3 18 q-9 9 1 17 q-11 -6 -6 -16 q-8 -8 2 -19 z`, fill: cor });
-  // colcheia e semicolcheia: haste inclinada com ganchos
-  const g = [];
-  const topoH = l3 - 16, baseH = l3 + 16;
-  g.push(el("line", { x1: x + 6, y1: topoH, x2: x - 4, y2: baseH, stroke: cor, "stroke-width": 2.1 }));
-  const n = dur === 8 ? 1 : 2;
-  for (let i = 0; i < n; i++) {
-    const gy = topoH + i * 13;
-    g.push(el("circle", { cx: x + 1, cy: gy, r: 3.4, fill: cor }));
-    g.push(el("path", { d: `M${x + 1} ${gy} q9 -2 11 -6`, fill: "none", stroke: cor, "stroke-width": 2.1 }));
-  }
-  return el("g", {}, g.join(""));
+  const nome = "pausa" + dur;
+  const y = dur === 1 ? posY(topo, 6)      // semibreve: pendurada na 4ª linha
+          : posY(topo, 4);                 // mínima: apoiada na 3ª; as demais, centradas nela
+  return glifo(x - LARG[nome] * D / 2, y, G[nome], cor);
 }
 
-/* Claves, desenhadas à mão. Recebem o topo da pauta. */
-function claveSol(x, topo) {
-  const s = D / 18;                          // a clave ocupa cerca de 7 espaços
-  const g2 = posY(topo, 2);                  // 2ª linha (Sol): centro da espiral
-  // Traçado contínuo, do gancho de baixo até o centro da espiral.
-  const d = `M-14,64 C-23,66 -26,56 -19,50 C-12,45 -3,49 -1,57
-             C1,44 1,20 0,-6
-             C-1,-30 -3,-44 2,-56
-             C4,-61 9,-60 11,-55 C16,-43 13,-29 4,-18
-             C-4,-8 -15,2 -19,12 C-24,24 -17,34 -6,34
-             C5,34 13,26 12,15 C11,6 4,0 -3,1`;
-  return el("g", { transform: `translate(${x} ${g2}) scale(${s})` },
-    el("path", { d, fill: "none", stroke: COR.tinta, "stroke-width": 5.4,
-                 "stroke-linecap": "round", "stroke-linejoin": "round" }));
-}
+/* Claves: x é a borda esquerda. */
+const claveSol = (x, topo, cor) => glifo(x - 1.3 * D, posY(topo, 2), G.claveSol, cor);
+const claveFa = (x, topo, cor) => glifo(x - 1.3 * D, posY(topo, 6), G.claveFa, cor);
+const claveDo = (x, topo, cor) => glifo(x - 1.4 * D, posY(topo, 4), G.claveDo, cor);
 
-function claveFa(x, topo) {
-  const s = D / 17, y4 = posY(topo, 6);       // 4ª linha (Fá)
-  const d = `M-18,-16 C-10,-24 3,-22 8,-13 C14,-2 8,14 -4,24 C-10,29 -17,33 -24,36
-             C-14,27 -5,17 -1,6 C2,-2 1,-13 -6,-15 C-11,-16 -15,-12 -14,-7`;
-  return el("g", { transform: `translate(${x} ${y4})` },
-    el("g", { transform: `scale(${s})` },
-      el("path", { d, fill: "none", stroke: COR.tinta, "stroke-width": 5.4,
-                   "stroke-linecap": "round", "stroke-linejoin": "round" })) +
-    el("circle", { cx: 16 * s, cy: -D / 2, r: 2.7, fill: COR.tinta }) +
-    el("circle", { cx: 16 * s, cy: D / 2, r: 2.7, fill: COR.tinta }));
-}
+/* Acidentes: x no centro, y na altura da nota. */
+const sustenido = (x, y, cor = COR.tinta) => glifo(x - LARG.sustenido * D / 2, y, G.sustenido, cor);
+const bemol = (x, y, cor = COR.tinta) => glifo(x - LARG.bemol * D / 2, y, G.bemol, cor);
+const bequadro = (x, y, cor = COR.tinta) => glifo(x - LARG.bequadro * D / 2, y, G.bequadro, cor);
 
-function claveDo(x, topo) {
-  const s = D / 14, y3 = posY(topo, 4);       // 3ª linha (Dó central)
-  // Meia asa, espelhada em cima e em baixo da 3ª linha.
-  const asa = `M-14,-2 C-14,-14 -9,-24 -1,-27 C6,-30 13,-25 13,-17
-               C13,-10 7,-6 1,-8 C5,-9 7,-13 5,-16 C2,-20 -3,-18 -5,-13
-               C-7,-9 -8,-5 -8,-2`;
-  const meia = el("path", { d: asa, fill: "none", stroke: COR.tinta, "stroke-width": 5,
-                            "stroke-linecap": "round", "stroke-linejoin": "round" });
-  return el("g", { transform: `translate(${x} ${y3}) scale(${s})` },
-    el("rect", { x: -30, y: -28, width: 5, height: 56, fill: COR.tinta }) +
-    el("rect", { x: -22, y: -28, width: 2.4, height: 56, fill: COR.tinta }) +
-    meia + el("g", { transform: "scale(1 -1)" }, meia));
-}
-
-/* Acidentes */
-function sustenido(x, y, cor = COR.tinta) {
-  return el("g", { stroke: cor, fill: cor }, [
-    el("line", { x1: x - 4, y1: y - 11, x2: x - 4, y2: y + 12, "stroke-width": 1.8 }),
-    el("line", { x1: x + 4, y1: y - 13, x2: x + 4, y2: y + 10, "stroke-width": 1.8 }),
-    el("line", { x1: x - 9, y1: y - 2, x2: x + 9, y2: y - 5, "stroke-width": 3 }),
-    el("line", { x1: x - 9, y1: y + 6, x2: x + 9, y2: y + 3, "stroke-width": 3 }),
-  ].join(""));
-}
-function bemol(x, y, cor = COR.tinta) {
-  return el("g", { stroke: cor, fill: "none", "stroke-width": 2 },
-    el("line", { x1: x - 4, y1: y - 18, x2: x - 4, y2: y + 6 }) +
-    el("path", { d: `M${x - 4} ${y + 6} q11 -9 8 -14 q-3 -5 -8 2` }));
-}
-function bequadro(x, y, cor = COR.tinta) {
-  return el("g", { stroke: cor, "stroke-width": 1.9 }, [
-    el("line", { x1: x - 5, y1: y - 13, x2: x - 5, y2: y + 8 }),
-    el("line", { x1: x + 5, y1: y - 8, x2: x + 5, y2: y + 13 }),
-    el("line", { x1: x - 5, y1: y - 5, x2: x + 5, y2: y - 8, "stroke-width": 3 }),
-    el("line", { x1: x - 5, y1: y + 5, x2: x + 5, y2: y + 2, "stroke-width": 3 }),
-  ].join(""));
-}
-
-const fermata = (x, y, cor = COR.tinta) =>
-  el("g", { stroke: cor, fill: "none", "stroke-width": 2.2 },
-    el("path", { d: `M${x - 16} ${y} q16 -20 32 0` }) +
-    el("circle", { cx: x, cy: y - 5, r: 2.6, fill: cor }));
+/* Fermata: x no centro, y na base do arco. */
+const fermata = (x, y, cor = COR.tinta) => glifo(x - LARG.fermata * D / 2, y, G.fermata, cor);
 
 const barraCompasso = (x, topo, tipo = "simples") => {
   const y1 = topo, y2 = topo + 4 * D;
@@ -175,12 +151,15 @@ const barraCompasso = (x, topo, tipo = "simples") => {
   if (tipo === "final") return el("g", { stroke: COR.tinta },
     el("line", { x1: x, y1, x2: x, y2, "stroke-width": 1.8 }) +
     el("line", { x1: x + 7, y1, x2: x + 7, y2, "stroke-width": 5 }));
-  return el("line", { x1: x, y1, x2: x, y2, stroke: COR.tinta, "stroke-width": 1.8 });
+  return el("line", { x1: x, y1, x2: x, y2, stroke: COR.tinta, "stroke-width": 0.16 * D + 0.3 });
 };
 
+/* Fórmula de compasso com os algarismos da fonte (E080–E089): o de cima
+   centrado na 4ª linha, o de baixo na 2ª. x é o centro. */
+const digitos = n => String(n).split("").map(d => String.fromCharCode(0xE080 + Number(d))).join("");
 const formula = (x, topo, cima, baixo) =>
-  el("g", { fill: COR.tinta, "font-family": "Calibri,sans-serif", "font-weight": "700", "font-size": 27, "text-anchor": "middle" },
-    el("text", { x, y: posY(topo, 6) + 9 }, cima) + el("text", { x, y: posY(topo, 2) + 9 }, baixo));
+  `<text x="${x}" y="${posY(topo, 6)}" ${FONTE} text-anchor="middle" fill="${COR.tinta}">${digitos(cima)}</text>` +
+  `<text x="${x}" y="${posY(topo, 2)}" ${FONTE} text-anchor="middle" fill="${COR.tinta}">${digitos(baixo)}</text>`;
 
 /* rótulo alinhado à direita — usado nas legendas da margem esquerda */
 const rotuloDir = (x, y, txt, o = {}) => el("text", {
@@ -203,7 +182,7 @@ const svg = (larg, alt, corpo) =>
    <rect width="${larg}" height="${alt}" fill="#fff"/>${corpo}</svg>`;
 
 module.exports = {
-  COR, D, RX0: 0.62 * 17 - 0.9, el, posY, pauta, nota, barra, pausa, suplementares,
+  COR, D, RX0: 0.62 * 17 - 0.9, el, posY, pauta, nota, barra, pausa, suplementares, glifo, G, FONTE, pontaDaHaste,
   claveSol, claveFa, claveDo, sustenido, bemol, bequadro, fermata,
   barraCompasso, formula, rotulo, rotuloDir, chave, svg,
 };

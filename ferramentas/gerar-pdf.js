@@ -156,17 +156,35 @@ function fichaDoHino(h) {
   return esc(ficha).replace("♩ = ", '<span class="seminima">♩</span>\u202F=\u00A0');
 }
 
+/* Partitura do hino, recortada do hinário por recortar-hinos.py. Fica fora
+   do Git; se não existir, a análise sai sem ela (e avisa no console). */
+const DIR_HINOS = path.join(__dirname, "hinos-img");
+function partituras(n) {
+  if (!fs.existsSync(DIR_HINOS)) return [];
+  return fs.readdirSync(DIR_HINOS).filter(a => a.startsWith(String(n).padStart(3, "0") + "-")).sort()
+    .map(a => "data:image/png;base64," + fs.readFileSync(path.join(DIR_HINOS, a)).toString("base64"));
+}
+let avisouSemPartitura = false;
+
 function analiseHTML(f, instrutor) {
   const bloco = ANALISES[f];
   if (!bloco || !bloco.length) return "";
   const fase = FASES.find(x => x.f === f);
   let c = `<section class="analise"><p class="olho">Fim da fase ${f} · análise de hinos</p>
-    <h2>Com o hinário em mãos</h2>
-    <p class="abre">Fase ${f} — ${esc(fase ? fase.nome.toLowerCase() : "")}. As perguntas cobrem só o que foi estudado até aqui:
-      as marcadas <span class="novo">novo</span> são desta fase; as outras revisam as anteriores.</p>`;
+    <h2>Analise os hinos</h2>
+    <p class="abre">Fase ${f} — ${esc(fase ? fase.nome.toLowerCase() : "")}. Olhe o hino e responda. As perguntas cobrem só
+      o que foi estudado até aqui: as marcadas <span class="novo">novo</span> são desta fase; as outras revisam as anteriores.</p>`;
   if (instrutor && f === 13) c += `<p class="nota alerta">${esc(CONFERIR_RITMO)}</p>`;
-  bloco.forEach(({ h, novas, revisao }) => {
-    c += `<div class="hino-analise"><p class="hcab"><b>Hino ${h.n}</b> <span class="nota">${fichaDoHino(h)}</span></p><ol class="qa">`;
+  bloco.forEach(({ h, novas, revisao }, i) => {
+    const imgs = partituras(h.n);
+    if (!imgs.length && !avisouSemPartitura) {
+      console.warn("  (sem as partituras em ferramentas/hinos-img: rode recortar-hinos.py)");
+      avisouSemPartitura = true;
+    }
+    // a ficha (tom, fórmula, metrônomo) entrega as respostas: só no instrutor
+    c += `<div class="hino-analise${imgs.length ? " com-partitura" : ""}${i ? " novo-hino" : ""}">
+      <p class="hcab"><b>Hino ${h.n}</b>${instrutor ? ` <span class="nota">${fichaDoHino(h)}</span>` : ""}</p>` +
+      imgs.map(src => `<img class="partitura" src="${src}">`).join("") + `<ol class="qa">`;
     [...novas.map(q => [q, true]), ...revisao.map(q => [q, false])].forEach(([[pergunta, gab], nova]) => {
       c += `<li><p>${nova ? '<span class="novo">novo</span> ' : ""}${esc(pergunta)}</p>` +
         (instrutor ? `<p class="gab"><b>Gabarito</b>${esc(gab)}</p>` : `<div class="linhas"><span></span></div>`) + `</li>`;
@@ -200,20 +218,37 @@ function repertorioHTML(instrutor) {
   return c + `</section>`;
 }
 
+/* Módulo "Antes de começar": o Programa Mínimo, por instrumento. Vem antes
+   das aulas — o Anderson quis que o aluno saiba desde o início o que precisa
+   estudar para tocar em cada etapa. */
+const FAMILIAS = { cordas: "Cordas", madeiras: "Madeiras", metais: "Metais" };
+const ETAPA_CURTA = ["Para as reuniões de jovens e menores", "Para os cultos oficiais", "Para a oficialização"];
+
 function programaMinimoHTML() {
   const P = PROGRAMA_MINIMO;
-  let c = `<section class="pagina apendice"><p class="olho">Apêndice</p><h2>Programa Mínimo — todos os instrumentos</h2>
-    <p class="abre">O que cada etapa exige, conforme a sugestão de métodos da CCB (jan/2018). Entre as alternativas
-      de uma mesma etapa, basta uma.</p>
-    <table class="pm"><thead><tr><th>Instrumento</th>${P.etapas.map(e => `<th>${esc(e)}</th>`).join("")}</tr></thead><tbody>`;
-  P.instrumentos.forEach(i => {
-    c += `<tr><td class="inst">${esc(i.nome)}</td>` + i.etapas.map(e =>
-      `<td>${e.metodos.map(esc).join(' <span class="ou">ou</span> ')}${e.voz ? `<p class="voz">${esc(e.voz)}</p>` : ""}</td>`).join("") + `</tr>`;
+  let c = `<section class="pagina antes"><p class="olho">Antes de começar</p><h2>O caminho na orquestra</h2>
+    <p class="abre">Todo músico da orquestra passa por três etapas. Em cada uma, o <b>Programa Mínimo</b> da
+      Congregação diz o que é preciso ter estudado no método do instrumento, na teoria e no hinário. Escolha o
+      seu instrumento e veja, desde já, o caminho.</p>
+    <div class="etapas">
+      <div><span class="num">1</span><b>Reuniões de jovens e menores</b><p>A primeira etapa. Toca-se dos hinos 431 a 480.</p></div>
+      <div><span class="num">2</span><b>Cultos oficiais</b><p>O hinário completo, com a voz principal e a voz alternativa.</p></div>
+      <div><span class="num">3</span><b>Oficialização</b><p>O programa completo e revisado; é o fim da formação.</p></div>
+    </div>
+    <h3>Para todos os instrumentos</h3>
+    <table class="pm"><thead><tr><th></th>${ETAPA_CURTA.map(e => `<th>${esc(e)}</th>`).join("")}</tr></thead><tbody>
+      ${P.todos.map(t => `<tr><td class="inst">${esc(t.item)}</td>${t.etapas.map(e => `<td>${esc(e)}</td>`).join("")}</tr>`).join("")}
+    </tbody></table>`;
+  Object.entries(FAMILIAS).forEach(([fam, nome]) => {
+    c += `<h3 class="familia">${nome}</h3>`;
+    P.instrumentos.filter(i => i.familia === fam).forEach(i => {
+      c += `<div class="instrumento"><p class="nome">${esc(i.nome)}</p><div class="tres">` +
+        i.etapas.map((e, k) => `<div><p class="quando">${ETAPA_CURTA[k]}</p><p>${e.metodos.map(esc).join('<span class="ou"> ou </span>')}</p>` +
+          (e.voz ? `<p class="voz">${esc(e.voz)}</p>` : "") + `</div>`).join("") + `</div></div>`;
+    });
   });
-  P.todos.forEach(t => {
-    c += `<tr class="todos"><td class="inst">${esc(t.item)}</td>${t.etapas.map(e => `<td>${esc(e)}</td>`).join("")}</tr>`;
-  });
-  c += `</tbody></table><ul class="obs">${P.observacoes.map(o => `<li>${esc(o)}</li>`).join("")}</ul></section>`;
+  c += `<ul class="obs">${P.observacoes.map(o => `<li>${esc(o)}</li>`).join("")}</ul>
+    <p class="nota">Fonte: Congregação Cristã no Brasil — Sugestão de métodos para instrumentos, jan/2018.</p></section>`;
   return c;
 }
 
@@ -297,6 +332,12 @@ figure.estreita img { width:97mm; }
 .novo { font-family:"Liberation Sans",sans-serif; font-size:7pt; font-weight:700; letter-spacing:.06em;
   text-transform:uppercase; color:#4A6B3F; background:#E3ECDD; padding:.3mm 1.3mm; border-radius:1mm; }
 .hino-analise { border-left:2.5pt solid #4A6B3F; background:#F4F7F2; padding:2.5mm 4mm; margin:4mm 0; break-inside:avoid; }
+.hino-analise.com-partitura { break-inside:auto; background:none; border-left:0; padding:0; }
+.hino-analise.com-partitura.novo-hino { break-before:page; }
+.hino-analise.com-partitura .hcab { font-size:13pt; border-bottom:1.5pt solid #4A6B3F; padding-bottom:1mm; margin-bottom:3mm; }
+.hino-analise.com-partitura .qa { background:#F4F7F2; border-left:2.5pt solid #4A6B3F; padding:2mm 4mm 2mm 9mm; margin-top:3mm; }
+img.partitura { display:block; width:auto; max-width:100%; max-height:168mm; margin:0 auto 2mm; }
+.hino-analise.com-partitura:not(.novo-hino) img.partitura { max-height:148mm; }
 .hino-analise .hcab { margin:0 0 1mm; font-size:11pt; }
 .qa { margin:0; padding-left:5mm; }
 .qa > li { break-inside:avoid; padding:1.2mm 0; }
@@ -320,6 +361,22 @@ ul.obs { font-size:9pt; color:#3F4C55; padding-left:5mm; }
 .divisor { display:flex; flex-direction:column; justify-content:center; min-height:238mm; text-align:center; }
 .divisor h2 { font-size:28pt; color:#1F5673; }
 .divisor p { color:#5C6B75; }
+.antes h2 { font-size:20pt; color:#1F5673; margin:1mm 0 2mm; }
+.antes .abre { font-size:10.5pt; }
+.etapas { display:grid; grid-template-columns:repeat(3,1fr); gap:3mm; margin:4mm 0 5mm; }
+.etapas > div { background:#F2F4F3; border-top:3pt solid #1F5673; padding:3mm; font-size:9.5pt; }
+.etapas b { display:block; font-size:10.5pt; color:#1F5673; margin-bottom:1mm; }
+.etapas p { margin:0; color:#3F4C55; }
+.etapas .num { float:right; font:700 18pt "Liberation Sans",sans-serif; color:#C2CBC8; line-height:1; }
+h3.familia { font-size:13pt; color:#8A5A2B; border-bottom:.8pt solid #8A5A2B; margin:6mm 0 2mm; padding-bottom:1mm; }
+.instrumento { break-inside:avoid; margin:0 0 3mm; }
+.instrumento .nome { font-weight:700; font-size:11pt; margin:0 0 1mm; }
+.instrumento .tres { display:grid; grid-template-columns:repeat(3,1fr); gap:3mm; }
+.instrumento .tres > div { font-size:8.8pt; line-height:1.4; border-left:1.5pt solid #C2CBC8; padding-left:2mm; }
+.instrumento .quando { font:600 7pt "Liberation Sans",sans-serif; letter-spacing:.05em; text-transform:uppercase; color:#1F5673; margin:0 0 .8mm; }
+.instrumento .tres p { margin:0; }
+.instrumento .ou { font-style:italic; color:#7D8F99; }
+.instrumento .voz { margin-top:1mm !important; color:#8A5A2B; font-weight:600; }
 .sumario { list-style:none; padding:0; margin:2mm 0 0; }
 .sumario li { display:flex; gap:2mm; margin:.8mm 0; font-size:10pt; }
 .sumario li .pont { flex:1; border-bottom:.5pt dotted #AFBAC0; transform:translateY(-1.2mm); }
@@ -365,14 +422,16 @@ function documentoGeral(instrutor, paginas = {}) {
     <h3>A análise de hinos</h3>
     <p>Ao fim de cada uma das 16 fases, dois ou três hinos para analisar com o hinário em mãos. As perguntas
       cobrem só o que já foi estudado: a cada fase entram as perguntas novas, e as anteriores voltam como revisão.</p>
+    <h3>Antes das aulas</h3>
+    <p>O caminho na orquestra: o que o Programa Mínimo pede de cada instrumento para tocar nas reuniões de
+      jovens e menores, nos cultos oficiais e na oficialização.</p>
     <h3>No fim do volume</h3>
-    <p>O repertório de estudo por etapa — reuniões de jovens e menores, cultos oficiais, oficialização — e o
-      Programa Mínimo de todos os instrumentos.</p>
+    <p>O repertório de estudo por etapa: hinos em ordem de dificuldade, cada um trazendo algo novo.</p>
     </section><section class="pagina instr"><h2>Sumário</h2>
-    <ol class="sumario">${[1, 2, 3, 4].map(p =>
+    <ol class="sumario">${linha("pm", "Antes de começar — o caminho na orquestra (Programa Mínimo)")}${[1, 2, 3, 4].map(p =>
       linha(`p${p}`, `${ORDINAL[p]} período — fases ${FASES_DO_PERIODO[p][0]} a ${FASES_DO_PERIODO[p].slice(-1)[0]}`) +
       FASES_DO_PERIODO[p].map(f => linha(`f${f}`, `Análise de hinos — fase ${f}: ${FASES.find(x => x.f === f).nome.toLowerCase()}`, true)).join("")).join("")}
-      ${linha("rep", "Repertório de estudo por etapa")}${linha("pm", "Programa Mínimo — todos os instrumentos")}</ol></section>`;
+      ${linha("rep", "Repertório de estudo por etapa")}</ol></section>`;
   const corpo = [1, 2, 3, 4].map(p =>
     `<section class="pagina divisor"><p class="olho">Estudo do Hinário</p><h2>${ORDINAL[p]} período</h2>
       <p>Fases ${FASES_DO_PERIODO[p][0]} a ${FASES_DO_PERIODO[p].slice(-1)[0]} do MSA · 15 aulas</p>
@@ -380,7 +439,7 @@ function documentoGeral(instrutor, paginas = {}) {
     corpoDoPeriodo(p, instrutor)).join("");
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
     <title>Estudo do Hinário — apostila geral — ${instrutor ? "instrutor" : "candidato"}</title>
-    <style>${ESTILO}</style></head><body>${capa}${instrucoes}${corpo}${repertorioHTML(instrutor)}${programaMinimoHTML()}</body></html>`;
+    <style>${ESTILO}</style></head><body>${capa}${instrucoes}${programaMinimoHTML()}${corpo}${repertorioHTML(instrutor)}</body></html>`;
 }
 
 function documento(periodo, instrutor) {
@@ -422,7 +481,7 @@ function documento(periodo, instrutor) {
 
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
     <title>Estudo do Hinário — ${ORDINAL[periodo]} Período — ${instrutor ? "instrutor" : "candidato"}</title>
-    <style>${ESTILO}</style></head><body>${capa}${instrucoes}${corpo}</body></html>`;
+    <style>${ESTILO}</style></head><body>${capa}${instrucoes}${periodo === 1 ? programaMinimoHTML() : ""}${corpo}</body></html>`;
 }
 
 /* Lê o PDF da primeira passada e acha a página de cada parte do sumário.
@@ -441,7 +500,7 @@ function paginasDoSumario(arquivo) {
     f.forEach(ff => { out[`f${ff}`] = achar(t => new RegExp(`FIM DA FASE ${ff} · ANÁLISE`, "i").test(t)); });
   });
   out.rep = achar(t => /APÊNDICE/i.test(t) && t.includes("Repertório de estudo por etapa"), true);
-  out.pm = achar(t => /APÊNDICE/i.test(t) && t.includes("Programa Mínimo — todos os instrumentos"), true);
+  out.pm = achar(t => /ANTES DE COMEÇAR/i.test(t) && t.includes("O caminho na orquestra") && !t.includes("Sumário"));
   return out;
 }
 
