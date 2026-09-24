@@ -58,7 +58,7 @@ const LICOES = {
   abre: "A altura do som ganha registro gráfico em cinco linhas e quatro espaços. Onde a nota está desenhada diz qual é a nota — mas só depois que a clave disser a partir de onde se conta.",
   blocos: [
     { h: "Cinco linhas, contadas de baixo para cima", t: "A linha de baixo é a 1ª, a de cima é a 5ª. Os espaços entre elas seguem a mesma contagem. Quando a nota não cabe dentro das cinco linhas, desenham-se linhas suplementares, acima ou abaixo, só onde a nota precisa.", fig: "pentagrama" },
-    { h: "As três claves", t: "A clave diz que nota mora em determinada linha, e a partir dela todas as outras se organizam. Clave de Sol na 2ª linha: violino, flauta, clarinete, trompete, saxofone. Clave de Fá na 4ª linha: violoncelo, trombone, tuba, baixo. Clave de Dó na 3ª linha: viola.", fig: "claves" },
+    { h: "As três claves", t: "A clave diz que nota mora em determinada linha, e a partir dela todas as outras se organizam. Clave de Sol na 2ª linha: violino, flauta, clarinete, trompete, saxofone. Clave de Fá na 4ª linha: violoncelo, fagote, trombone, eufônio, tuba. Clave de Dó na 3ª linha: viola.", fig: "claves" },
     { h: "Por que claves diferentes", t: "Para não encher a partitura de linhas suplementares. Um instrumento grave escrito em clave de Sol viveria abaixo da pauta; em clave de Fá, ele cabe. A clave é uma conveniência de leitura, não uma dificuldade extra." },
   ],
   atencao: "Ler a partitura do colega esquecendo que a clave é outra. Antes de dizer qualquer nome de nota, olhe a clave.",
@@ -491,7 +491,7 @@ const LICOES = {
 
 "4-1": {
   titulo: "Dinâmica",
-  abre: "Dinâmica é a variação da intensidade do som, de maneira gradual — tanto para mais forte quanto para mais fraca. É o que separa tocar as notas certas de tocar música.",
+  abre: "Dinâmica é a variação da intensidade do som — o controle do volume — com que uma nota ou um trecho deve ser executado. Ela pode mudar aos poucos (crescendo, diminuendo) ou de uma vez (súbito). É o que separa tocar as notas certas de tocar música.",
   blocos: [
     { h: "Os dois estilos", t: "Dinâmica natural e dinâmica artificial. A artificial é a que vem escrita em sinais e abreviaturas; a natural é a que nasce do próprio texto e do discurso musical." },
     { h: "Como se aplica no hinário", t: "Nos nossos hinários não há indicação de dinâmica artificial. Segue-se a dinâmica natural, de acordo com a poesia do hino e o discurso musical. Os sinais se estudam para saber lê-los em outros materiais — no hinário, quem dita a dinâmica é o texto." },

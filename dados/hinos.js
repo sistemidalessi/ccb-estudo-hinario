@@ -9,7 +9,12 @@
         as cabeças de nota do primeiro sistema caíam no meio dos números.
    mf   a figura do sinal de metrônomo: semínima, colcheia, mínima, semínima
         pontuada. É o que diz se "100-138" são colcheias ou semínimas por
-        minuto; a regência precisa disso para contar os gestos.
+        minuto; a regência precisa disso para contar os gestos. O 272 (6/8
+        em 2) vem impresso com ♩ = 42–52; o Anderson confirmou que é a
+        semínima pontuada (24/09/2026), e assim está aqui.
+   Em oito hinos a marcação não é desenho do compasso ("em 4" num 2/4, "em 3"
+   num 6/8: 32, 33, 147, 247, 265, 322, 419, 427). É agrupamento de frase, e
+   rege-se pela fórmula — decisão do Anderson. O campo fica como impresso.
    ind  indicação interpretativa
 
    Da partitura (lida em 24/09/2026 — ver o script):
@@ -319,7 +324,7 @@ const HINOS = [
 {n:269,tom:"Sol",met:"104-132",mf:"colcheia",fc:["9/8"],ri:"anacrúsico",s:["pontuada"],arc:"baixo",sis:3,ag:"Ré5",gr:"Dó4"},
 {n:270,tom:"Mi♭",met:"69-92",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada"],sis:7,ag:"Mi♭5",gr:"Si♭3"},
 {n:271,tom:"Sol",met:"80-96",mf:"semínima",ind:"Com veneração",fc:["3/4"],ri:"tético",s:["pontuada"],arc:"baixo",sis:2,ag:"Ré5",gr:"Si3"},
-{n:272,tom:"Mi♭",marc:"em 2",met:"42-52",mf:"semínima",fc:["6/8"],ri:"tético",s:["pontuada","fermata","ritornelo"],arc:"baixo",sis:8,ag:"Ré5",gr:"Si♭3"},
+{n:272,tom:"Mi♭",marc:"em 2",met:"42-52",mf:"semínima pontuada",fc:["6/8"],ri:"tético",s:["pontuada","fermata","ritornelo"],arc:"baixo",sis:8,ag:"Ré5",gr:"Si♭3"},
 {n:273,tom:"Lá♭",met:"72-88",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada"],sis:5,ag:"Mi♭5",gr:"Dó4"},
 {n:274,tom:"Mi♭",met:"56-66",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:4,ag:"Dó5",gr:"Si♭3"},
 {n:275,tom:"Lá",met:"66-84",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","tercina"],arc:"cima",sis:7,ag:"Dó♯5",gr:"Si3"},

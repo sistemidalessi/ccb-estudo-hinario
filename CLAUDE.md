@@ -344,11 +344,10 @@ linha** — pendurada na 4ª é a de semibreve). Pediu revisão de tudo.
   "último compasso completa a anacruse" vira "em geral"; escolha entre 6 e 2
   começa pela marcação impressa; fermata em quatro tempos; estatística das
   tonalidades; lição 2-13 ganhou o 6/4.
-- **Pendente de confirmação do Anderson**: em que clave leem trombone,
-  eufônio e tuba na CCB (tirados da figura das claves até ele dizer); escala
-  de Ré maior em duas oitavas no 3º período (exige 3ª posição); ponto de
-  contato do arco no p em região aguda; "dinâmica é variação gradual" é
-  literal do MSA?
+- **Confirmados pelo Anderson** na quarta rodada (ver o fim deste arquivo):
+  claves de trombone, eufônio e tuba; escala de Ré em duas oitavas; arco no
+  p agudo; definição de dinâmica. Falta só: as arcadas lidas batem com as do
+  hinário capa marrom?
 - **Análise com o hino na página**: `recortar-hinos.py` recorta a partitura
   dos hinos da análise para `ferramentas/hinos-img/` (fora do Git), esvaziando
   o fluxo de conteúdo da marca d'água e encurtando o vão branco entre os
@@ -387,8 +386,9 @@ Pedidos do Anderson:
   - `ENTRADA`, em `ferramentas/regencia.js`: em que tempo entra cada hino
     anacrúsico da análise e qual o gesto de preparação — lido no olho, na
     partitura. O `verificar.js` acusa hino da análise sem entrada.
-  - O 32 traz "em 4" e "Reger frase em 4" num 2/4: tratado como agrupamento
-    de frases (`MARCACAO_DE_FRASE`). Conferir com o Anderson.
+  - Marcação que não é desenho do compasso (o 32 traz "em 4" e "Reger frase
+    em 4" num 2/4; são oito hinos): é agrupamento de frase, e rege-se pela
+    fórmula — "se é 2/4, se regerá 2/4" (Anderson). Ver `marcacaoDeFrase`.
 - **Metrônomo.** Ao montar o curso, apareceu que 267 hinos estavam sem
   metrônomo: as cabeças de nota do primeiro sistema caíam no meio dos números.
   Corrigido (`dados_da_pagina` tira a faixa de uso privado antes de procurar);
@@ -403,7 +403,21 @@ Pedidos do Anderson:
   traz ♩ = 42–52, que só faz sentido como semínima pontuada: a observação de
   regência manda conferir.
 
-Pendente de confirmação do Anderson, além dos da terceira rodada: qual
-desenho de 6 a orquestra usa na regência (o do MSA ou o de conjunto, 2–3
-dentro e 4–5 fora); se nas aulas práticas se rege com batuta; a leitura do
-"em 4" do 32; o metrônomo do 272.
+Respostas do Anderson (24/09/2026, mesma tarde):
+- compasso em 6 na regência: os dois desenhos estão corretos; o curso deixa
+  as duas opções, sem misturar no mesmo hino;
+- nas aulas práticas rege-se com batuta;
+- 2/4 rege-se em 2 — vale para toda marcação que não é desenho da fórmula;
+- o ♩ = 42–52 do 272 é semínima pontuada (corrigido em `dados/hinos.js`);
+- trombone lê em clave de Fá (tenor); eufônio e tuba, clave de Fá (baixo):
+  entraram na figura e na lição das claves;
+- a escala de Ré maior em duas oitavas fica como está;
+- p no agudo do violino: ponto de contato do lado do espelho, como estava;
+  acrescentado que nas posições altas tudo se aproxima do cavalete;
+- definição de dinâmica trocada pela que ele trouxe ("variação da
+  intensidade sonora — o controle do volume — com que uma nota ou trecho deve
+  ser executado"); o "gradual" saiu, porque há mudança súbita.
+
+Atenção: o hinário revisado (o PDF) traz dinâmicas em vermelho, mas o
+hinário oficial não traz sinais de dinâmica — a lição 10-1 e o MSA dizem
+isso. O curso de regência segue o oficial: a dinâmica se decide pela letra.

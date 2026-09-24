@@ -49,16 +49,21 @@ const FIG = { 2: "mínima", 4: "semínima", 8: "colcheia" };
 const dur = fig => ({ "mínima": 2, "semínima": 1, "colcheia": 0.5 }[fig.replace(" pontuada", "")] || 1) * (/pontuada/.test(fig) ? 1.5 : 1);
 const PADRAO = {
   2: "1 abaixo, 2 acima", 3: "1 abaixo, 2 fora, 3 acima", 4: "1 abaixo, 2 dentro, 3 fora, 4 acima",
-  6: "use o desenho de 6 que a orquestra da sua região usa (módulo 5)",
+  6: "qualquer dos dois desenhos de 6 do módulo 5 — o do MSA ou o de conjunto —, sem misturá-los no mesmo hino",
   9: "o desenho do 3 com três pulsos em cada direção, o primeiro de cada grupo maior (módulo 7)",
   12: "o desenho do 4 com três pulsos em cada direção, o primeiro de cada grupo maior (módulo 7)",
 };
 
-/* Casos em que a marcação impressa não é o número de gestos. Olhados na
-   partitura em 24/09/2026 — conferir com o Anderson. */
-const MARCACAO_DE_FRASE = {
-  32: "O cabeçalho traz \"em 4\" e, logo abaixo, \"Reger frase em 4\": é agrupamento de frases, não o desenho — quatro gestos por compasso de 2/4, com a semínima entre 52 e 72, dariam colcheias a mais de 100 por minuto. Rege-se em 2, sentindo a frase de quatro compassos.",
-};
+/* Marcação impressa que não é desenho do compasso — "em 4" num 2/4, "em 3"
+   num 6/8. O Anderson (24/09/2026): "se é 2/4, se regerá 2/4". O que o
+   cabeçalho traz nesses hinos é agrupamento de frase ("Reger frase em 4"),
+   e rege-se pela fórmula. Vale em compasso simples o número de cima ou a
+   metade dele (4/4 em 2); em composto, o número de cima ou o terço dele. */
+function marcacaoDeFrase(h, f) {
+  if (!h.marc) return false;
+  const [num] = f.split("/").map(Number), m = Number(h.marc.replace(/\D/g, ""));
+  return composto(f) ? !(m === num || m === num / 3) : !(m === num || m === num / 2);
+}
 
 /* Em quanto se rege: { n (gestos por compasso, ou null se fica à escolha),
    gesto (figura de cada gesto), texto }. */
@@ -70,7 +75,10 @@ function desenho(h) {
   const pulso = FIG[den] || "semínima";
   const tempo = comp ? (den === 4 ? "mínima pontuada" : "semínima pontuada") : pulso;
   const imp = h.marc ? " (marcado no hinário)" : "";
-  if (MARCACAO_DE_FRASE[h.n]) return { n: comp ? num / 3 : num, gesto: tempo, texto: MARCACAO_DE_FRASE[h.n] };
+  if (fs.length === 1 && marcacaoDeFrase(h, f)) {
+    const n = comp ? num / 3 : num;
+    return { n, gesto: tempo, texto: `Em ${n}, pela fórmula ${f}: ${PADRAO[n]}. O "${h.marc}" do cabeçalho não é o desenho deste compasso — é agrupamento de frase (em alguns hinos vem escrito "Reger frase ${h.marc}"). Sinta a frase, mas o gesto segue a fórmula.` };
+  }
   if (fs.length > 1) {
     const [a, b] = fs.map(x => Number(x.split("/")[0]));
     return { n: a, gesto: tempo, texto: `Começa em ${a} (${PADRAO[a]}) e passa a ${b} onde a fórmula muda (${fs.join(" → ")}). O 1º tempo do compasso novo é o que precisa estar claro: prepare-o com o último tempo do desenho antigo e olhe para o grupo na passagem (módulo 11).` };
@@ -162,7 +170,7 @@ function dicasDoHino(h, fase) {
   if (SINCOPA.has(h.n) || CONTRATEMPO.has(h.n))
     out.push([SINCOPA.has(h.n) ? "Síncopa" : "Contratempo", `O GEM lista este hino com ${SINCOPA.has(h.n) ? "síncopa" : "contratempo"}: no trecho, o gesto fica nítido e do mesmo tamanho — não se rege o som fora do tempo (módulo 12).`]);
   if (fase >= 9) out.push(["Entre as estrofes", voltaDaEstrofe(h)]);
-  if (fase >= 10) out.push(["Dinâmica", "Marque antes, no hinário, onde a dinâmica impressa muda, e mostre cada mudança só com o tamanho do gesto."]);
+  if (fase >= 10) out.push(["Dinâmica", "O hinário não traz sinais de dinâmica: decida antes, pela letra e pela frase, onde o som cresce e diminui, e mostre cada mudança só com o tamanho do gesto."]);
   return out;
 }
 
