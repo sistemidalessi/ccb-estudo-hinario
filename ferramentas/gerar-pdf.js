@@ -204,8 +204,8 @@ const linhaDeLeitura = tom => `<table class="leitura"><tr>${ESC.leitura(tom).map
 function escalasHTML(f, hinos) {
   const nv = ESC.NIVEIS[ESC.nivel(f)];
   let c = `<div class="escalas"><h3>Antes dos hinos: a escala de cada um</h3>
-    <p class="nota">${esc(nv.nome)}. Cada instrumento toca a escala na leitura do seu grupo — veja a tabela
-      "As escalas do hinário", no início. Só a escala do tom do hino, e não escala por fazer.</p>`;
+    <p class="nota">${esc(nv.nome)}. Cada um toca a escala do tom escrito no seu hinário, no hino indicado; a linha
+      de cada hino mostra a correspondência entre os hinários. Só a escala do tom do hino, e não escala por fazer.</p>`;
   hinos.forEach(h => {
     const e = ESC.escalaDoHino(h, f);
     c += `<div class="escala"><p class="ecab"><b>Hino ${h.n}</b> — escala de ${esc(e.tom)} maior</p>${linhaDeLeitura(e.tom)}
@@ -221,16 +221,18 @@ function escalasDoHinarioHTML() {
       dele. Só escalas maiores, uma oitava subindo e descendo, e o arpejo — o formato da apostila de escalas e arpejos
       das tonalidades do Hinário 5.</p>
     <h3>O que cada instrumento toca</h3>
-    <p>O hinário está em Dó. Os instrumentos transpositores leem outra escala para soar na mesma: o de Si♭ soa um tom
-      abaixo do que lê; o de Mi♭, uma sexta maior abaixo; o de Fá, uma quinta abaixo.</p>
-    <table class="transp"><thead><tr><th>Tom do hino</th>${ESC.GRUPOS.map(g => `<th>${esc(g.nome)}</th>`).join("")}</tr></thead><tbody>
+    <p>Hoje há hinário em Dó, em Si♭ e em Mi♭, e cada músico lê o do seu instrumento. A regra é simples: toque a
+      escala do tom que está escrito no seu hinário, no hino indicado — ele já está na tonalidade do seu instrumento,
+      e tudo soa junto. A tabela mostra a correspondência, para o instrutor conferir: o que está em Dó aparece um tom
+      acima no hinário em Si♭, uma sexta maior acima no de Mi♭ e uma quinta acima na parte de trompa em Fá.</p>
+    <table class="transp"><thead><tr><th>Tom no hinário em Dó</th>${ESC.GRUPOS.map(g => `<th>${esc(g.nome)}</th>`).join("")}</tr></thead><tbody>
       ${ESC.TONS_DO_HINARIO.map(t => `<tr><td class="inst">${esc(t)} maior</td>${ESC.leitura(t).map(l => `<td>${esc(l.tom)} maior</td>`).join("")}</tr>`).join("")}
     </tbody></table>
     <ul class="obs">${ESC.GRUPOS.map(g => `<li><b>${esc(g.nome)}</b>: ${esc(g.quem)}.</li>`).join("")}</ul>
     <h3>Os quatro níveis</h3>
     <ul class="obs">${ESC.NIVEIS.filter(Boolean).map(n => `<li><b>${esc(n.nome)}</b> (${esc(n.fases)}).</li>`).join("")}</ul>
-    <p class="nota">Cada instrumento toca na oitava do seu método. Em conjunto, o instrutor dá a tônica, e cada grupo toca
-      a escala da sua coluna — soa tudo junto.</p></section>`;
+    <p class="nota">Cada instrumento toca na oitava do seu método. Em conjunto, o instrutor dá a tônica, e cada um toca
+      a escala do seu hinário — soa tudo junto.</p></section>`;
 }
 
 /* ---------- curso de regência (só no caderno do instrutor) ---------- */

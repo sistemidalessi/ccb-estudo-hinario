@@ -479,7 +479,7 @@ const leituraTexto = tom => ESC.leitura(tom).map(l => `${l.grupo}: ${l.tom} maio
 function escalasDaAnalise(f, hinos) {
   const nv = ESC.NIVEIS[ESC.nivel(f)];
   const linhas = [texto("Antes dos hinos: a escala de cada um", { font: SERIF, size: 23, bold: true, cor: AZUL, after: 40 }),
-    texto(`${nv.nome}. Cada instrumento toca a escala na leitura do seu grupo (tabela "As escalas do hinário", no início).`, { size: 17, italico: true, cor: CINZA, after: 100 })];
+    texto(`${nv.nome}. Cada um toca a escala do tom escrito no seu hinário, no hino indicado; a linha de cada hino mostra a correspondência entre os hinários.`, { size: 17, italico: true, cor: CINZA, after: 100 })];
   hinos.forEach(h => {
     const e = ESC.escalaDoHino(h, f);
     linhas.push(new Paragraph({ spacing: { before: 100, after: 30 }, keepNext: true, children: [
@@ -496,17 +496,17 @@ function escalasDoHinario() {
     new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: "As escalas do hinário", font: SERIF, size: 36, bold: true, color: AZUL })] }),
     texto("Escala por fazer rende pouco. Aqui, cada análise de hinos começa com a escala do tom de cada hino, tocada do jeito que o hino pede: no compasso dele, com o ritmo dele, até a nota mais aguda dele, no andamento dele. Só escalas maiores, uma oitava subindo e descendo, e o arpejo — o formato da apostila de escalas e arpejos das tonalidades do Hinário 5.", { size: 20, after: 160 }),
     texto("O que cada instrumento toca", { font: SERIF, size: 25, bold: true, cor: AZUL, after: 60 }),
-    texto("O hinário está em Dó. Os instrumentos transpositores leem outra escala para soar na mesma: o de Si♭ soa um tom abaixo do que lê; o de Mi♭, uma sexta maior abaixo; o de Fá, uma quinta abaixo.", { size: 19, after: 100 })];
+    texto("Hoje há hinário em Dó, em Si♭ e em Mi♭, e cada músico lê o do seu instrumento. A regra é simples: toque a escala do tom que está escrito no seu hinário, no hino indicado — ele já está na tonalidade do seu instrumento, e tudo soa junto. A tabela mostra a correspondência, para o instrutor conferir: o que está em Dó aparece um tom acima no hinário em Si♭, uma sexta maior acima no de Mi♭ e uma quinta acima na parte de trompa em Fá.", { size: 19, after: 100 })];
   const larg = Math.floor(LARGURA / 5);
   const cel = (t, o = {}) => new TableCell({ width: { size: larg, type: WidthType.DXA }, margins: { top: 40, bottom: 40, left: 80, right: 80 },
     children: [texto(t, { size: 18, bold: o.bold, cor: o.cor, after: 0 })] });
   b.push(new Table({ columnWidths: Array(5).fill(larg), width: { size: larg * 5, type: WidthType.DXA },
-    rows: [new TableRow({ children: [cel("Tom do hino", { bold: true, cor: AZUL }), ...ESC.GRUPOS.map(g => cel(g.nome, { bold: true, cor: AZUL }))] }),
+    rows: [new TableRow({ children: [cel("Tom no hinário em Dó", { bold: true, cor: AZUL }), ...ESC.GRUPOS.map(g => cel(g.nome, { bold: true, cor: AZUL }))] }),
       ...ESC.TONS_DO_HINARIO.map(t => new TableRow({ children: [cel(`${t} maior`, { bold: true }), ...ESC.leitura(t).map(l => cel(`${l.tom} maior`))] }))] }), vazio(120));
   ESC.GRUPOS.forEach(g => b.push(texto(`${g.nome}: ${g.quem}.`, { size: 18, after: 30 })));
   b.push(texto("Os quatro níveis", { font: SERIF, size: 25, bold: true, cor: AZUL, before: 160, after: 60 }));
   ESC.NIVEIS.filter(Boolean).forEach(n => b.push(texto(`${n.nome} (${n.fases}).`, { size: 18, after: 30 })));
-  b.push(texto("Cada instrumento toca na oitava do seu método. Em conjunto, o instrutor dá a tônica, e cada grupo toca a escala da sua coluna — soa tudo junto.", { size: 17, italico: true, cor: CINZA, before: 100 }), quebra());
+  b.push(texto("Cada instrumento toca na oitava do seu método. Em conjunto, o instrutor dá a tônica, e cada um toca a escala do seu hinário — soa tudo junto.", { size: 17, italico: true, cor: CINZA, before: 100 }), quebra());
   return b;
 }
 

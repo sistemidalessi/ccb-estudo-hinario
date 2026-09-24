@@ -18,14 +18,15 @@
 const { formula, composto, media, metTexto } = require("./hinos-da-aula.js");
 const { posicaoViolino, umaOitavaAcima } = require("./repertorio.js");
 
-/* Grupos de instrumentos pela afinação. Trombone, eufônio e tuba: a apostila
-   de escalas os escreve como instrumentos em Si♭; quem lê o hinário em Dó
-   toca como os instrumentos em Dó. */
+/* Hoje há hinário em Dó, em Si♭ e em Mi♭ (Anderson, 24/09/2026): cada
+   músico lê o do seu instrumento, e a regra é tocar a escala do tom escrito
+   no seu hinário. A tabela é a correspondência, para o instrutor conferir.
+   Trombone, eufônio e tuba não são nomeados: tocam pelo hinário que usam. */
 const GRUPOS = [
-  { id: "do", nome: "Em Dó", quem: "violino, viola, violoncelo, flauta, oboé, fagote" },
-  { id: "sib", nome: "Em Si♭", quem: "clarinete e clarone, sax soprano e tenor, trompete, cornet, flugelhorn — e trombone, eufônio e tuba, quando leem em Si♭" },
-  { id: "mib", nome: "Em Mi♭", quem: "clarinete alto, sax alto e barítono" },
-  { id: "fa", nome: "Em Fá", quem: "trompa em Fá" },
+  { id: "do", nome: "Hinário em Dó", quem: "violino, viola, violoncelo, flauta, oboé, fagote, e quem mais lê o hinário em Dó" },
+  { id: "sib", nome: "Hinário em Si♭", quem: "clarinete e clarone, sax soprano e tenor, trompete, cornet, flugelhorn, e quem mais lê o hinário em Si♭" },
+  { id: "mib", nome: "Hinário em Mi♭", quem: "clarinete alto, sax alto e barítono, e quem mais lê o hinário em Mi♭" },
+  { id: "fa", nome: "Trompa em Fá", quem: "trompa, quando lê a parte escrita para Fá" },
 ];
 
 /* Tom do hinário (em Dó) → tom que cada grupo lê para soar junto. */
@@ -51,7 +52,7 @@ function armadura(tom) {
   if (tom in NBEM) { const k = NBEM[tom]; return `${k} ${k > 1 ? "bemóis" : "bemol"} (${BEM.slice(0, k).join(", ")})`; }
   return "";
 }
-const leitura = tom => [{ grupo: "Em Dó", tom }, ...["sib", "mib", "fa"].map(g =>
+const leitura = tom => [{ grupo: "Hinário em Dó", tom }, ...["sib", "mib", "fa"].map(g =>
   ({ grupo: GRUPOS.find(x => x.id === g).nome, tom: (TRANSP[tom] || {})[g] }))];
 
 /* Em que nível do exercício cada fase está. */
@@ -77,14 +78,14 @@ function compassoDaEscala(h) {
 /* A escala sugerida antes de um hino, na fase em que ele é analisado. */
 function escalaDoHino(h, f) {
   const n = nivel(f), tom = h.tom;
-  const passos = [`Escala de ${tom} maior, uma oitava, subindo e descendo, em semínimas, uma nota por clique (metrônomo em 60); depois o arpejo: 1ª, 3ª, 5ª, 8ª e de volta.`];
+  const passos = [`A escala maior do tom do hino — no seu hinário, o tom que estiver escrito —, uma oitava, subindo e descendo, em semínimas, uma nota por clique (metrônomo em 60); depois o arpejo: 1ª, 3ª, 5ª, 8ª e de volta.`];
   if (n >= 2) {
     passos.push(`Depois, a mesma escala ${compassoDaEscala(h)}.`);
     if ((h.s || []).includes("pontuada")) passos.push("E uma vez com cada nota no ritmo pontuado — colcheia pontuada e semicolcheia —, que o hino tem.");
   }
   if (n >= 3) {
-    passos.push(`Antes de tocar, diga a armadura: ${armadura(tom)}.`);
-    if (h.ag) passos.push(`Estenda a escala até a nota mais aguda do soprano do hino, ${h.ag.replace(/\d$/, "")}${h.ag ? ` (no violino, soprano 8ª acima: ${umaOitavaAcima(h.ag)}, ${posicaoViolino(umaOitavaAcima(h.ag))})` : ""}.`);
+    passos.push(`Antes de tocar, diga a armadura do seu hinário (no de Dó: ${armadura(tom)}).`);
+    if (h.ag) passos.push(`Estenda a escala até a nota mais aguda do soprano do hino (no hinário em Dó, ${h.ag.replace(/\d$/, "")})${h.ag ? ` (no violino, soprano 8ª acima: ${umaOitavaAcima(h.ag)}, ${posicaoViolino(umaOitavaAcima(h.ag))})` : ""}.`);
   }
   if (n >= 4) {
     const m = media(h);
