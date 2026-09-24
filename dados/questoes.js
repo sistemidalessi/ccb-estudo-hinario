@@ -350,7 +350,7 @@ const Q = [
 {f:14,a:8,t:"14.1",k:"ver",n:2,q:"Em 4/4, quanto vale semínima pontuada + colcheia?",g:"Dois tempos: 1½ + ½."},
 {f:14,a:8,t:"14.1",k:"ver",n:2,q:"Em 4/4, quanto vale uma colcheia pontuada?",g:"Três quartos de tempo — meio tempo da colcheia mais um quarto do ponto."},
 {f:14,a:8,t:"14.1",k:"erro",n:2,q:"Um aluno toca “semínima pontuada + colcheia” como se fosse “mínima + colcheia”. Qual o erro e como corrigi-lo?",g:"Ele alongou a pontuada: ela vale 1½ tempo, não 2. Corrige-se subdividindo o tempo em colcheias e contando 3 + 1."},
-{f:14,a:8,t:"14.1",k:"entender",n:3,q:"Por que a figura pontuada se comporta de modo diferente no compasso simples e no composto?",g:"No compasso simples ela representa um tempo e meio; no composto ela é a própria unidade de tempo, valendo um tempo inteiro."},
+{f:14,a:8,t:"14.1",k:"entender",n:3,q:"Por que a figura pontuada se comporta de modo diferente no compasso simples e no composto?",g:"Porque a unidade de tempo muda. A semínima pontuada, por exemplo: em 4/4 vale um tempo e meio; em 6/8 é a própria unidade de tempo e vale um tempo inteiro."},
 
 /* aula 9 — notas pontuadas (continuação) */
 {f:14,a:9,t:"14.1",k:"tocar",n:2,q:"Toque o trecho pontuado do hino indicado duas vezes: primeiro subdividindo em voz alta, depois no andamento.",g:"Avaliar se a colcheia curta ficou curta mesmo — o erro típico é encompridá-la e transformar o ritmo pontuado em tercina."},

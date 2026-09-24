@@ -64,7 +64,11 @@ ficam para as aulas em que o próprio caderno manda o instrutor escolher.
 ### O que não entra aqui
 
 Partitura e letra do hinário não são reproduzidas em lugar nenhum. Do hinário
-saem apenas número, tonalidade, marcação de movimento e metrônomo. O material
+sai só informação **sobre** o hino, nunca o hino: do cabeçalho, número,
+tonalidade, marcação de movimento, metrônomo e indicação; da partitura, fórmula
+de compasso, ritmo inicial e se há nota pontuada, fermata, tercina, ritornelo.
+Os campos da partitura foram decisão do Anderson em 23/09/2026 — são da mesma
+natureza da tonalidade. Nada além disso sem perguntar a ele. O material
 do GEM também não é copiado: a apostila se apresenta como complementar, porque
 o Manual determina que o conteúdo do MSA seja apresentado por inteiro pelo
 instrutor.
@@ -183,10 +187,11 @@ https://claude.ai/artifact/6AQki1PTcncwzD5f9Mza2S
 
 ## Pendente
 
-- **Tabela de metadados dos 480 hinos** (tom, fórmula de compasso, ritmo inicial,
-  nº de sistemas, sinais presentes). Com ela o gerador escolhe sozinho um hino que
-  sirva ao conceito da aula e o gabarito passa a ser automático. É o maior salto
-  possível neste projeto e depende só de digitação.
+- **Tabela dos 480 hinos: feita** (24/09/2026). Tom, marcação e metrônomo vêm do
+  cabeçalho; fórmula de compasso, ritmo inicial e sinais, da partitura — ver
+  "A leitura da partitura" abaixo. O que ainda não se lê: síncopa e contratempo
+  (o GEM já dá as listas), dinâmica e arcadas (estão lá, na fonte musical, se
+  um dia servirem a alguma aula).
 - Registrar acertos e erros por aluno ao longo do semestre (hoje o modo estudo
   esquece tudo ao recarregar). Seria o caso de Supabase, no padrão dos outros
   projetos do portfólio.
@@ -242,3 +247,26 @@ O que falta, e é o trabalho de verdade:
    o tipo de atividade que ele valoriza: ditado rítmico, composição e prática
    em conjunto. É material de terceiros — não reproduzir, mas vale ter
    atividades equivalentes próprias.
+
+## A leitura da partitura (24/09/2026)
+
+A partitura do `Hinário_revisado.pdf` é texto na fonte **Leland** (MuseScore),
+padrão SMuFL: cada símbolo tem código fixo na faixa de uso privado do Unicode.
+`extrair-hinario.py` lê daí fórmula de compasso, nota pontuada, fermata,
+ritornelo; a tercina é um "3" em itálico da fonte de texto. Tudo foi conferido
+contra as listas do GEM (em 3, 6, 9, 12, alternados, estrofe/coro, tercinas,
+fermatas, casas de ritornelo) — bateu em todas.
+
+**Ritmo inicial** é o dado frágil, e está marcado para conferir em toda parte.
+Sai de duas fontes: o selo cinza de regência na margem ("Levare 3" = preparação
+no 3º tempo, entra no 4º; é imagem, reconhecida pela assinatura) e a largura do
+primeiro compasso comparada à do segundo (abaixo de 0,55 = anacruse). Os
+dezesseis casos em que as duas discordam ou a medida fica no meio foram olhados
+na partitura e estão em `CONFERIDOS_NO_OLHO`, no script. Os dois acéfalos são o
+227 e o 377 — os únicos com o selo "súbito ativo", e o caderno do GEM diz que
+são só dois.
+
+O script roda aqui mesmo: o hinário está no Drive do Anderson
+(`00 - CCB - Música/Hinário_revisado.pdf`) e o computador dele alcança o Drive.
+Não é preciso pedir a ele que rode nada.
+

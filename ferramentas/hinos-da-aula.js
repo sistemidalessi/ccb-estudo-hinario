@@ -6,8 +6,9 @@
    1. a lista oficial do GEM para aquela aula (dados/hinos-por-aula.js), quando
       existe. O caderno de atividades já traz os hinos na ordem de complexidade
       do MSA — nada aqui substitui isso;
-   2. as regras abaixo, que escolhem hinos pelos dados do cabeçalho (tom,
-      marcação, metrônomo). Elas existem para as aulas em que o próprio caderno
+   2. as regras abaixo, que escolhem hinos pelos dados do hinário: tom,
+      marcação e metrônomo, do cabeçalho; fórmula de compasso, ritmo inicial
+      e sinais, lidos da partitura. Elas existem para as aulas em que o próprio caderno
       manda o instrutor selecionar os hinos, e para as que não trazem lista.
 
    Cada regra diz por que aqueles hinos foram escolhidos e gera perguntas com
@@ -47,16 +48,59 @@ function espalhar(lista, quantos) {
 }
 
 const temTom = (...tons) => H => H.filter(h => tons.includes(h.tom));
-const temMarc = m => H => H.filter(h => h.marc === m);
+
+/* ---- fórmula de compasso (campo fc, lido da partitura) ----
+   "C" é o C de 4/4 e "C cortado" o de 2/2: para a conta valem como números. */
+const formula = f => f === "C" ? "4/4" : f === "C cortado" ? "2/2" : f;
+/* só hinos de uma fórmula só: para a aula de um compasso, o hino que muda no
+   meio atrapalha mais do que ajuda (ele tem aula própria, a de compassos
+   alternados) */
+const umaFormula = h => (h.fc && h.fc.length === 1) ? formula(h.fc[0]) : null;
+const temFormula = (...fs) => H => H.filter(h => fs.includes(umaFormula(h)));
+const COMPOSTOS = ["6/8", "9/8", "12/8", "6/4", "9/4"];
+const composto = f => COMPOSTOS.includes(f);
+/* como a fórmula aparece impressa, para a ficha e as perguntas */
+const fcTexto = h => (h.fc || []).map(f => f === "C" ? "C (4/4)" : f === "C cortado" ? "C cortado (2/2)" : f).join(" → ");
+
+/* [unidade de tempo, unidade de compasso] de cada fórmula do hinário */
+const UNIDADES = {
+  "2/4": ["semínima", "mínima"], "3/4": ["semínima", "mínima pontuada"],
+  "4/4": ["semínima", "semibreve"], "2/2": ["mínima", "semibreve"],
+  "3/2": ["mínima", "semibreve pontuada"],
+  "6/8": ["semínima pontuada", "mínima pontuada"],
+  "9/8": ["semínima pontuada", "indefinida — nove colcheias não formam uma figura única"],
+  "12/8": ["semínima pontuada", "semibreve pontuada"],
+  "6/4": ["mínima pontuada", "semibreve pontuada"],
+  "9/4": ["mínima pontuada", "indefinida — nove semínimas não formam uma figura única"],
+};
+const tempos = f => { const [a] = f.split("/").map(Number); return composto(f) ? a / 3 : a; };
+
+/* Quanto vale cada figura pontuada, em tempos, conforme o compasso. */
+function valoresPontuados(f) {
+  const den = Number(f.split("/")[1]);
+  if (!composto(f)) {
+    return den === 4
+      ? "semínima pontuada, um tempo e meio; colcheia pontuada, três quartos de tempo; mínima pontuada, três tempos"
+      : "mínima pontuada, um tempo e meio; semínima pontuada, três quartos de tempo";
+  }
+  return den === 8
+    ? "semínima pontuada, um tempo inteiro (é a unidade de tempo); colcheia pontuada, meio tempo — um pulso e meio; mínima pontuada, dois tempos"
+    : "mínima pontuada, um tempo inteiro (é a unidade de tempo); semínima pontuada, meio tempo; semibreve pontuada, dois tempos";
+}
+
+/* O ritmo inicial foi lido da partitura por medida e pelo selo de regência:
+   é o dado menos certo da tabela, e o instrutor precisa saber disso. */
+const CONFERIR_RITMO = "O ritmo inicial destes hinos foi lido da partitura pela largura do primeiro compasso e pela indicação de regência impressa na margem; os casos duvidosos foram olhados um a um. Mesmo assim, conferir no hinário antes de usar em avaliação.";
 
 /* Chave: "<período>-<aula>". */
 const REGRAS = {
   "1-7": {
-    porque: "hinos cuja marcação impressa é em 4 — o compasso quaternário que a aula estudou",
-    escolher: temMarc("em 4"),
+    porque: "hinos em 4/4 do começo ao fim — o compasso quaternário que a aula estudou",
+    escolher: temFormula("4/4"),
     perguntas: h => [
-      [`No hino ${h.n}, confira a fórmula de compasso no hinário e diga qual é a unidade de tempo.`,
-       "Em 4/4 a unidade de tempo é a semínima e a unidade de compasso é a semibreve."],
+      [`O hino ${h.n} está em ${fcTexto(h)}. Qual é a unidade de tempo e qual a unidade de compasso?`,
+       "Em 4/4 a unidade de tempo é a semínima e a unidade de compasso é a semibreve." +
+       (h.fc[0] === "C" ? " O C no lugar dos números quer dizer o mesmo 4/4." : "")],
       [`Marque a acentuação métrica dos quatro tempos do hino ${h.n}.`,
        "1º forte · 2º fraco · 3º meio-forte · 4º fraco."],
     ],
@@ -75,8 +119,8 @@ const REGRAS = {
     ],
   },
   "2-2": {
-    porque: "hinos marcados em 3 — o compasso ternário da aula",
-    escolher: temMarc("em 3"),
+    porque: "hinos em 3/4 — o compasso ternário da aula",
+    escolher: temFormula("3/4"),
     perguntas: h => [
       [`Marque os três movimentos de solfejo enquanto lê o primeiro sistema do hino ${h.n}.`,
        "Ponto 1 abaixo, ponto 2 para fora, ponto 3 acima; o terceiro movimento volta ao ponto 1."],
@@ -85,8 +129,8 @@ const REGRAS = {
     ],
   },
   "2-6": {
-    porque: "hinos marcados em 2, o compasso binário",
-    escolher: temMarc("em 2"),
+    porque: "hinos em 2/4 e 2/2, o compasso binário",
+    escolher: temFormula("2/4", "2/2"),
     perguntas: h => [
       [`Leia o ritmo do primeiro sistema do hino ${h.n} marcando os dois movimentos.`,
        "Avaliar se o 1º movimento continuou sendo o mais marcado."],
@@ -95,10 +139,10 @@ const REGRAS = {
     ],
   },
   "2-13": {
-    porque: "hinos marcados em 6 — compasso composto, três pulsos em cada tempo",
-    escolher: temMarc("em 6"),
+    porque: "hinos em 6/8 — compasso composto, três pulsos em cada tempo",
+    escolher: temFormula("6/8"),
     perguntas: h => [
-      [`No hino ${h.n}, quantos tempos há no compasso e em quantos pulsos cada um se divide?`,
+      [`No hino ${h.n}, em 6/8, quantos tempos há no compasso e em quantos pulsos cada um se divide?`,
        "Dois tempos, cada um com três pulsos — por isso a unidade de tempo é a semínima pontuada."],
       [`Marque os seis pontos do hino ${h.n}: onde cai o movimento mais amplo?`,
        "Entre o 3º e o 4º ponto — é ele que separa os dois tempos."],
@@ -141,11 +185,11 @@ const REGRAS = {
     ],
   },
   "3-6": {
-    porque: "os hinos do hinário marcados em 9",
-    escolher: temMarc("em 9"),
+    porque: "hinos em 9/8 e 9/4",
+    escolher: temFormula("9/8", "9/4"),
     perguntas: h => [
-      [`No hino ${h.n}, quantos tempos há no compasso e qual a unidade de tempo?`,
-       "Três tempos; unidade de tempo semínima pontuada. A unidade de compasso é indefinida: nove colcheias não formam uma figura única."],
+      [`O hino ${h.n} está em ${fcTexto(h)}. Quantos tempos há no compasso e qual a unidade de tempo?`,
+       `Três tempos; unidade de tempo ${UNIDADES[umaFormula(h)][0]}. A unidade de compasso é ${UNIDADES[umaFormula(h)][1]}.`],
     ],
   },
   "3-12": {
@@ -156,6 +200,92 @@ const REGRAS = {
        `${h.tom} maior; relativa menor, ${RELATIVA[h.tom]}.`],
       [`No hino ${h.n}, tonalidade escrita e tonalidade de execução são a mesma no seu instrumento?`,
        "No violino, na flauta e no violoncelo, sim. No clarinete em Si♭, no sax alto em Mi♭ e no trompete em Si♭, não."],
+    ],
+  },
+  "4-2": {
+    porque: "um hino em compasso simples ao lado de um em composto, os dois com dois tempos",
+    ordenado: true,
+    escolher: H => [
+      espalhar(temFormula("2/4")(H), 1)[0], espalhar(temFormula("6/8")(H), 1)[0],
+    ].filter(Boolean),
+    perguntas: h => {
+      const f = umaFormula(h);
+      return [
+        [`O hino ${h.n} está em ${fcTexto(h)}. O compasso é simples ou composto? Por quê?`,
+         composto(f)
+           ? `Composto: o número de cima é ${f.split("/")[0]}, cada tempo se divide em três pulsos e a unidade de tempo é figura pontuada (${UNIDADES[f][0]}).`
+           : `Simples: cada tempo se divide em dois e a unidade de tempo é figura simples (${UNIDADES[f][0]}).`],
+        [`Quantos tempos tem o compasso do hino ${h.n}?`,
+         `${tempos(f)} tempos${composto(f) ? `, cada um com três pulsos — ${f.split("/")[0]} pulsos ao todo` : ""}.`],
+      ];
+    },
+  },
+  "4-6": {
+    porque: "dois hinos anacrúsicos e um tético, para comparar onde cada um começa",
+    conferir: CONFERIR_RITMO,
+    ordenado: true,
+    escolher: H => {
+      const ana = espalhar(H.filter(h => h.ri === "anacrúsico" && umaFormula(h) && !composto(umaFormula(h))), 2);
+      const tet = espalhar(H.filter(h => h.ri === "tético" && umaFormula(h) && !composto(umaFormula(h))), 1);
+      return [ana[0], tet[0], ana[1]].filter(Boolean);
+    },
+    perguntas: h => [
+      [`O hino ${h.n} (${fcTexto(h)}) começa em que parte do compasso? Classifique o ritmo inicial.`,
+       h.ri === "tético"
+         ? "Tético: a primeira nota cai no 1º tempo, e o primeiro compasso está completo."
+         : "Anacrúsico: as notas iniciais vêm antes do 1º tempo — o primeiro compasso é incompleto."],
+      [`Toque os dois primeiros compassos do hino ${h.n} marcando os tempos. Em que tempo você entrou?`,
+       h.ri === "tético" ? "No 1º tempo." : "Num tempo fraco, antes do 1º tempo do primeiro compasso completo. Conferir no hinário em qual."],
+    ],
+  },
+  "4-7": {
+    porque: "os dois acéfalos do hinário, ao lado de um anacrúsico",
+    conferir: CONFERIR_RITMO + " Os dois acéfalos são os únicos hinos do hinário com a indicação de regência “súbito ativo”.",
+    ordenado: true,
+    escolher: H => [...H.filter(h => h.ri === "acéfalo"),
+      espalhar(H.filter(h => h.ri === "anacrúsico" && umaFormula(h) === "3/4"), 1)[0]].filter(Boolean),
+    perguntas: h => [
+      [`Classifique o ritmo inicial do hino ${h.n} (${fcTexto(h)}).`,
+       h.ri === "acéfalo"
+         ? "Acéfalo: o 1º tempo do primeiro compasso fica em silêncio, e a pausa não vem escrita — é subentendida. É um dos dois únicos do hinário."
+         : "Anacrúsico: as notas iniciais vêm antes do 1º tempo."],
+      [`Entre no hino ${h.n} sem que ninguém conte antes. O que é preciso sentir para acertar a entrada?`,
+       h.ri === "acéfalo"
+         ? "O 1º tempo, que não soa: a entrada vem logo depois dele. Quem não sente o tempo forte em silêncio entra adiantado."
+         : "O tempo em que a anacruse começa, para que a primeira nota do compasso completo caia no tempo forte."],
+    ],
+  },
+  "4-8": {
+    porque: "hinos em compasso simples com notas pontuadas",
+    escolher: H => H.filter(h => (h.s || []).includes("pontuada") && umaFormula(h) && !composto(umaFormula(h))),
+    perguntas: h => [
+      [`Localize uma nota pontuada no hino ${h.n} (${fcTexto(h)}) e diga quantos tempos ela vale.`,
+       `Conforme a figura. Em ${umaFormula(h)}: ${valoresPontuados(umaFormula(h))}.`],
+    ],
+  },
+  "4-9": {
+    porque: "hinos em compasso composto — 6/8, 9/8 e 12/8 — com notas pontuadas",
+    escolher: H => H.filter(h => (h.s || []).includes("pontuada") && ["6/8", "9/8", "12/8"].includes(umaFormula(h))),
+    perguntas: h => [
+      [`Localize uma nota pontuada no hino ${h.n} (${fcTexto(h)}) e diga quantos tempos ela vale.`,
+       `Conforme a figura. Em ${umaFormula(h)}: ${valoresPontuados(umaFormula(h))}.`],
+      [`Leia o primeiro sistema do hino ${h.n} com o metrônomo marcando os pulsos, e não os tempos.`,
+       "Avaliar se as figuras pontuadas ocupam exatamente os pulsos que valem, sem encurtar a figura seguinte."],
+    ],
+  },
+  "4-10": {
+    porque: "a mesma figura pontuada num hino de compasso simples e num de composto",
+    ordenado: true,
+    escolher: H => {
+      const p = H.filter(h => (h.s || []).includes("pontuada"));
+      return [espalhar(p.filter(h => umaFormula(h) === "4/4"), 1)[0],
+              espalhar(p.filter(h => umaFormula(h) === "6/8"), 1)[0]].filter(Boolean);
+    },
+    perguntas: h => [
+      [`No hino ${h.n} (${fcTexto(h)}), quanto vale uma colcheia pontuada, e quanto vale uma semínima pontuada?`,
+       umaFormula(h) === "6/8"
+         ? "Em 6/8: colcheia pontuada, meio tempo (um pulso e meio); semínima pontuada, um tempo inteiro — é a unidade de tempo."
+         : "Em 4/4: colcheia pontuada, três quartos de tempo; semínima pontuada, um tempo e meio."],
     ],
   },
   "4-11": {
@@ -236,7 +366,8 @@ function hinosDaAula(periodo, aula, HINOS, quantos = 3) {
   const achados = regra.ordenado ? candidatos.slice(0, quantos)
                                  : espalhar(candidatos, quantos);
   if (!achados.length) return null;
-  return { fonte: "regra", porque: regra.porque, hinos: achados, perguntas: regra.perguntas };
+  return { fonte: "regra", porque: regra.porque, hinos: achados, perguntas: regra.perguntas,
+           conferir: regra.conferir };
 }
 
-if (typeof module !== "undefined") module.exports = { hinosDaAula, listasOficiais, ARMADURA };
+if (typeof module !== "undefined") module.exports = { hinosDaAula, listasOficiais, ARMADURA, fcTexto };

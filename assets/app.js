@@ -127,10 +127,12 @@ function hinosHTML(){
     dentro += '<p class="muted" style="margin-top:8px">Lista do próprio GEM para esta aula.</p>';
   } else {
     dentro += '<p class="muted">Hinos '+fecho.hinos.map(h=>h.n).join(", ")+" — "+esc(fecho.porque)+".</p>";
+    if(fecho.conferir && verInstrutor) dentro += '<p class="muted"><i>'+esc(fecho.conferir)+"</i></p>";
   }
   fecho.hinos.forEach(h => {
     if(!h.tom) return;
-    const ficha = [h.tom+" maior", h.marc, h.met ? "♩ = "+h.met : "", h.ind].filter(Boolean).join(" · ");
+    const fc = (typeof fcTexto === "function") ? fcTexto(h) : "";
+    const ficha = [h.tom+" maior", fc, h.marc, h.met ? "♩ = "+h.met : "", h.ind].filter(Boolean).join(" · ");
     dentro += '<div class="hino-ficha"><b>Hino '+h.n+"</b> <span class=\"muted\">"+esc(ficha)+"</span>";
     fecho.perguntas(h).forEach(([pergunta, gab]) => {
       dentro += '<div class="hino-q">'+esc(pergunta)+"</div>"+

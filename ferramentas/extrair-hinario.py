@@ -22,7 +22,9 @@ forma: título, e uns 24 a 30 pontos abaixo dele, a tonalidade.
 Os hinos são contados em sequência e o contador é re-sincronizado toda vez que
 um número aparece escrito.
 
-A partitura não é lida nem reproduzida: o script olha só a faixa do cabeçalho.
+Da partitura sai só informação sobre o hino — fórmula de compasso, ritmo
+inicial, se tem nota pontuada, fermata, tercina, ritornelo. Nada dela é
+reproduzido: nem nota, nem desenho.
 
 Uso:
     pip install pymupdf
@@ -215,102 +217,316 @@ def numerar(hinos):
 
 # --------------------------------------------------------------- partitura ---
 #
-# A partitura deste PDF não é desenho: é texto, escrito com uma fonte musical
-# do padrão SMuFL, em que cada símbolo tem um código fixo. Os códigos não
-# aparecem na tela — caem na faixa de uso privado do Unicode —, mas estão lá e
-# podem ser lidos. É assim que sai o que o cabeçalho não diz: fórmula de
-# compasso, nota pontuada, fermata, tercina, ritornelo.
+# A partitura deste PDF não é desenho: é texto, escrito com a fonte Leland (a
+# do MuseScore), que segue o padrão SMuFL — cada símbolo musical tem um código
+# fixo. Os códigos não aparecem na tela, porque caem na faixa de uso privado do
+# Unicode, mas estão lá e podem ser lidos. É assim que sai o que o cabeçalho
+# não diz: fórmula de compasso, nota pontuada, fermata, tercina, ritornelo.
 #
-# Abaixo só entram os códigos de que se tem certeza. O que não estiver aqui é
-# contado à parte, em glifos-desconhecidos.txt, para ser conferido antes de
-# virar informação — em vez de ser adivinhado.
+# O mapa abaixo foi conferido contra o hinário inteiro (24/09/2026), e não
+# suposto. Três coisas que a primeira versão errava, e por quê:
+#   - o ritornelo não usa as barras de repetição do SMuFL (E040–E043): o
+#     MuseScore desenha a barra como traço e escreve só os dois pontos (E044);
+#   - a fórmula pode vir como símbolo — C (4/4) e C cortado (2/2) —, e não só
+#     como dois algarismos; e 12/8 são três algarismos, não dois;
+#   - o número da tercina não é da fonte musical: é um "3" em itálico da fonte
+#     de texto (Edwin), posto sobre as notas.
+# Tudo o que foi lido bate com as listas do caderno do GEM: os hinos em 3, 6, 9
+# e 12, os de compassos alternados, os de fórmula diferente entre estrofe e
+# coro, os de tercina, os de fermata e os de ritornelo com casas.
+#
+# O que a partitura não diz sozinha é o ritmo inicial — ver ritmo_inicial().
 
-SMUFL_DIGITO = range(0xE080, 0xE08A)      # E080..E089 = dígitos 0 a 9 da fórmula
+SMUFL_DIGITO = range(0xE080, 0xE08A)      # E080..E089 = algarismos 0 a 9 da fórmula
+SMUFL_C = 0xE08A                          # C: compasso quaternário, 4/4
+SMUFL_C_CORTADO = 0xE08B                  # C cortado: alla breve, 2/2
 SMUFL_PONTO = 0xE1E7                      # ponto de aumento
-SMUFL_FERMATA = range(0xE4C0, 0xE4CA)     # fermata, em todas as durações
-SMUFL_RESPIRACAO = range(0xE4CE, 0xE4D0)  # vírgula e tique de respiração
-SMUFL_PAUSA = range(0xE4E0, 0xE4F0)       # pausas, da máxima à fusa
-SMUFL_RITORNELO = range(0xE040, 0xE044)   # barras de repetição
-SMUFL_TERCINA = range(0xE880, 0xE88A)     # dígitos de quiáltera
-SMUFL_CABECA = range(0xE0A0, 0xE0A8)      # cabeças de nota
-SMUFL_CLAVE = {0xE050: "sol", 0xE062: "fá", 0xE05C: "dó"}
-SMUFL_ACIDENTE = {0xE260: "bemol", 0xE261: "bequadro", 0xE262: "sustenido"}
-SMUFL_CONHECIDOS = (set(SMUFL_DIGITO) | {SMUFL_PONTO} | set(SMUFL_FERMATA)
-                    | set(SMUFL_RESPIRACAO) | set(SMUFL_PAUSA)
-                    | set(SMUFL_RITORNELO) | set(SMUFL_TERCINA)
-                    | set(SMUFL_CABECA) | set(SMUFL_CLAVE) | set(SMUFL_ACIDENTE))
+SMUFL_FERMATA = (0xE4C0, 0xE4C1)          # fermata acima e abaixo
+SMUFL_PONTO_RITORNELO = 0xE044            # cada um dos dois pontos da barra de repetição
+SMUFL_CABECA = range(0xE0A2, 0xE0A5)      # cabeças de nota: semibreve, mínima, preta
+SMUFL_PAUSA = range(0xE4E3, 0xE4F6)       # pausas, da semibreve à semicolcheia
+# Os que existem no hinário e não servem a nenhuma aula por ora — fica escrito
+# o que são, para o relatório não os tratar como desconhecidos.
+SMUFL_SABIDOS = {
+    0xE000: "chave do sistema", 0xE050: "clave de Sol", 0xE062: "clave de Fá",
+    0xE094: "parêntese da fórmula", 0xE095: "parêntese da fórmula",
+    0xE0BE: "cabeça triangular", 0xE0C2: "cabeça triangular",
+    0xE1C5: "cabeça triangular",
+    0xE1D7: "colcheia (texto)", 0xE1D9: "semicolcheia (texto)",
+    0xE1F0: "nota em texto", 0xE1F2: "nota em texto", 0xE1FC: "ponto em texto",
+    0xE240: "colchete de colcheia", 0xE241: "colchete de colcheia",
+    0xE242: "colchete de semicolcheia", 0xE243: "colchete de semicolcheia",
+    0xE260: "bemol", 0xE261: "bequadro", 0xE262: "sustenido", 0xE264: "dobrado bemol",
+    0xE4A1: "acento", 0xE4A2: "staccato", 0xE4A3: "staccato", 0xE4A4: "tenuto",
+    0xE4A5: "tenuto", 0xE4AA: "staccatissimo",
+    0xE4CE: "respiração (vírgula)", 0xE4D3: "cesura", 0xE4D4: "cesura",
+    0xE520: "p", 0xE522: "f", 0xE52B: "pp", 0xE52C: "mp", 0xE52D: "mf",
+    0xE52F: "ff", 0xE534: "fp", 0xE542: "parêntese de dinâmica",
+    0xE543: "parêntese de dinâmica",
+    0xE610: "arco para baixo", 0xE612: "arco para cima", 0xE655: "pedal",
+    0xE7A3: "baqueta", 0xE842: "golpe", 0xE875: "parêntese alto",
+    0xE876: "parêntese alto", 0xE879: "parêntese alto", 0xE87A: "parêntese alto",
+    0xE8CA: "ponto de acordeão", 0xEA8F: "colchete", 0xEA90: "colchete",
+    0xEA91: "parêntese", 0xEA92: "parêntese", 0xEAA4: "trilo",
+    0xEB79: "seta", 0xEB7B: "seta", 0xEB7C: "seta", 0xEB7D: "seta", 0xEB7E: "seta",
+    0xEC3D: "sustenido (Kievan)",
+    0xECA3: "figura do metrônomo", 0xECA5: "figura do metrônomo",
+    0xECA7: "figura do metrônomo", 0xECB7: "ponto do metrônomo",
+}
+SMUFL_CONHECIDOS = (set(SMUFL_DIGITO) | {SMUFL_C, SMUFL_C_CORTADO, SMUFL_PONTO,
+                    SMUFL_PONTO_RITORNELO} | set(SMUFL_FERMATA) | set(SMUFL_CABECA)
+                    | set(SMUFL_PAUSA) | set(SMUFL_SABIDOS))
 
 USO_PRIVADO = range(0xE000, 0xF900)
 
+# Na margem esquerda de parte dos hinos o hinário traz, em cinza e de lado,
+# a indicação de regência do Maestro: "Levare 3" quer dizer que a preparação
+# é dada no 3º tempo, e portanto o hino entra no 4º. Não é texto — é imagem
+# carimbada —, então é reconhecida pela assinatura da imagem, que se repete
+# idêntica em todas as páginas em que aparece.
+SELOS = {
+    "889e865e13": "Levare 3", "3fbc59c71d": "Levare 2", "3666bc7317": "Levare 4",
+    "70added4f5": "Súbito ativo", "532f065d63": "Súbito ativo, ataca o 2º tempo",
+}
 
-def glifos_da_pagina(pagina):
-    """Símbolos musicais da página, como (y, x, código), na ordem da leitura."""
-    saida = []
+
+# Os hinos em que a leitura automática não decide — selo e medida discordam,
+# ou a medida cai entre 0,55 e 0,8 — foram olhados um a um na partitura em
+# 24/09/2026. A decisão fica escrita aqui, e não no CSV, para sobreviver a uma
+# nova rodada do script. Vale o que está aqui sobre a leitura automática.
+#   2    4/4, selo Levare 4, mas o 1º compasso tem um tempo só
+#   90   3/4, selo Levare 3, mas o 1º compasso tem um tempo só
+#   149  4/4, selo Levare 3, mas o 1º compasso tem os quatro tempos
+#   285  4/4, selo Levare 3, mas o 1º compasso tem os quatro tempos
+#   230  sem fórmula impressa no começo; compassos de quatro semínimas, e o
+#        primeiro tem uma só
+#   366  4/4 com três tempos no 1º compasso
+#   31 53 115  compasso cheio de figuras longas (por isso a medida sai curta)
+#   25 66 128 148 172 357 391  começam com três colcheias — tempo e meio
+CONFERIDOS_NO_OLHO = {
+    2: "anacrúsico", 90: "anacrúsico", 149: "tético", 285: "tético",
+    230: "anacrúsico", 366: "anacrúsico", 31: "tético", 53: "tético",
+    115: "tético", 25: "anacrúsico", 66: "anacrúsico", 128: "anacrúsico",
+    148: "anacrúsico", 172: "anacrúsico", 357: "anacrúsico", 391: "anacrúsico",
+}
+
+
+def elementos_da_pagina(pagina):
+    """O que interessa da partitura de uma página.
+
+    Devolve três listas:
+      glifos    (y, x, x_fim, código, tamanho) de cada símbolo musical
+      tercinas  (y, x) de cada "3" de tercina
+      selos     (y, rótulo) de cada indicação de regência carimbada
+    """
+    glifos, tercinas = [], []
     for bloco in pagina.get_text("rawdict")["blocks"]:
         for linha in bloco.get("lines", []):
             for trecho in linha.get("spans", []):
-                for c in trecho.get("chars", []):
+                texto = "".join(c["c"] for c in trecho["chars"])
+                if "Italic" in trecho["font"] and texto.strip() == "3":
+                    tercinas.append((trecho["bbox"][1], trecho["bbox"][0]))
+                for c in trecho["chars"]:
                     cod = ord(c["c"])
                     if cod in USO_PRIVADO:
-                        saida.append((round(c["bbox"][1]), round(c["bbox"][0]), cod))
-    saida.sort(key=lambda g: (round(g[0] / 6), g[1]))
-    return saida
+                        x0, y0, x1, _ = c["bbox"]
+                        glifos.append((y0, x0, x1, cod, trecho["size"]))
+    selos = []
+    for img in pagina.get_image_info(hashes=True):
+        rot = SELOS.get(img["digest"].hex()[:10])
+        if rot:
+            selos.append((img["bbox"][1], rot))
+    return glifos, tercinas, selos
+
+
+def barras_de_compasso(pagina):
+    """Barras de compasso: traços verticais finos da altura do sistema.
+
+    As hastes das notas também são traços verticais, mas não passam de uns 25
+    pontos; a barra atravessa a pauta dupla inteira, bem mais que isso."""
+    barras = []
+    for d in pagina.get_drawings():
+        r = d["rect"]
+        if r.width < 0.6 and r.height > 40 and len(d["items"]) == 1 and d["items"][0][0] == "l":
+            barras.append((r.x0, r.y0, r.y1))
+    return barras
 
 
 def formulas(glifos):
-    """Fórmulas de compasso: pares de dígitos empilhados, o de cima sobre o de
-    baixo. Na fonte eles saem lado a lado na ordem de leitura, primeiro o
-    numerador. Só conta par que dê uma fórmula que existe em música."""
-    digitos = [g for g in glifos if g[2] in SMUFL_DIGITO]
-    achadas = []
-    for (y1, x1, c1), (y2, x2, c2) in zip(digitos, digitos[1:]):
-        num, den = c1 - 0xE080, c2 - 0xE080
-        if abs(x1 - x2) > 14 or den not in (2, 4, 8, 16) or not 1 <= num <= 12:
+    """Fórmulas de compasso na ordem em que aparecem, como (y, x, "3/4").
+
+    Os algarismos de um mesmo número ficam colados lado a lado (o 12 de 12/8
+    são dois); numerador e denominador ficam um sobre o outro, centrados na
+    mesma vertical, a meia altura de pauta de distância. Como cada fórmula se
+    repete nas duas pautas do sistema, a mesma fórmula sai duas vezes — quem
+    usa tira as repetições."""
+    numeros = []
+    for y, x, x1, cod, tam in sorted((g for g in glifos if g[3] in SMUFL_DIGITO),
+                                     key=lambda g: (g[0], g[1])):
+        ult = numeros[-1] if numeros else None
+        if ult and abs(ult["y"] - y) < 1.5 and -0.5 <= x - ult["x1"] < 2:
+            ult["v"] = ult["v"] * 10 + cod - 0xE080
+            ult["x1"] = x1
+        else:
+            numeros.append({"y": y, "x": x, "x1": x1, "v": cod - 0xE080, "tam": tam})
+    achadas, usados = [], set()
+    for i, a in enumerate(numeros):
+        if i in usados:
             continue
-        f = f"{num}/{den}"
-        if f not in achadas:
-            achadas.append(f)
+        meio_a = (a["x"] + a["x1"]) / 2
+        for j, b in enumerate(numeros):
+            if j in usados or j == i:
+                continue
+            if 0.35 * a["tam"] < b["y"] - a["y"] < 0.65 * a["tam"] \
+                    and abs((b["x"] + b["x1"]) / 2 - meio_a) < 0.25 * a["tam"] \
+                    and 1 <= a["v"] <= 12 and b["v"] in (1, 2, 4, 8, 16):
+                usados |= {i, j}
+                achadas.append((a["y"], a["x"], f"{a['v']}/{b['v']}"))
+                break
+    for y, x, _, cod, _ in glifos:
+        if cod == SMUFL_C:
+            achadas.append((y, x, "C"))
+        elif cod == SMUFL_C_CORTADO:
+            achadas.append((y, x, "C cortado"))
+    achadas.sort()
     return achadas
 
 
-def ritmo_inicial(glifos):
-    """Só o que dá para afirmar: o hino que abre com pausa é acéfalo.
+def valor_da_formula(f):
+    """ "C" → (4, 4); "6/8" → (6, 8)."""
+    if f == "C":
+        return 4, 4
+    if f == "C cortado":
+        return 2, 2
+    a, b = f.split("/")
+    return int(a), int(b)
 
-    Distinguir tético de anacrúsico exigiria somar a duração do primeiro
-    compasso, e a duração não está legível: quando as notas são ligadas por
-    barra, a barra é traço desenhado e não símbolo, e a cabeça de nota sozinha
-    não diz se vale semínima ou colcheia. Chutar aqui seria inventar, então
-    esses dois ficam em branco, para o instrutor decidir.
+
+def razao_do_primeiro_compasso(glifos, barras, formula):
+    """Largura do primeiro compasso dividida pela do segundo.
+
+    A duração das notas não é legível direto — quando as colcheias são ligadas
+    por barra, a barra é traço desenhado e não símbolo —, mas o espaço que o
+    compasso ocupa é: o programa que gravou o hinário distribui as notas pelo
+    tempo que elas duram. Um primeiro compasso que ocupa um quarto do segundo
+    tem um quarto dos tempos: é anacruse. No hinário inteiro as medidas se
+    separam em dois montes, abaixo de 0,55 e acima de 0,8, com pouca coisa no
+    meio."""
+    y, x, _ = formula
+    altura = y + 45            # meio da pauta de cima: por onde a barra passa
+    notas = sorted(g[1] for g in glifos
+                   if g[3] in SMUFL_CABECA and abs(g[0] - y) < 60 and g[1] > x + 5)
+    if not notas:
+        return None
+    inicio = notas[0]
+    xs = []
+    for bx in sorted(b[0] for b in barras if b[1] - 2 <= altura <= b[2] + 2):
+        # a barra de ritornelo do começo fica antes da primeira nota; a barra
+        # dupla são dois traços colados — nenhuma das duas fecha compasso
+        if bx > inicio + 3 and (not xs or bx - xs[-1] > 4):
+            xs.append(bx)
+    if len(xs) < 2 or xs[1] - xs[0] <= 0:
+        return None
+    return round((xs[0] - inicio) / (xs[1] - xs[0]), 2)
+
+
+def ritmo_inicial(razao, selo, formula):
+    """Tético, anacrúsico ou acéfalo — sempre para conferir. Devolve (ritmo, base).
+
+    Duas fontes, e o ritmo só é afirmado quando elas não se contradizem:
+      - o selo de regência do Maestro. "Levare N" dá a preparação no tempo N,
+        então o hino entra no tempo seguinte: se N é o último tempo do
+        compasso, o hino começa no 1º (tético); senão, começa antes dele
+        (anacrúsico). Só vale para compasso simples: no composto não se sabe
+        se o Maestro conta os tempos ou os pulsos. "Súbito ativo" está em
+        exatamente dois hinos, o 227 e o 377 — os dois começam depois do 1º
+        tempo, e o caderno do GEM diz que o hinário tem só dois acéfalos;
+      - a largura do primeiro compasso (razao_do_primeiro_compasso).
+    Quando as duas discordam, ou a medida cai entre 0,55 e 0,8, fica em branco
+    — e o hino vai para CONFERIDOS_NO_OLHO. O selo erra às vezes (o 2, o 90, o
+    149 e o 285 contradizem a própria partitura), e é por isso que ele sozinho
+    não basta.
     """
-    depois = False
-    for _, _, cod in glifos:
-        if cod in SMUFL_DIGITO:
-            depois = True
-            continue
-        if not depois:
-            continue
-        if cod in SMUFL_PAUSA:
-            return "acéfalo"
-        if cod in SMUFL_CABECA:
-            return ""
-    return ""
+    if selo and selo.startswith("Súbito"):
+        return "acéfalo", "selo"
+    medida = ""
+    if razao is not None:
+        medida = "anacrúsico" if razao < 0.55 else "tético" if razao >= 0.8 else ""
+    if selo and selo.startswith("Levare") and formula:
+        num, den = valor_da_formula(formula)
+        tempo = int(selo.split()[1])
+        if num in (2, 3, 4) and den in (2, 4) and tempo <= num:
+            pelo_selo = "tético" if tempo == num else "anacrúsico"
+            if medida and medida != pelo_selo:
+                return "", "selo e medida discordam"
+            return pelo_selo, "selo e medida" if medida else "selo"
+    return medida, "medida" if medida else ""
 
 
-def sinais(glifos):
-    """O que a partitura deste hino traz, dos sinais que a apostila estuda."""
-    cods = {g[2] for g in glifos}
-    tem = []
-    if SMUFL_PONTO in cods:
-        tem.append("nota pontuada")
-    if cods & set(SMUFL_FERMATA):
-        tem.append("fermata")
-    if cods & set(SMUFL_TERCINA):
-        tem.append("tercina")
-    if cods & set(SMUFL_RITORNELO):
-        tem.append("ritornelo")
-    if cods & set(SMUFL_RESPIRACAO):
-        tem.append("respiração")
-    return tem
+def ler_partitura(doc, hinos):
+    """Acrescenta a cada hino o que a partitura diz dele.
+
+    O hino vai do seu cabeçalho até o cabeçalho do seguinte — que pode estar
+    no meio de uma página, por isso o corte é por página e altura. Campos:
+      fc      fórmulas de compasso, na ordem, sem repetição ("3/4 4/4")
+      ritmo   tético / anacrúsico / acéfalo, ou vazio — ver ritmo_inicial()
+      rbase   de onde veio o ritmo: selo, medida, os dois, ou a discordância
+      sinais  nota pontuada, fermata, tercina, ritornelo
+    Devolve a contagem dos códigos que o mapa não conhece, com os hinos."""
+    cache = {}
+
+    def pagina(n):
+        if n not in cache:
+            pg = doc[n - 1]
+            cache[n] = elementos_da_pagina(pg) + (barras_de_compasso(pg),)
+        return cache[n]
+
+    ordem = sorted(hinos, key=lambda h: (h["pag"], h.get("y", 0)))
+    desconhecidos = {}
+    for i, h in enumerate(ordem):
+        prox = ordem[i + 1] if i + 1 < len(ordem) else None
+        ultima = prox["pag"] if prox else doc.page_count
+        glifos, tercinas, selos, primeira = [], 0, [], None
+        for n in range(h["pag"], ultima + 1):
+            g, t, s, barras = pagina(n)
+            de = h.get("y", 0) - 5 if n == h["pag"] else -1e9
+            ate = prox.get("y", 0) - 5 if prox and n == prox["pag"] else 1e9
+            aqui = [e for e in g if de <= e[0] < ate]
+            if primeira is None and formulas(aqui):
+                primeira = (aqui, barras)
+            glifos += aqui
+            tercinas += sum(1 for e in t if de <= e[0] < ate)
+            selos += [r for y, r in s if de <= y < ate]
+        achadas = [f for _, _, f in formulas(glifos)]
+        fc = list(dict.fromkeys(achadas))
+        cods = {}
+        for e in glifos:
+            cods[e[3]] = cods.get(e[3], 0) + 1
+        sinais = []
+        if cods.get(SMUFL_PONTO):
+            sinais.append("nota pontuada")
+        if any(cods.get(c) for c in SMUFL_FERMATA):
+            sinais.append("fermata")
+        if tercinas:
+            sinais.append("tercina")
+        if cods.get(SMUFL_PONTO_RITORNELO, 0) >= 2:
+            sinais.append("ritornelo")
+        razao = None
+        if primeira:
+            g1, b1 = primeira
+            razao = razao_do_primeiro_compasso(g1, b1, formulas(g1)[0])
+        selo = selos[0] if selos else ""
+        ritmo, base = ritmo_inicial(razao, selo, fc[0] if fc else "")
+        if h.get("conf") != "avulso" and h.get("n") in CONFERIDOS_NO_OLHO:
+            ritmo, base = CONFERIDOS_NO_OLHO[h["n"]], "conferido no olho"
+        h.update(fc=" ".join(fc), ritmo=ritmo, rbase=base, razao=razao, selo=selo,
+                 sinais=", ".join(sinais))
+        for c, q in cods.items():
+            if c not in SMUFL_CONHECIDOS:
+                desconhecidos.setdefault(c, [0, set()])
+                desconhecidos[c][0] += q
+                desconhecidos[c][1].add(h.get("n"))
+    return desconhecidos
 
 
 # ---------------------------------------------------------------- procura ---
@@ -564,13 +780,17 @@ def ler(caminho, registrar_falhas=True):
             # abaixo de onde a leitura procura, é assim que ele aparece.
             descartadas[i + 1] = linhas_do_topo(pagina, TOPO_RELATORIO)
     total = doc.page_count
-    doc.close()
     numerar(hinos)
 
     recuperados = recuperar(hinos, descartadas, total)
     if recuperados:
         print(f"  {len(recuperados)} aberturas recuperadas numa segunda leitura "
               "(hino que começa no meio da página, e não no alto)")
+
+    print("  lendo a partitura (fórmula de compasso, sinais, ritmo inicial)...")
+    desconhecidos = ler_partitura(doc, hinos)
+    doc.close()
+    relatorio_partitura(hinos, desconhecidos)
 
     if registrar_falhas:
         suspeitas = paginas_suspeitas(hinos, total)
@@ -620,6 +840,32 @@ def ler(caminho, registrar_falhas=True):
     return hinos
 
 
+def relatorio_partitura(hinos, desconhecidos):
+    """partitura.txt: o que precisa de olho humano antes de virar apostila."""
+    alvo = Path(__file__).parent / "partitura.txt"
+    validos = [h for h in hinos if h["conf"] != "avulso"]
+    with open(alvo, "w", encoding="utf-8") as f:
+        f.write("Leitura da partitura — o que conferir.\n\n")
+        sem_fc = [h["n"] for h in validos if not h["fc"]]
+        f.write(f"Hinos sem fórmula de compasso lida: {sem_fc or 'nenhum'}\n")
+        f.write("  (o 230 não tem fórmula impressa no começo; o 434 não está no PDF)\n\n")
+        mudam = [(h["n"], h["fc"]) for h in validos if " " in h["fc"].replace("C cortado", "C")]
+        f.write("Hinos em que a fórmula muda no meio:\n")
+        for n, fc in mudam:
+            f.write(f"  {n}: {fc}\n")
+        f.write("\nRitmo inicial em branco (o instrutor decide):\n")
+        for h in validos:
+            if not h["ritmo"]:
+                f.write(f"  {h['n']}: {h['rbase'] or 'medida no meio do caminho'}"
+                        f" (razão {h['razao']}, selo {h['selo'] or '—'}, {h['fc'] or 'sem fórmula'})\n")
+        f.write("\nCódigos da fonte musical que o script não conhece:\n")
+        if not desconhecidos:
+            f.write("  nenhum — todo símbolo do hinário está identificado.\n")
+        for c, (q, ns) in sorted(desconhecidos.items()):
+            f.write(f"  U+{c:04X}  {q}x  nos hinos {sorted(n for n in ns if n)[:15]}\n")
+    print(f"  (o que conferir da partitura está em {alvo.name})")
+
+
 def diagnostico(caminho, paginas=10):
     doc = fitz.open(conferir_caminho(caminho))
     saida = Path(__file__).parent / "diagnostico.txt"
@@ -659,25 +905,27 @@ def main():
         # extrasaction="ignore": os registros carregam campos internos (impresso)
         # que não vão para o CSV. Sem isso, o DictWriter estoura na primeira linha.
         w = csv.DictWriter(f, extrasaction="ignore",
-                           fieldnames=["n", "conf", "titulo", "tom", "marcacao", "met", "ind", "pag"])
+                           fieldnames=["n", "conf", "titulo", "tom", "marcacao", "met", "ind",
+                                       "fc", "ritmo", "rbase", "razao", "selo", "sinais", "pag"])
         w.writeheader()
         w.writerows(hinos)
 
     with open(saida / "extracao.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, extrasaction="ignore",
-                           fieldnames=["n", "conf", "tom", "marcacao", "met", "ind", "pag"])
+                           fieldnames=["n", "conf", "tom", "marcacao", "met", "ind",
+                                       "fc", "ritmo", "rbase", "sinais", "pag"])
         w.writeheader()
         w.writerows(hinos)
 
-    campos = ("n", "titulo", "tom", "marcacao", "met", "ind")
+    campos = ("n", "titulo", "tom", "marcacao", "met", "ind", "fc", "ritmo", "sinais")
     confiaveis = [h for h in hinos if h["conf"] not in ("incerto", "avulso") and h["n"]]
     linhas = ",\n".join(
         " {" + ", ".join(f"{k}:{json.dumps(h[k], ensure_ascii=False)}" for k in campos if h[k] not in ("", None)) + "}"
         for h in confiaveis)
     with open(saida / "hinos.js", "w", encoding="utf-8") as f:
         f.write("/* Cabeçalho dos hinos, extraído do hinário. n=número · tom=tonalidade ·\n"
-                "   marcacao=movimento de marcação impresso · met=metrônomo · ind=indicação.\n"
-                "   Ritmo inicial e sinais da partitura não saem daqui. */\n"
+                "   marcacao=movimento de marcação impresso · met=metrônomo · ind=indicação ·\n"
+                "   fc=fórmula de compasso · ritmo=ritmo inicial (conferir) · sinais. */\n"
                 "const HINOS = [\n" + linhas + "\n];\n")
 
     avulsos = [h for h in hinos if h["conf"] == "avulso"]
@@ -699,12 +947,19 @@ def main():
     print(f"  com marcação (em 2, em 6...): {sum(1 for h in hinos if h['marcacao'])}")
     print(f"  com metrônomo: {sum(1 for h in hinos if h['met'])}")
     print(f"  com indicação interpretativa: {sum(1 for h in hinos if h['ind'])}")
+    print(f"  com fórmula de compasso: {sum(1 for h in hinos if h['fc'])}")
+    for r in ("tético", "anacrúsico", "acéfalo"):
+        print(f"  ritmo inicial {r} (conferir): {sum(1 for h in hinos if h['ritmo'] == r)}")
+    print(f"  ritmo inicial em branco: {sum(1 for h in hinos if not h['ritmo'])}")
+    for sn in ("nota pontuada", "fermata", "tercina", "ritornelo"):
+        print(f"  com {sn}: {sum(1 for h in hinos if sn in h['sinais'])}")
     if faltando:
         print(f"  números de 1 a 480 ainda sem hino ({len(faltando)}): {faltando[:20]}{' ...' if len(faltando) > 20 else ''}")
     print(f"\nGerados em {saida}/ :")
     print("  hinos.csv     — com os títulos, para você conferir. Fica fora do Git.")
     print("  extracao.csv  — sem os títulos. É este que vai para o repositório.")
     print("  nao-lidas.txt — as páginas que mesmo assim ficaram de fora.")
+    print("  partitura.txt — o que conferir da leitura da partitura.")
     print("\nAbra o hinos.csv e veja se uns cinco hinos que você sabe de cor estão certos.")
     print("Depois, no GitHub Desktop: Commit to main e Push origin. Só isso.")
 
