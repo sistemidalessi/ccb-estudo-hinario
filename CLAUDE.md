@@ -20,7 +20,7 @@ Quatro arquivos, nenhuma biblioteca, nenhum passo de build:
 index.html          estrutura e marcação das quatro telas
 assets/estilo.css   tokens de cor (claro/escuro) e todo o layout
 assets/app.js       abas, gerador de ficha, modo estudo, banco
-assets/figuras/     as 20 figuras em PNG, geradas (não desenhadas à mão)
+assets/figuras/     as 30 figuras em PNG, geradas (não desenhadas à mão)
 .nojekyll           impede o Jekyll de processar o site no Pages
 
 dados/curriculo.js      FASES (16 fases do MSA), TIPOS (8 tipos) e AULAS (as 60)
@@ -37,7 +37,10 @@ ferramentas/analise.js        análise de hinos ao fim de cada fase, com gabarit
 ferramentas/repertorio.js     repertório por etapa do Programa Mínimo
 ferramentas/gerar-apostila.js gera as duas apostilas .docx de cada período
 ferramentas/extrair-hinario.py extrai o cabeçalho dos hinos do hinário em PDF
-ferramentas/figuras/          desenho.js + gera.js + render.mjs → assets/figuras
+ferramentas/regencia.js       observações de regência de cada hino da análise
+ferramentas/recortar-hinos.py recorta a partitura dos hinos da análise (fora do Git)
+ferramentas/figuras/          desenho.js + gera.js + regencia.js + render.mjs → assets/figuras
+dados/regencia.js             REGENCIA — o curso de regência dos instrutores (16 módulos)
 apostila/                     os .docx gerados (candidato e instrutor)
 ```
 
@@ -50,7 +53,8 @@ São documentos diferentes, não um com respostas e outro sem:
   aula e a tarefa de casa;
 - **instrutor**: antes de cada aula, uma página de roteiro tirada do Plano de
   Aula oficial (habilidades, objetivos, conteúdo, duração, recursos,
-  metodologia, avaliação); depois, a mesma aula com os gabaritos.
+  metodologia, avaliação); depois, a mesma aula com os gabaritos; e, ao fim
+  de cada fase, depois da análise de hinos, o módulo do curso de regência.
 
 `node ferramentas/gerar-apostila.js` gera os oito arquivos; passando um número,
 gera só aquele período.
@@ -354,3 +358,52 @@ linha** — pendurada na 4ª é a de semibreve). Pediu revisão de tudo.
   orquestra"), por família e instrumento, na apostila geral e na do 1º
   período. O repertório por etapa continua no fim do volume geral.
 
+
+## Quarta rodada — curso de regência, nome do maestro, metrônomo (24/09/2026)
+
+Pedidos do Anderson:
+
+- **Tirar "Maestro Rômulo Moreira"** das duas apostilas ("para não fazer
+  propaganda de ninguém"; título e autor ficam). O nome está no cabeçalho de
+  cada hino do PDF; `recortar-hinos.py` o apaga por redação (só o trecho de
+  texto — notas e linhas intactas) e falha se ele sobrar. No código o filtro
+  procura só a palavra "Maestro", para o nome não ficar no repositório.
+- **Curso de regência, só no caderno do instrutor.** Uma vez por mês o GEM
+  tem aula prática em que os instrutores regem dois ou três hinos. Ao fim de
+  cada fase, depois da análise, vem um módulo (`dados/regencia.js`): técnica
+  com figuras, "Na aula prática" e, para cada hino da análise, as observações
+  de `ferramentas/regencia.js` — desenho, andamento, entrada e preparação,
+  fermata, ritornelo, síncopa, volta entre estrofes. A técnica acompanha o
+  MSA: postura e batuta (1), ictus e desenho em 4 (2), preparação (3), 3, 2 e
+  corte (4), fermata e 6 (5), mão esquerda (6), 9 e 12 e andamento (7),
+  ensaio (8), estrofes e ritornelo (9), dinâmica (10), articulação e 4/4 em 2
+  (11), síncopa (12), entradas difíceis e acéfalo (13), subdivisão (14),
+  ritardando (15), frase e avaliação do colega (16).
+  - Fonte: resumo em palavras próprias do curso comprado por ele (Drive,
+    `00 - CCB - Música/03 - Regência`) e de manuais de batuta da internet.
+    Autores não citados, pelo mesmo motivo do maestro.
+  - Nenhum material da pasta tem figura de como segurar a batuta: a figura
+    `reg-batuta` foi feita a partir de manuais de técnica de batuta.
+  - `ENTRADA`, em `ferramentas/regencia.js`: em que tempo entra cada hino
+    anacrúsico da análise e qual o gesto de preparação — lido no olho, na
+    partitura. O `verificar.js` acusa hino da análise sem entrada.
+  - O 32 traz "em 4" e "Reger frase em 4" num 2/4: tratado como agrupamento
+    de frases (`MARCACAO_DE_FRASE`). Conferir com o Anderson.
+- **Metrônomo.** Ao montar o curso, apareceu que 267 hinos estavam sem
+  metrônomo: as cabeças de nota do primeiro sistema caíam no meio dos números.
+  Corrigido (`dados_da_pagina` tira a faixa de uso privado antes de procurar);
+  hoje os 480 têm. Com isso a lista de hinos da análise mudou em 13 hinos, e
+  as perguntas de lento/rápido e o repertório também.
+- **Campo novo `mf`**: a figura do sinal de metrônomo (semínima, colcheia,
+  mínima, semínima pontuada). É parte do metrônomo, mas é campo novo —
+  avisar o Anderson. Sem ele, "100-138" num 6/8 não diz se são colcheias, e
+  a ficha imprimia sempre ♩. `metTexto()` monta o sinal certo; as perguntas
+  "o que indicam esses números" dizem a figura, e as de lento/rápido só usam
+  hinos em que o número conta a própria unidade de tempo. O 272 (6/8 em 2)
+  traz ♩ = 42–52, que só faz sentido como semínima pontuada: a observação de
+  regência manda conferir.
+
+Pendente de confirmação do Anderson, além dos da terceira rodada: qual
+desenho de 6 a orquestra usa na regência (o do MSA ou o de conjunto, 2–3
+dentro e 4–5 fora); se nas aulas práticas se rege com batuta; a leitura do
+"em 4" do 32; o metrônomo do 272.

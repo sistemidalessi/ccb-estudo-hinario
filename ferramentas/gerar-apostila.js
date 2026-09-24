@@ -22,12 +22,13 @@ const {
   BorderStyle, PageBreak, Table, TableRow, TableCell, WidthType, ShadingType, ImageRun,
 } = require("docx");
 const { carregar } = require("./carregar.js");
-const { hinosDaAula, listasOficiais, fcTexto } = require("./hinos-da-aula.js");
+const { hinosDaAula, listasOficiais, fcTexto, metTexto } = require("./hinos-da-aula.js");
 
 const RAIZ = path.join(__dirname, "..");
 const { TIPOS, AULAS, Q, HINOS, PLANOS, FASES } = carregar(RAIZ);
 const { todasAsAnalises, ultimaAulaDaFase } = require("./analise.js");
 const { repertorio } = require("./repertorio.js");
+const { dicasDoHino, REGENCIA } = require("./regencia.js");
 const { PROGRAMA_MINIMO } = require(path.join(RAIZ, "dados", "programa-minimo.js"));
 const ANALISES = todasAsAnalises(HINOS);
 const FIM_DA_FASE = ultimaAulaDaFase(AULAS);
@@ -199,6 +200,10 @@ function comoUsar(periodo, instrutor) {
     texto("Os níveis", { font: SERIF, size: 24, bold: true, after: 140 }),
     texto("Cada exercício traz um nível de 1 a 3. Nível 1 é reconhecer o que está escrito; nível 2 é explicar por que é assim; nível 3 é aplicar, comparar ou decidir. Não é nota — é para o candidato saber o que ainda falta."),
     vazio(180),
+    ...(instrutor ? [
+      texto("O curso de regência", { font: SERIF, size: 24, bold: true, after: 140 }),
+      texto("Só neste caderno. Depois da análise de hinos de cada fase vem um módulo de regência para a aula prática mensal, em que os instrutores regem: a técnica do módulo, com figuras, e as observações para reger cada hino da análise. A técnica cresce com o conteúdo do MSA, do compasso em 4 ao começo acéfalo."),
+      vazio(180)] : []),
   ];
 
   comum.push(instrutor
@@ -380,7 +385,7 @@ function hinoDaAula(periodo, num, instrutor) {
   /* ficha e perguntas dos hinos escolhidos */
   fecho.hinos.forEach(h => {
     if (!h.tom) return;                       // hino fora da extração: só o número
-    const ficha = [h.tom + " maior", fcTexto(h), h.marc, h.met ? "♩ = " + h.met : "", h.ind].filter(Boolean).join(" · ");
+    const ficha = [h.tom + " maior", fcTexto(h), h.marc, metTexto(h), h.ind].filter(Boolean).join(" · ");
     linhas.push(texto(`Hino ${h.n} — ${ficha}`, { bold: true, size: 19, after: 35, before: 70 }));
     fecho.perguntas(h).forEach(([pergunta, gab]) => {
       linhas.push(new Paragraph({
@@ -433,7 +438,7 @@ function analise(f, instrutor) {
       { size: 17, italico: true, cor: PRATICA, after: 120 }));
   }
   bloco.forEach(({ h, novas, revisao }, i) => {
-    const ficha = [h.tom + " maior", fcTexto(h), h.marc, h.met ? "♩ = " + h.met : "", h.ind].filter(Boolean).join(" · ");
+    const ficha = [h.tom + " maior", fcTexto(h), h.marc, metTexto(h), h.ind].filter(Boolean).join(" · ");
     const imgs = partituras(h.n);
     if (imgs.length) {
       // como nas fichas do GEM: o hino na página, e as perguntas logo abaixo.
@@ -465,6 +470,44 @@ function analise(f, instrutor) {
   return b;
 }
 
+/* ---------- curso de regência (só no caderno do instrutor) ---------- */
+
+const MARROM = PRATICA;
+function blocosDeRegencia(mod) {
+  const b = [];
+  mod.blocos.forEach(x => {
+    b.push(texto(x.h, { font: SERIF, size: 24, bold: true, before: 160, after: 60 }), texto(x.t, { size: 20 }));
+    if (x.fig) b.push(...figura(x.fig));
+  });
+  return b;
+}
+function regencia(f) {
+  const mod = REGENCIA[f];
+  if (!mod) return [];
+  const b = [];
+  const titulo = (olho, t) => [quebra(), texto(olho, { caps: true, size: 16, cor: CINZA, after: 60 }),
+    new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: t, font: SERIF, size: 32, bold: true, color: MARROM })] })];
+  if (f === 1) {
+    const I = REGENCIA.intro;
+    b.push(...titulo("Curso de regência · para os instrutores", I.titulo), texto(I.abre, { size: 20, cor: "3F4C55", after: 160 }), ...blocosDeRegencia(I));
+  }
+  b.push(...titulo(`Curso de regência · módulo ${f} de 16`, mod.titulo), texto(mod.abre, { size: 20, cor: "3F4C55", after: 160 }), ...blocosDeRegencia(mod));
+  b.push(caixa([texto("Na aula prática", { caps: true, size: 16, bold: true, cor: MARROM, after: 60 }),
+    ...mod.pratica.map(p => texto(`· ${p}`, { size: 19, after: 60 }))], { faixa: MARROM, fundo: "F7F1E8" }), vazio(200));
+  b.push(texto("Para reger os hinos da análise desta fase", { font: SERIF, size: 25, bold: true, cor: MARROM, after: 100,
+    borda: { bottom: { style: BorderStyle.SINGLE, size: 8, space: 2, color: MARROM } } }));
+  (ANALISES[f] || []).forEach(({ h }) => {
+    const ficha = [h.tom + " maior", fcTexto(h), h.marc, metTexto(h), h.ind].filter(Boolean).join(" · ");
+    b.push(new Paragraph({ spacing: { before: 160, after: 60 }, keepNext: true, children: [
+      new TextRun({ text: `Hino ${h.n}  `, font: SERIF, size: 23, bold: true, color: TINTA }),
+      new TextRun({ text: ficha, font: SERIF, size: 18, italics: true, color: CINZA })] }));
+    dicasDoHino(h, f).forEach(([r, t]) => b.push(new Paragraph({ spacing: { after: 50 }, indent: { left: 340 }, children: [
+      new TextRun({ text: `${r.toUpperCase()}  `, font: SANS, size: 15, bold: true, color: MARROM }),
+      new TextRun({ text: t, font: SANS, size: 19, color: TINTA })] })));
+  });
+  return b;
+}
+
 /* ---------- repertório e Programa Mínimo (só na apostila geral) ---------- */
 
 function apendices(instrutor) {
@@ -475,7 +518,7 @@ function apendices(instrutor) {
     b.push(texto(et.nome, { font: SERIF, size: 25, bold: true, cor: AZUL, before: 200, after: 40 }),
       texto(`Violino: ${et.violino}`, { size: 17, italico: true, cor: CINZA, after: 100 }));
     et.hinos.forEach((x, i) => {
-      const ficha = [x.h.tom + " maior", fcTexto(x.h), x.h.met ? "♩ = " + x.h.met : ""].filter(Boolean).join(" · ");
+      const ficha = [x.h.tom + " maior", fcTexto(x.h), metTexto(x.h)].filter(Boolean).join(" · ");
       const traz = i === 0 ? `ponto de partida — ${x.tudo.filter(t => !t.startsWith("violino:")).join(", ")}` : x.traz.join(", ");
       b.push(new Paragraph({ spacing: { after: 20 }, children: [
         new TextRun({ text: `Hino ${x.n}  `, font: SANS, size: 20, bold: true, color: TINTA }),
@@ -520,7 +563,7 @@ function aulasDoPeriodo(periodo, instrutor) {
     if (instrutor) corpo.push(...roteiro(periodo, a[0]));
     corpo.push(...aula(periodo, a, instrutor));
     const f = faseQueFecha(periodo, a[0]);
-    if (f) corpo.push(...analise(f, instrutor));
+    if (f) corpo.push(...analise(f, instrutor), ...(instrutor ? regencia(f) : []));
   });
   return corpo;
 }

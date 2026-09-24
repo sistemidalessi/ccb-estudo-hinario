@@ -132,7 +132,7 @@ function hinosHTML(){
   fecho.hinos.forEach(h => {
     if(!h.tom) return;
     const fc = (typeof fcTexto === "function") ? fcTexto(h) : "";
-    const ficha = [h.tom+" maior", fc, h.marc, h.met ? "♩ = "+h.met : "", h.ind].filter(Boolean).join(" · ");
+    const ficha = [h.tom+" maior", fc, h.marc, (typeof metTexto === "function") ? metTexto(h) : (h.met ? "♩ = "+h.met : ""), h.ind].filter(Boolean).join(" · ");
     dentro += '<div class="hino-ficha"><b>Hino '+h.n+"</b> <span class=\"muted\">"+esc(ficha)+"</span>";
     fecho.perguntas(h).forEach(([pergunta, gab]) => {
       dentro += '<div class="hino-q">'+esc(pergunta)+"</div>"+

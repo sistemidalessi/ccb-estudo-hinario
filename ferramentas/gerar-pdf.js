@@ -20,12 +20,13 @@
 const fs = require("fs");
 const path = require("path");
 const { carregar } = require("./carregar.js");
-const { hinosDaAula, listasOficiais, fcTexto } = require("./hinos-da-aula.js");
+const { hinosDaAula, listasOficiais, fcTexto, metTexto } = require("./hinos-da-aula.js");
 
 const RAIZ = path.join(__dirname, "..");
 const { TIPOS, AULAS, Q, HINOS, PLANOS, FASES } = carregar(RAIZ);
 const { todasAsAnalises, ultimaAulaDaFase } = require("./analise.js");
 const { repertorio } = require("./repertorio.js");
+const { dicasDoHino, REGENCIA } = require("./regencia.js");
 const { PROGRAMA_MINIMO } = require(path.join(RAIZ, "dados", "programa-minimo.js"));
 const ANALISES = todasAsAnalises(HINOS);
 const FIM_DA_FASE = ultimaAulaDaFase(AULAS);
@@ -46,7 +47,7 @@ function figura(nome) {
   if (!cacheFig.has(nome)) {
     const arq = path.join(RAIZ, "assets", "figuras", nome + ".png");
     if (!fs.existsSync(arq)) { cacheFig.set(nome, ""); }
-    else cacheFig.set(nome, `<figure class="${nome.startsWith("mov") ? "estreita" : ""}">` +
+    else cacheFig.set(nome, `<figure class="${/^(mov|reg-\d)/.test(nome) ? "estreita" : ""}">` +
       `<img src="data:image/png;base64,${fs.readFileSync(arq).toString("base64")}" alt="${esc(nome)}"></figure>`);
   }
   return cacheFig.get(nome);
@@ -115,9 +116,8 @@ function hinoDaAula(periodo, num, instrutor) {
   }
   fecho.hinos.forEach(h => {
     if (!h.tom) return;
-    const ficha = [h.tom + " maior", fcTexto(h), h.marc, h.met ? "♩ = " + h.met : "", h.ind].filter(Boolean).join(" · ");
     // o ♩ da fonte do texto sai minúsculo e solto do número: vai na DejaVu
-    const fichaHtml = esc(ficha).replace("♩ = ", '<span class="seminima">♩</span>\u202F=\u00A0');
+    const fichaHtml = fichaDoHino(h);
     dentro += `<div class="ficha"><p><b>Hino ${h.n}</b> <span class="nota">${fichaHtml}</span></p>`;
     fecho.perguntas(h).forEach(([pergunta, gab]) => {
       dentro += `<p class="hq">${esc(pergunta)}</p>` +
@@ -152,8 +152,9 @@ function aula(periodo, [num, tops, assunto], instrutor) {
 const CONFERIR_RITMO = "O ritmo inicial foi lido da partitura (largura do primeiro compasso e indicação de regência na margem); conferir no hinário antes de usar em avaliação.";
 
 function fichaDoHino(h) {
-  const ficha = [h.tom + " maior", fcTexto(h), h.marc, h.met ? "♩ = " + h.met : "", h.ind].filter(Boolean).join(" · ");
-  return esc(ficha).replace("♩ = ", '<span class="seminima">♩</span>\u202F=\u00A0');
+  const ficha = [h.tom + " maior", fcTexto(h), h.marc, metTexto(h), h.ind].filter(Boolean).join(" · ");
+  // o ♩ e o ♪ da fonte do texto saem minúsculos e soltos do número: vão na DejaVu
+  return esc(ficha).replace(/([♩♪]\.?) = /, '<span class="seminima">$1</span>\u202F=\u00A0');
 }
 
 /* Partitura do hino, recortada do hinário por recortar-hinos.py. Fica fora
@@ -190,6 +191,39 @@ function analiseHTML(f, instrutor) {
         (instrutor ? `<p class="gab"><b>Gabarito</b>${esc(gab)}</p>` : `<div class="linhas"><span></span></div>`) + `</li>`;
     });
     c += `</ol></div>`;
+  });
+  return c + `</section>`;
+}
+
+/* ---------- curso de regência (só no caderno do instrutor) ---------- */
+
+/* Um módulo ao fim de cada fase, logo depois da análise: a técnica do
+   módulo e, para cada hino da análise, as observações para regê-lo na aula
+   prática do mês. Texto em dados/regencia.js; observações em regencia.js. */
+function blocosDeRegencia(mod) {
+  // os desenhos de compasso vão ao lado do texto: embaixo dele, cada um
+  // ocupava meia página
+  const lado = n => /^(mov|reg-\d)/.test(n || "");
+  return mod.blocos.map(b => lado(b.fig)
+    ? `<h3>${esc(b.h)}</h3>${figura(b.fig).replace('<figure class="estreita">', '<figure class="lado">')}<p>${esc(b.t)}</p>`
+    : `<h3>${esc(b.h)}</h3><p>${esc(b.t)}</p>${figura(b.fig)}`).join("") + `<div style="clear:both"></div>`;
+}
+function regenciaHTML(f) {
+  const mod = REGENCIA[f];
+  if (!mod) return "";
+  let c = "";
+  if (f === 1) {
+    const I = REGENCIA.intro;
+    c += `<section class="regencia"><p class="olho">Curso de regência · para os instrutores</p>
+      <h2>${esc(I.titulo)}</h2><p class="abre">${esc(I.abre)}</p>${blocosDeRegencia(I)}</section>`;
+  }
+  c += `<section class="regencia"><p class="olho">Curso de regência · módulo ${f} de 16</p>
+    <h2>${esc(mod.titulo)}</h2><p class="abre">${esc(mod.abre)}</p>${blocosDeRegencia(mod)}
+    <div class="caixa regpratica"><h3>Na aula prática</h3><ul>${mod.pratica.map(p => `<li>${esc(p)}</li>`).join("")}</ul></div>
+    <h3 class="reghinos">Para reger os hinos da análise desta fase</h3>`;
+  (ANALISES[f] || []).forEach(({ h }) => {
+    c += `<div class="reghino"><p class="hcab"><b>Hino ${h.n}</b> <span class="nota">${fichaDoHino(h)}</span></p><dl>` +
+      dicasDoHino(h, f).map(([r, t]) => `<dt>${esc(r)}</dt><dd>${esc(t)}</dd>`).join("") + `</dl></div>`;
   });
   return c + `</section>`;
 }
@@ -382,12 +416,30 @@ h3.familia { font-size:13pt; color:#8A5A2B; border-bottom:.8pt solid #8A5A2B; ma
 .sumario li .pont { flex:1; border-bottom:.5pt dotted #AFBAC0; transform:translateY(-1.2mm); }
 .sumario li.sub { padding-left:6mm; font-size:9pt; color:#3F4C55; }
 .instr p { margin-bottom:.6em; }
+.regencia { break-before:page; }
+.regencia h2 { font-size:17pt; color:#8A5A2B; margin:1mm 0 2mm; }
+.regencia h3 { font-size:12pt; margin:4mm 0 1.5mm; clear:both; }
+figure.lado { float:right; width:66mm; margin:0 0 2mm 6mm; }
+figure.lado img { width:66mm; }
+.regencia .caixa { clear:both; }
+.regencia .abre { font-size:10.5pt; color:#3F4C55; }
+.regpratica { border-left-color:#8A5A2B; background:#F7F1E8; }
+.regpratica h3 { color:#8A5A2B; margin:0 0 1.5mm; font-size:8.5pt; }
+.regpratica ul { margin:0; padding-left:5mm; font-size:10pt; }
+.regpratica li { margin-bottom:1mm; }
+h3.reghinos { color:#8A5A2B; border-bottom:.8pt solid #8A5A2B; padding-bottom:1mm; margin-top:6mm; }
+.reghino { break-inside:avoid; margin:3mm 0 4mm; }
+.reghino .hcab { font-size:11.5pt; margin:0 0 1mm; }
+.reghino dl { display:grid; grid-template-columns:27mm 1fr; gap:1mm 3mm; margin:0; font-size:9.6pt; line-height:1.42; }
+.reghino dt { font:600 7.5pt "Liberation Sans",sans-serif; letter-spacing:.06em; text-transform:uppercase; color:#8A5A2B; padding-top:.8mm; }
+.reghino dd { margin:0; color:#16212A; }
 `;
 
 function corpoDoPeriodo(periodo, instrutor) {
   return AULAS[periodo].map(a => {
     const f = faseQueFecha(periodo, a[0]);
-    return (instrutor ? roteiro(periodo, a[0]) : "") + aula(periodo, a, instrutor) + (f ? analiseHTML(f, instrutor) : "");
+    return (instrutor ? roteiro(periodo, a[0]) : "") + aula(periodo, a, instrutor) +
+      (f ? analiseHTML(f, instrutor) + (instrutor ? regenciaHTML(f) : "") : "");
   }).join("");
 }
 
@@ -406,7 +458,8 @@ function documentoGeral(instrutor, paginas = {}) {
     ${instrutor
       ? `<div class="caixa" style="margin-top:14mm;text-align:left"><h3>Uso do instrutor</h3>
          <p>Roteiro de cada aula, gabaritos de todos os exercícios e das análises de hinos, repertório por etapa
-         e o Programa Mínimo de todos os instrumentos, para orientar os demais instrutores.</p></div>`
+         o Programa Mínimo de todos os instrumentos, para orientar os demais instrutores, e o curso de
+         regência da aula prática mensal.</p></div>`
       : `<div class="campos">Nome: ______________________________________________<br>
          Comum congregação: _________________________________<br>
          Instrumento: ____________________ Ano letivo: _________</div>`}
@@ -422,6 +475,10 @@ function documentoGeral(instrutor, paginas = {}) {
     <h3>A análise de hinos</h3>
     <p>Ao fim de cada uma das 16 fases, dois ou três hinos para analisar com o hinário em mãos. As perguntas
       cobrem só o que já foi estudado: a cada fase entram as perguntas novas, e as anteriores voltam como revisão.</p>
+    ${instrutor ? `<h3>O curso de regência</h3>
+    <p>Só neste caderno. Depois da análise de cada fase, um módulo de regência para a aula prática mensal, em
+      que os instrutores regem: a técnica do módulo, com figuras, e as observações para reger cada hino da
+      análise. A técnica cresce com o conteúdo do MSA, do compasso em 4 ao começo acéfalo.</p>` : ""}
     <h3>Antes das aulas</h3>
     <p>O caminho na orquestra: o que o Programa Mínimo pede de cada instrumento para tocar nas reuniões de
       jovens e menores, nos cultos oficiais e na oficialização.</p>
@@ -430,7 +487,8 @@ function documentoGeral(instrutor, paginas = {}) {
     </section><section class="pagina instr"><h2>Sumário</h2>
     <ol class="sumario">${linha("pm", "Antes de começar — o caminho na orquestra (Programa Mínimo)")}${[1, 2, 3, 4].map(p =>
       linha(`p${p}`, `${ORDINAL[p]} período — fases ${FASES_DO_PERIODO[p][0]} a ${FASES_DO_PERIODO[p].slice(-1)[0]}`) +
-      FASES_DO_PERIODO[p].map(f => linha(`f${f}`, `Análise de hinos — fase ${f}: ${FASES.find(x => x.f === f).nome.toLowerCase()}`, true)).join("")).join("")}
+      FASES_DO_PERIODO[p].map(f => linha(`f${f}`, `Análise de hinos — fase ${f}: ${FASES.find(x => x.f === f).nome.toLowerCase()}`, true) +
+        (instrutor ? linha(`r${f}`, `Regência — ${f === 1 ? "introdução e " : ""}módulo ${f}: ${REGENCIA[f].titulo.toLowerCase()}`, true) : "")).join("")).join("")}
       ${linha("rep", "Repertório de estudo por etapa")}</ol></section>`;
   const corpo = [1, 2, 3, 4].map(p =>
     `<section class="pagina divisor"><p class="olho">Estudo do Hinário</p><h2>${ORDINAL[p]} período</h2>
@@ -455,7 +513,8 @@ function documento(periodo, instrutor) {
     <p class="fases">Fases ${fases[0]} a ${fases[fases.length - 1]} do MSA · 15 aulas</p>
     ${instrutor
       ? `<div class="caixa" style="margin-top:14mm;text-align:left"><h3>Uso do instrutor</h3>
-         <p>Traz o roteiro de cada aula e os gabaritos de todos os exercícios. O caderno do candidato é o outro arquivo.</p></div>`
+         <p>Traz o roteiro de cada aula, os gabaritos de todos os exercícios e, ao fim de cada fase, o módulo do
+         curso de regência para a aula prática mensal. O caderno do candidato é o outro arquivo.</p></div>`
       : `<div class="campos">Nome: ______________________________________________<br>
          Comum congregação: _________________________________<br>
          Instrumento: ____________________ Ano letivo: _________</div>`}
@@ -475,7 +534,11 @@ function documento(periodo, instrutor) {
     <p>Os exercícios de prática são apresentados ao instrutor, que assina a data ao lado.</p>
     <h3>Os níveis</h3>
     <p>Nível 1 é reconhecer o que está escrito; nível 2 é explicar por que é assim;
-      nível 3 é aplicar, comparar ou decidir. Não é nota.</p></section>`;
+      nível 3 é aplicar, comparar ou decidir. Não é nota.</p>${instrutor ? `
+    <h3>O curso de regência</h3>
+    <p>Só neste caderno. Depois da análise de hinos de cada fase vem um módulo de regência para a aula prática
+      mensal, em que os instrutores regem: a técnica do módulo, com figuras, e as observações para reger cada
+      hino da análise.</p>` : ""}</section>`;
 
   const corpo = corpoDoPeriodo(periodo, instrutor);
 
@@ -497,7 +560,11 @@ function paginasDoSumario(arquivo) {
   [1, 2, 3, 4].forEach(p => {
     const f = FASES_DO_PERIODO[p];
     out[`p${p}`] = achar(t => t.includes(`Fases ${f[0]} a ${f[f.length - 1]} do MSA · 15 aulas`) && t.includes("período") && !t.includes("Sumário"));
-    f.forEach(ff => { out[`f${ff}`] = achar(t => new RegExp(`FIM DA FASE ${ff} · ANÁLISE`, "i").test(t)); });
+    f.forEach(ff => {
+      out[`f${ff}`] = achar(t => new RegExp(`FIM DA FASE ${ff} · ANÁLISE`, "i").test(t));
+      out[`r${ff}`] = achar(t => ff === 1 ? /CURSO DE REGÊNCIA · PARA OS INSTRUTORES/i.test(t)
+                                          : new RegExp(`CURSO DE REGÊNCIA · MÓDULO ${ff} DE 16`, "i").test(t));
+    });
   });
   out.rep = achar(t => /APÊNDICE/i.test(t) && t.includes("Repertório de estudo por etapa"), true);
   out.pm = achar(t => /ANTES DE COMEÇAR/i.test(t) && t.includes("O caminho na orquestra") && !t.includes("Sumário"));

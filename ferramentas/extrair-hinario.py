@@ -139,7 +139,10 @@ def dados_da_pagina(linhas, contador=0, faixa_tom=(34, 62)):
                 break
 
     cabecalho = " ".join(t for _, t in linhas)
-    met = METRONOMO.search(cabecalho)
+    # As cabeças de nota do primeiro sistema (fonte musical, faixa de uso
+    # privado) caem na mesma linha do metrônomo e ficam no meio dos números
+    # ("= \ue0a4 100 \ue0a4 - 138"): sem tirá-las, 267 metrônomos se perdiam.
+    met = METRONOMO.search(re.sub(r"[\ue000-\uf8ff]+", " ", cabecalho))
     # A marcação "em 2" / "em 6" cai ora junto da tonalidade, ora na linha do
     # título ("Ó Pai celestial 142 Em 6"). Procura nas duas, nessa ordem.
     # Fora daí (y≈6) há anotações como "Pode agrupar frases em 4", que são
@@ -862,6 +865,43 @@ def recuperar(hinos, descartadas, total):
     return recuperados
 
 
+FIGURA_METRONOMO = {0xECA3: "mínima", 0xECA5: "semínima", 0xECA7: "colcheia"}
+
+
+def figura_do_metronomo(doc, hinos):
+    """A figura do sinal de metrônomo (♩, ♪, 𝅗𝅥, com ou sem ponto), campo "mf".
+    Sem ela, "63-88" não diz se são semínimas ou colcheias por minuto — e a
+    regência precisa saber quantos gestos por minuto o número dá. O sinal é
+    um glifo da fonte de texto musical, logo antes do "=", uns 40 a 70 pontos
+    abaixo do título; o ponto de aumento é outro glifo (E CB7) logo à direita."""
+    for h in hinos:
+        h["mf"] = ""
+        if h.get("conf") == "avulso" or not h.get("met"):
+            continue
+        pg = doc[h["pag"] - 1]
+        y0 = h.get("y", 0)
+        cand, pontos = [], []
+        for b in pg.get_text("rawdict")["blocks"]:
+            for l in b.get("lines", []):
+                for sp in l["spans"]:
+                    for ch in sp["chars"]:
+                        c, (x, y) = ord(ch["c"]), ch["bbox"][:2]
+                        # y0 é o alto do cabeçalho; no alto da página ele
+                        # pode vir negativo (glifo solto acima do título), e
+                        # por isso a janela conta a partir de zero
+                        if not (y0 - 10 <= y <= max(y0, 0) + 100):
+                            continue
+                        if c in FIGURA_METRONOMO:
+                            cand.append((y, x, c))
+                        elif c == 0xECB7:
+                            pontos.append((y, x))
+        if not cand:
+            continue
+        y, x, c = min(cand)
+        pontuada = any(abs(py - y) < 8 and 0 < px - x < 20 for py, px in pontos)
+        h["mf"] = FIGURA_METRONOMO[c] + (" pontuada" if pontuada else "")
+
+
 def ler(caminho, registrar_falhas=True):
     p = conferir_caminho(caminho)
     doc = fitz.open(p)
@@ -886,6 +926,7 @@ def ler(caminho, registrar_falhas=True):
         print(f"  {len(recuperados)} aberturas recuperadas numa segunda leitura "
               "(hino que começa no meio da página, e não no alto)")
 
+    figura_do_metronomo(doc, hinos)
     print("  lendo a partitura (fórmula de compasso, sinais, ritmo inicial)...")
     desconhecidos = ler_partitura(doc, hinos)
     doc.close()
@@ -1004,7 +1045,7 @@ def main():
         # extrasaction="ignore": os registros carregam campos internos (impresso)
         # que não vão para o CSV. Sem isso, o DictWriter estoura na primeira linha.
         w = csv.DictWriter(f, extrasaction="ignore",
-                           fieldnames=["n", "conf", "titulo", "tom", "marcacao", "met", "ind",
+                           fieldnames=["n", "conf", "titulo", "tom", "marcacao", "met", "mf", "ind",
                                        "fc", "ritmo", "rbase", "razao", "selo", "sinais", "arco",
                                        "sis", "agudo", "grave", "pag"])
         w.writeheader()
@@ -1012,7 +1053,7 @@ def main():
 
     with open(saida / "extracao.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, extrasaction="ignore",
-                           fieldnames=["n", "conf", "tom", "marcacao", "met", "ind",
+                           fieldnames=["n", "conf", "tom", "marcacao", "met", "mf", "ind",
                                        "fc", "ritmo", "rbase", "sinais", "arco", "sis", "agudo", "grave", "pag"])
         w.writeheader()
         w.writerows(hinos)

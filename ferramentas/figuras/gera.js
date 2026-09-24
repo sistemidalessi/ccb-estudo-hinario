@@ -373,6 +373,9 @@ FIGS["cordas-violino"] = () => {
   return svg(W, base + leg.alt + 6, c + leg.svg);
 };
 
+/* ---------- curso de regência (só no caderno do instrutor) ---------- */
+Object.assign(FIGS, require("./regencia.js").FIGS);
+
 /* ---------- página para o render ---------- */
 const ids = Object.keys(FIGS);
 fs.writeFileSync(path.join(__dirname, "figuras.html"),

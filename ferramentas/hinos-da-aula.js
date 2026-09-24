@@ -35,6 +35,16 @@ const RELATIVA = {
   "Fá": "Ré menor", "Si♭": "Sol menor", "Mi♭": "Dó menor", "Lá♭": "Fá menor", "Ré♭": "Si♭ menor",
 };
 
+/* O sinal de metrônomo como está impresso: a figura (campo mf) e a faixa.
+   A mínima vai por extenso: o símbolo dela não existe nas fontes de texto. */
+const SIMBOLO = { "semínima": "♩", "colcheia": "♪", "semínima pontuada": "♩.", "colcheia pontuada": "♪." };
+const metTexto = h => !h.met ? "" : `${SIMBOLO[h.mf || "semínima"] || h.mf} = ${h.met}`;
+const PLURAL = { "semínima": "semínimas", "colcheia": "colcheias", "mínima": "mínimas", "semínima pontuada": "semínimas pontuadas" };
+/* só hinos em que o número conta a própria unidade de tempo — para as
+   perguntas de "lento ou rápido" não dependerem de conversão */
+const metNaUnidade = h => media(h) && !composto(formula((h.fc || [])[0] || "")) && (h.fc || []).length === 1 &&
+  (h.mf || "semínima") === (formula(h.fc[0]) === "2/2" ? "mínima" : "semínima");
+
 const media = h => {
   const m = /^(\d+)-(\d+)$/.exec(h.met || "");
   return m ? (Number(m[1]) + Number(m[2])) / 2 : null;
@@ -132,12 +142,12 @@ const REGRAS = {
   "1-14": {
     porque: "um hino lento e um rápido, para comparar a marcação de metrônomo",
     escolher: H => {
-      const com = H.filter(h => media(h)).sort((a, b) => media(a) - media(b));
+      const com = H.filter(metNaUnidade).sort((a, b) => media(a) - media(b));
       return [com[0], com[com.length - 1]];
     },
     perguntas: h => [
-      [`O hino ${h.n} traz a marcação ${h.met}. O que esses números indicam?`,
-       `Que se executam de ${h.met.split("-")[0]} a ${h.met.split("-")[1]} unidades de tempo por minuto. É a faixa de andamento escrita na partitura.`],
+      [`O hino ${h.n} traz a marcação ${metTexto(h)}. O que esses números indicam?`,
+       `Que se executam de ${h.met.split("-")[0]} a ${h.met.split("-")[1]} ${PLURAL[h.mf || "semínima"]} por minuto — a figura desenhada antes do sinal de igual. É a faixa de andamento escrita na partitura.`],
       [`Ponha o metrônomo no valor mais baixo da marcação do hino ${h.n} e toque o primeiro sistema.`,
        "Avaliar se a nota cai junto com o clique, e não logo antes ou logo depois."],
     ],
@@ -317,11 +327,11 @@ const REGRAS = {
   "4-11": {
     porque: "o hino mais lento e o mais rápido do hinário, pela marcação impressa",
     escolher: H => {
-      const com = H.filter(h => media(h)).sort((a, b) => media(a) - media(b));
+      const com = H.filter(metNaUnidade).sort((a, b) => media(a) - media(b));
       return [com[0], com[com.length - 1]];
     },
     perguntas: h => [
-      [`O hino ${h.n} está marcado ${h.met}. Classifique o andamento em lento, moderado ou rápido.`,
+      [`O hino ${h.n} está marcado ${metTexto(h)}. Classifique o andamento em lento, moderado ou rápido.`,
        `${media(h) < 70 ? "Lento" : media(h) < 100 ? "Moderado" : "Rápido"} — média em torno de ${Math.round(media(h))}.`],
     ],
   },
@@ -398,4 +408,4 @@ function hinosDaAula(periodo, aula, HINOS, quantos = 3) {
 
 if (typeof module !== "undefined") module.exports = {
   hinosDaAula, listasOficiais, ARMADURA, RELATIVA, fcTexto, formula, umaFormula, composto,
-  UNIDADES, tempos, valoresPontuados, perguntaArco, media, LISTAS };
+  UNIDADES, tempos, valoresPontuados, perguntaArco, media, metTexto, LISTAS };
