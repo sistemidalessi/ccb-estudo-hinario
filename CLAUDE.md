@@ -445,5 +445,7 @@ isso. O curso de regência segue o oficial: a dinâmica se decide pela letra.
   a tabela de transposição. Só escalas maiores (decisão do Anderson), com o
   arpejo, como na apostila de escalas que ele mandou — dela vem o formato e
   a tabela, em palavras próprias; nada da partitura é reproduzido.
-  Trombone, eufônio e tuba: a apostila de escalas os escreve em Si♭; ficou
-  "quando leem em Si♭" — conferir com o Anderson.
+  Hoje há hinário em Dó, em Si♭ e em Mi♭ (Anderson): a regra da apostila é
+  "toque a escala do tom escrito no seu hinário"; a tabela é a
+  correspondência. Trombone, eufônio e tuba não são nomeados — tocam pelo
+  hinário que usam. A coluna de trompa em Fá fica para a parte transposta.
