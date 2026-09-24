@@ -432,8 +432,9 @@ isso. O curso de regência segue o oficial: a dinâmica se decide pela letra.
 - **Tonalidades cruzadas** com a "Relação de hinos — tonalidades e
   compassos" da apostila de escalas da CCB (Hinário 5). Fórmulas: batem nos
   480. Tom: sete cabeçalhos do PDF revisado contradizem a armadura e foram
-  corrigidos pela armadura (`TOM_PELA_ARMADURA`); quatro (102, 115, 168,
-  413) ficam para o Anderson conferir. A análise mudou em oito hinos por
+  corrigidos pela armadura (`TOM_PELA_ARMADURA`); nos quatro (102, 115, 168,
+  413) em que a relação diz outro tom, o Anderson conferiu a armadura no
+  hinário dele e vale o nosso — o erro é da relação. A análise mudou em oito hinos por
   causa disso.
 - **A escala antes do hino** (`ferramentas/escalas.js`): na abertura de cada
   análise, a escala maior do tom de cada hino, com o que cada grupo de
@@ -448,4 +449,4 @@ isso. O curso de regência segue o oficial: a dinâmica se decide pela letra.
   Hoje há hinário em Dó, em Si♭ e em Mi♭ (Anderson): a regra da apostila é
   "toque a escala do tom escrito no seu hinário"; a tabela é a
   correspondência. Trombone, eufônio e tuba não são nomeados — tocam pelo
-  hinário que usam. A coluna de trompa em Fá fica para a parte transposta.
+  hinário que usam. A trompa tem hinário próprio, em Fá: é a quarta coluna.

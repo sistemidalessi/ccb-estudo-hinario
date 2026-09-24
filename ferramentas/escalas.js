@@ -26,7 +26,7 @@ const GRUPOS = [
   { id: "do", nome: "Hinário em Dó", quem: "violino, viola, violoncelo, flauta, oboé, fagote, e quem mais lê o hinário em Dó" },
   { id: "sib", nome: "Hinário em Si♭", quem: "clarinete e clarone, sax soprano e tenor, trompete, cornet, flugelhorn, e quem mais lê o hinário em Si♭" },
   { id: "mib", nome: "Hinário em Mi♭", quem: "clarinete alto, sax alto e barítono, e quem mais lê o hinário em Mi♭" },
-  { id: "fa", nome: "Trompa em Fá", quem: "trompa, quando lê a parte escrita para Fá" },
+  { id: "fa", nome: "Hinário da trompa", quem: "trompa — o hinário dela é escrito em Fá" },
 ];
 
 /* Tom do hinário (em Dó) → tom que cada grupo lê para soar junto. */

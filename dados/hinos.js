@@ -16,8 +16,9 @@
    não é o da armadura (106, 189, 214, 272, 298, 299, 301). Vale a armadura,
    que bate com a relação de hinos por tonalidade da apostila de escalas da
    CCB — ver TOM_PELA_ARMADURA no extrator. Em quatro (102, 115, 168, 413)
-   cabeçalho e armadura concordam e a relação diz outro tom: ficou o do
-   cabeçalho, a conferir com o Anderson. As fórmulas de compasso batem com a
+   cabeçalho e armadura concordam e a relação diz outro tom: o Anderson
+   conferiu no hinário dele (3 bemóis, 1 sustenido, 2 bemóis, 1 bemol) —
+   vale o nosso; o erro é da relação. As fórmulas de compasso batem com a
    relação nos 480 hinos.
    Em oito hinos a marcação não é desenho do compasso ("em 4" num 2/4, "em 3"
    num 6/8: 32, 33, 147, 247, 265, 322, 419, 427). É agrupamento de frase, e
