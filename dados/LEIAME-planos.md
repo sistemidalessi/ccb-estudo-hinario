@@ -17,6 +17,16 @@ const PLANOS = {
 if (typeof module !== "undefined") module.exports = { PLANOS };
 ```
 
+**Como refazer:** baixe os quatro PDFs e rode
+
+```
+python ferramentas/extrair-planos.py p1.pdf p2.pdf p3.pdf p4.pdf
+```
+
+O script lê o período do cabeçalho de cada PDF e grava `dados/planos.js`. Ele
+corrige sozinho um erro do PDF do 1º período, que traz "FASE 01" nas aulas 13
+a 15 (são da fase 3, como diz o tópico).
+
 **Sem o arquivo, nada quebra:** a apostila do instrutor sai sem a página de
 roteiro (e avisa isso no lugar), e o site simplesmente não mostra o roteiro.
 Gabaritos, explicação, figuras, exercícios e hinos não dependem dele.

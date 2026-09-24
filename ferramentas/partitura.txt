@@ -1,0 +1,24 @@
+Leitura da partitura — o que conferir.
+
+Hinos sem fórmula de compasso lida: [230]
+  (o 230 não tem fórmula impressa no começo; o 434 não está no PDF)
+
+Hinos em que a fórmula muda no meio:
+  94: 4/4 3/4
+  296: 3/4 4/4
+  342: 9/4 6/4
+  346: 6/4 9/4
+  348: 3/4 4/4
+  350: 3/4 4/4
+  352: 3/4 4/4
+  359: 3/4 4/4
+  368: 4/4 3/4
+  415: 9/8 6/8
+  422: 6/8 4/4
+  433: 3/4 4/4
+  462: 3/4 4/4
+
+Ritmo inicial em branco (o instrutor decide):
+
+Códigos da fonte musical que o script não conhece:
+  nenhum — todo símbolo do hinário está identificado.

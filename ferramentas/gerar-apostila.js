@@ -22,7 +22,7 @@ const {
   BorderStyle, PageBreak, Table, TableRow, TableCell, WidthType, ShadingType, ImageRun,
 } = require("docx");
 const { carregar } = require("./carregar.js");
-const { hinosDaAula, listasOficiais } = require("./hinos-da-aula.js");
+const { hinosDaAula, listasOficiais, fcTexto } = require("./hinos-da-aula.js");
 
 const RAIZ = path.join(__dirname, "..");
 const { TIPOS, AULAS, Q, HINOS, PLANOS } = carregar(RAIZ);
@@ -197,7 +197,7 @@ function comoUsar(periodo, instrutor) {
   comum.push(instrutor
     ? caixa([
         texto("Sobre os hinos de cada aula", { bold: true, after: 60 }),
-        texto("Quando o caderno de atividades do GEM traz a lista de hinos daquela aula, é ela que aparece — inclusive a observação de ler a partir do 1º compasso completo. Onde o caderno manda o instrutor selecionar os hinos, ou onde não há lista, os hinos são escolhidos pelos dados do próprio hinário: tonalidade, marcação e metrônomo.", { after: 0 }),
+        texto("Quando o caderno de atividades do GEM traz a lista de hinos daquela aula, é ela que aparece — inclusive a observação de ler a partir do 1º compasso completo. Onde o caderno manda o instrutor selecionar os hinos, ou onde não há lista, os hinos são escolhidos pelos dados do próprio hinário: tonalidade, marcação e metrônomo, do cabeçalho; fórmula de compasso, ritmo inicial e sinais, lidos da partitura. O ritmo inicial é o menos certo deles, e onde ele decide a escolha a apostila avisa para conferir.", { after: 0 }),
       ], { faixa: VERDE, fundo: "EFF3EC" })
     : caixa([
         texto("Onde a resposta depende do hino escolhido, o gabarito está no caderno do instrutor. Traga suas dúvidas para a aula seguinte — é para isso que elas servem.", { after: 0 }),
@@ -364,13 +364,16 @@ function hinoDaAula(periodo, num, instrutor) {
     linhas.push(texto("Lista do próprio GEM para esta aula.", { size: 16, italico: true, cor: CINZA, after: 110, before: 60 }));
   } else {
     const lista_ = fecho.hinos.map(h => h.n).join(", ").replace(/, (\d+)$/, " e $1");
-    linhas.push(texto(`Hinos ${lista_} — ${fecho.porque}.`, { size: 19, italico: true, cor: CINZA, after: 130 }));
+    linhas.push(texto(`Hinos ${lista_} — ${fecho.porque}.`, { size: 19, italico: true, cor: CINZA, after: fecho.conferir && instrutor ? 40 : 130 }));
+    if (fecho.conferir && instrutor) {
+      linhas.push(texto(fecho.conferir, { size: 16, italico: true, cor: PRATICA, after: 130 }));
+    }
   }
 
   /* ficha e perguntas dos hinos escolhidos */
   fecho.hinos.forEach(h => {
     if (!h.tom) return;                       // hino fora da extração: só o número
-    const ficha = [h.tom + " maior", h.marc, h.met ? "♩ = " + h.met : "", h.ind].filter(Boolean).join(" · ");
+    const ficha = [h.tom + " maior", fcTexto(h), h.marc, h.met ? "♩ = " + h.met : "", h.ind].filter(Boolean).join(" · ");
     linhas.push(texto(`Hino ${h.n} — ${ficha}`, { bold: true, size: 19, after: 35, before: 70 }));
     fecho.perguntas(h).forEach(([pergunta, gab]) => {
       linhas.push(new Paragraph({
@@ -407,7 +410,7 @@ function documento(periodo, instrutor) {
     texto("Planos de Aula do MSA, 1º a 4º períodos — CCB/GEM. Origem do roteiro de cada aula no caderno do instrutor."),
     texto("Planejamento do GEM — Atividades das Aulas do MSA (para impressão), 1º a 4º períodos. Origem das listas de hinos de cada aula e das definições usadas nos gabaritos."),
     texto("Programa Mínimo — CCB/Orquestra. Define as três etapas do candidato e as vozes do hinário executadas por cada instrumento."),
-    texto("Os exercícios usam o Hinário em Dó, capa preta. O hinário não é reproduzido neste caderno: dele saem apenas número, tonalidade, marcação e metrônomo."),
+    texto("Os exercícios usam o Hinário em Dó, capa preta. O hinário não é reproduzido neste caderno: dele saem apenas informações sobre cada hino — número, tonalidade, fórmula de compasso, marcação, metrônomo e os sinais que ele traz."),
   );
 
   return new Document({

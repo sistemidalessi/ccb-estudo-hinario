@@ -567,7 +567,7 @@ const LICOES = {
   abre: "O ponto de aumento já é velho conhecido. O que muda aqui é perceber que a mesma figura pontuada se comporta de modo diferente no compasso simples e no composto.",
   blocos: [
     { h: "Divisão, subdivisão e bi-subdivisão", t: "Duas colcheias dentro de um compasso referem-se à subdivisão de um tempo; quatro semicolcheias, à bi-subdivisão de um tempo. Nomear a camada ajuda a contar sem se perder." },
-    { h: "A mesma figura, dois comportamentos", t: "No compasso simples, a colcheia pontuada vale três quartos de tempo e a semicolcheia seguinte, um quarto. No composto, a colcheia pontuada é a própria unidade de tempo. É o mesmo desenho no papel, com contas diferentes." },
+    { h: "A mesma figura, dois comportamentos", t: "No compasso simples, a colcheia pontuada vale três quartos de tempo e a semicolcheia seguinte, um quarto. No composto, a unidade de tempo já é uma figura pontuada — em 6/8, a semínima pontuada —, e a colcheia pontuada vale metade do tempo: um pulso e meio. É o mesmo desenho no papel, com contas diferentes." },
   ],
   atencao: "Encompridar a figura curta. O ritmo pontuado vira tercina quando a curta ganha tempo — e a diferença se ouve na hora.",
   casa: "Subdivida em voz alta e toque o trecho pontuado do hino indicado, contando 3 + 1.",

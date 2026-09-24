@@ -15,7 +15,7 @@
 const fs = require("fs");
 const path = require("path");
 const { carregar } = require("./carregar.js");
-const { hinosDaAula, listasOficiais } = require("./hinos-da-aula.js");
+const { hinosDaAula, listasOficiais, fcTexto } = require("./hinos-da-aula.js");
 
 const RAIZ = path.join(__dirname, "..");
 const { TIPOS, AULAS, Q, HINOS, PLANOS } = carregar(RAIZ);
@@ -89,11 +89,12 @@ function hinoDaAula(periodo, num, instrutor) {
           ? `<p class="nota alerta">Conferir esta lista no caderno impresso do GEM antes de usar em avaliação: ela vem em duas colunas e a leitura automática do PDF pode tê-las embaralhado.</p>` : "");
     }).join("") + `<p class="nota">Lista do próprio GEM para esta aula.</p>`;
   } else {
-    dentro += `<p class="nota">Hinos ${fecho.hinos.map(h => h.n).join(", ")} — ${esc(fecho.porque)}.</p>`;
+    dentro += `<p class="nota">Hinos ${fecho.hinos.map(h => h.n).join(", ")} — ${esc(fecho.porque)}.</p>` +
+      (fecho.conferir && instrutor ? `<p class="nota alerta">${esc(fecho.conferir)}</p>` : "");
   }
   fecho.hinos.forEach(h => {
     if (!h.tom) return;
-    const ficha = [h.tom + " maior", h.marc, h.met ? "♩ = " + h.met : "", h.ind].filter(Boolean).join(" · ");
+    const ficha = [h.tom + " maior", fcTexto(h), h.marc, h.met ? "♩ = " + h.met : "", h.ind].filter(Boolean).join(" · ");
     dentro += `<div class="ficha"><p><b>Hino ${h.n}</b> <span class="nota">${esc(ficha)}</span></p>`;
     fecho.perguntas(h).forEach(([pergunta, gab]) => {
       dentro += `<p class="hq">${esc(pergunta)}</p>` +

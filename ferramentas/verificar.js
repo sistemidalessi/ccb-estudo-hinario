@@ -148,6 +148,39 @@ const indRuim = HINOS.filter(h => h.ind && !INDICACOES.includes(h.ind));
 ok(indRuim.length === 0, "toda indicação interpretativa é uma das seis",
    indRuim.map(h => h.n + ":" + h.ind).join(" "));
 
+/* Campos lidos da partitura. As listas do GEM são o gabarito da leitura:
+   se um hino que o caderno dá como "compasso em 9" não sair em 9/8 ou 9/4,
+   foi a leitura que errou — e é aqui que isso aparece. */
+const FORMULAS = ["2/4", "3/4", "4/4", "2/2", "3/2", "6/8", "9/8", "12/8", "6/4", "9/4", "C", "C cortado"];
+ok(HINOS.every(h => !h.fc || (h.fc.length && h.fc.every(f => FORMULAS.includes(f)))),
+   "toda fórmula de compasso é uma das do hinário",
+   HINOS.filter(h => h.fc && !h.fc.every(f => FORMULAS.includes(f))).map(h => h.n + ":" + h.fc).join(" "));
+const semFc = HINOS.filter(h => !h.fc).map(h => h.n);
+ok(JSON.stringify(semFc) === "[230]", "só o 230 fica sem fórmula (não é impressa)", semFc.join(" "));
+ok(HINOS.every(h => !h.ri || ["tético", "anacrúsico", "acéfalo"].includes(h.ri)), "todo ritmo inicial é um dos três");
+const acefalos = HINOS.filter(h => h.ri === "acéfalo").map(h => h.n);
+ok(JSON.stringify(acefalos) === "[227,377]", "os acéfalos são dois, como diz o caderno do GEM: 227 e 377", acefalos.join(" "));
+ok(HINOS.every(h => !h.s || h.s.every(x => ["pontuada", "fermata", "tercina", "ritornelo"].includes(x))),
+   "todo sinal é um dos quatro lidos");
+const porN = new Map(HINOS.map(h => [h.n, h]));
+const base = f => f === "C" ? "4/4" : f === "C cortado" ? "2/2" : f;
+const conferePelaLista = (rot, teste, oque) => {
+  const l = HINOS_AULA.filter(x => x.rot === rot).flatMap(x => x.hinos);
+  ok(l.length > 0, `lista do GEM "${rot}" existe`);
+  const ruins = l.filter(n => porN.get(n) && !teste(porN.get(n)));
+  ok(ruins.length === 0, `leitura da partitura bate com a lista do GEM: ${oque}`, ruins.join(" "));
+};
+conferePelaLista("Fórmula de compasso em 3", h => base(h.fc[0]) === "3/4", "hinos em 3");
+conferePelaLista("Compasso em 6, na velocidade mínima", h => ["6/8", "6/4"].includes(base(h.fc[0])), "hinos em 6");
+conferePelaLista("Compasso em 9", h => ["9/8", "9/4"].includes(base(h.fc[0])), "hinos em 9");
+conferePelaLista("Compasso em 12", h => base(h.fc[0]) === "12/8", "hinos em 12");
+conferePelaLista("Fórmula de compasso diferente entre estrofe e coro", h => h.fc.length > 1, "fórmula muda entre estrofe e coro");
+conferePelaLista("Compassos alternados", h => h.fc.length > 1, "compassos alternados");
+conferePelaLista("Tercinas", h => (h.s || []).includes("tercina"), "tercinas");
+conferePelaLista("Hinos a estudar ignorando as fermatas", h => (h.s || []).includes("fermata"), "fermatas");
+conferePelaLista("Ritornello com 2 casas", h => (h.s || []).includes("ritornelo"), "ritornelo com 2 casas");
+conferePelaLista("Ritornello com 3 casas", h => (h.s || []).includes("ritornelo"), "ritornelo com 3 casas");
+
 HINOS_AULA.forEach(l => {
   ok(l.p >= 1 && l.p <= 4, `lista ${l.p}-${l.a}: período válido`);
   ok(l.a.every(a => a >= 1 && a <= 15), `lista ${l.p}-${l.a}: aulas entre 1 e 15`);

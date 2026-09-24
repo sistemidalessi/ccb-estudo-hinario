@@ -91,15 +91,17 @@ Saem três arquivos:
   fora do Git**: o título é a primeira linha do hino, e deste repositório não sai
   nada do texto do hinário.
 - `extracao.csv` — os mesmos hinos sem os títulos: número, tonalidade, marcação,
-  metrônomo, indicação e página. É este que vai para o repositório. Os hinos
+  metrônomo, indicação, fórmula de compasso, ritmo inicial, sinais e página. É este que vai para o repositório. Os hinos
   avulsos do fim do livro aparecem marcados como `avulso`: eles recomeçam a
   numeração do 1 e colidiriam com os primeiros hinos.
 - `nao-lidas.txt` — as páginas que o script não reconheceu como abertura de hino
   **e que, pela conta dos números impressos, deveriam abrir uma**.
 
-O script lê **apenas a faixa superior de cada página** — número, título,
-tonalidade, metrônomo e indicação interpretativa. A partitura não é lida nem
-reproduzida.
+O cabeçalho dá número, título, tonalidade, metrônomo e indicação interpretativa.
+Da partitura saem fórmula de compasso, ritmo inicial e os sinais que o hino
+traz (nota pontuada, fermata, tercina, ritornelo) — ela é escrita com uma fonte
+musical de códigos fixos e dá para ler. Nada da partitura é reproduzido. O que
+precisa de olho humano vai para `partitura.txt`.
 
 **Nem todo hino começa numa página nova.** Em parte do hinário um hino termina
 no alto da folha e o seguinte começa logo abaixo, na mesma página, com o
