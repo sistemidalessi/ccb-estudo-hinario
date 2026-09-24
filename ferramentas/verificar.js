@@ -144,7 +144,10 @@ const { REGENCIA } = require(path.join(RAIZ, "dados", "regencia.js"));
 const figsCitadas = new Set([...Object.values(LICOES), ...Object.values(REGENCIA)]
   .flatMap(l => l.blocos.map(b => b.fig).filter(Boolean)));
 figsCitadas.forEach(f => ok(figsNoDisco.has(f), `figura citada existe no disco: ${f}`));
-figsNoDisco.forEach(f => ok(figsCitadas.has(f), `figura no disco é usada em alguma aula ou módulo: ${f}`));
+const ESCFIG = require("./figuras/escalas.js");
+ESCFIG.TONS_SOL.forEach(t => figsCitadas.add(ESCFIG.idDaEscala("sol", t)));
+ESCFIG.TONS10.forEach(t => { figsCitadas.add(ESCFIG.idDaEscala("fa", t)); figsCitadas.add(ESCFIG.idDaEscala("do", t)); });
+figsNoDisco.forEach(f => ok(figsCitadas.has(f), `figura no disco é usada em alguma aula, dica ou escala: ${f}`));
 
 ok(HINOS.every(h => h.n >= 1 && h.n <= 480), "todo hino está entre 1 e 480");
 const TONS = ["Dó", "Ré♭", "Ré", "Mi♭", "Mi", "Fá", "Sol♭", "Sol", "Lá♭", "Lá", "Si♭", "Si"];
@@ -231,19 +234,19 @@ ok(HINOS.every(h => !h.met || h.mf || h.n === 434), "todo metrônomo traz a figu
 ok(HINOS.every(h => !h.mf || ["semínima", "colcheia", "mínima", "semínima pontuada"].includes(h.mf)),
    "toda figura de metrônomo é uma das do hinário");
 
-/* Curso de regência: um módulo por fase, e todo hino da análise que não
+/* Dicas de regência: um módulo por fase, e todo hino da análise que não
    começa no 1º tempo tem a entrada lida na partitura. */
 const RG = require("./regencia.js");
 for (let f = 1; f <= 16; f++) {
   const m = REGENCIA[f];
-  ok(m && m.titulo && m.blocos.length && m.pratica.length, `regência: módulo ${f} completo`);
+  ok(m && m.titulo && m.blocos.length && m.pratica.length, `regência: parte ${f} completa`);
   ANAL[f].forEach(({ h }) => {
     if (h.ri && h.ri !== "tético") ok(!!RG.ENTRADA[h.n], `regência: hino ${h.n} (${h.ri}) tem a entrada lida`);
     const d = RG.dicasDoHino(h, f);
     ok(d.length >= 3 && d.every(([r, t]) => r && t && !/undefined|NaN/.test(t)), `regência: observações do hino ${h.n} completas`);
   });
 }
-ok(!JSON.stringify(REGENCIA).includes("Rômulo"), "regência: nenhum nome de maestro no texto do curso");
+ok(!JSON.stringify(REGENCIA).includes("Rômulo"), "regência: nenhum nome de maestro no texto das dicas");
 
 /* Escalas: a tabela de transposição fecha pelo intervalo (Si♭ lê um tom
    acima; Mi♭, uma sexta maior acima; Fá, uma quinta justa acima), e todo

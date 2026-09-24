@@ -1,4 +1,4 @@
-/* Figuras do curso de regência (caderno do instrutor).
+/* Figuras das dicas de regência (caderno do instrutor).
 
    Desenhadas aqui, sem copiar ilustração de curso nem de livro: são esquemas
    do que o texto de dados/regencia.js explica. Mesma paleta e mesma escala

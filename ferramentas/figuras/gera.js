@@ -375,6 +375,8 @@ FIGS["cordas-violino"] = () => {
 
 /* ---------- curso de regência (só no caderno do instrutor) ---------- */
 Object.assign(FIGS, require("./regencia.js").FIGS);
+/* escalas em partitura (página "As escalas do hinário" e análise) */
+Object.assign(FIGS, require("./escalas.js").FIGS);
 
 /* ---------- página para o render ---------- */
 const ids = Object.keys(FIGS);
