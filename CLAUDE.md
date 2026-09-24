@@ -66,9 +66,11 @@ ficam para as aulas em que o próprio caderno manda o instrutor escolher.
 Partitura e letra do hinário não são reproduzidas em lugar nenhum. Do hinário
 sai só informação **sobre** o hino, nunca o hino: do cabeçalho, número,
 tonalidade, marcação de movimento, metrônomo e indicação; da partitura, fórmula
-de compasso, ritmo inicial e se há nota pontuada, fermata, tercina, ritornelo.
-Os campos da partitura foram decisão do Anderson em 23/09/2026 — são da mesma
-natureza da tonalidade. Nada além disso sem perguntar a ele. O material
+de compasso, ritmo inicial e se há nota pontuada, fermata, tercina, ritornelo;
+e a arcada impressa sobre a primeira nota. Os campos da partitura foram decisão
+do Anderson em 23/09/2026, e a arcada em 24/09/2026 — são da mesma natureza da
+tonalidade. Nada além disso sem perguntar a ele (a dinâmica, por exemplo, está
+na partitura e ainda não foi pedida). O material
 do GEM também não é copiado: a apostila se apresenta como complementar, porque
 o Manual determina que o conteúdo do MSA seja apresentado por inteiro pelo
 instrutor.
@@ -190,8 +192,8 @@ https://claude.ai/artifact/6AQki1PTcncwzD5f9Mza2S
 - **Tabela dos 480 hinos: feita** (24/09/2026). Tom, marcação e metrônomo vêm do
   cabeçalho; fórmula de compasso, ritmo inicial e sinais, da partitura — ver
   "A leitura da partitura" abaixo. O que ainda não se lê: síncopa e contratempo
-  (o GEM já dá as listas), dinâmica e arcadas (estão lá, na fonte musical, se
-  um dia servirem a alguma aula).
+  (o GEM já dá as listas) e dinâmica (está lá, na fonte musical, se um dia
+  servir a alguma aula).
 - Registrar acertos e erros por aluno ao longo do semestre (hoje o modo estudo
   esquece tudo ao recarregar). Seria o caso de Supabase, no padrão dos outros
   projetos do portfólio.
@@ -269,4 +271,11 @@ são só dois.
 O script roda aqui mesmo: o hinário está no Drive do Anderson
 (`00 - CCB - Música/Hinário_revisado.pdf`) e o computador dele alcança o Drive.
 Não é preciso pedir a ele que rode nada.
+
+**Arcadas.** Todo hino traz arco para baixo (⊓, E610) e para cima (V, E612),
+mas só no começo e onde o arco vira. Grava-se a da primeira nota (campo `arc`).
+Téticos começam para baixo (182 de 190); anacrúsicos, em geral para cima, mas
+70 começam para baixo — anacruse de mais de uma nota ou de um tempo inteiro.
+Onde há marca no primeiro tempo forte depois da anacruse, é sempre para baixo.
+Usada nas aulas 6 e 7 do 4º período, em pergunta marcada "Violino:".
 

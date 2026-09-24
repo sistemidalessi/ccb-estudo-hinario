@@ -23,7 +23,8 @@ Os hinos são contados em sequência e o contador é re-sincronizado toda vez qu
 um número aparece escrito.
 
 Da partitura sai só informação sobre o hino — fórmula de compasso, ritmo
-inicial, se tem nota pontuada, fermata, tercina, ritornelo. Nada dela é
+inicial, se tem nota pontuada, fermata, tercina, ritornelo, e com que arco
+começa (a arcada impressa sobre a primeira nota). Nada dela é
 reproduzido: nem nota, nem desenho.
 
 Uso:
@@ -245,6 +246,8 @@ SMUFL_FERMATA = (0xE4C0, 0xE4C1)          # fermata acima e abaixo
 SMUFL_PONTO_RITORNELO = 0xE044            # cada um dos dois pontos da barra de repetição
 SMUFL_CABECA = range(0xE0A2, 0xE0A5)      # cabeças de nota: semibreve, mínima, preta
 SMUFL_PAUSA = range(0xE4E3, 0xE4F6)       # pausas, da semibreve à semicolcheia
+SMUFL_ARCO_BAIXO = 0xE610                 # arcada: arco para baixo (⊓)
+SMUFL_ARCO_CIMA = 0xE612                  # arcada: arco para cima (V)
 # Os que existem no hinário e não servem a nenhuma aula por ora — fica escrito
 # o que são, para o relatório não os tratar como desconhecidos.
 SMUFL_SABIDOS = {
@@ -263,7 +266,7 @@ SMUFL_SABIDOS = {
     0xE520: "p", 0xE522: "f", 0xE52B: "pp", 0xE52C: "mp", 0xE52D: "mf",
     0xE52F: "ff", 0xE534: "fp", 0xE542: "parêntese de dinâmica",
     0xE543: "parêntese de dinâmica",
-    0xE610: "arco para baixo", 0xE612: "arco para cima", 0xE655: "pedal",
+    0xE655: "pedal",
     0xE7A3: "baqueta", 0xE842: "golpe", 0xE875: "parêntese alto",
     0xE876: "parêntese alto", 0xE879: "parêntese alto", 0xE87A: "parêntese alto",
     0xE8CA: "ponto de acordeão", 0xEA8F: "colchete", 0xEA90: "colchete",
@@ -274,7 +277,8 @@ SMUFL_SABIDOS = {
     0xECA7: "figura do metrônomo", 0xECB7: "ponto do metrônomo",
 }
 SMUFL_CONHECIDOS = (set(SMUFL_DIGITO) | {SMUFL_C, SMUFL_C_CORTADO, SMUFL_PONTO,
-                    SMUFL_PONTO_RITORNELO} | set(SMUFL_FERMATA) | set(SMUFL_CABECA)
+                    SMUFL_PONTO_RITORNELO, SMUFL_ARCO_BAIXO, SMUFL_ARCO_CIMA}
+                    | set(SMUFL_FERMATA) | set(SMUFL_CABECA)
                     | set(SMUFL_PAUSA) | set(SMUFL_SABIDOS))
 
 USO_PRIVADO = range(0xE000, 0xF900)
@@ -430,6 +434,31 @@ def razao_do_primeiro_compasso(glifos, barras, formula):
     return round((xs[0] - inicio) / (xs[1] - xs[0]), 2)
 
 
+def arco_inicial(glifos, formula):
+    """A arcada impressa sobre a primeira nota do hino: "baixo", "cima" ou "".
+
+    Todo hino do hinário traz arcadas — o sinal de arco para baixo (⊓) ou para
+    cima (V) sobre a pauta de Sol e sobre a de Fá. Mas elas são seletivas:
+    marcam o começo e os pontos em que o arco precisa virar, não cada nota.
+    Por isso só a da primeira nota é gravada, que é o dado firme. Conferido em
+    24/09/2026: 182 dos 190 téticos começam para baixo; dos anacrúsicos, 203
+    começam para cima e 70 para baixo — quando a anacruse tem mais de uma nota
+    ou ocupa um tempo inteiro. Onde o hinário marca arcada no primeiro tempo
+    forte depois da anacruse, ela é sempre para baixo.
+    """
+    y, x, _ = formula
+    notas = sorted((g for g in glifos if g[3] in SMUFL_CABECA and abs(g[0] - y) < 60 and g[1] > x + 5),
+                   key=lambda g: g[1])
+    if not notas:
+        return ""
+    primeira = notas[0][1]
+    arcos = sorted((g for g in glifos if g[3] in (SMUFL_ARCO_BAIXO, SMUFL_ARCO_CIMA)
+                    and y - 45 <= g[0] <= y + 15), key=lambda g: abs(g[1] - primeira))
+    if not arcos or abs(arcos[0][1] - primeira) >= 8:
+        return ""
+    return "baixo" if arcos[0][3] == SMUFL_ARCO_BAIXO else "cima"
+
+
 def ritmo_inicial(razao, selo, formula):
     """Tético, anacrúsico ou acéfalo — sempre para conferir. Devolve (ritmo, base).
 
@@ -472,6 +501,7 @@ def ler_partitura(doc, hinos):
       ritmo   tético / anacrúsico / acéfalo, ou vazio — ver ritmo_inicial()
       rbase   de onde veio o ritmo: selo, medida, os dois, ou a discordância
       sinais  nota pontuada, fermata, tercina, ritornelo
+      arco    arcada impressa sobre a primeira nota — ver arco_inicial()
     Devolve a contagem dos códigos que o mapa não conhece, com os hinos."""
     cache = {}
 
@@ -511,15 +541,16 @@ def ler_partitura(doc, hinos):
             sinais.append("tercina")
         if cods.get(SMUFL_PONTO_RITORNELO, 0) >= 2:
             sinais.append("ritornelo")
-        razao = None
+        razao, arco = None, ""
         if primeira:
             g1, b1 = primeira
             razao = razao_do_primeiro_compasso(g1, b1, formulas(g1)[0])
+            arco = arco_inicial(g1, formulas(g1)[0])
         selo = selos[0] if selos else ""
         ritmo, base = ritmo_inicial(razao, selo, fc[0] if fc else "")
         if h.get("conf") != "avulso" and h.get("n") in CONFERIDOS_NO_OLHO:
             ritmo, base = CONFERIDOS_NO_OLHO[h["n"]], "conferido no olho"
-        h.update(fc=" ".join(fc), ritmo=ritmo, rbase=base, razao=razao, selo=selo,
+        h.update(fc=" ".join(fc), ritmo=ritmo, rbase=base, razao=razao, selo=selo, arco=arco,
                  sinais=", ".join(sinais))
         for c, q in cods.items():
             if c not in SMUFL_CONHECIDOS:
@@ -906,18 +937,18 @@ def main():
         # que não vão para o CSV. Sem isso, o DictWriter estoura na primeira linha.
         w = csv.DictWriter(f, extrasaction="ignore",
                            fieldnames=["n", "conf", "titulo", "tom", "marcacao", "met", "ind",
-                                       "fc", "ritmo", "rbase", "razao", "selo", "sinais", "pag"])
+                                       "fc", "ritmo", "rbase", "razao", "selo", "sinais", "arco", "pag"])
         w.writeheader()
         w.writerows(hinos)
 
     with open(saida / "extracao.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, extrasaction="ignore",
                            fieldnames=["n", "conf", "tom", "marcacao", "met", "ind",
-                                       "fc", "ritmo", "rbase", "sinais", "pag"])
+                                       "fc", "ritmo", "rbase", "sinais", "arco", "pag"])
         w.writeheader()
         w.writerows(hinos)
 
-    campos = ("n", "titulo", "tom", "marcacao", "met", "ind", "fc", "ritmo", "sinais")
+    campos = ("n", "titulo", "tom", "marcacao", "met", "ind", "fc", "ritmo", "sinais", "arco")
     confiaveis = [h for h in hinos if h["conf"] not in ("incerto", "avulso") and h["n"]]
     linhas = ",\n".join(
         " {" + ", ".join(f"{k}:{json.dumps(h[k], ensure_ascii=False)}" for k in campos if h[k] not in ("", None)) + "}"
@@ -953,6 +984,8 @@ def main():
     print(f"  ritmo inicial em branco: {sum(1 for h in hinos if not h['ritmo'])}")
     for sn in ("nota pontuada", "fermata", "tercina", "ritornelo"):
         print(f"  com {sn}: {sum(1 for h in hinos if sn in h['sinais'])}")
+    for a in ("baixo", "cima"):
+        print(f"  começa com arco para {a}: {sum(1 for h in hinos if h['arco'] == a)}")
     if faltando:
         print(f"  números de 1 a 480 ainda sem hino ({len(faltando)}): {faltando[:20]}{' ...' if len(faltando) > 20 else ''}")
     print(f"\nGerados em {saida}/ :")

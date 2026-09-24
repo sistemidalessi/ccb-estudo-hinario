@@ -44,6 +44,17 @@ function figura(nome) {
 const lista = (titulo, itens) => (itens && itens.length)
   ? `<div class="rot-bloco"><h4>${esc(titulo)}</h4><ul>${itens.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div>` : "";
 
+/* Recursos em texto corrido: são listas longas e quase iguais em toda aula
+   (quadro, projetor, computador...), e em lista empurravam o fim do roteiro
+   para uma segunda página quase vazia. */
+const corrido = (titulo, basicos, extras) => {
+  const b = basicos || [], e = extras || [];
+  if (!b.length && !e.length) return "";
+  return `<div class="rot-bloco"><h4>${esc(titulo)}</h4>` +
+    (b.length ? `<p class="corrido"><b>Básicos:</b> ${b.map(esc).join(" · ")}</p>` : "") +
+    (e.length ? `<p class="corrido"><b>Complementares:</b> ${e.map(esc).join(" · ")}</p>` : "") + `</div>`;
+};
+
 function roteiro(periodo, num) {
   const pl = ((PLANOS || {})[periodo] || []).find(x => x.a === num);
   if (!pl) return "";
@@ -53,9 +64,8 @@ function roteiro(periodo, num) {
     <p class="tema">${esc(pl.tema || "")}</p>
     <p class="meta">Fase ${pl.fase}${pl.duracao ? " · " + esc(pl.duracao) : ""}</p>
     ${lista("Habilidades a desenvolver", pl.habilidades)}${lista("Objetivos", pl.objetivos)}
-    ${lista("Conteúdo", pl.conteudo)}${lista("Recursos", pl.recursos)}
-    ${lista("Recursos complementares", pl.extras)}${lista("Metodologia", pl.metodologia)}
-    ${lista("Avaliação", pl.avaliacao)}</section>`;
+    <div class="rot-duas">${lista("Conteúdo", pl.conteudo)}${corrido("Recursos", pl.recursos, pl.extras)}</div>
+    ${lista("Metodologia", pl.metodologia)}${lista("Avaliação", pl.avaliacao)}</section>`;
 }
 
 function exercicios(doAula, instrutor) {
@@ -95,7 +105,9 @@ function hinoDaAula(periodo, num, instrutor) {
   fecho.hinos.forEach(h => {
     if (!h.tom) return;
     const ficha = [h.tom + " maior", fcTexto(h), h.marc, h.met ? "♩ = " + h.met : "", h.ind].filter(Boolean).join(" · ");
-    dentro += `<div class="ficha"><p><b>Hino ${h.n}</b> <span class="nota">${esc(ficha)}</span></p>`;
+    // o ♩ da fonte do texto sai minúsculo e solto do número: vai na DejaVu
+    const fichaHtml = esc(ficha).replace("♩ = ", '<span class="seminima">♩</span>\u202F=\u00A0');
+    dentro += `<div class="ficha"><p><b>Hino ${h.n}</b> <span class="nota">${fichaHtml}</span></p>`;
     fecho.perguntas(h).forEach(([pergunta, gab]) => {
       dentro += `<p class="hq">${esc(pergunta)}</p>` +
         (instrutor ? `<p class="gab"><b>Gabarito</b>${esc(gab)}</p>` : `<div class="linhas"><span></span></div>`);
@@ -185,6 +197,7 @@ figure.estreita img { width:97mm; }
 .nota.alerta { color:#8A5A2B; font-style:normal; }
 .ficha { margin-top:2.5mm; padding-top:1.5mm; border-top:.4pt dashed #C2CBC8; break-inside:avoid; }
 .hq { font-size:10pt; margin:1mm 0 .5mm; }
+.seminima { font-family:"DejaVu Sans",sans-serif; font-style:normal; font-size:10pt; line-height:1; }
 .roteiro { background:#F7F9F9; }
 .roteiro h2 { font-size:15pt; color:#1F5673; }
 .roteiro .tema { font-style:italic; font-size:11pt; }
@@ -193,6 +206,9 @@ figure.estreita img { width:97mm; }
   color:#1F5673; font-family:"Liberation Sans",sans-serif; margin:0 0 1mm; }
 .rot-bloco ul { margin:0; padding-left:5mm; }
 .rot-bloco li { font-size:9.5pt; color:#3F4C55; margin-bottom:.6mm; }
+.rot-duas { display:grid; grid-template-columns:1fr 1fr; gap:6mm; }
+.corrido { font-size:9pt; color:#3F4C55; margin:0 0 1.2mm; line-height:1.4; }
+.corrido b { color:#1F5673; font-weight:600; }
 .instr h2 { font-size:15pt; }
 .instr p { margin-bottom:.6em; }
 `;
