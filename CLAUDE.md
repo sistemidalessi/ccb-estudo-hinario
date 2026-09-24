@@ -29,9 +29,12 @@ dados/planos.js         PLANOS — os 60 Planos de Aula oficiais do GEM
 dados/licoes.js         LICOES — o texto didático de cada uma das 60 aulas
 dados/hinos.js          HINOS — cabeçalho de 479 hinos, extraído do hinário
 dados/hinos-por-aula.js HINOS_AULA — as listas de hinos que o GEM dá por aula
+dados/programa-minimo.js PROGRAMA_MINIMO — métodos e vozes por instrumento e etapa
 
 ferramentas/carregar.js       lê os arquivos de dados fora do navegador
 ferramentas/hinos-da-aula.js  escolhe os hinos que fecham cada aula
+ferramentas/analise.js        análise de hinos ao fim de cada fase, com gabarito
+ferramentas/repertorio.js     repertório por etapa do Programa Mínimo
 ferramentas/gerar-apostila.js gera as duas apostilas .docx de cada período
 ferramentas/extrair-hinario.py extrai o cabeçalho dos hinos do hinário em PDF
 ferramentas/figuras/          desenho.js + gera.js + render.mjs → assets/figuras
@@ -278,4 +281,34 @@ Téticos começam para baixo (182 de 190); anacrúsicos, em geral para cima, mas
 70 começam para baixo — anacruse de mais de uma nota ou de um tempo inteiro.
 Onde há marca no primeiro tempo forte depois da anacruse, é sempre para baixo.
 Usada nas aulas 6 e 7 do 4º período, em pergunta marcada "Violino:".
+
+## Apostila geral, análise de hinos e repertório (24/09/2026)
+
+Pedido do Anderson depois de ver as apostilas: um volume com os quatro
+períodos (convive com as quatro por período — sai do mesmo banco); ao fim de
+cada assunto, dois ou três hinos com as perguntas das fichas "Hinos - Análises
+II", só sobre o que já foi ensinado; e hinos para estudar em cada etapa do
+Programa Mínimo, com o programa de todos os instrumentos para orientar os
+demais instrutores.
+
+- `ferramentas/analise.js` — a análise ao fim de cada uma das 16 fases. Cada
+  pergunta das fichas antigas está presa à fase em que o assunto é ensinado
+  (`PERGUNTAS`, campo `f`) e o gabarito sai de `dados/hinos.js`. `cabeNaFase`
+  impede hino com assunto futuro (6/8 antes da fase 5, ritornelo antes da 9,
+  síncopa antes da 12...). Nas fases 1 a 5 os hinos são da faixa 431–480, a
+  das reuniões de jovens. Acentuação métrica só onde o banco já a fixou (2, 3,
+  4 e 6); 9 e 12 ficam sem essa pergunta. Pergunta que exigiria ler nota a
+  nota (quantas frases, que ligadura) não entra: sem gabarito certo, não sai.
+- `ferramentas/repertorio.js` — RJM (8 hinos, só 431–480), cultos oficiais
+  (10) e oficialização (10, metade mais difícil do hinário), em faixas de
+  dificuldade crescente; em cada faixa entra o hino que traz mais novidade
+  dentro da etapa. A posição do violino para o soprano 8ª acima vem de `ag`
+  (até Si5: 1ª; Dó6–Ré6: 3ª; Mi♭6–Mi6: 3ª com extensão ou 4ª; Fá6: 5ª).
+- `dados/programa-minimo.js` — o Programa Mínimo (CCB, jan/2018) transcrito.
+- `node ferramentas/gerar-pdf.js geral` (e o mesmo no `gerar-apostila.js`)
+  gera só o volume geral. O PDF geral é gerado duas vezes: a primeira passada
+  serve para achar a página de cada parte do sumário (via `pdftotext`).
+- Arcadas: o hinário de cordas é o **capa marrom**, e traz arcada em todos os
+  hinos. A pergunta de violino cita esse hinário. As arcadas lidas vêm do PDF
+  revisado; supõe-se que batam com as do capa marrom — o Anderson confirma.
 
