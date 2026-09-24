@@ -245,6 +245,20 @@ for (let f = 1; f <= 16; f++) {
 }
 ok(!JSON.stringify(REGENCIA).includes("Rômulo"), "regência: nenhum nome de maestro no texto do curso");
 
+/* Escalas: a tabela de transposição fecha pelo intervalo (Si♭ lê um tom
+   acima; Mi♭, uma sexta maior acima; Fá, uma quinta justa acima), e todo
+   hino da análise tem escala. */
+const ESC = require("./escalas.js");
+const SEMI = { "Dó": 0, "Dó♯": 1, "Ré♭": 1, "Ré": 2, "Mi♭": 3, "Mi": 4, "Fá": 5, "Fá♯": 6, "Sol": 7, "Lá♭": 8, "Lá": 9, "Si♭": 10, "Si": 11 };
+Object.entries(ESC.TRANSP).forEach(([t, g]) => {
+  ok((SEMI[t] + 2) % 12 === SEMI[g.sib] && (SEMI[t] + 9) % 12 === SEMI[g.mib] && (SEMI[t] + 7) % 12 === SEMI[g.fa],
+     `escalas: transposição de ${t} maior`, JSON.stringify(g));
+});
+for (let f = 1; f <= 16; f++) ANAL[f].forEach(({ h }) => {
+  const e = ESC.escalaDoHino(h, f);
+  ok(ESC.TRANSP[h.tom] && e.passos.length && e.passos.every(p => !/undefined|NaN/.test(p)), `escalas: hino ${h.n} (fase ${f}) com escala completa`);
+});
+
 /* Repertório por etapa. */
 const R = require("./repertorio.js");
 const REP = R.repertorio(HINOS);

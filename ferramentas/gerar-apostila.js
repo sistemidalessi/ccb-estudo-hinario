@@ -29,6 +29,7 @@ const { TIPOS, AULAS, Q, HINOS, PLANOS, FASES } = carregar(RAIZ);
 const { todasAsAnalises, ultimaAulaDaFase } = require("./analise.js");
 const { repertorio } = require("./repertorio.js");
 const { dicasDoHino, REGENCIA } = require("./regencia.js");
+const ESC = require("./escalas.js");
 const { PROGRAMA_MINIMO } = require(path.join(RAIZ, "dados", "programa-minimo.js"));
 const ANALISES = todasAsAnalises(HINOS);
 const FIM_DA_FASE = ultimaAulaDaFase(AULAS);
@@ -437,13 +438,14 @@ function analise(f, instrutor) {
     b.push(texto("O ritmo inicial foi lido da partitura (largura do primeiro compasso e indicação de regência na margem); conferir no hinário antes de usar em avaliação.",
       { size: 17, italico: true, cor: PRATICA, after: 120 }));
   }
+  b.push(...escalasDaAnalise(f, bloco.map(x => x.h)));
   bloco.forEach(({ h, novas, revisao }, i) => {
     const ficha = [h.tom + " maior", fcTexto(h), h.marc, metTexto(h), h.ind].filter(Boolean).join(" · ");
     const imgs = partituras(h.n);
     if (imgs.length) {
       // como nas fichas do GEM: o hino na página, e as perguntas logo abaixo.
       // A ficha entregaria as respostas: só no instrutor.
-      if (i) b.push(quebra());
+      b.push(quebra());
       b.push(new Paragraph({ spacing: { after: 100 },
         border: { bottom: { style: BorderStyle.SINGLE, size: 10, space: 4, color: VERDE } },
         children: [new TextRun({ text: `Hino ${h.n}  `, font: SERIF, size: 26, bold: true, color: TINTA }),
@@ -467,6 +469,44 @@ function analise(f, instrutor) {
     });
     b.push(caixa(linhas, { faixa: VERDE, fundo: "F4F7F2" }), vazio(160));
   });
+  return b;
+}
+
+/* ---------- escalas ---------- */
+
+const leituraTexto = tom => ESC.leitura(tom).map(l => `${l.grupo}: ${l.tom} maior`).join("  ·  ");
+
+function escalasDaAnalise(f, hinos) {
+  const nv = ESC.NIVEIS[ESC.nivel(f)];
+  const linhas = [texto("Antes dos hinos: a escala de cada um", { font: SERIF, size: 23, bold: true, cor: AZUL, after: 40 }),
+    texto(`${nv.nome}. Cada instrumento toca a escala na leitura do seu grupo (tabela "As escalas do hinário", no início).`, { size: 17, italico: true, cor: CINZA, after: 100 })];
+  hinos.forEach(h => {
+    const e = ESC.escalaDoHino(h, f);
+    linhas.push(new Paragraph({ spacing: { before: 100, after: 30 }, keepNext: true, children: [
+      new TextRun({ text: `Hino ${h.n}`, font: SANS, size: 20, bold: true, color: TINTA }),
+      new TextRun({ text: ` — escala de ${e.tom} maior`, font: SANS, size: 20, color: TINTA })] }),
+      texto(leituraTexto(e.tom), { size: 16, cor: CINZA, after: 40 }),
+      ...e.passos.map((p, k) => texto(`${k + 1}. ${p}`, { size: 18, after: 30, indent: { left: 280 } })));
+  });
+  return [caixa(linhas, { faixa: AZUL, fundo: "F7F9F9" }), vazio(120)];
+}
+
+function escalasDoHinario() {
+  const b = [texto("Antes de começar", { caps: true, size: 16, cor: CINZA, after: 60 }),
+    new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: "As escalas do hinário", font: SERIF, size: 36, bold: true, color: AZUL })] }),
+    texto("Escala por fazer rende pouco. Aqui, cada análise de hinos começa com a escala do tom de cada hino, tocada do jeito que o hino pede: no compasso dele, com o ritmo dele, até a nota mais aguda dele, no andamento dele. Só escalas maiores, uma oitava subindo e descendo, e o arpejo — o formato da apostila de escalas e arpejos das tonalidades do Hinário 5.", { size: 20, after: 160 }),
+    texto("O que cada instrumento toca", { font: SERIF, size: 25, bold: true, cor: AZUL, after: 60 }),
+    texto("O hinário está em Dó. Os instrumentos transpositores leem outra escala para soar na mesma: o de Si♭ soa um tom abaixo do que lê; o de Mi♭, uma sexta maior abaixo; o de Fá, uma quinta abaixo.", { size: 19, after: 100 })];
+  const larg = Math.floor(LARGURA / 5);
+  const cel = (t, o = {}) => new TableCell({ width: { size: larg, type: WidthType.DXA }, margins: { top: 40, bottom: 40, left: 80, right: 80 },
+    children: [texto(t, { size: 18, bold: o.bold, cor: o.cor, after: 0 })] });
+  b.push(new Table({ columnWidths: Array(5).fill(larg), width: { size: larg * 5, type: WidthType.DXA },
+    rows: [new TableRow({ children: [cel("Tom do hino", { bold: true, cor: AZUL }), ...ESC.GRUPOS.map(g => cel(g.nome, { bold: true, cor: AZUL }))] }),
+      ...ESC.TONS_DO_HINARIO.map(t => new TableRow({ children: [cel(`${t} maior`, { bold: true }), ...ESC.leitura(t).map(l => cel(`${l.tom} maior`))] }))] }), vazio(120));
+  ESC.GRUPOS.forEach(g => b.push(texto(`${g.nome}: ${g.quem}.`, { size: 18, after: 30 })));
+  b.push(texto("Os quatro níveis", { font: SERIF, size: 25, bold: true, cor: AZUL, before: 160, after: 60 }));
+  ESC.NIVEIS.filter(Boolean).forEach(n => b.push(texto(`${n.nome} (${n.fases}).`, { size: 18, after: 30 })));
+  b.push(texto("Cada instrumento toca na oitava do seu método. Em conjunto, o instrutor dá a tônica, e cada grupo toca a escala da sua coluna — soa tudo junto.", { size: 17, italico: true, cor: CINZA, before: 100 }), quebra());
   return b;
 }
 
@@ -572,6 +612,7 @@ function documento(periodo, instrutor) {
   const geral = periodo === "geral";
   const corpo = [...capa(periodo, instrutor), ...comoUsar(geral ? 1 : periodo, instrutor)];
   if (geral || periodo === 1) corpo.push(...antesDeComecar());
+  corpo.push(...escalasDoHinario());
   if (geral) {
     [1, 2, 3, 4].forEach(p => {
       corpo.push(quebra(), vazio(2400),

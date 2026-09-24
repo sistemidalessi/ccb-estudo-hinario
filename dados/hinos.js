@@ -12,6 +12,13 @@
         minuto; a regência precisa disso para contar os gestos. O 272 (6/8
         em 2) vem impresso com ♩ = 42–52; o Anderson confirmou que é a
         semínima pontuada (24/09/2026), e assim está aqui.
+   Tonalidade: em sete hinos o cabeçalho do PDF revisado escreve um tom que
+   não é o da armadura (106, 189, 214, 272, 298, 299, 301). Vale a armadura,
+   que bate com a relação de hinos por tonalidade da apostila de escalas da
+   CCB — ver TOM_PELA_ARMADURA no extrator. Em quatro (102, 115, 168, 413)
+   cabeçalho e armadura concordam e a relação diz outro tom: ficou o do
+   cabeçalho, a conferir com o Anderson. As fórmulas de compasso batem com a
+   relação nos 480 hinos.
    Em oito hinos a marcação não é desenho do compasso ("em 4" num 2/4, "em 3"
    num 6/8: 32, 33, 147, 247, 265, 322, 419, 427). É agrupamento de frase, e
    rege-se pela fórmula — decisão do Anderson. O campo fica como impresso.
@@ -129,7 +136,7 @@ const HINOS = [
 {n:74,tom:"Ré",met:"72-88",mf:"semínima",fc:["4/4"],ri:"tético",s:["pontuada","fermata","ritornelo"],arc:"baixo",sis:7,ag:"Ré5",gr:"Lá3"},
 {n:75,tom:"Lá♭",met:"69-84",mf:"semínima",fc:["3/4"],ri:"tético",s:["pontuada","fermata"],arc:"baixo",sis:2,ag:"Ré♭5",gr:"Dó4"},
 {n:76,tom:"Dó",marc:"em 6",met:"100-126",mf:"semínima",fc:["6/4"],ri:"tético",s:["pontuada","fermata"],arc:"baixo",sis:4,ag:"Ré5",gr:"Lá3"},
-{n:77,tom:"Si♭",marc:"em 2",met:"112-138",mf:"colcheia",fc:["6/8"],ri:"tético",s:["pontuada"],sis:4,ag:"Ré5",gr:"Ré4"},
+{n:77,tom:"Si♭",marc:"em 2",met:"112-138",mf:"colcheia",fc:["6/8"],ri:"tético",s:["pontuada"],arc:"baixo",sis:4,ag:"Ré5",gr:"Ré4"},
 {n:78,tom:"Sol",met:"112-132",mf:"colcheia",fc:["6/8"],ri:"tético",s:["pontuada"],arc:"baixo",sis:5,ag:"Mi5",gr:"Lá3"},
 {n:79,tom:"Mi♭",met:"60-80",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:5,ag:"Mi♭5",gr:"Si♭3"},
 {n:80,tom:"Lá♭",met:"60-80",mf:"semínima",fc:["4/4"],ri:"tético",s:["pontuada"],arc:"baixo",sis:4,ag:"Mi♭5",gr:"Si♭3"},
@@ -158,7 +165,7 @@ const HINOS = [
 {n:103,tom:"Dó",marc:"em 2",met:"72-88",mf:"semínima",fc:["4/4"],ri:"tético",s:["pontuada","fermata"],arc:"baixo",sis:6,ag:"Mi5",gr:"Lá3"},
 {n:104,tom:"Fá",met:"69-84",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:3,ag:"Ré5",gr:"Lá3"},
 {n:105,tom:"Si♭",marc:"em 4",met:"44-60",mf:"semínima pontuada",fc:["12/8"],ri:"tético",s:["pontuada","fermata","ritornelo"],arc:"baixo",sis:7,ag:"Mi♭5",gr:"Lá3"},
-{n:106,tom:"Ré",met:"58-72",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:2,ag:"Ré5",gr:"Si3"},
+{n:106,tom:"Sol",met:"58-72",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:2,ag:"Ré5",gr:"Si3"},
 {n:107,tom:"Fá",marc:"em 2",met:"40-50",mf:"semínima pontuada",fc:["6/8"],ri:"anacrúsico",s:["pontuada"],arc:"cima",sis:6,ag:"Fá5",gr:"Lá3"},
 {n:108,tom:"Sol",met:"60-80",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"baixo",sis:3,ag:"Mi5",gr:"Dó4"},
 {n:109,tom:"Si♭",met:"112-132",mf:"colcheia",fc:["6/8"],ri:"tético",s:["pontuada"],arc:"baixo",sis:4,ag:"Ré5",gr:"Dó4"},
@@ -221,7 +228,7 @@ const HINOS = [
 {n:166,tom:"Sol",marc:"em 6",met:"96-126",mf:"colcheia",fc:["6/8"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:5,ag:"Ré5",gr:"Ré4"},
 {n:167,tom:"Mi♭",met:"72-88",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada"],arc:"cima",sis:5,ag:"Ré5",gr:"Si♭3"},
 {n:168,tom:"Si♭",met:"69-80",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:5,ag:"Mi♭5",gr:"Lá3"},
-{n:169,tom:"Lá♭",marc:"em 2",met:"100-126",mf:"colcheia",fc:["6/8"],ri:"tético",s:["pontuada"],sis:4,ag:"Mi♭5",gr:"Lá♭3"},
+{n:169,tom:"Lá♭",marc:"em 2",met:"100-126",mf:"colcheia",fc:["6/8"],ri:"tético",s:["pontuada"],arc:"baixo",sis:4,ag:"Mi♭5",gr:"Lá♭3"},
 {n:170,tom:"Dó",marc:"em 3",met:"112-144",mf:"colcheia",fc:["9/8"],ri:"anacrúsico",s:["pontuada"],arc:"cima",sis:5,ag:"Mi5",gr:"Dó4"},
 {n:171,tom:"Lá♭",met:"56-76",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"baixo",sis:6,ag:"Mi♭5",gr:"Lá♭3"},
 {n:172,tom:"Dó",met:"54-63",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:2,ag:"Ré5",gr:"Si3"},
@@ -241,7 +248,7 @@ const HINOS = [
 {n:186,tom:"Mi♭",met:"66-80",mf:"semínima",fc:["3/4"],ri:"tético",s:["pontuada"],arc:"baixo",sis:5,ag:"Mi♭5",gr:"Si♭3"},
 {n:187,tom:"Ré",met:"66-80",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:8,ag:"Mi5",gr:"Ré4"},
 {n:188,tom:"Lá",met:"69-84",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"baixo",sis:5,ag:"Mi5",gr:"Lá3"},
-{n:189,tom:"Mi♭",met:"69-84",mf:"semínima",fc:["4/4"],ri:"tético",s:["pontuada"],arc:"baixo",sis:4,ag:"Mi♭5",gr:"Dó4"},
+{n:189,tom:"Lá♭",met:"69-84",mf:"semínima",fc:["4/4"],ri:"tético",s:["pontuada"],arc:"baixo",sis:4,ag:"Mi♭5",gr:"Dó4"},
 {n:190,tom:"Si♭",met:"66-84",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:6,ag:"Ré5",gr:"Dó4"},
 {n:191,tom:"Lá♭",met:"100-126",mf:"colcheia",fc:["6/8"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:4,ag:"Fá5",gr:"Dó4"},
 {n:192,tom:"Lá♭",met:"108-126",mf:"colcheia",fc:["6/8"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:5,ag:"Ré♭5",gr:"Lá♭3"},
@@ -266,7 +273,7 @@ const HINOS = [
 {n:211,tom:"Dó",met:"60-76",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada","fermata","tercina"],arc:"cima",sis:4,ag:"Mi5",gr:"Si3"},
 {n:212,tom:"Mi♭",met:"72-88",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada"],arc:"cima",sis:5,ag:"Mi♭5",gr:"Sol3"},
 {n:213,tom:"Mi♭",met:"104-132",mf:"colcheia",fc:["6/8"],ri:"tético",s:["pontuada"],arc:"baixo",sis:4,ag:"Mi♭5",gr:"Si♭3"},
-{n:214,tom:"Ré",met:"66-76",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","fermata","ritornelo"],arc:"baixo",sis:8,ag:"Ré5",gr:"Si3"},
+{n:214,tom:"Sol",met:"66-76",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","fermata","ritornelo"],arc:"baixo",sis:8,ag:"Ré5",gr:"Si3"},
 {n:215,tom:"Dó",marc:"em 4",met:"44-60",mf:"semínima pontuada",fc:["12/8"],ri:"anacrúsico",s:["pontuada","fermata","ritornelo"],arc:"cima",sis:6,ag:"Mi5",gr:"Lá3"},
 {n:216,tom:"Ré♭",met:"100-132",mf:"colcheia",fc:["6/8"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:4,ag:"Mi♭5",gr:"Lá♭3"},
 {n:217,tom:"Ré♭",marc:"em 2",met:"112-144",mf:"colcheia",fc:["6/8"],ri:"tético",s:["pontuada","fermata"],arc:"baixo",sis:4,ag:"Mi♭5",gr:"Lá♭3"},
@@ -282,7 +289,7 @@ const HINOS = [
 {n:227,tom:"Sol",met:"56-76",mf:"semínima",fc:["3/4"],ri:"acéfalo",s:["pontuada","fermata"],arc:"baixo",sis:4,ag:"Ré5",gr:"Lá3"},
 {n:228,tom:"Sol",met:"63-80",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada"],sis:4,ag:"Mi5",gr:"Si3"},
 {n:229,tom:"Ré",met:"69-92",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada"],arc:"cima",sis:6,ag:"Mi5",gr:"Lá3"},
-{n:230,tom:"Sol",met:"69-84",mf:"semínima",ri:"anacrúsico",s:["pontuada"],sis:3,ag:"Mi5",gr:"Si3"},
+{n:230,tom:"Sol",met:"69-84",mf:"semínima",ri:"anacrúsico",s:["pontuada"],arc:"cima",sis:3,ag:"Mi5",gr:"Si3"},
 {n:231,tom:"Sol",met:"104-132",mf:"colcheia",fc:["6/8"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:5,ag:"Mi5",gr:"Si3"},
 {n:232,tom:"Sol",met:"60-84",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:4,ag:"Mi5",gr:"Ré4"},
 {n:233,tom:"Dó",met:"69-84",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","tercina"],arc:"cima",sis:6,ag:"Mi5",gr:"Sol3"},
@@ -324,7 +331,7 @@ const HINOS = [
 {n:269,tom:"Sol",met:"104-132",mf:"colcheia",fc:["9/8"],ri:"anacrúsico",s:["pontuada"],arc:"baixo",sis:3,ag:"Ré5",gr:"Dó4"},
 {n:270,tom:"Mi♭",met:"69-92",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada"],sis:7,ag:"Mi♭5",gr:"Si♭3"},
 {n:271,tom:"Sol",met:"80-96",mf:"semínima",ind:"Com veneração",fc:["3/4"],ri:"tético",s:["pontuada"],arc:"baixo",sis:2,ag:"Ré5",gr:"Si3"},
-{n:272,tom:"Mi♭",marc:"em 2",met:"42-52",mf:"semínima pontuada",fc:["6/8"],ri:"tético",s:["pontuada","fermata","ritornelo"],arc:"baixo",sis:8,ag:"Ré5",gr:"Si♭3"},
+{n:272,tom:"Si♭",marc:"em 2",met:"42-52",mf:"semínima pontuada",fc:["6/8"],ri:"tético",s:["pontuada","fermata","ritornelo"],arc:"baixo",sis:8,ag:"Ré5",gr:"Si♭3"},
 {n:273,tom:"Lá♭",met:"72-88",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada"],sis:5,ag:"Mi♭5",gr:"Dó4"},
 {n:274,tom:"Mi♭",met:"56-66",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:4,ag:"Dó5",gr:"Si♭3"},
 {n:275,tom:"Lá",met:"66-84",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","tercina"],arc:"cima",sis:7,ag:"Dó♯5",gr:"Si3"},
@@ -350,10 +357,10 @@ const HINOS = [
 {n:295,tom:"Sol",met:"54-69",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:2,ag:"Ré5",gr:"Si3"},
 {n:296,tom:"Si♭",met:"63-84",mf:"semínima",fc:["3/4","4/4"],ri:"anacrúsico",s:["pontuada"],arc:"cima",sis:6,ag:"Fá5",gr:"Si♭3"},
 {n:297,tom:"Sol",met:"100-126",mf:"colcheia",fc:["6/8"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:4,ag:"Mi5",gr:"Si3"},
-{n:298,tom:"Mi♭",met:"69-88",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","fermata","ritornelo"],arc:"cima",sis:6,ag:"Fá5",gr:"Lá♭3"},
-{n:299,tom:"Mi♭",met:"66-80",mf:"semínima",ind:"Solene",fc:["4/4"],ri:"tético",s:["pontuada","fermata"],arc:"baixo",sis:4,ag:"Ré5",gr:"Si♭3"},
+{n:298,tom:"Si♭",met:"69-88",mf:"semínima",fc:["4/4"],ri:"anacrúsico",s:["pontuada","fermata","ritornelo"],arc:"cima",sis:6,ag:"Fá5",gr:"Lá3"},
+{n:299,tom:"Si♭",met:"66-80",mf:"semínima",ind:"Solene",fc:["4/4"],ri:"tético",s:["pontuada","fermata"],arc:"baixo",sis:4,ag:"Ré5",gr:"Si♭3"},
 {n:300,tom:"Ré",met:"63-88",mf:"semínima",fc:["4/4"],ri:"tético",s:["pontuada"],arc:"baixo",sis:6,ag:"Mi5",gr:"Si3"},
-{n:301,tom:"Ré♭",met:"66-88",mf:"semínima",fc:["4/4"],ri:"tético",s:["pontuada"],arc:"baixo",sis:4,ag:"Mi♭5",gr:"Si♭3"},
+{n:301,tom:"Mi♭",met:"66-88",mf:"semínima",fc:["4/4"],ri:"tético",s:["pontuada"],arc:"baixo",sis:4,ag:"Mi♭5",gr:"Si♭3"},
 {n:302,tom:"Dó",met:"63-80",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada"],arc:"cima",sis:6,ag:"Mi5",gr:"Si3"},
 {n:303,tom:"Dó",met:"60-80",mf:"semínima",fc:["3/4"],ri:"anacrúsico",s:["pontuada","fermata"],arc:"cima",sis:4,ag:"Mi5",gr:"Si3"},
 {n:304,tom:"Mi♭",met:"63-76",mf:"semínima",fc:["3/4"],ri:"tético",s:["pontuada","tercina"],arc:"baixo",sis:5,ag:"Mi♭5",gr:"Si♭3"},

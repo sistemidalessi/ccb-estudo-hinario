@@ -421,3 +421,29 @@ Respostas do Anderson (24/09/2026, mesma tarde):
 Atenção: o hinário revisado (o PDF) traz dinâmicas em vermelho, mas o
 hinário oficial não traz sinais de dinâmica — a lição 10-1 e o MSA dizem
 isso. O curso de regência segue o oficial: a dinâmica se decide pela letra.
+
+## Quinta rodada — arcadas, tonalidades e a escala antes do hino (24/09/2026)
+
+- **Arcadas conferidas** pelo Anderson contra o hinário capa marrom: batem.
+  A leitura agora procura a marca também na pauta de Fá (77, 169), e o 230
+  (sem fórmula no começo) foi lido no olho. Ficam 18 hinos em que o próprio
+  hinário não traz arcada na primeira nota: 139 219 228 250 270 273 285 334
+  350 352 354 358 359 368 412 425 461 480 (e o 434, que não estava no PDF).
+- **Tonalidades cruzadas** com a "Relação de hinos — tonalidades e
+  compassos" da apostila de escalas da CCB (Hinário 5). Fórmulas: batem nos
+  480. Tom: sete cabeçalhos do PDF revisado contradizem a armadura e foram
+  corrigidos pela armadura (`TOM_PELA_ARMADURA`); quatro (102, 115, 168,
+  413) ficam para o Anderson conferir. A análise mudou em oito hinos por
+  causa disso.
+- **A escala antes do hino** (`ferramentas/escalas.js`): na abertura de cada
+  análise, a escala maior do tom de cada hino, com o que cada grupo de
+  instrumentos lê (Dó, Si♭, Mi♭, Fá), e o exercício cresce por nível: 1 (fases
+  1–3) escala e arpejo em semínimas; 2 (4–5) no compasso e no ritmo
+  pontuado do hino; 3 (6–9) armadura e extensão até a nota mais aguda do
+  soprano; 4 (10–16) andamento do hino, dinâmica, articulação e o começo do
+  hino. Página "As escalas do hinário" no início de todas as apostilas, com
+  a tabela de transposição. Só escalas maiores (decisão do Anderson), com o
+  arpejo, como na apostila de escalas que ele mandou — dela vem o formato e
+  a tabela, em palavras próprias; nada da partitura é reproduzido.
+  Trombone, eufônio e tuba: a apostila de escalas os escreve em Si♭; ficou
+  "quando leem em Si♭" — conferir com o Anderson.

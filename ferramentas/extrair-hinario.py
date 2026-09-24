@@ -310,6 +310,15 @@ SELOS = {
 #   366  4/4 com três tempos no 1º compasso
 #   31 53 115  compasso cheio de figuras longas (por isso a medida sai curta)
 #   25 66 128 148 172 357 391  começam com três colcheias — tempo e meio
+ARCO_CONFERIDO_NO_OLHO = {230: "cima"}
+
+# Hinos em que a tonalidade escrita no cabeçalho do PDF revisado não é a da
+# armadura. Vale a armadura, que é a que se toca, e ela bate com a relação de
+# hinos por tonalidade da apostila de escalas da CCB (conferido em
+# 24/09/2026): 106 e 214 têm um sustenido; 189, quatro bemóis; 272, 298 e
+# 299, dois; 301, três.
+TOM_PELA_ARMADURA = {106: "Sol", 189: "Lá♭", 214: "Sol", 272: "Si♭", 298: "Si♭", 299: "Si♭", 301: "Mi♭"}
+
 CONFERIDOS_NO_OLHO = {
     2: "anacrúsico", 90: "anacrúsico", 149: "tético", 285: "tético",
     230: "anacrúsico", 366: "anacrúsico", 31: "tético", 53: "tético",
@@ -458,11 +467,15 @@ def arco_inicial(glifos, formula):
     if not notas:
         return ""
     primeira = notas[0][1]
-    arcos = sorted((g for g in glifos if g[3] in (SMUFL_ARCO_BAIXO, SMUFL_ARCO_CIMA)
-                    and y - 45 <= g[0] <= y + 15), key=lambda g: abs(g[1] - primeira))
-    if not arcos or abs(arcos[0][1] - primeira) >= 8:
+    # A marca costuma vir sobre a pauta de Sol; em alguns hinos (77, 169...)
+    # só aparece na de Fá, sobre a primeira nota do baixo — por isso a janela
+    # desce até a pauta de baixo. Primeiro a de cima, depois a de baixo.
+    perto = [g for g in glifos if g[3] in (SMUFL_ARCO_BAIXO, SMUFL_ARCO_CIMA)
+             and y - 45 <= g[0] <= y + 130 and abs(g[1] - primeira) < 8]
+    if not perto:
         return ""
-    return "baixo" if arcos[0][3] == SMUFL_ARCO_BAIXO else "cima"
+    marca = min(perto, key=lambda g: (g[0] > y + 15, abs(g[1] - primeira)))
+    return "baixo" if marca[3] == SMUFL_ARCO_BAIXO else "cima"
 
 
 NOTAS_DIATONICAS = ["Sol", "Lá", "Si", "Dó", "Ré", "Mi", "Fá"]   # a partir do Sol4
@@ -607,6 +620,10 @@ def ler_partitura(doc, hinos):
             g1, b1 = primeira
             razao = razao_do_primeiro_compasso(g1, b1, formulas(g1)[0])
             arco = arco_inicial(g1, formulas(g1)[0])
+        # o 230 não traz fórmula no começo, e a leitura da arcada depende
+        # dela; olhado na partitura em 24/09/2026: V sobre a primeira nota
+        if h.get("conf") != "avulso" and h.get("n") in ARCO_CONFERIDO_NO_OLHO:
+            arco = ARCO_CONFERIDO_NO_OLHO[h["n"]]
         selo = selos[0] if selos else ""
         ritmo, base = ritmo_inicial(razao, selo, fc[0] if fc else "")
         if h.get("conf") != "avulso" and h.get("n") in CONFERIDOS_NO_OLHO:
@@ -926,6 +943,9 @@ def ler(caminho, registrar_falhas=True):
         print(f"  {len(recuperados)} aberturas recuperadas numa segunda leitura "
               "(hino que começa no meio da página, e não no alto)")
 
+    for h in hinos:
+        if h.get("conf") != "avulso" and h.get("n") in TOM_PELA_ARMADURA:
+            h["tom"] = TOM_PELA_ARMADURA[h["n"]]
     figura_do_metronomo(doc, hinos)
     print("  lendo a partitura (fórmula de compasso, sinais, ritmo inicial)...")
     desconhecidos = ler_partitura(doc, hinos)
