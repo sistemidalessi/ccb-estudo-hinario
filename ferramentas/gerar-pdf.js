@@ -221,10 +221,10 @@ function escalasDoHinarioHTML() {
       dele. Só escalas maiores, uma oitava subindo e descendo, e o arpejo — o formato da apostila de escalas e arpejos
       das tonalidades do Hinário 5.</p>
     <h3>O que cada instrumento toca</h3>
-    <p>Hoje há hinário em Dó, em Si♭ e em Mi♭, e cada músico lê o do seu instrumento. A regra é simples: toque a
+    <p>Hoje há hinário em Dó, em Si♭ e em Mi♭, e um próprio da trompa, em Fá; cada músico lê o do seu instrumento. A regra é simples: toque a
       escala do tom que está escrito no seu hinário, no hino indicado — ele já está na tonalidade do seu instrumento,
       e tudo soa junto. A tabela mostra a correspondência, para o instrutor conferir: o que está em Dó aparece um tom
-      acima no hinário em Si♭, uma sexta maior acima no de Mi♭ e uma quinta acima na parte de trompa em Fá.</p>
+      acima no hinário em Si♭, uma sexta maior acima no de Mi♭ e uma quinta acima no hinário da trompa.</p>
     <table class="transp"><thead><tr><th>Tom no hinário em Dó</th>${ESC.GRUPOS.map(g => `<th>${esc(g.nome)}</th>`).join("")}</tr></thead><tbody>
       ${ESC.TONS_DO_HINARIO.map(t => `<tr><td class="inst">${esc(t)} maior</td>${ESC.leitura(t).map(l => `<td>${esc(l.tom)} maior</td>`).join("")}</tr>`).join("")}
     </tbody></table>
