@@ -10,3 +10,6 @@ ferramentas/hinos-img/
 # as apostilas trazem a partitura dos hinos da análise: nenhuma vai para o Git
 apostila/*.pdf
 apostila/*.docx
+
+# amostras antigas da apostila (candidato e instrutor): ficam só no disco
+amostra/

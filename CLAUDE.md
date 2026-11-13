@@ -464,3 +464,20 @@ isso. O curso de regência segue o oficial: a dinâmica se decide pela letra.
   nos hinários em Si♭ e Mi♭; clave de Dó (viola) e de Fá (violoncelo, graves),
   os dez. Ficam na página "As escalas do hinário", e a da clave de Sol entra
   na caixa de escala de cada hino da análise. Desenho próprio, com a Bravura.
+
+## Histórico reescrito (12/11/2026)
+
+O GitHub tinha duas linhas sem commit em comum: a `main`, parada na versão de
+22/09, e o ramo `salvar/andersondalessi-2026-11-12`, com o trabalho até 24/09.
+Com o ok do Anderson, o `salvar` virou a `main` e o histórico foi reescrito
+para tirar de todos os commits as apostilas e amostras (.docx/.pdf de
+candidato, instrutor e gabarito), o `dados/planos.js` e o cache do Python.
+O conteúdo final não mudou. A `main` antiga e o ramo `salvar` foram apagados
+do GitHub.
+
+- Backup de tudo antes da reescrita: `C:\Projetos\_backup\ccb-estudo-hinario-2026-11-12.bundle`.
+- **Qualquer clone feito antes de 12/11/2026 está desatualizado**: não dar
+  push dele, porque traria o material interno de volta. Clonar de novo.
+- Commits antigos ainda podem ficar no cache do GitHub, acessíveis pelo hash
+  exato, até um pedido de remoção ao suporte do GitHub.
+
