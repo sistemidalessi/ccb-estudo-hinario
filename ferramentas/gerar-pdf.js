@@ -641,7 +641,7 @@ function paginasDoSumario(arquivo) {
 }
 
 (async () => {
-  const { chromium } = await import("/opt/node22/lib/node_modules/playwright/index.mjs");
+  const { chromium } = await import("playwright");
   const dir = path.join(RAIZ, "apostila");
   fs.mkdirSync(dir, { recursive: true });
   const arg = process.argv[2];

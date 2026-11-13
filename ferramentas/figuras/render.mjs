@@ -1,6 +1,6 @@
 /* Fotografa cada figura de figuras.html e grava o PNG em assets/figuras/.
    deviceScaleFactor alto porque o destino é impressão. */
-import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
+import { chromium } from 'playwright';
 import { readFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
