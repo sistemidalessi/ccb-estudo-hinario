@@ -481,3 +481,35 @@ do GitHub.
 - Commits antigos ainda podem ficar no cache do GitHub, acessíveis pelo hash
   exato, até um pedido de remoção ao suporte do GitHub.
 
+
+## Onde parou (CCB Hinos, nuvem) — 12/11/2026
+
+Última conversa antes de o projeto passar para a conversa 🟦 CCB no
+servidor. Ela rodou no SISTEMI-SRV, mas foi a última da fase anterior.
+
+**O que foi feito por último.** Nesta conversa não houve conteúdo novo.
+A análise das apostilas do GEM (os cadernos "Atividades das Aulas do MSA",
+que alimentam `dados/hinos-por-aula.js`) **não foi retomada aqui**: o último
+avanço nela é de 24/09. O trabalho foi de arrumação:
+
+- reescrita do histórico e ramo `salvar` promovido a `main` (seção acima);
+- Playwright tirado do caminho fixo da nuvem (`17abeb7`) e Chromium
+  instalado no servidor;
+- no Drive, a pasta `00 - CCB - Música/00 - Apostila MSA _ Instrutor e Aluno`
+  ganhou estrela e passou a guardar também a cópia duplicada que estava na
+  raiz (`zz - cópia de 24-09-2026`). Os 10 PDFs de lá correspondem à versão
+  atual do código. Regerar não muda nada.
+
+**O que falta.**
+
+1. Para regerar as apostilas completas no servidor, o Anderson precisa
+   instalar o *Microsoft Visual C++ Redistributable (x64)*, sem o qual o
+   pymupdf não carrega, e trazer o `Hinário_revisado.pdf` para a máquina
+   (Google Drive para computador, ou cópia em `C:\Projetos\_insumos\`).
+   Sem isso, a análise dos hinos sai sem partitura.
+2. Atividades próprias de ditado e composição rítmica, no espírito do
+   material da Clave de C, sem reproduzir nada dele. Ainda não começadas.
+3. Registro de acertos e erros por aluno no modo estudo (Supabase).
+4. Revisão de terminologia com o Anderson e gabarito mais preciso para as
+   cinco questões da aula 1 do 1º período, se o texto do MSA for consultado.
+5. Síncopa, contratempo e dinâmica ainda não saem da leitura da partitura.
